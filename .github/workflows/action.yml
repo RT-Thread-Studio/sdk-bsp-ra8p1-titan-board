@@ -111,5 +111,5 @@ jobs:
         env:
           RTT_BSP: ${{ matrix.legs.RTT_BSP }}
         run: |
-          cd projects
+          cd project
           scons -C $RTT_BSP
