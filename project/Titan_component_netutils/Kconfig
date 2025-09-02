@@ -1,0 +1,32 @@
+mainmenu "RT-Thread Configuration"
+
+BSP_DIR := .
+
+RTT_DIR := rt-thread
+
+# you can change the RTT_ROOT default "../.." to your rtthread_root,
+# example : default "F:/git_repositories/rt-thread"
+
+PKGS_DIR := packages
+
+ENV_DIR := /
+
+config PLATFORM_DIR
+    string
+    option env="PLATFORM_DIR"
+    default "C:/Softwares/RT-ThreadStudio/workspace/Titan-Board/Titan_driver_wifi_netutils/platform"
+
+config RTT_DIR
+    string
+    option env="RTT_DIR"
+    default "C:/Softwares/RT-ThreadStudio/workspace/Titan-Board/Titan_driver_wifi_netutils/rt-thread"
+
+config PKGS_DIR
+    string
+    option env="PKGS_DIR"
+    default "C:/Softwares/RT-ThreadStudio/platform/env_released/env/packages"
+
+source "$(RTT_DIR)/Kconfig"
+osource "$PKGS_DIR/Kconfig"
+rsource "libraries/Kconfig"
+source "$(BSP_DIR)/board/Kconfig"

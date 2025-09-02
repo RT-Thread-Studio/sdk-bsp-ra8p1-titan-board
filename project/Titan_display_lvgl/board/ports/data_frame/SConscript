@@ -1,0 +1,13 @@
+import os
+from building import *
+
+src = []
+objs = []
+cwd  = GetCurrentDir()
+CPPPATH = [cwd]
+
+src += Glob('*.c')
+
+objs = DefineGroup('rpmsg-frame', src, depend = ['PKG_USING_RPMSG_LITE'], CPPPATH = CPPPATH)
+
+Return('objs')

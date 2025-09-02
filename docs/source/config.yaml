@@ -1,0 +1,90 @@
+# SDK 文档构建配置文件
+project:
+  name: "Titan-Board SDK文档"
+  title: "Titan-Board"
+  description: "Titan Board 开发板是 RT-Thread 推出基于瑞萨 Cortex-M85 与 Cortex-M33 双核架构 R7KA8P1 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在嵌入式物联网领域获得更深层次的体验。"
+  version: "1.0.0"
+  author: "RealThread"
+  copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
+  language: "zh_CN"
+
+# 仓库配置
+repository:
+  name: "sdk-bsp-ra8p1-titan-board"
+  projects_dir: "../../projects"
+  docs_dir: "."
+
+# 文档分类配置
+categories:
+  start:
+    name: "快速上手"
+    description: "快速上手"
+    patterns:
+      - "Titan_template"
+
+  basic:
+    name: "基础篇"
+    description: "基础功能示例"
+    patterns:
+      - "Titan_basic_*"
+      - "Titan_template"
+  
+  driver:
+    name: "驱动篇"
+    description: "外设驱动示例"
+    patterns:
+      - "Titan_driver_*"
+  
+  component:
+    name: "组件篇"
+    description: "组件示例"
+    patterns:
+      - "Titan_component_*"
+
+  multimedia:
+    name: "多媒体显示篇"
+    description: "多媒体显示示例"
+    patterns:
+      - "Titan_display_*"
+
+  multcore:
+    name: "多核通信篇"
+    description: "RPmsg-Lite多核通信示例"
+    patterns:
+      - "Titan_mlc_rpmsg_lite/Titan_rpmsg_master"
+      - "Titan_mlc_rpmsg_lite/Titan_rpmsg_remote"
+
+# 文档生成配置
+generation:
+  copy_files:
+    - "README.md"
+    - "README_zh.md"
+  copy_dirs:
+    - "figures"
+  output_structure:
+    - "start"
+    - "basic"
+    - "driver"
+    - "component"
+    - "multimedia"
+    - "multcore"
+
+# Sphinx 配置
+sphinx:
+  theme: "sphinx_rtd_theme"
+  extensions:
+    - "myst_parser"
+  source_suffix:
+    ".rst": "restructuredtext"
+    ".md": "markdown"
+  myst_extensions:
+    - "colon_fence"
+    - "deflist"
+    - "dollarmath"
+    - "html_image"
+    - "html_admonition"
+    - "replacements"
+    - "smartquotes"
+    - "strikethrough"
+    - "substitution"
+    - "tasklist" 

@@ -1,0 +1,13 @@
+import os
+from building import *
+
+src = []
+objs = []
+cwd  = GetCurrentDir()
+CPPPATH = [cwd]
+
+src += Glob('*.c')
+
+objs = DefineGroup('rpmsg-mcmgr-port', src, depend = ['BSP_USING_RPMSG_LITE_MCMGR'], CPPPATH = CPPPATH)
+
+Return('objs')

@@ -1,0 +1,141 @@
+name: RA8P1-Titan-Board
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  # Runs at 16:00 UTC (BeiJing 00:00) on the 1st of every month
+  schedule:
+    - cron:  '0 16 1 * *'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - documentation/**
+      - '**/README.md'
+      # - '**/README_ZH.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - documentation/**
+      - '**/README.md'
+      # - '**/README_ZH.md'
+
+env:
+  RTT_TOOL_CHAIN: "sourcery-arm"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: check-yaml-format
+    if: github.repository_owner == 'RT-Thread-Studio'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+
+      - name: Check yaml
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          pip install rt-thread-studio
+          python -c "from rt_thread_studio import bsp_checker;bsp_path = '.';checker = bsp_checker.BspChecker(bsp_path);checker.check();"
+
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── Titan_factory
+│   ├── Titan_mlc_rpmsg_lite
+│   ├── Titan_template
+
+  compile:
+    needs: [check]
+    runs-on: ubuntu-latest
+    name: ${{ matrix.legs.RTT_BSP }}
+    strategy:
+      fail-fast: false
+      matrix:
+       legs:
+         - {RTT_BSP: "Titan_basic_blink_led"}
+         - {RTT_BSP: "Titan_basic_buzzer"}
+         - {RTT_BSP: "Titan_basic_key_irq"}
+         - {RTT_BSP: "Titan_component_flash_fs"}
+         - {RTT_BSP: "Titan_component_netutils"}
+         - {RTT_BSP: "Titan_display_camera_ceu"}
+         - {RTT_BSP: "Titan_display_camera_mipi_csi"}
+         - {RTT_BSP: "Titan_display_lvgl"}
+         - {RTT_BSP: "Titan_driver_adc"}
+         - {RTT_BSP: "Titan_driver_can"}
+         - {RTT_BSP: "Titan_driver_eth"}
+         - {RTT_BSP: "Titan_driver_gpt"}
+         - {RTT_BSP: "Titan_driver_hyperram"}
+         - {RTT_BSP: "Titan_driver_iic_ist8310"}
+         - {RTT_BSP: "Titan_driver_rgb_lcd"}
+         - {RTT_BSP: "Titan_driver_rs485"}
+         - {RTT_BSP: "Titan_driver_rtc"}
+         - {RTT_BSP: "Titan_driver_sdcard"}
+         - {RTT_BSP: "Titan_driver_spi_bmi088"}
+         - {RTT_BSP: "Titan_driver_usb_hhid"}
+         - {RTT_BSP: "Titan_driver_usb_pcdc"}
+         - {RTT_BSP: "Titan_driver_wdt"}
+         - {RTT_BSP: "Titan_driver_wifi"}
+         - {RTT_BSP: "Titan_dual_core0"}
+         - {RTT_BSP: "Titan_dual_core1"}
+         - {RTT_BSP: "Titan_rpmsg_master"}
+         - {RTT_BSP: "Titan_rpmsg_remote"}
+         - {RTT_BSP: "Titan_factory"}
+         - {RTT_BSP: "Titan_template"}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+
+      - name: Install Arm ToolChains
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          wget -c https://github.com/RT-Thread/toolchains-ci/releases/download/v1.8/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
+          sudo tar -xf arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz -C /opt
+          /opt/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc --version
+          echo "RTT_EXEC_PATH=/opt/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_ENV
+
+      - name: Install Tools
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get -qq install gcc-multilib libsdl2-dev scons
+          echo "RTT_ROOT=${{ github.workspace }}" >> $GITHUB_ENV
+          echo "RTT_CC=gcc" >> $GITHUB_ENV
+
+      - name: Compile ${{ matrix.legs.RTT_BSP }}
+        if: ${{ success() }}
+        shell: bash
+        env:
+          RTT_BSP: ${{ matrix.legs.RTT_BSP }}
+        run: |
+          cd projects
+          scons -C $RTT_BSP
