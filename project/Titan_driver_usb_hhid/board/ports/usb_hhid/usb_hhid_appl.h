@@ -11,8 +11,8 @@
 #ifndef USB_HHID_APPL_H_
 #define USB_HHID_APPL_H_
 
-#include <Freertos.h>
-#include <queue.h>
+#include "Freertos.h"
+#include "queue.h"
 
 #include <rtthread.h>
 

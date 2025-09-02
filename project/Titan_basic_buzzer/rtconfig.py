@@ -4,7 +4,7 @@ import sys
 # toolchains options
 ARCH='arm'
 CPU='cortex-m85'
-CROSS_TOOL='keil'
+CROSS_TOOL='gcc'
 
 if os.getenv('RTT_CC'):
     CROSS_TOOL = os.getenv('RTT_CC')
@@ -95,6 +95,7 @@ elif PLATFORM == 'armclang':
         AFLAGS += ' -g'
     else:
         CFLAGS += ' -Os'
+    CXXFLAGS = CFLAGS
 
     POST_ACTION = 'fromelf --bin $TARGET --output rtthread.bin \nfromelf -z $TARGET \n'
     

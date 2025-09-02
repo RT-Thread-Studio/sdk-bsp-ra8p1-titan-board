@@ -74,10 +74,10 @@ jobs:
          - {RTT_BSP: "Titan_driver_usb_pcdc"}
          - {RTT_BSP: "Titan_driver_wdt"}
          - {RTT_BSP: "Titan_driver_wifi"}
-         - {RTT_BSP: "Titan_dual_core0"}
-         - {RTT_BSP: "Titan_dual_core1"}
-         - {RTT_BSP: "Titan_rpmsg_master"}
-         - {RTT_BSP: "Titan_rpmsg_remote"}
+         - {RTT_BSP: "Titan_dual_core/Titan_dual_core0"}
+         - {RTT_BSP: "Titan_dual_core/Titan_dual_core1"}
+         - {RTT_BSP: "Titan_mlc_rpmsg_lite/Titan_rpmsg_master"}
+         - {RTT_BSP: "Titan_mlc_rpmsg_lite/Titan_rpmsg_remote"}
          - {RTT_BSP: "Titan_factory"}
          - {RTT_BSP: "Titan_template"}
     steps:

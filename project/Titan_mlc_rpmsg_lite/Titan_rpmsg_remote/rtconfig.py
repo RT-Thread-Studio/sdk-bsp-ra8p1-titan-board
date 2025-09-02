@@ -92,6 +92,7 @@ elif PLATFORM == 'armclang':
         AFLAGS += ' -g'
     else:
         CFLAGS += ' -Os'
+    CXXFLAGS = CFLAGS
 
     POST_ACTION = 'fromelf --bin $TARGET --output rtthread.bin \nfromelf -z $TARGET \n'
 

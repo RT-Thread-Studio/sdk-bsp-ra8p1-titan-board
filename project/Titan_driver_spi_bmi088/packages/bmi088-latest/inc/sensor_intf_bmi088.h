@@ -13,7 +13,7 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
-#include "BMI088.h"
+#include "bmi088.h"
 
 #if defined(RT_VERSION_CHECK)
     #if (RTTHREAD_VERSION >= RT_VERSION_CHECK(5, 0, 2))
