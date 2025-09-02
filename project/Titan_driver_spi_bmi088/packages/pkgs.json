@@ -1,0 +1,7 @@
+[
+ {
+  "path": "/packages/peripherals/sensors/bmi088", 
+  "ver": "latest", 
+  "name": "BMI088"
+ }
+]

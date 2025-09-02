@@ -1,0 +1,3 @@
+rsource "src/Kconfig"
+rsource "libcpu/Kconfig"
+rsource "components/Kconfig"

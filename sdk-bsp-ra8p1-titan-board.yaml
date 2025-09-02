@@ -1,0 +1,702 @@
+board:
+  buy_url_cn: N/A
+  buy_url_global: N/A
+  debug_interface: SWD
+  debugger: DAP-LINK
+  description_en: Titan Board is the R7KA8P1 chip based on Renesas Cortex-M85 and Cortex-M33 dual-core architecture launched by RT-Thread, which provides a flexible and comprehensive development platform for engineers and helps developers obtain a deeper experience in the field of embedded Internet of things.
+  description_zh: Titan Board 开发板是 RT-Thread 推出基于瑞萨 Cortex-M85 与 Cortex-M33 双核架构 R7KA8P1 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在嵌入式物联网领域获得更深层次的体验。
+  emulator_machine: ''
+  large_image: figures/big.png
+  name: Titan-Board
+  price_cn: N/A CNY
+  price_global: N/A USD
+  sale_contact_cn: https://www.rt-thread.org/
+  sale_contact_global: https://www.rt-thread.org/
+  small_image: figures/small.png
+  vendor: Renesas
+  version: 1.0.0
+chip:
+  chip_name: R7KA8P1KFLC
+  clock_source: XTAL
+  device_vendor: RENESAS
+  family_name: RA
+  rx_name: P500
+  series_name: R7KA8P1
+  source_freq: '24000000'
+  sub_series_name: ra8p1
+  target_freq: '1000000000'
+  tx_name: P501
+  uart_name: UART8
+docs:
+- category: Datasheet
+  file: docs/ra8p1-datasheet.pdf
+  title: RA8P1_Datasheet
+- category: User Manual
+  file: docs/ra8p1-users-manual.pdf
+  title: RA8P1_User_Manual
+- category: Board Schematic
+  file: docs/ra8p1_v1.0.pdf
+  title: Titan_Board_Schematic
+features:
+- Arm® Cortex®-M85, maximum operating frequency 1GHz
+- Arm® Cortex®-M33, maximum operating frequency 250MHz
+- Arm® Ethos™-U55 NPU
+- Up to 1-MB MRAM
+- 2 MB SRAM including 256 KB of CM85 TCM and 128 KB of CM33 TCM
+- 2 external ports with Gigabit support
+- TSN support (IEEE 802.1AS-2020, IEEE 802.1Qbv/802.3br, IEEE 802.1Qbu, etc.)
+- Network redundancy support (DLR, PRP)
+- Host I/F (parallel/serial/Dual/Quad/Octa)
+- Memory I/F (Octa-/Quad SPI/HyperRAM/HyperFLASH/SRAM/SDRAM)
+- PWM timer: General PWM Timer 32-bit (GPT32) with High Resolution x 4,
+             General PWM Timer 32-bit (GPT32) x 10,
+             Low Power Asynchronous General Purpose Timer (AGT) x 2,
+             Ultra-Low-Power Timer (ULPT) x 2
+- ADC: 16-bit A/D Converter (ADC16H) x 2
+- UART: 5ch
+- RS485: 2ch
+- CANFD: 2ch
+- I2C: 3ch
+- SPI: 2ch
+- OSPI: 2ch
+- SDHI: 2ch
+- USB2.0: USBHS, USBFS
+- Package: 225-pin FBGA, 121-pin FBGA
+- Voltage: Core 1.1V, I/O 3.3V, 1.8V
+features_zh:
+- Arm® Cortex®-M85，最大工作频率 1GHz
+- Arm® Cortex®-M33，最大工作频率 250MHz
+- Arm® Ethos™-U55 NPU
+- 最大 1MB 的 MRAM
+- 2 MB SRAM 包括 256 KB 的 CM85 TCM 和 128 KB 的 CM33 TCM
+- 2 个支持千兆的外部端口
+- 支持 TSN（IEEE 802.1AS-2020、IEEE 802.1Qbv/802.3br、IEEE 802.1Qbu 等）
+- 主机接口（并行/串行/双/四/八通道）
+- 内存接口（八通道/四通道 SPI/HyperRAM/HyperFLASH/SRAM/SDRAM）
+- PWM 定时器：4 个高分辨率 32-bit 通用脉宽调制定时器（GPT32）、10 个 32-bit 通用脉宽调制定时器（GPT32）、2 个低功耗异步通用定时器（AGT）
+- ADC： 2 个 16 位 A/D 转换器
+- UART：5 通道
+- RS485：2 通道
+- CANFD：2 通道
+- I2C：3 通道
+- SPI：2 通道
+- OSPI：2 通道
+- SDHI：2 通道
+- USB2.0：USBHS、USBFS
+- 封装：225 引脚 FBGA，121 引脚 FBGA
+- 电压：核心 1.1V，I/O 3.3V，1.8V
+pkg_type: Board_Support_Packages
+pkg_vendor: RealThread
+pkg_version: 1.0.0
+example_projects:
+- project_name: Titan_basic_blink_led
+  project_description: LED闪烁示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_basic_blink_led
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_basic_buzzer
+  project_description: PWM驱动无源蜂鸣器示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_basic_buzzer
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_basic_key_irq
+  project_description: 按键中断控制LED示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_basic_key_irq
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_component_flash_fs
+  project_description: littlefs 文件系统
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_component_flash_fs
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_component_netutils
+  project_description: netutils示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_component_netutils
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_display_camera_ceu
+  project_description: CEU摄像头与RGB屏幕示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_display_camera_ceu
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_display_camera_mipi_csi
+  project_description: MIPI CSI摄像头与RGB屏幕示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_display_camera_mipi_csi
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_display_lvgl
+  project_description: RGB屏幕运行LVGL示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_display_lvgl
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_adc
+  project_description: adc 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_adc
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_can
+  project_description: canfd 通信示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_can
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_eth
+  project_description: 以太网示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_eth
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_gpt
+  project_description: 硬件定时器和PWM示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_gpt
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_hyperram
+  project_description: hyperram示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_hyperram
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_iic_ist8310
+  project_description: IIC 与 IST8310 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_iic_ist8310
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_rgb_lcd
+  project_description: RGB LCD屏幕示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_rgb_lcd
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_rs485
+  project_description: rs485 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_rs485
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_rtc
+  project_description: rtc示例及alarm功能演示
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_rtc
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_sdcard
+  project_description: SD卡示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_sdcard
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_spi_bmi088
+  project_description: SPI 和 BMI088 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_spi_bmi088
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_usb_hhid
+  project_description: USB HHID 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_usb_hhid
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_usb_pcdc
+  project_description: USB PCDC 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_usb_pcdc
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_wdt
+  project_description: wdt 示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_wdt
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_driver_wifi
+  project_description: WiFi（hyperFlash）示例
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_driver_wifi
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_dual_core0
+  project_description: 双核示例工程（M85）
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_dual_core/Titan_dual_core0
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_dual_core1
+  project_description: 双核示例工程（M33）
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_dual_core/Titan_dual_core1
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_rpmsg_master
+  project_description: 双核rpmsg-lite通讯工程 (Master)
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_mlc_rpmsg_lite/Titan_rpmsg_master
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_rpmsg_remote
+  project_description: 双核rpmsg-lite通讯工程 (Remote)
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+- project_name: Titan_factory
+  project_description: 产测程序
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_factory
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+template_projects:
+- project_name: Titan_template
+  project_description: 实现 LED 闪烁功能,可作为二次开发的基础工程
+  project_type: rt-thread|@full|@5.2.0
+  builtin_files:
+  - source_path_offset: project/Titan_template
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 13.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+yaml_version: 3

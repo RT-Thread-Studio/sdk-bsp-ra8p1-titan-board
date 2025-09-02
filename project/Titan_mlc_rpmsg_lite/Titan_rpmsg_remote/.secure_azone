@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<azone>
+    <rzone name="R7KA8P1KFLCAC.rzone"/>
+    <partition>
+        <peripheral name="PORT0.CPU1" group="PORT">
+            <slot name="P000.CPU1" secure="true"/>
+            <slot name="P006.CPU1" secure="true"/>
+            <slot name="P008.CPU1" secure="true"/>
+            <slot name="P009.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT1.CPU1" group="PORT">
+            <slot name="P107.CPU1" secure="true"/>
+            <slot name="P109.CPU1" secure="true"/>
+            <slot name="P111.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT2.CPU1" group="PORT">
+            <slot name="P200.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT3.CPU1" group="PORT">
+            <slot name="P303.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT4.CPU1" group="PORT">
+            <slot name="P402.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT5.CPU1" group="PORT">
+            <slot name="P514.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT6.CPU1" group="PORT">
+            <slot name="P600.CPU1" secure="true"/>
+            <slot name="P606.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORT7.CPU1" group="PORT">
+            <slot name="P708.CPU1" secure="true"/>
+            <slot name="P709.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="PORTA.CPU1" group="PORT">
+            <slot name="PA07.CPU1" secure="true"/>
+            <slot name="PA08.CPU1" secure="true"/>
+            <slot name="PA09.CPU1" secure="true"/>
+        </peripheral>
+        <peripheral name="ICU.CPU1">
+            <slot name="IRQ0.CPU1" secure="true"/>
+            <slot name="IRQ1.CPU1" secure="true"/>
+            <slot name="IRQ2.CPU1" secure="true"/>
+            <slot name="IRQ3.CPU1" secure="true"/>
+            <slot name="IRQ4.CPU1" secure="true"/>
+        </peripheral>
+    </partition>
+</azone>

@@ -1,0 +1,27 @@
+[
+ {
+  "path": "/packages/iot/wifi-host-driver", 
+  "ver": "latest", 
+  "name": "WIFI_HOST_DRIVER"
+ }, 
+ {
+  "path": "/packages/system/littlefs", 
+  "ver": "latest", 
+  "name": "LITTLEFS"
+ }, 
+ {
+  "path": "/packages/peripherals/sensors/bmi088", 
+  "ver": "latest", 
+  "name": "BMI088"
+ }, 
+ {
+  "path": "/packages/peripherals/i2c-tools", 
+  "ver": "latest", 
+  "name": "I2C_TOOLS"
+ }, 
+ {
+  "path": "/packages/peripherals/ist8310", 
+  "ver": "latest", 
+  "name": "IST8310"
+ }
+]

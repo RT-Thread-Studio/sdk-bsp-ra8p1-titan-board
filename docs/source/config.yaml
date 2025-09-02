@@ -11,7 +11,7 @@ project:
 # 仓库配置
 repository:
   name: "sdk-bsp-ra8p1-titan-board"
-  projects_dir: "../../projects"
+  projects_dir: "../../project"
   docs_dir: "."
 
 # 文档分类配置

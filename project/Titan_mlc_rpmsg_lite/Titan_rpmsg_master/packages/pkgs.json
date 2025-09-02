@@ -1,0 +1,7 @@
+[
+ {
+  "path": "/packages/system/rpmsg-lite", 
+  "ver": "latest", 
+  "name": "RPMSG_LITE"
+ }
+]

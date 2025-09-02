@@ -1,0 +1,13 @@
+import os
+from building import *
+
+src = []
+objs = []
+cwd  = GetCurrentDir()
+CPPPATH = [cwd]
+
+src += Glob('*.c')
+
+objs = DefineGroup('bus_servo', src, depend = ['BSP_USING_BUS_SERVO'], CPPPATH = CPPPATH)
+
+Return('objs')

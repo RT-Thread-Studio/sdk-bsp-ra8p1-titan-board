@@ -1,0 +1,12 @@
+[
+ {
+  "path": "/packages/iot/wifi-host-driver", 
+  "ver": "latest", 
+  "name": "WIFI_HOST_DRIVER"
+ }, 
+ {
+  "path": "/packages/system/littlefs", 
+  "ver": "v2.5.0", 
+  "name": "LITTLEFS"
+ }
+]
