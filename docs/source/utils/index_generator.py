@@ -6,6 +6,7 @@
 """
 
 from pathlib import Path
+import re
 from typing import Dict, List
 
 
@@ -29,8 +30,21 @@ class IndexGenerator:
    :caption: {category_name}
 
 """
+        # 读取各项目的显示标题，用于自然排序（数字感知、大小写不敏感）
+        items = []  # (display_title, project_path)
         for project in projects:
-            content += f"   {project}/README_zh\n"
+            display_title = self.file_processor.get_readme_title(project, category) or project
+            items.append((display_title, project))
+
+        # 自然排序函数
+        def natural_key(s: str):
+            return [int(part) if part.isdigit() else part.casefold() for part in re.split(r'(\d+)', s)]
+
+        items.sort(key=lambda x: natural_key(x[0]))
+
+        # 在 toctree 中使用“标题 <路径>”形式，展示更友好的名称
+        for display_title, project in items:
+            content += f"   {display_title} <{project}/README_zh>\n"
         
         content += f"\n这些示例展示了 SDK 的 {category_name}。\n"
         return content
@@ -54,13 +68,12 @@ class IndexGenerator:
    basic/index
    driver/index
    component/index
-   protocol/index
+   multimedia/index
+   multcore/index
 
 项目简介
 --------
 {project_info.get('description', '这里是 SDK 的简要介绍。')}
-
-SDK 提供了丰富的示例项目，包括基础功能、驱动示例和组件示例。
 """
         return content
 

@@ -1,0 +1,24 @@
+/* 扩展 sphinx_rtd_theme 正文内容宽度，使阅读区域自适应更宽 */
+
+/* 经典 RTD 主题主要容器选择器 */
+.wy-nav-content {
+    /* clamp(最小宽度, 首选流体宽度, 最大宽度) */
+    max-width: clamp(960px, 92vw, 1500px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 中等屏幕：稍微放宽流体宽度 */
+@media screen and (max-width: 1280px) {
+    .wy-nav-content {
+        max-width: clamp(880px, 94vw, 1200px);
+    }
+}
+
+/* 小屏幕：不强制限制宽度，交给主题自身的移动端布局 */
+@media screen and (max-width: 767.98px) {
+    .wy-nav-content {
+        max-width: none;
+    }
+}
+

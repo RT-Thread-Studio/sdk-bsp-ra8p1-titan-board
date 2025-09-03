@@ -117,8 +117,8 @@ myst_url_schemes = ('http', 'https', 'mailto', 'ftp')
 
 # 图片路径配置
 html_extra_path = []
-html_css_files = ['version_menu.css']
-html_js_files = ['version_menu.js']
+html_css_files = ['version_menu.css', 'custom.css']
+html_js_files = ['version_menu.js', 'download_pdf.js']
 
 # 配置图片路径处理
 html_favicon = None

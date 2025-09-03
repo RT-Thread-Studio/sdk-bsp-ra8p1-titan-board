@@ -149,6 +149,54 @@ class BuildManager:
             
             # 生成版本配置
             self._generate_version_config(output_dir, version_config)
+
+            # 构建 LaTeX 及 PDF（可选）
+            latex_dir = docs_source_in_worktree / '_build' / 'latex'
+            print(f"构建 LaTeX 文档: {latex_dir}")
+            subprocess.run([
+                sys.executable, '-m', 'sphinx.cmd.build',
+                '-b', 'latex',
+                str(docs_source_in_worktree),
+                str(latex_dir)
+            ], check=True)
+
+            # 尝试编译 PDF：优先 latexmk，其次 tectonic，然后 pdflatex（可能需要多次）
+            pdf_file = None
+            try:
+                tex_files = list(latex_dir.glob('*.tex'))
+                if tex_files:
+                    main_tex = tex_files[0]
+                    # latexmk
+                    try:
+                        subprocess.run(['latexmk', '-pdf', '-silent', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                    except Exception:
+                        # tectonic
+                        try:
+                            subprocess.run(['tectonic', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                        except Exception:
+                            # pdflatex x2 作为兜底
+                            try:
+                                subprocess.run(['pdflatex', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                                subprocess.run(['pdflatex', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                            except Exception:
+                                pass
+
+                    # 查找生成的 pdf
+                    pdf_candidates = list(latex_dir.glob('*.pdf'))
+                    if pdf_candidates:
+                        pdf_file = pdf_candidates[0]
+
+                # 将 PDF 复制到 HTML 的 _static 目录，供在线下载
+                if pdf_file and pdf_file.exists():
+                    static_dir = output_dir / '_static'
+                    static_dir.mkdir(exist_ok=True)
+                    target_pdf = static_dir / 'sdk-docs.pdf'
+                    shutil.copy2(pdf_file, target_pdf)
+                    print(f"✓ 生成并复制 PDF: {pdf_file.name} -> {target_pdf}")
+                else:
+                    print("⚠️  未生成 PDF（可能缺少 LaTeX 工具链），已跳过 PDF 发布")
+            except Exception as e:
+                print(f"⚠️  生成 PDF 过程中出现问题: {e}")
             
             return True
             

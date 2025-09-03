@@ -18,6 +18,7 @@ class FileProcessor:
         self.config = config
         self.copy_files = config.get('copy_files', [])
         self.copy_dirs = config.get('copy_dirs', [])
+        self.output_structure = config.get('output_structure', [])
 
     def copy_project_files(self, project_name: str, category: str) -> bool:
         """复制项目文件到目标目录"""
@@ -103,7 +104,8 @@ class FileProcessor:
                             template_files[str(relative_path)] = f.read()
             
             # 只删除生成的文档目录，不删除整个目录
-            for category in ['start', 'basic', 'driver', 'component', 'protocol']:
+            categories_to_clean = self.output_structure or ['start', 'basic', 'driver', 'component', 'multimedia', 'multcore']
+            for category in categories_to_clean:
                 category_dir = self.dest_dir / category
                 if category_dir.exists():
                     shutil.rmtree(category_dir)
