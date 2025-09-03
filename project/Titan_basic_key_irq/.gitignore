@@ -14,5 +14,11 @@
 /rtconfig_preinc.h
 /bsp_linker_info.h
 /fsp_gen.ld
-memory_regions.ld
+/memory_regions.ld
 /cmake
+/.api_xml
+/.clangd
+/.secure_azone
+/.secure_rzone
+/.secure_xml
+/ra_cfg.txt

@@ -54,7 +54,7 @@ features:
              Ultra-Low-Power Timer (ULPT) x 2
 - ADC: 16-bit A/D Converter (ADC16H) x 2
 - UART: 5ch
-- RS485: 2ch
+- RS485: 1ch
 - CANFD: 2ch
 - I2C: 3ch
 - SPI: 2ch
@@ -76,7 +76,7 @@ features_zh:
 - PWM 定时器：4 个高分辨率 32-bit 通用脉宽调制定时器（GPT32）、10 个 32-bit 通用脉宽调制定时器（GPT32）、2 个低功耗异步通用定时器（AGT）
 - ADC： 2 个 16 位 A/D 转换器
 - UART：5 通道
-- RS485：2 通道
+- RS485：1 通道
 - CANFD：2 通道
 - I2C：3 通道
 - SPI：2 通道
@@ -106,7 +106,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -127,7 +127,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -148,7 +148,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -169,7 +169,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -190,7 +190,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -211,7 +211,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -232,7 +232,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -253,7 +253,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -274,7 +274,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -295,7 +295,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -316,7 +316,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -337,7 +337,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -358,7 +358,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -379,7 +379,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -400,7 +400,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -421,7 +421,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -442,7 +442,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -463,7 +463,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -484,7 +484,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -505,7 +505,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -526,7 +526,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -547,7 +547,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -568,7 +568,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -589,7 +589,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -610,7 +610,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -631,7 +631,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -652,7 +652,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -673,7 +673,7 @@ example_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -695,7 +695,7 @@ template_projects:
   - package_name: GNU_Tools_for_ARM_Embedded_Processors
     package_type: ToolChain_Support_Packages
     package_vendor: 'ARM'
-    package_version: 13.2.1
+    package_version: 13.3.1
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
