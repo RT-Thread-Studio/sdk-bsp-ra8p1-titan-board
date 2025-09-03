@@ -11,7 +11,6 @@
 /.vscode
 /__pycache
 /settings
-/rtconfig_preinc.h
 /bsp_linker_info.h
 /fsp_gen.ld
 /memory_regions.ld

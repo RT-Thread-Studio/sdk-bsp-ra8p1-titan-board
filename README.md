@@ -17,7 +17,7 @@ $ sdk-bsp-ra8p1-titan-board
 ├── docs
 │   ├── ra8p1-datasheet.pdf
 │   ├── ra8p1-users-manual.pdf
-│   ├── ra8p1_v1.0.pdf
+│   ├── Titan_Board_schematic.pdf
 │   └── source
 ├── figures
 ├── libraries

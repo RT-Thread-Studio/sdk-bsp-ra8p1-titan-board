@@ -1,0 +1,16 @@
+
+#ifndef RTCONFIG_PREINC_H__
+#define RTCONFIG_PREINC_H__
+
+/* Automatically generated file; DO NOT EDIT. */
+/* RT-Thread pre-include file */
+
+#define RT_USING_LIBC
+#define RT_USING_NEWLIBC
+#define _POSIX_C_SOURCE 1
+#define _RA_CORE CPU1
+#define _RA_ORDINAL 2
+#define _RENESAS_RA_
+#define __RTTHREAD__
+
+#endif /*RTCONFIG_PREINC_H__*/
