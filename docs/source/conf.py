@@ -27,6 +27,7 @@ def load_config():
 config = load_config()
 project_config = config.get('project', {})
 sphinx_config = config.get('sphinx', {})
+repository_config = config.get('repository', {})
 
 # -- Project information -----------------------------------------------------
 
@@ -117,8 +118,8 @@ myst_url_schemes = ('http', 'https', 'mailto', 'ftp')
 
 # 图片路径配置
 html_extra_path = []
-html_css_files = ['version_menu.css', 'custom.css']
-html_js_files = ['version_menu.js', 'download_pdf.js']
+html_css_files = ['version_menu.css', 'custom.css', 'pdf_button.css', 'edit_button.css']
+html_js_files = ['version_menu.js', 'download_pdf.js', 'version_info.js', 'edit_on_github.js']
 
 # 配置图片路径处理
 html_favicon = None
@@ -126,7 +127,7 @@ html_favicon = None
 # 配置文档结构
 html_show_sourcelink = False
 html_show_sphinx = False
-html_show_copyright = False
+html_show_copyright = True
 
 # 配置导航
 html_theme_options = {
@@ -176,4 +177,70 @@ else:
     # 设置空的canonical URL
     html_baseurl = ""
 
+
+# 传递编辑基础 URL 给模板/前端脚本
+def derive_edit_base_url():
+    # 优先使用 config.yaml 显式配置
+    explicit = (repository_config.get('edit_base_url', '') or '').strip()
+    if explicit:
+        return explicit.rstrip('/') + '/'
+
+    # 其后尝试从 GitHub Actions 环境变量推断（owner/repo）
+    gh_repo = os.environ.get('GITHUB_REPOSITORY', '').strip()  # e.g. owner/name
+    if gh_repo and '/' in gh_repo:
+        return f"https://github.com/{gh_repo}/edit/"
+
+    # 再其次，从 git remote.origin.url 推断
+    try:
+        import subprocess
+        origin = subprocess.run(['git', 'config', '--get', 'remote.origin.url'],
+                                capture_output=True, text=True, check=True).stdout.strip()
+        if origin:
+            if origin.startswith('git@') and 'github.com:' in origin:
+                # git@github.com:owner/repo.git
+                repo_path = origin.split('github.com:')[-1]
+                repo_path = repo_path[:-4] if repo_path.endswith('.git') else repo_path
+                return f"https://github.com/{repo_path}/edit/"
+            if origin.startswith('https://') and 'github.com' in origin:
+                # https://github.com/owner/repo.git
+                repo_path = origin.split('github.com/')[-1]
+                repo_path = repo_path[:-4] if repo_path.endswith('.git') else repo_path
+                return f"https://github.com/{repo_path}/edit/"
+    except Exception:
+        pass
+
+    # 最后兜底：使用 repository.name（无法确定 owner，仅供部分场景）
+    repo_name = (repository_config.get('name', '') or '').strip()
+    if repo_name:
+        return f"https://github.com/{repo_name}/edit/"
+    return ''
+
+html_context = {
+    'edit_base_url': derive_edit_base_url(),
+}
+"""
+LaTeX / PDF 构建配置
+"""
+
+# 使用 XeLaTeX 以更好支持 CJK 字体
+latex_engine = 'xelatex'
+
+# 配置 LaTeX 文档元信息与固定主文档名，便于脚本查找
+latex_documents = [
+    # (source start file, target name, title, author, documentclass)
+    ('index', 'sdk-docs.tex', project, author, 'manual'),
+]
+
+# 额外 LaTeX 元素：引入中文字体与更好的换行支持
+latex_elements = {
+    'preamble': r'''
+% CJK 支持
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Sans CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+% 改善中文行距与段落
+\linespread{1.2}
+''',
+}
 

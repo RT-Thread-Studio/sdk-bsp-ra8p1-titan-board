@@ -3,6 +3,7 @@
 /* 经典 RTD 主题主要容器选择器 */
 .wy-nav-content {
     /* clamp(最小宽度, 首选流体宽度, 最大宽度) */
+    /* max-width: clamp(960px, 92vw, 1500px); */
     max-width: clamp(960px, 92vw, 1500px);
     margin-left: auto;
     margin-right: auto;
@@ -20,5 +21,12 @@
     .wy-nav-content {
         max-width: none;
     }
+}
+
+/* 修复大屏下脚注（footnote）位置异常：确保脚注块正常流布局 */
+.rst-content .footnote, .rst-content .footnotes {
+    position: static !important;
+    float: none !important;
+    clear: both;
 }
 

@@ -1,0 +1,38 @@
+{% extends '!layout.html' %}
+
+{% block footer %}
+  {{ super() }}
+  <div class="sdk-footer">
+    <div class="sdk-footer__inner">
+      <div class="sdk-footer__left">
+        <strong>{{ project|e }}</strong>
+        {% if release %}<span class="sdk-footer__sep">•</span> 版本：{{ release|e }}{% endif %}
+        {% if copyright %}<span class="sdk-footer__sep">•</span> {{ copyright|e }}{% endif %}
+      </div>
+      <div class="sdk-footer__right">
+        构建时间：<span id="sdk-build-time"></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      try {
+        var el = document.getElementById('sdk-build-time');
+        if (el) {
+          var d = new Date(document.lastModified);
+          el.textContent = d.toLocaleString();
+        }
+      } catch(e) {}
+    })();
+  </script>
+{% endblock %}
+
+{% block extrahead %}
+  {{ super() }}
+  {# 将 edit_base_url 暴露为 window 变量与 meta，供前端脚本读取 #}
+  {% if edit_base_url %}
+    <script>window.SPHINX_EDIT_BASE_URL = {{ edit_base_url|tojson|safe }};</script>
+    <meta name="edit-base-url" content="{{ edit_base_url }}">
+  {% endif %}
+{% endblock %}
+
