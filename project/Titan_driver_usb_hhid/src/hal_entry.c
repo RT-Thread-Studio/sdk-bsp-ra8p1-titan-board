@@ -13,7 +13,7 @@
 #include <rtdevice.h>
 #include <board.h>
 
-#include <Freertos.h>
+#include "FreeRTOS.h"
 #include <queue.h>
 #include "usb_hhid_appl.h"
 
