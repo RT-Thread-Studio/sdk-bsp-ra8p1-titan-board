@@ -408,15 +408,43 @@ class BuildManager:
             print(f"PDF 依赖安装尝试失败: {e}")
     
     def cleanup_worktree(self, worktree_path: Path):
-        """清理 worktree"""
-        if worktree_path.exists():
-            try:
-                subprocess.run(['git', 'worktree', 'remove', str(worktree_path)], 
-                             check=True, capture_output=True)
-                print(f"✓ 清理 worktree: {worktree_path}")
-            except subprocess.CalledProcessError as e:
-                print(f"⚠️  警告: 无法自动清理 worktree: {e}")
-                print(f"   请手动删除: {worktree_path}")
+        """清理 worktree：仅对 source_build/worktrees 下的有效 worktree 执行删除"""
+        if not worktree_path.exists():
+            return
+
+        # 仅在我们的临时 worktrees 根目录下才允许删除
+        try:
+            worktree_root = self.worktrees_dir.resolve()
+            candidate = worktree_path.resolve()
+            is_under_root = str(candidate).startswith(str(worktree_root))
+        except Exception:
+            is_under_root = False
+
+        if not is_under_root:
+            # 避免误删非临时目录（例如当前仓库根或任意外部路径）
+            return
+
+        # 在删除之前确认它是一个已登记的 git worktree
+        is_git_worktree = False
+        try:
+            listed = subprocess.run(['git', 'worktree', 'list'], capture_output=True, text=True, check=True).stdout
+            is_git_worktree = str(candidate) in listed
+        except Exception:
+            pass
+
+        if is_git_worktree:
+            # 尝试优先用 git worktree remove --force
+            for args in (["git", "worktree", "remove", "--force", str(candidate)],
+                         ["git", "worktree", "remove", str(candidate)]):
+                try:
+                    subprocess.run(args, check=True, capture_output=True)
+                    print(f"✓ 清理 worktree: {worktree_path}")
+                    return
+                except subprocess.CalledProcessError:
+                    continue
+
+        # 兜底：非登记 worktree 或命令失败，做文件系统级别删除
+        shutil.rmtree(candidate, ignore_errors=True)
     
     def build_all_versions(self, clean=False):
         """构建所有版本"""

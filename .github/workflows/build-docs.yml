@@ -8,12 +8,12 @@ on:
     paths:
       - 'docs/**'
       - '.github/versions.json'
-      - 'projects/**'
+      - 'project/**'
   pull_request:
     paths:
       - 'docs/**'
       - '.github/versions.json'
-      - 'projects/**'
+      - 'project/**'
   workflow_dispatch:
 
 jobs:
@@ -59,6 +59,22 @@ jobs:
           cd docs/source
           pip install -r requirements.txt
 
+      - name: Install LaTeX toolchain for PDF
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          # Prefer tectonic (fast); ignore failure and fall back to TeX Live
+          sudo apt-get install -y --no-install-recommends tectonic || true
+          # xelatex + latexmk and CJK fonts for Chinese
+          sudo apt-get install -y --no-install-recommends \
+            latexmk texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-xetex fonts-noto-cjk
+          # Refresh font cache to expose Noto CJK to XeTeX
+          sudo fc-cache -f -v || true
+          which xelatex && xelatex --version | head -n 1 || true
+          which latexmk && latexmk -v | head -n 1 || true
+
       - name: List version configurations
         run: |
           cd docs/source
@@ -66,6 +82,9 @@ jobs:
           python utils/version_utils.py --list
 
       - name: Build all versions
+        env:
+          LANG: C.UTF-8
+          LC_ALL: C.UTF-8
         run: |
           cd docs/source
           python build_manager.py --clean
@@ -74,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: docs-build
-          path: docs/source/_build/versions/
+          path: docs/source/source_build/html
           retention-days: 30
 
   deploy-docs:
@@ -86,13 +105,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: docs-build
-          path: docs/source/_build/versions/
+          path: docs/source/source_build/html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/source/_build/versions
+          publish_dir: docs/source/source_build/html
           force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: '41898282+github-actions[bot]@users.noreply.github.com' 

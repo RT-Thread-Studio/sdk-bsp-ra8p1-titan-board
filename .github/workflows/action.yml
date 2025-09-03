@@ -10,14 +10,14 @@ on:
     branches:
       - main
     paths-ignore:
-      - documentation/**
+      - docs/**
       - '**/README.md'
       # - '**/README_ZH.md'
   pull_request:
     branches:
       - main
     paths-ignore:
-      - documentation/**
+      - docs/**
       - '**/README.md'
       # - '**/README_ZH.md'
 
