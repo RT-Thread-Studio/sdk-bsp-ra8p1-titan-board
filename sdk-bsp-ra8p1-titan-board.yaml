@@ -47,7 +47,7 @@ features:
 - TSN support (IEEE 802.1AS-2020, IEEE 802.1Qbv/802.3br, IEEE 802.1Qbu, etc.)
 - Network redundancy support (DLR, PRP)
 - Host I/F (parallel/serial/Dual/Quad/Octa)
-- Memory I/F (Octa-/Quad SPI/HyperRAM/HyperFLASH/SRAM/SDRAM)
+- Memory I/F (Octa-/Quad SPI/HyperRAM/HyperFLASH/SRAM)
 - PWM timer: General PWM Timer 32-bit (GPT32) with High Resolution x 4,
              General PWM Timer 32-bit (GPT32) x 10,
              Low Power Asynchronous General Purpose Timer (AGT) x 2,
@@ -61,7 +61,7 @@ features:
 - OSPI: 2ch
 - SDHI: 2ch
 - USB2.0: USBHS, USBFS
-- Package: 225-pin FBGA, 121-pin FBGA
+- Package: 289-pin FBGA
 - Voltage: Core 1.1V, I/O 3.3V, 1.8V
 features_zh:
 - Arm® Cortex®-M85，最大工作频率 1GHz
@@ -72,7 +72,7 @@ features_zh:
 - 2 个支持千兆的外部端口
 - 支持 TSN（IEEE 802.1AS-2020、IEEE 802.1Qbv/802.3br、IEEE 802.1Qbu 等）
 - 主机接口（并行/串行/双/四/八通道）
-- 内存接口（八通道/四通道 SPI/HyperRAM/HyperFLASH/SRAM/SDRAM）
+- 内存接口（八通道/四通道 SPI/HyperRAM/HyperFLASH/SRAM）
 - PWM 定时器：4 个高分辨率 32-bit 通用脉宽调制定时器（GPT32）、10 个 32-bit 通用脉宽调制定时器（GPT32）、2 个低功耗异步通用定时器（AGT）
 - ADC： 2 个 16 位 A/D 转换器
 - UART：5 通道
@@ -83,7 +83,7 @@ features_zh:
 - OSPI：2 通道
 - SDHI：2 通道
 - USB2.0：USBHS、USBFS
-- 封装：225 引脚 FBGA，121 引脚 FBGA
+- 封装：289 引脚 FBGA
 - 电压：核心 1.1V，I/O 3.3V，1.8V
 pkg_type: Board_Support_Packages
 pkg_vendor: RealThread

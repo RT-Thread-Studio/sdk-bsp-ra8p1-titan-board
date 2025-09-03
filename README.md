@@ -14,44 +14,49 @@ The **Titan Board** is a development board launched by RT-Thread, based on the R
 
 ```
 $ sdk-bsp-ra8p1-titan-board
+├── docs
+│   ├── ra8p1-datasheet.pdf
+│   ├── ra8p1-users-manual.pdf
+│   ├── ra8p1_v1.0.pdf
+│   └── source
+├── figures
+├── libraries
+├── rt-thread
+├── project
+│   ├── Titan_basic_blink_led
+│   ├── Titan_basic_buzzer
+│   ├── Titan_basic_key_irq
+│   ├── Titan_component_flash_fs
+│   ├── Titan_component_netutils
+│   ├── Titan_display_camera_ceu
+│   ├── Titan_display_camera_mipi_csi
+│   ├── Titan_display_lvgl
+│   ├── Titan_driver_adc
+│   ├── Titan_driver_can
+│   ├── Titan_driver_eth
+│   ├── Titan_driver_gpt
+│   ├── Titan_driver_hyperram
+│   ├── Titan_driver_iic_ist8310
+│   ├── Titan_driver_rgb_lcd
+│   ├── Titan_driver_rs485
+│   ├── Titan_driver_rtc
+│   ├── Titan_driver_sdcard
+│   ├── Titan_driver_spi_bmi088
+│   ├── Titan_driver_usb_hhid
+│   ├── Titan_driver_usb_pcdc
+│   ├── Titan_driver_wdt
+│   ├── Titan_driver_wifi
+│   ├── Titan_dual_core
+│   │   ├── Titan_dual_core0
+│   │   ├── Titan_dual_core1
+│   ├── Titan_factory
+│   ├── Titan_mlc_rpmsg_lite
+│   │   ├── Titan_rpmsg_master
+│   │   └── Titan_rpmsg_remote
+│   └── Titan_template
 ├── README.md
 ├── README_zh.md
-├── sdk-bsp-ra8p1-titan-board.yaml
-├── docs
-│   ├── ra8p1_v1.0.pdf
-│   ├── ra8p1-datasheet.pdf
-│   ├── ra8p1-users-manual.pdf
-├── libraries
-│   ├── HAL_Drivers
-├── project
-│   ├── Titan_basic_blink_led
-│   ├── Titan_basic_buzzer
-│   ├── Titan_basic_key_irq
-│   ├── Titan_component_flash_fs
-│   ├── Titan_component_netutils
-│   ├── Titan_display_camera_ceu
-│   ├── Titan_display_camera_mipi_csi
-│   ├── Titan_display_lvgl
-│   ├── Titan_driver_adc
-│   ├── Titan_driver_can
-│   ├── Titan_driver_eth
-│   ├── Titan_driver_gpt
-│   ├── Titan_driver_hyperram
-│   ├── Titan_driver_iic_ist8310
-│   ├── Titan_driver_rgb_lcd
-│   ├── Titan_driver_rs485
-│   ├── Titan_driver_rtc
-│   ├── Titan_driver_sdcard
-│   ├── Titan_driver_spi_bmi088
-│   ├── Titan_driver_usb_hhid
-│   ├── Titan_driver_usb_pcdc
-│   ├── Titan_driver_wdt
-│   ├── Titan_driver_wifi
-│   ├── Titan_dual_core
-│   ├── Titan_factory
-│   ├── Titan_mlc_rpmsg_lite
-│   ├── Titan_template
-└── rt-thread
+└── sdk-bsp-ra8p1-titan-board.yaml
 ```
 
 - `sdk-bsp-ra8p1-titan-board.yaml`: Describes the hardware information of the Titan Board.
