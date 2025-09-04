@@ -14,7 +14,7 @@ import subprocess
 import argparse
 import platform
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Union
 from shutil import which
 import yaml
 
@@ -193,78 +193,76 @@ class BuildManager:
 
             self._generate_version_config(output_dir, version_config, projects_dir_web, copy_files_list)
 
-            # 构建 PDF（优先用 latexpdf 构建器，失败再退回到 latex+编译链）
-            self._ensure_pdf_dependencies()
+            # 构建 PDF（优先使用Windows专用生成器）
             pdf_file = None
             try:
-                latexpdf_dir = self.build_root / 'latexpdf' / version_config.url_path
-                print(f"尝试使用 latexpdf 构建: {latexpdf_dir}")
-                subprocess.run([
-                    sys.executable, '-m', 'sphinx.cmd.build',
-                    '-b', 'latexpdf',
-                    str(docs_source_in_worktree),
-                    str(latexpdf_dir)
-                ], check=True)
-
-                # 预期输出：conf.py 设定主文档名 sdk-docs.tex -> sdk-docs.pdf
-                candidate = latexpdf_dir / 'sdk-docs.pdf'
-                if candidate.exists():
-                    pdf_file = candidate
+                print("尝试使用Windows专用PDF生成器...")
+                from pdf_generator_windows import WindowsPDFGenerator
+                
+                # 创建PDF生成器
+                pdf_generator = WindowsPDFGenerator(output_dir, output_dir / '_static')
+                
+                # 生成PDF
+                if pdf_generator.generate(project_name):
+                    # 查找生成的PDF文件
+                    static_dir = output_dir / '_static'
+                    candidate_pdf = static_dir / 'sdk-docs.pdf'
+                    if candidate_pdf.exists():
+                        pdf_file = candidate_pdf
+                        print(f"✓ 使用Windows专用生成器生成PDF成功: {pdf_file}")
+                    else:
+                        print("⚠️  PDF文件未找到，请手动保存PDF文件")
                 else:
-                    # 回退查找任意 pdf
-                    pdf_candidates = list(latexpdf_dir.glob('*.pdf'))
-                    if pdf_candidates:
-                        pdf_file = pdf_candidates[0]
-            except subprocess.CalledProcessError:
-                # 回退到 latex + 编译链
-                latex_dir = self.build_root / 'latex' / version_config.url_path
-                print(f"latexpdf 失败，回退到 LaTeX 构建: {latex_dir}")
-                subprocess.run([
-                    sys.executable, '-m', 'sphinx.cmd.build',
-                    '-b', 'latex',
-                    str(docs_source_in_worktree),
-                    str(latex_dir)
-                ], check=True)
-
+                    print("⚠️  Windows专用PDF生成失败，尝试增强版...")
+                    # 回退到增强版
+                    from pdf_generator_enhanced import EnhancedPDFGenerator
+                    pdf_generator = EnhancedPDFGenerator(output_dir, output_dir / '_static')
+                    if pdf_generator.generate(project_name, method="auto"):
+                        static_dir = output_dir / '_static'
+                        candidate_pdf = static_dir / 'sdk-docs.pdf'
+                        if candidate_pdf.exists():
+                            pdf_file = candidate_pdf
+                            print(f"✓ 使用增强版生成器生成PDF成功: {pdf_file}")
+                    
+            except ImportError:
+                print("⚠️  Windows专用PDF生成器模块未找到，尝试增强版...")
                 try:
-                    tex_files = list(latex_dir.glob('*.tex'))
-                    main_tex = None
-                    # 优先使用 conf.py 指定的 sdk-docs.tex
-                    candidate_tex = latex_dir / 'sdk-docs.tex'
-                    if candidate_tex.exists():
-                        main_tex = candidate_tex
-                    elif tex_files:
-                        main_tex = tex_files[0]
-
-                    if main_tex:
-                        # latexmk -> tectonic -> pdflatex
-                        compiled = False
-                        try:
-                            subprocess.run(['latexmk', '-pdf', '-silent', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
-                            compiled = True
-                        except Exception:
-                            try:
-                                subprocess.run(['tectonic', str(main_tex.name)], cwd=str(latex_dir), check=True)
-                                compiled = True
-                            except Exception:
-                                try:
-                                    subprocess.run(['pdflatex', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
-                                    subprocess.run(['pdflatex', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
-                                    compiled = True
-                                except Exception:
-                                    pass
-
-                        if compiled:
-                            # 优先 sdk-docs.pdf
-                            candidate_pdf = latex_dir / 'sdk-docs.pdf'
+                    from pdf_generator_enhanced import EnhancedPDFGenerator
+                    pdf_generator = EnhancedPDFGenerator(output_dir, output_dir / '_static')
+                    if pdf_generator.generate(project_name, method="auto"):
+                        static_dir = output_dir / '_static'
+                        candidate_pdf = static_dir / 'sdk-docs.pdf'
+                        if candidate_pdf.exists():
+                            pdf_file = candidate_pdf
+                            print(f"✓ 使用增强版生成器生成PDF成功: {pdf_file}")
+                except ImportError:
+                    print("⚠️  增强版PDF生成器模块也未找到，尝试简化版...")
+                    try:
+                        from pdf_generator_simple import SimplePDFGenerator
+                        pdf_generator = SimplePDFGenerator(output_dir, output_dir / '_static')
+                        if pdf_generator.generate(project_name):
+                            static_dir = output_dir / '_static'
+                            candidate_pdf = static_dir / 'sdk-docs.pdf'
                             if candidate_pdf.exists():
                                 pdf_file = candidate_pdf
-                            else:
-                                pdf_candidates = list(latex_dir.glob('*.pdf'))
-                                if pdf_candidates:
-                                    pdf_file = pdf_candidates[0]
-                except Exception as e:
-                    print(f"⚠️  LaTeX 回退编译失败: {e}")
+                                print(f"✓ 使用简化版生成器生成PDF成功: {pdf_file}")
+                    except ImportError:
+                        print("⚠️  所有PDF生成器模块都未找到，尝试传统LaTeX方法...")
+                        pdf_file = self._generate_pdf_latex(docs_source_in_worktree, version_config)
+            except Exception as e:
+                print(f"⚠️  Windows专用PDF生成出错: {e}，尝试增强版...")
+                try:
+                    from pdf_generator_enhanced import EnhancedPDFGenerator
+                    pdf_generator = EnhancedPDFGenerator(output_dir, output_dir / '_static')
+                    if pdf_generator.generate(project_name, method="auto"):
+                        static_dir = output_dir / '_static'
+                        candidate_pdf = static_dir / 'sdk-docs.pdf'
+                        if candidate_pdf.exists():
+                            pdf_file = candidate_pdf
+                            print(f"✓ 使用增强版生成器生成PDF成功: {pdf_file}")
+                except Exception as e2:
+                    print(f"⚠️  增强版PDF生成也出错: {e2}，尝试传统LaTeX方法...")
+                    pdf_file = self._generate_pdf_latex(docs_source_in_worktree, version_config)
 
             # 将 PDF 复制到 HTML 的 _static 目录，供在线下载
             if pdf_file and pdf_file.exists():
@@ -287,7 +285,7 @@ class BuildManager:
                 with open(static_dir / 'project_info.json', 'w', encoding='utf-8') as f:
                     json.dump(project_info, f, ensure_ascii=False)
             else:
-                print("⚠️  未生成 PDF（可能缺少 LaTeX 工具链），已跳过 PDF 发布")
+                print("⚠️  未生成 PDF，已跳过 PDF 发布")
             
             return True
             
@@ -367,6 +365,84 @@ class BuildManager:
         else:
             print(f"✗ 目标目录不存在: {target_dir}")
             return False
+
+    def _generate_pdf_latex(self, docs_source_in_worktree: Path, version_config: VersionConfig) -> Optional[Path]:
+        """使用传统LaTeX方法生成PDF（作为回退方案）"""
+        self._ensure_pdf_dependencies()
+        pdf_file = None
+        
+        try:
+            # 尝试 latexpdf 构建器
+            latexpdf_dir = self.build_root / 'latexpdf' / version_config.url_path
+            print(f"尝试使用 latexpdf 构建: {latexpdf_dir}")
+            subprocess.run([
+                sys.executable, '-m', 'sphinx.cmd.build',
+                '-b', 'latexpdf',
+                str(docs_source_in_worktree),
+                str(latexpdf_dir)
+            ], check=True)
+
+            # 预期输出：conf.py 设定主文档名 sdk-docs.tex -> sdk-docs.pdf
+            candidate = latexpdf_dir / 'sdk-docs.pdf'
+            if candidate.exists():
+                pdf_file = candidate
+            else:
+                # 回退查找任意 pdf
+                pdf_candidates = list(latexpdf_dir.glob('*.pdf'))
+                if pdf_candidates:
+                    pdf_file = pdf_candidates[0]
+        except subprocess.CalledProcessError:
+            # 回退到 latex + 编译链
+            latex_dir = self.build_root / 'latex' / version_config.url_path
+            print(f"latexpdf 失败，回退到 LaTeX 构建: {latex_dir}")
+            subprocess.run([
+                sys.executable, '-m', 'sphinx.cmd.build',
+                '-b', 'latex',
+                str(docs_source_in_worktree),
+                str(latex_dir)
+            ], check=True)
+
+            try:
+                tex_files = list(latex_dir.glob('*.tex'))
+                main_tex = None
+                # 优先使用 conf.py 指定的 sdk-docs.tex
+                candidate_tex = latex_dir / 'sdk-docs.tex'
+                if candidate_tex.exists():
+                    main_tex = candidate_tex
+                elif tex_files:
+                    main_tex = tex_files[0]
+
+                if main_tex:
+                    # latexmk -> tectonic -> pdflatex
+                    compiled = False
+                    try:
+                        subprocess.run(['latexmk', '-pdf', '-silent', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                        compiled = True
+                    except Exception:
+                        try:
+                            subprocess.run(['tectonic', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                            compiled = True
+                        except Exception:
+                            try:
+                                subprocess.run(['pdflatex', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                                subprocess.run(['pdflatex', '-interaction=nonstopmode', str(main_tex.name)], cwd=str(latex_dir), check=True)
+                                compiled = True
+                            except Exception:
+                                pass
+
+                    if compiled:
+                        # 优先 sdk-docs.pdf
+                        candidate_pdf = latex_dir / 'sdk-docs.pdf'
+                        if candidate_pdf.exists():
+                            pdf_file = candidate_pdf
+                        else:
+                            pdf_candidates = list(latex_dir.glob('*.pdf'))
+                            if pdf_candidates:
+                                pdf_file = pdf_candidates[0]
+            except Exception as e:
+                print(f"⚠️  LaTeX 回退编译失败: {e}")
+        
+        return pdf_file
 
     def _ensure_pdf_dependencies(self):
         """尽力确保本机具备 PDF 构建依赖。优先 tectonic，其次 latexmk/texlive，再次 pdflatex。
