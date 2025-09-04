@@ -59,21 +59,18 @@ jobs:
           cd docs/source
           pip install -r requirements.txt
 
-      - name: Install LaTeX toolchain for PDF
+      - name: Setup Google Chrome for headless PDF
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Chinese fonts for PDF rendering
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update
-          # Prefer tectonic (fast); ignore failure and fall back to TeX Live
-          sudo apt-get install -y --no-install-recommends tectonic || true
-          # xelatex + latexmk and CJK fonts for Chinese
           sudo apt-get install -y --no-install-recommends \
-            latexmk texlive-latex-recommended texlive-latex-extra \
-            texlive-fonts-recommended texlive-xetex fonts-noto-cjk
-          # Refresh font cache to expose Noto CJK to XeTeX
+            fonts-noto-cjk fonts-wqy-zenhei fonts-wqy-microhei \
+            fonts-arphic-uming fonts-arphic-ukai
           sudo fc-cache -f -v || true
-          which xelatex && xelatex --version | head -n 1 || true
-          which latexmk && latexmk -v | head -n 1 || true
 
       - name: List version configurations
         run: |
@@ -85,6 +82,7 @@ jobs:
         env:
           LANG: C.UTF-8
           LC_ALL: C.UTF-8
+          CHROME_PATH: ${{ env.CHROME_PATH }}
         run: |
           cd docs/source
           python build_manager.py --clean

@@ -193,81 +193,39 @@ class BuildManager:
 
             self._generate_version_config(output_dir, version_config, projects_dir_web, copy_files_list)
 
-            # 构建 PDF（优先使用Windows专用生成器）
+            # 构建 PDF（仅使用增强版V2生成器，生成中英文两个版本）
             pdf_file = None
-            try:
-                print("尝试使用Windows专用PDF生成器...")
-                from pdf_generator_windows import WindowsPDFGenerator
-                
-                # 创建PDF生成器
-                pdf_generator = WindowsPDFGenerator(output_dir, output_dir / '_static')
-                
-                # 生成PDF
-                if pdf_generator.generate(project_name):
-                    # 查找生成的PDF文件
-                    static_dir = output_dir / '_static'
-                    candidate_pdf = static_dir / 'sdk-docs.pdf'
-                    if candidate_pdf.exists():
-                        pdf_file = candidate_pdf
-                        print(f"✓ 使用Windows专用生成器生成PDF成功: {pdf_file}")
-                    else:
-                        print("⚠️  PDF文件未找到，请手动保存PDF文件")
+            from pdf_generator_enhanced_v2 import PDFGeneratorV2
+            print("使用增强版V2 PDF生成器...")
+            pdf_generator = PDFGeneratorV2(output_dir, output_dir / '_static')
+            # 中文
+            if pdf_generator.generate_pdf(project_name, language="zh"):
+                static_dir = output_dir / '_static'
+                candidate_pdf = static_dir / f'{project_name}.pdf'
+                if candidate_pdf.exists():
+                    pdf_file = candidate_pdf
+                    print(f"✓ 中文PDF生成成功: {pdf_file}")
                 else:
-                    print("⚠️  Windows专用PDF生成失败，尝试增强版...")
-                    # 回退到增强版
-                    from pdf_generator_enhanced import EnhancedPDFGenerator
-                    pdf_generator = EnhancedPDFGenerator(output_dir, output_dir / '_static')
-                    if pdf_generator.generate(project_name, method="auto"):
-                        static_dir = output_dir / '_static'
-                        candidate_pdf = static_dir / 'sdk-docs.pdf'
-                        if candidate_pdf.exists():
-                            pdf_file = candidate_pdf
-                            print(f"✓ 使用增强版生成器生成PDF成功: {pdf_file}")
-                    
-            except ImportError:
-                print("⚠️  Windows专用PDF生成器模块未找到，尝试增强版...")
-                try:
-                    from pdf_generator_enhanced import EnhancedPDFGenerator
-                    pdf_generator = EnhancedPDFGenerator(output_dir, output_dir / '_static')
-                    if pdf_generator.generate(project_name, method="auto"):
-                        static_dir = output_dir / '_static'
-                        candidate_pdf = static_dir / 'sdk-docs.pdf'
-                        if candidate_pdf.exists():
-                            pdf_file = candidate_pdf
-                            print(f"✓ 使用增强版生成器生成PDF成功: {pdf_file}")
-                except ImportError:
-                    print("⚠️  增强版PDF生成器模块也未找到，尝试简化版...")
-                    try:
-                        from pdf_generator_simple import SimplePDFGenerator
-                        pdf_generator = SimplePDFGenerator(output_dir, output_dir / '_static')
-                        if pdf_generator.generate(project_name):
-                            static_dir = output_dir / '_static'
-                            candidate_pdf = static_dir / 'sdk-docs.pdf'
-                            if candidate_pdf.exists():
-                                pdf_file = candidate_pdf
-                                print(f"✓ 使用简化版生成器生成PDF成功: {pdf_file}")
-                    except ImportError:
-                        print("⚠️  所有PDF生成器模块都未找到，尝试传统LaTeX方法...")
-                        pdf_file = self._generate_pdf_latex(docs_source_in_worktree, version_config)
-            except Exception as e:
-                print(f"⚠️  Windows专用PDF生成出错: {e}，尝试增强版...")
-                try:
-                    from pdf_generator_enhanced import EnhancedPDFGenerator
-                    pdf_generator = EnhancedPDFGenerator(output_dir, output_dir / '_static')
-                    if pdf_generator.generate(project_name, method="auto"):
-                        static_dir = output_dir / '_static'
-                        candidate_pdf = static_dir / 'sdk-docs.pdf'
-                        if candidate_pdf.exists():
-                            pdf_file = candidate_pdf
-                            print(f"✓ 使用增强版生成器生成PDF成功: {pdf_file}")
-                except Exception as e2:
-                    print(f"⚠️  增强版PDF生成也出错: {e2}，尝试传统LaTeX方法...")
-                    pdf_file = self._generate_pdf_latex(docs_source_in_worktree, version_config)
+                    print("⚠️  中文PDF文件未找到")
+            else:
+                print("⚠️  中文PDF生成失败")
+            # 英文
+            print("正在生成英文版本PDF...")
+            if pdf_generator.generate_pdf(project_name, language="en"):
+                static_dir = output_dir / '_static'
+                en_pdf = static_dir / f'{project_name}_EN.pdf'
+                if en_pdf.exists():
+                    print(f"✓ 英文PDF生成成功: {en_pdf}")
+                else:
+                    print("⚠️  英文PDF文件未找到")
+            else:
+                print("⚠️  英文PDF生成失败")
 
             # 将 PDF 复制到 HTML 的 _static 目录，供在线下载
+            static_dir = output_dir / '_static'
+            static_dir.mkdir(exist_ok=True)
+            
             if pdf_file and pdf_file.exists():
-                static_dir = output_dir / '_static'
-                static_dir.mkdir(exist_ok=True)
                 target_pdf = static_dir / pdf_basename
                 shutil.copy2(pdf_file, target_pdf)
                 print(f"✓ 生成并复制 PDF: {pdf_file.name} -> {target_pdf}")
@@ -277,15 +235,20 @@ class BuildManager:
                     shutil.copy2(pdf_file, fallback_pdf)
                 except Exception:
                     pass
-                # 写入项目信息，供前端读取文件名
-                project_info = {
-                    'projectName': project_name,
-                    'pdfFileName': pdf_basename
-                }
-                with open(static_dir / 'project_info.json', 'w', encoding='utf-8') as f:
-                    json.dump(project_info, f, ensure_ascii=False)
             else:
-                print("⚠️  未生成 PDF，已跳过 PDF 发布")
+                print("⚠️  未生成 PDF，创建占位文件")
+                # 创建一个占位PDF文件，避免下载按钮不显示
+                placeholder_pdf = static_dir / 'sdk-docs.pdf'
+                with open(placeholder_pdf, 'w', encoding='utf-8') as f:
+                    f.write("PDF文件正在生成中，请稍后重试...")
+            
+            # 写入项目信息，供前端读取文件名
+            project_info = {
+                'projectName': project_name,
+                'pdfFileName': pdf_basename
+            }
+            with open(static_dir / 'project_info.json', 'w', encoding='utf-8') as f:
+                json.dump(project_info, f, ensure_ascii=False)
             
             return True
             

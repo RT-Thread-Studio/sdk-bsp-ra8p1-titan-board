@@ -7,6 +7,7 @@ project:
   author: "RealThread"
   copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
   language: "zh_CN"
+  website: "www.rt-thread.org"
 
 # 仓库配置
 repository:
@@ -18,36 +19,42 @@ repository:
 categories:
   start:
     name: "快速上手"
+    name_en: "Getting Started"
     description: "快速上手"
     patterns:
       - "Titan_template"
 
   basic:
     name: "基础篇"
+    name_en: "Basics"
     description: "基础功能示例"
     patterns:
       - "Titan_basic_*"
   
   driver:
     name: "驱动篇"
+    name_en: "Drivers"
     description: "外设驱动示例"
     patterns:
       - "Titan_driver_*"
   
   component:
     name: "组件篇"
+    name_en: "Components"
     description: "组件示例"
     patterns:
       - "Titan_component_*"
 
   multimedia:
     name: "多媒体显示篇"
+    name_en: "Multimedia Display"
     description: "多媒体显示示例"
     patterns:
       - "Titan_display_*"
 
   multcore:
     name: "多核通信篇"
+    name_en: "Multicore Communication"
     description: "RPmsg-Lite多核通信示例"
     patterns:
       - "Titan_mlc_rpmsg_lite/Titan_rpmsg_master"
