@@ -55,6 +55,32 @@ class IndexGenerator:
         title_length = len(title.encode('utf-8'))
         underline = '=' * title_length
 
+        # 读取 output_structure 以动态生成章节顺序
+        output_structure = []
+        # 从 FileProcessor 的配置读取 output_structure
+        try:
+            output_structure = ((self.file_processor.config.get('output_structure', [])) or [])
+        except Exception:
+            output_structure = []
+        if not output_structure:
+            # 回退到已有分类顺序
+            output_structure = ['start', 'basic', 'driver', 'component', 'multimedia', 'multcore']
+            try:
+                self.structure_mode = 'hardcoded'
+            except Exception:
+                pass
+        else:
+            try:
+                self.structure_mode = 'dynamic'
+            except Exception:
+                pass
+
+        toc_lines = []
+        for cat in output_structure:
+            toc_lines.append(f"   {cat}/index")
+
+        toc_block = "\n".join(toc_lines)
+
         content = f""".. {project_info.get('name', 'SDK')} documentation master file, created by sphinx-quickstart
 
 {title}
@@ -64,12 +90,7 @@ class IndexGenerator:
    :maxdepth: 2
    :caption: 目录
 
-   start/index
-   basic/index
-   driver/index
-   component/index
-   multimedia/index
-   multcore/index
+{toc_block}
 
 项目简介
 --------
@@ -100,3 +121,10 @@ class IndexGenerator:
                 index_content = self.generate_category_index(category, category_name, projects)
                 index_path = self.output_dir / category / "index.rst"
                 self.write_index_file(index_content, index_path) 
+
+        # 末尾总结日志
+        mode = getattr(self, 'structure_mode', 'hardcoded')
+        if mode == 'dynamic':
+            print("索引结构生成模式: 动态 (来自 config.yaml:generation.output_structure)")
+        else:
+            print("索引结构生成模式: 硬编码回退 (未在 config.yaml 中找到 output_structure)")

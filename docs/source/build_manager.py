@@ -107,8 +107,8 @@ class BuildManager:
         
         # 检查 docs/source 目录是否存在
         if worktree_path == Path.cwd():
-            # 如果是当前分支，直接使用当前目录
-            docs_source_in_worktree = Path.cwd()
+            # 如果是当前分支，使用主分支的 docs/source 目录
+            docs_source_in_worktree = self.docs_source
         else:
             docs_source_in_worktree = worktree_path / 'docs' / 'source'
             if not docs_source_in_worktree.exists():
@@ -213,7 +213,8 @@ class BuildManager:
             print("正在生成英文版本PDF...")
             if pdf_generator.generate_pdf(project_name, language="en"):
                 static_dir = output_dir / '_static'
-                en_pdf = static_dir / f'{project_name}_EN.pdf'
+                # 英文 PDF 名称使用下划线替换空格
+                en_pdf = static_dir / f"{project_name.replace(' ', '_')}_EN.pdf"
                 if en_pdf.exists():
                     print(f"✓ 英文PDF生成成功: {en_pdf}")
                 else:
@@ -227,8 +228,15 @@ class BuildManager:
             
             if pdf_file and pdf_file.exists():
                 target_pdf = static_dir / pdf_basename
-                shutil.copy2(pdf_file, target_pdf)
-                print(f"✓ 生成并复制 PDF: {pdf_file.name} -> {target_pdf}")
+                try:
+                    # 避免源与目标为同一文件时复制报错
+                    if pdf_file.resolve() != target_pdf.resolve():
+                        shutil.copy2(pdf_file, target_pdf)
+                        print(f"✓ 生成并复制 PDF: {pdf_file.name} -> {target_pdf}")
+                    else:
+                        print(f"✓ PDF 已在目标位置: {target_pdf}")
+                except Exception as copy_err:
+                    print(f"⚠️  复制 PDF 时出现问题（已忽略）：{copy_err}")
                 # 兼容默认名称，额外复制一份 sdk-docs.pdf，便于前端 file:// 环境无需获取项目信息
                 fallback_pdf = static_dir / 'sdk-docs.pdf'
                 try:
@@ -249,6 +257,12 @@ class BuildManager:
             }
             with open(static_dir / 'project_info.json', 'w', encoding='utf-8') as f:
                 json.dump(project_info, f, ensure_ascii=False)
+            # 兼容 file:// 环境：同时输出 JS 版本，供页面直接读取
+            try:
+                with open(static_dir / 'project_info.js', 'w', encoding='utf-8') as f_js:
+                    f_js.write('window.projectInfo = ' + json.dumps(project_info, ensure_ascii=False) + ';\n')
+            except Exception:
+                pass
             
             return True
             

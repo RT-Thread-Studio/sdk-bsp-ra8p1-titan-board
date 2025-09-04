@@ -209,6 +209,8 @@ def build_version_docs(version_config, branch_name=None):
         
         # 生成版本切换配置文件
         generate_version_config(output_dir, version_config)
+        # 写出项目信息供 PDF 下载按钮读取
+        write_project_info(output_dir)
         
         # 构建完成后恢复备份文件
         subprocess.run([
@@ -321,6 +323,37 @@ def generate_version_config(output_dir, current_version_config):
         json.dump(version_config, f, ensure_ascii=False, indent=2)
     
     print(f"✓ 版本配置已生成: {config_file}")
+
+def write_project_info(output_dir):
+    """写出项目信息，供下载PDF按钮在 file:// 与网页模式下均可读取。
+    输出到 <output_dir>/_static/project_info.json 与 project_info.js
+    名称来源 docs/source/config.yaml 的 project.name。
+    """
+    try:
+        cfg_path = Path('config.yaml')
+        project_name = 'SDK 文档'
+        if cfg_path.exists():
+            with open(cfg_path, 'r', encoding='utf-8') as f:
+                cfg = yaml.safe_load(f) or {}
+                project_name = (cfg.get('project', {}) or {}).get('name', project_name) or project_name
+        info = {
+            'projectName': project_name,
+            'pdfFileName': f"{project_name}.pdf",
+        }
+        static_dir = Path(output_dir) / '_static'
+        static_dir.mkdir(parents=True, exist_ok=True)
+        # JSON
+        with open(static_dir / 'project_info.json', 'w', encoding='utf-8') as f:
+            json.dump(info, f, ensure_ascii=False)
+        # JS（兼容 file:// 无法 fetch 的场景）
+        try:
+            with open(static_dir / 'project_info.js', 'w', encoding='utf-8') as fjs:
+                fjs.write('window.projectInfo = ' + json.dumps(info, ensure_ascii=False) + ';\n')
+        except Exception:
+            pass
+        print(f"✓ 项目信息已生成: {static_dir / 'project_info.json'}")
+    except Exception as e:
+        print(f"⚠️  生成项目信息失败: {e}")
 
 def create_root_redirect():
     """创建根目录重定向页面"""
@@ -469,6 +502,15 @@ def main():
                     print(f"⚠️  分支 {version_config['branch']} 不存在，跳过构建")
                     success = False
                 results[version_config['name']] = success
+            # 为每个成功版本生成项目信息（安全兜底）
+            for version_config in versions:
+                out_dir = Path(f"_build/html/{version_config['url_path']}")
+                if out_dir.exists():
+                    write_project_info(out_dir)
+            for version_config in versions:
+                out_dir = Path(f"_build/html/{version_config['url_path']}")
+                if out_dir.exists():
+                    write_project_info(out_dir)
         else:
             print("只构建当前分支对应的版本...")
             # 只构建当前分支对应的版本
@@ -485,6 +527,10 @@ def main():
             for version_config in branch_versions:
                 success = build_version_docs(version_config)
                 results[version_config['name']] = success
+            for version_config in branch_versions:
+                out_dir = Path(f"_build/html/{version_config['url_path']}")
+                if out_dir.exists():
+                    write_project_info(out_dir)
     
     # 输出结果
     print("\n" + "="*50)

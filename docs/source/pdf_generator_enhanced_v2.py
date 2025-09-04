@@ -199,16 +199,10 @@ class DocumentScanner:
     def __init__(self, html_dir: Path, projects_root: Path):
         self.html_dir = html_dir
         self.projects_root = projects_root
-        self.categories = {
-            'start': '快速上手',
-            'basic': '基础篇', 
-            'driver': '驱动篇',
-            'component': '组件篇',
-            'multimedia': '多媒体显示篇',
-            'multcore': '多核通信篇'
-        }
-        # 从 config.yaml 读取分类的中英文名称
+        # 分类与顺序：从 config.yaml 的 generation.output_structure 读取，如果缺省则按默认顺序
+        self.categories = {}
         self.category_name_map = {}
+        self.category_order: List[str] = []
         try:
             cfg_path = Path(__file__).parent / 'config.yaml'
             if cfg_path.exists():
@@ -216,61 +210,94 @@ class DocumentScanner:
                 with open(cfg_path, 'r', encoding='utf-8') as f:
                     cfg = yaml.safe_load(f) or {}
                 cfg_cats = (cfg.get('categories') or {})
-                for key, default_cn in self.categories.items():
+                out_struct = ((cfg.get('generation', {}) or {}).get('output_structure', []) or [])
+                if out_struct:
+                    self.category_order = list(out_struct)
+                else:
+                    self.category_order = ['start', 'basic', 'driver', 'component', 'multimedia', 'multcore']
+                # 名称映射 + 填充 categories 字典用于扫描
+                for key in self.category_order:
                     node = cfg_cats.get(key) or {}
-                    name_cn = node.get('name') or default_cn
+                    name_cn = node.get('name') or key
                     name_en = node.get('name_en') or name_cn
                     self.category_name_map[key] = {'name': name_cn, 'name_en': name_en}
+                    # categories 值用中文默认名作占位
+                    self.categories[key] = name_cn
         except Exception:
-            # 回退到默认中文名称
-            for key, default_cn in self.categories.items():
+            # 回退默认
+            self.category_order = ['start', 'basic', 'driver', 'component', 'multimedia', 'multcore']
+            for key, default_cn in {
+                'start': '快速上手',
+                'basic': '基础篇',
+                'driver': '驱动篇',
+                'component': '组件篇',
+                'multimedia': '多媒体显示篇',
+                'multcore': '多核通信篇'
+            }.items():
                 self.category_name_map[key] = {'name': default_cn, 'name_en': default_cn}
+                self.categories[key] = default_cn
     
     def scan_documents(self, language: str = 'zh') -> Dict[str, List[Dict]]:
         """扫描文档结构（只使用 Markdown 文件）"""
         documents = {}
         
         for category, category_name in self.categories.items():
-            # 用 html_dir 列出该分类下有哪些项目目录，以确定项目名
+            # 用 html_dir 列出该分类下有哪些项目目录（递归），以确定项目名
             category_dir = self.html_dir / category
             if not category_dir.exists():
                 continue
             
             category_docs = []
             
-            # 扫描分类下的所有项目
-            for entry in category_dir.iterdir():
-                if entry.name == 'index.html':
-                    continue
-                # 计算在项目根下的相对路径（支持多级，如 multcore 场景）
-                if entry.is_dir():
-                    rel_path = entry.relative_to(category_dir)  # e.g. Titan_basic_blink_led 或 Titan_mlc_rpmsg_lite/...
-                else:
-                    # 跳过非目录
-                    continue
+            # 递归查找该分类下的所有项目目录：判定标准为目录中存在任意 HTML（README*.html 等）
+            try:
+                candidates = []
+                for html_file in category_dir.rglob('*.html'):
+                    rel = html_file.parent.relative_to(category_dir)  # 支持多级路径
+                    if str(rel) == '.':
+                        continue
+                    candidates.append(rel)
+            except Exception:
+                candidates = []
 
+            # 去重并按路径稳定排序
+            seen = set()
+            uniq_candidates = []
+            for rel in sorted(candidates, key=lambda p: str(p).lower()):
+                key = str(rel).replace('\\','/')
+                if key in seen:
+                    continue
+                seen.add(key)
+                uniq_candidates.append(rel)
+
+            for rel_path in uniq_candidates:
                 project_dir = self.projects_root / rel_path
                 if not project_dir.exists():
-                    # 尝试仅取最后一段目录名匹配
-                    project_dir = self.projects_root / entry.name
+                    # 回退到最后一段匹配
+                    project_dir = self.projects_root / rel_path.name
                     if not project_dir.exists():
                         continue
 
-                # 仅查找 Markdown 文件
                 readme_file = project_dir / ('README_zh.md' if language == 'zh' else 'README.md')
+                if not readme_file.exists():
+                    # 若指定语言缺失，尝试另一种
+                    alt_readme = project_dir / ('README.md' if language == 'zh' else 'README_zh.md')
+                    if alt_readme.exists():
+                        readme_file = alt_readme
+                    else:
+                        continue
 
-                if readme_file.exists():
-                    title = self._extract_markdown_title(readme_file)
-                    category_docs.append({
-                        'title': title,
-                        'file': readme_file,
-                        'project_name': str(rel_path).replace('\\','/'),
-                        'project_dir': project_dir,
-                        'category': category,
-                        'category_name': self.category_name_map.get(category, {}).get('name', category),
-                        'category_name_en': self.category_name_map.get(category, {}).get('name_en', self.category_name_map.get(category, {}).get('name', category))
-                    })
-            
+                title = self._extract_markdown_title(readme_file)
+                category_docs.append({
+                    'title': title,
+                    'file': readme_file,
+                    'project_name': str(rel_path).replace('\\','/'),
+                    'project_dir': project_dir,
+                    'category': category,
+                    'category_name': self.category_name_map.get(category, {}).get('name', category),
+                    'category_name_en': self.category_name_map.get(category, {}).get('name_en', self.category_name_map.get(category, {}).get('name', category))
+                })
+
             if category_docs:
                 documents[category] = category_docs
         
@@ -335,8 +362,10 @@ class PDFGeneratorV2:
         print("=" * 60)
         print(f"开始生成PDF文档 V2 - 语言: {language}")
         print("=" * 60)
-        
+        # 为每次生成创建独立的临时目录，避免跨语言复用导致清理困难
         try:
+            import tempfile as _tempfile
+            self.temp_dir = Path(_tempfile.mkdtemp())
             # 重置目录收集，避免多语言生成时相互污染
             self.toc_entries = []
             # 0. 加载项目信息（版本、版权等）
@@ -354,6 +383,14 @@ class PDFGeneratorV2:
             # 准备资源输出目录（用于相对路径拷贝）
             self.assets_dir = self.temp_dir / 'assets'
             self.assets_dir.mkdir(exist_ok=True)
+
+            # 记录章节结构来源（动态/硬编码）
+            order = getattr(self.scanner, 'category_order', None)
+            if order:
+                print("✓ 章节结构: 动态 (来自 config.yaml:generation.output_structure)")
+                print("  顺序: " + ", ".join(order))
+            else:
+                print("✓ 章节结构: 硬编码回退 (未在 config.yaml 中找到 output_structure)")
 
             # 2. 生成正文内容（先生成正文以便收集目录项）
             print("2. 生成正文内容...")
@@ -376,6 +413,10 @@ class PDFGeneratorV2:
                 print("PDF生成完成!")
                 print(f"📁 输出位置: {self.output_dir}")
                 print("=" * 60)
+                if getattr(self.scanner, 'category_order', None):
+                    print("总结: 本次 PDF 章节名称与顺序根据 docs/source/config.yaml 动态生成")
+                else:
+                    print("总结: 本次 PDF 章节名称与顺序使用硬编码回退顺序")
                 if getattr(self, 'keep_temp', False):
                     try:
                         print(f"临时目录保留: {self.temp_dir}")
@@ -387,16 +428,29 @@ class PDFGeneratorV2:
         except Exception as e:
             print(f"✗ PDF生成过程出错: {e}")
             return False
+        finally:
+            # 结束后清理本次生成的临时目录（除非要求保留）
+            try:
+                if not getattr(self, 'keep_temp', False) and getattr(self, 'temp_dir', None) and self.temp_dir.exists():
+                    shutil.rmtree(self.temp_dir, ignore_errors=True)
+            except Exception:
+                pass
     
     def _generate_toc(self, documents: Dict[str, List[Dict]], language: str) -> str:
-        """根据已收集的多级标题生成目录HTML"""
-        # 使用 self.toc_entries 构造分级目录
+        """根据已收集的多级标题生成目录HTML（带点线引导）"""
+        import re
         list_items = []
         for entry in self.toc_entries:
             indent = (entry['level'] - 1) * 18
+            title_text = entry["title"]
+            # 清洗标题中的前导列表符号或编号后的星号："* ", "- ", "• "、以及诸如 "1.2. * Title"
+            title_text = re.sub(r'^[\s\*\-\u2022]+', '', title_text)
+            title_text = re.sub(r'^(\d+(?:\.\d+)*)\.\s*[\*\-\u2022]+\s*', r'\1. ', title_text)
+            # 再次去除可能残留的单独星号包围
+            title_text = re.sub(r'\s+[\*\u2022]+\s+', ' ', title_text)
             list_items.append(
                 f'<li class="toc-item level-{entry["level"]}" style="margin-left:{indent}px">'
-                f'<a href="#{entry["anchor"]}">{entry["title"]}</a>'
+                f'<a href="#{entry["anchor"]}"><span class="toc-text">{title_text}</span><span class="toc-dots"></span><span class="toc-page"></span></a>'
                 f'</li>'
             )
         toc_title = '目录' if language == 'zh' else 'Contents'
@@ -412,7 +466,9 @@ class PDFGeneratorV2:
         content_sections = []
         
         category_index = 0
-        for category, docs in documents.items():
+        # 按配置顺序渲染分类
+        for category in getattr(self, 'category_order', []) or documents.keys():
+            docs = documents.get(category, [])
             if not docs:
                 continue
             
@@ -451,7 +507,7 @@ class PDFGeneratorV2:
                 # 文档内容与内部编号（三级及以下）
                 doc_content = self._extract_document_content(doc, language)
                 if doc_content:
-                    numbered_html = self._auto_number_and_collect_toc(doc_content, base_numbers=[category_index, doc_counter])
+                    numbered_html = self._auto_number_and_collect_toc(doc_content, base_numbers=[category_index, doc_counter], doc_title=doc["title"])
                     content_sections.append(numbered_html)
                 else:
                     content_sections.append('<p>文档内容加载失败</p>')
@@ -594,7 +650,7 @@ class PDFGeneratorV2:
         except Exception:
             return html
 
-    def _auto_number_and_collect_toc(self, html: str, base_numbers: List[int]) -> str:
+    def _auto_number_and_collect_toc(self, html: str, base_numbers: List[int], doc_title: Optional[str] = None) -> str:
         """为文档内部标题自动编号并收集目录（最大深度到第3级）。
         规则：目录深度仅到 3 级：分类(1) -> 文档(2) -> 文档内首级标题(3)。
         base_numbers: 分类号与文档号作为前缀，例如 [2,1] -> 2.1.x
@@ -615,6 +671,21 @@ class PDFGeneratorV2:
                 for h in headers:
                     lvl = int(h.name[1])
                     h.name = f'h{max(1, lvl - first_level + 1)}'
+
+            # 如果文档首个 h1 与外层文档标题相同，则删除该 h1，避免目录重复（例如 1.1 与 1.1.1 重复）
+            if doc_title:
+                # 取第一个 h1
+                first_h1 = soup.find('h1')
+                if first_h1:
+                    def _normalize(text: str) -> str:
+                        import re as _re
+                        t = (text or '').strip()
+                        t = _re.sub(r'[\s\*\u2022]+', ' ', t)
+                        t = _re.sub(r'\s+', ' ', t)
+                        return t
+                    if _normalize(first_h1.get_text()) == _normalize(doc_title):
+                        # 删除该 h1，不计入目录
+                        first_h1.decompose()
 
             # 仅对文档内首级标题(h1)编号，保证总深度不超过 3
             local_counter = 0
@@ -738,6 +809,46 @@ class PDFGeneratorV2:
             font_family = '"Arial", "Helvetica", sans-serif'
             lang_attr = "en"
         
+        cover_subtitle = ('开发文档' if language == 'zh' else 'Documentation')
+        label_version = ('版本' if language == 'zh' else 'Version')
+        label_language = ('语言' if language == 'zh' else 'Language')
+        label_generated = ('生成时间' if language == 'zh' else 'Generated on')
+
+        # 封面信息（徽章 + 详情行）
+        badge_lang = ('中文' if language == 'zh' else 'English')
+        badge_version = (self.project_meta.get('version') or '1.0.0')
+        badge_date = datetime.now().strftime('%Y年%m月%d日' if language == 'zh' else '%B %d, %Y')
+        meta_badges_html = (
+            '<div class="meta-badges">'
+            f'<span class="pill">Version {badge_version}</span>'
+            '<span class="sep">|</span>'
+            f'<span class="pill">{badge_lang}</span>'
+            '<span class="sep">|</span>'
+            f'<span class="pill">{badge_date}</span>'
+            '</div>'
+        )
+
+        detail_items = []
+        author = (self.project_meta.get('author') or '').strip()
+        website = (self.project_meta.get('website') or '').strip()
+        copyright_txt = (self.project_meta.get('copyright') or '').strip()
+        if author:
+            detail_items.append(( '作者' if language == 'zh' else 'Author', author ))
+        if website:
+            detail_items.append(( '官网' if language == 'zh' else 'Website', website ))
+        if copyright_txt:
+            detail_items.append(( '版权' if language == 'zh' else 'Copyright', copyright_txt ))
+        if detail_items:
+            lines = []
+            for key, val in detail_items:
+                if key.lower().startswith(('官网','website')) and (val.startswith('http://') or val.startswith('https://')):
+                    lines.append(f'<div class="meta-line"><span class="k">{key}:</span> <a href="{val}">{val}</a></div>')
+                else:
+                    lines.append(f'<div class="meta-line"><span class="k">{key}:</span> {val}</div>')
+            meta_details_html = '<div class="meta-details">' + ''.join(lines) + '</div>'
+        else:
+            meta_details_html = ''
+
         html_template = f'''<!DOCTYPE html>
 <html lang="{lang_attr}">
 <head>
@@ -764,14 +875,17 @@ class PDFGeneratorV2:
         
         /* 封面样式 */
         .cover-page {{
-            page-break-after: always;
+            /* 避免封面后出现空白页 */
+            page-break-after: avoid;
             text-align: center;
-            padding: 4cm 2cm;
-            height: 100vh;
+            padding: 2.2cm 2cm 1.2cm 2cm;
+            height: auto;
+            min-height: calc(100vh - 3.0cm);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
+            margin-bottom: 0.8cm;
         }}
         
         .cover-title {{
@@ -786,7 +900,51 @@ class PDFGeneratorV2:
         .cover-subtitle {{
             font-size: 1.2em;
             color: #7f8c8d;
-            margin-bottom: 2em;
+            margin-top: 0.6em;
+            margin-bottom: 1.6em;
+        }}
+
+        .cover-footer {{
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 1.8cm;
+            text-align: center;
+        }}
+        .meta-badges {{
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.6em;
+        }}
+        .meta-badges .pill {{
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.9em;
+            color: #2c3e50;
+            background: #f3f6fa;
+            border: 1px solid #dde5ee;
+        }}
+        .meta-badges .sep {{
+            color: #95a5a6;
+            font-size: 0.95em;
+        }}
+        .meta-details {{
+            font-size: 0.95em;
+            color: #6b7280;
+        }}
+        .meta-details .meta-line {{ margin: 4px 0; }}
+        .meta-details .k {{
+            color: #374151;
+            font-weight: 600;
+        }}
+        .meta-details a {{
+            color: #2563eb;
+            text-decoration: none;
+        }}
+        .meta-details a:hover {{
+            text-decoration: underline;
         }}
         
         .cover-info {{
@@ -798,14 +956,14 @@ class PDFGeneratorV2:
         /* 目录样式 */
         .toc {{
             page-break-after: always;
-            padding: 2cm;
+            padding: 1.3cm 2cm 1.6cm 2cm;
         }}
         
         .toc h2 {{
             font-size: 1.8em;
             color: #2c3e50;
             text-align: left;
-            margin: 0 0 1em 0;
+            margin: 0 0 0.8em 0;
             border-left: 4px solid #3498db;
             padding-left: 0.6em;
         }}
@@ -814,20 +972,22 @@ class PDFGeneratorV2:
             list-style: none;
             padding: 0;
             margin: 0;
+            max-width: 16cm;
         }}
         
         .toc-category {{
-            margin: 1em 0 0.5em 0;
-            font-size: 1.2em;
-            color: #2c3e50;
-            border-bottom: 1px solid #bdc3c7;
-            padding-bottom: 0.3em;
+            margin: 0.6em 0 0.35em 0;
+            font-size: 1.04em;
+            color: #334155;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.25em;
+            letter-spacing: 0.2px;
         }}
         
         .toc-item {{
-            margin: 0.25em 0;
-            padding: 0.2em 0;
-            line-height: 1.3;
+            margin: 0.12em 0;
+            padding: 0.12em 0;
+            line-height: 1.38;
         }}
         
         .toc a {{
@@ -837,10 +997,14 @@ class PDFGeneratorV2:
             display: block;
             padding: 0.1em 0;
         }}
+        .toc a {{ display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; column-gap: 8px; }}
+        .toc a .toc-text {{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+        .toc a .toc-dots {{ border-bottom: 1px dotted #cbd5e1; height: 0; margin-top: 0.55em; }}
+        .toc a .toc-page {{ color: #475569; font-variant-numeric: tabular-nums; padding-left: 4px; }}
         
         .toc a:hover {{
-            color: #3498db;
-            background: #f6f9fc;
+            color: #2563eb;
+            background: #f8fafc;
             padding-left: 0.4em;
             transition: all 0.2s ease;
         }}
@@ -1099,7 +1263,7 @@ class PDFGeneratorV2:
         /* 打印样式 */
         @media print {{
             .cover-page {{
-                page-break-after: always;
+                page-break-after: avoid;
             }}
             
             .toc {{
@@ -1130,11 +1294,10 @@ class PDFGeneratorV2:
     <!-- 封面页 -->
     <div class="cover-page">
         <div class="cover-title">{title}</div>
-        <div class="cover-subtitle">开发文档</div>
-        <div class="cover-info" style="position:absolute; left: 3.18cm; bottom: 2.0cm; text-align:left; color:#666; font-size:10pt;">
-            <div>版本: {self.project_meta.get('version') or '1.0.0'}</div>
-            <div>语言: {"中文" if language == "zh" else "English"}</div>
-            <div>生成时间: {datetime.now().strftime("%Y年%m月%d日" if language == "zh" else "%B %d, %Y")}</div>
+        <div class="cover-subtitle">{cover_subtitle}</div>
+        <div class="cover-footer">
+            {meta_badges_html}
+            {meta_details_html}
         </div>
     </div>
     
@@ -1185,7 +1348,9 @@ class PDFGeneratorV2:
             if language == 'zh':
                 pdf_filename = f"{title}.pdf"
             else:
-                pdf_filename = f"{title}_EN.pdf"
+                # 英文版：将空格替换为下划线，再追加 _EN
+                safe_title = (title or '').replace(' ', '_')
+                pdf_filename = f"{safe_title}_EN.pdf"
             
             output_pdf = self.output_dir / pdf_filename
             

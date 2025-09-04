@@ -79,20 +79,39 @@ def update_version_menu_js(restore_after=False):
         print(f"错误: 无法读取 {js_file}: {e}")
         return False
     
-    import re
-    
-    # 改进的正则表达式，更精确地匹配函数
-    pattern = r'// 获取嵌入的版本配置（在构建时由脚本生成）\s+function getEmbeddedVersionConfig\(\)\s*\{[^}]*\}'
-    
-    if re.search(pattern, content, re.DOTALL):
-        # 替换现有函数
-        content = re.sub(pattern, embedded_config_js.strip(), content, flags=re.DOTALL)
-        print("替换现有嵌入配置函数")
-    else:
+    # 使用括号深度匹配方式安全替换函数体，避免 JSON 中的 '}' 提前终止
+    start_marker = '// 获取嵌入的版本配置（在构建时由脚本生成）'
+    func_sig = 'function getEmbeddedVersionConfig()'
+    start_idx = content.find(start_marker)
+    replaced = False
+    if start_idx != -1:
+        sig_idx = content.find(func_sig, start_idx)
+        if sig_idx != -1:
+            brace_start = content.find('{', sig_idx)
+            if brace_start != -1:
+                depth = 0
+                i = brace_start
+                while i < len(content):
+                    ch = content[i]
+                    if ch == '{':
+                        depth += 1
+                    elif ch == '}':
+                        depth -= 1
+                        if depth == 0:
+                            # 包含右大括号本身
+                            end_idx = i + 1
+                            # 用嵌入代码整体替换这段函数定义
+                            content = content[:start_idx] + embedded_config_js.strip() + content[end_idx:]
+                            replaced = True
+                            print("替换现有嵌入配置函数（括号深度）")
+                            break
+                    i += 1
+    if not replaced:
         # 查找插入位置 - 在 fetchVersionInfo 函数之前插入
-        fetch_pattern = r'(async function fetchVersionInfo\(\)\s*\{)'
-        if re.search(fetch_pattern, content):
-            content = re.sub(fetch_pattern, embedded_config_js.strip() + '\n\n    ' + r'\1', content)
+        fetch_marker = 'async function fetchVersionInfo()'
+        fetch_idx = content.find(fetch_marker)
+        if fetch_idx != -1:
+            content = content[:fetch_idx] + embedded_config_js.strip() + '\n\n    ' + content[fetch_idx:]
             print("在 fetchVersionInfo 函数前插入嵌入配置函数")
         else:
             # 如果找不到 fetchVersionInfo，在文件开头插入
