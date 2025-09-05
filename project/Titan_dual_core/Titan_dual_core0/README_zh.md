@@ -18,7 +18,11 @@
 
 Core0 使用 UART8 (USB-DBG) 作为调试串口。
 
-## FSP配置说明
+![image-20250905140536089](figures/image-20250905140536089.png)
+
+![image-20250905140624456](figures/image-20250905140624456.png)
+
+## FSP 配置
 
 * 新建 `r_sci_b_uart` stack：
 
@@ -32,7 +36,7 @@ Core0 使用 UART8 (USB-DBG) 作为调试串口。
 
 ![image-20250829150627517](figures/image-20250829150627517.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 使能 sub-nuclear startup。
 

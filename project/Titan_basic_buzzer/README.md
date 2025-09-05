@@ -52,7 +52,13 @@ For example, with `D = 50%`, `t_high = T_ns / 2`.
 
 > Note: `period_ns` and `pulse_ns` are usually 32-bit values. Avoid extremely low frequencies that result in very large periods; for very low frequencies, consider software timers or segmented playback.
 
-## FSP Configuration Instructions
+## Hardware Description
+
+The pin of the buzzer is PA07.
+
+![image-20250905131643528](figures/image-20250905131643528.png)
+
+## FSP Configuration
 
 * The FSP is configured to enable  GPT7 as a PWM mode:
 

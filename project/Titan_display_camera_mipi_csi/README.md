@@ -176,13 +176,9 @@ The RA8 series MCU (e.g., RA8P1) integrates a **GLCDC hardware module** for driv
 
 ## Hardware Description
 
-* MIPI DSI/CSI Interface:
+The MIPI DSI/CSI interface and the RGB LCD interface are shown in the following figure:
 
-<img src="figures/image-20250815172325553.png" alt="image-20250815172325553" style="zoom:80%;" />
-
-* RGB LCD Interface:
-
-<img src="figures/image-20250815151932353.png" alt="image-20250815151932353" style="zoom:80%;" />
+![image-20250905133324778](figures/image-20250905133324778.png)
 
 ## FSP Configuration
 

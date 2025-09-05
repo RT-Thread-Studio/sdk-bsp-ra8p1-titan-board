@@ -60,7 +60,7 @@ RA8 系列 MCU 提供 **Octal SPI / Quad SPI 接口（OSPI）**，专为高速�
 
 ## 硬件说明
 
-<img src="figures/image-20250730135427623.png" alt="image-20250730135427623" style="zoom:150%;" />
+![image-20250905132908511](figures/image-20250905132908511.png)
 
 ## FSP 配置
 

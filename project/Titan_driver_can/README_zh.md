@@ -192,7 +192,7 @@ RA8 系列 MCU 集成高性能 **CANFD 控制器**，支持 ISO CAN 2.0A/B 及 C
 
 ## 硬件说明
 
-![image-20250814143310328](figures/image-20250814143310328.png)
+![image-20250905134012664](figures/image-20250905134012664.png)
 
 ## FSP配置
 

@@ -18,9 +18,9 @@
 
 Core1 使用 UART5 作为调试串口。
 
-![image-20250829135353615](figures/image-20250829135353615.png)
+![image-20250905140729392](figures/image-20250905140729392.png)
 
-## FSP配置说明
+## FSP 配置
 
 * 新建 `r_sci_b_uart` stack：
 
@@ -34,7 +34,7 @@ Core1 使用 UART5 作为调试串口。
 
 ![image-20250829140018385](figures/image-20250829140018385.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 使能 UART5。
 

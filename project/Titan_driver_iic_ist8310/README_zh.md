@@ -158,11 +158,11 @@ RA8 I2C 控制器主要由以下模块组成：
 
 ## 硬件说明
 
-Titan Board 使用 IIC2 与 IST8310 通信；
+Titan Board 使用 IIC2 与 IST8310 通信。
 
-![image-20250730150751353](figures/image-20250730150751353.png)
+![image-20250905135202040](figures/image-20250905135202040.png)
 
-## FSP配置说明
+## FSP 配置
 
 * 新建 stacks 选择 r_iic_master 并配置 IIC2 配置信息如下：
 

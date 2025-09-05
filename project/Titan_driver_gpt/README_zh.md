@@ -190,7 +190,13 @@ static rt_err_t timeout_cb(rt_device_t dev, rt_size_t size)
 }
 ```
 
-## FSP配置说明
+## 硬件说明
+
+Titan Board 的树莓派接口上有 6 个 PWM 接口，本示例使用 P714 输出 PWM 波。
+
+![image-20250905134841695](figures/image-20250905134841695.png)
+
+## FSP 配置
 
 * FSP 分别配置使能 GPT1 为基本定时器模式，GPT12 为 PWM 模式：
 
@@ -202,7 +208,7 @@ static rt_err_t timeout_cb(rt_device_t dev, rt_size_t size)
 
 ![image-20250730143622345](figures/image-20250730143622345.png)
 
-### RT-Thread Settings配置
+### RT-Thread Settings 配置
 
 * 在配置中打开 timer1 使能与 PWM12 使能：
 

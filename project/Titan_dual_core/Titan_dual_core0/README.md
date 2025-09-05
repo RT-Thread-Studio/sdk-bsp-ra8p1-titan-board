@@ -16,9 +16,13 @@ This template project provides the basic startup code, RT-Thread support, and pe
 
 ## Hardware Description
 
-Core0 uses UART8 as the debug serial port.
+Core0 uses UART8 (USB-DBG)  as the debug serial port.
 
-## FSP Configuration Instructions
+![image-20250905140536089](figures/image-20250905140536089.png)
+
+![image-20250905140624456](figures/image-20250905140624456.png)
+
+## FSP Configuration
 
 * Create a `r_sci_b_uart` stack:
 

@@ -141,9 +141,9 @@ RA8 SDHI 模块主要包含以下子模块：
 
 ## 硬件说明
 
-![image-20250814181554624](figures/image-20250814181554624.png)
+![image-20250905140416594](figures/image-20250905140416594.png)
 
-## FSP配置说明
+## FSP 配置
 
 * 首先需要配置 Flash，Flash 配置参考 `Titan_component_flash_fs` 工程下的 README.md。
 * 接下来配置 SDHI1，新建 r_sdhi stack：

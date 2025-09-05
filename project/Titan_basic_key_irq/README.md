@@ -32,15 +32,15 @@ The RA8 series MCU has the following interrupt features:
 
 ## Hardware Description
 
-![image-20250728111910040](figures/image-20250728111910040.png)
+As shown in the figure below, the USER_KEY pin is connected to the P110 pin of the microcontroller, and the KEY button is pressed for low level and released for high level.
 
-![image-20250728112127243](figures/image-20250728112127243.png)
+![image-20250905132433709](figures/image-20250905132433709.png)
 
-As shown in the figure above, the USER_KEY pin is connected to the P110 pin of the microcontroller, and the KEY button is pressed for low level and released for high level.
+![image-20250905132522018](figures/image-20250905132522018.png)
 
 The position of the KEY in the development board is shown as follows:
 
-![image-20250728112807624](figures/image-20250728112807624.png)
+![image-20250905132707880](figures/image-20250905132707880.png)
 
 ## FSP Configuration
 

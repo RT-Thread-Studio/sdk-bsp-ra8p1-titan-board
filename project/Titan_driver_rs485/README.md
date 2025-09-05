@@ -137,7 +137,7 @@ RT-Thread provides a unified **serial driver framework** that supports standard 
 
 ## Hardware Description
 
-![image-20250815102935640](figures/image-20250815102935640.png)
+![image-20250905135416249](figures/image-20250905135416249.png)
 
 ## FSP Configuration
 

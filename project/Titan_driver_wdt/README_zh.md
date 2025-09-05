@@ -207,7 +207,7 @@ rt_device_close(wdg_dev);
 
 无
 
-## FSP配置说明
+## FSP 配置
 
 * 打开 FSP 工具 新建 Stacks 选择 r_wdt：
 
@@ -217,7 +217,7 @@ rt_device_close(wdg_dev);
 
 ![image-20250731092848714](figures/image-20250731092848714.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 使能 WDT。
 

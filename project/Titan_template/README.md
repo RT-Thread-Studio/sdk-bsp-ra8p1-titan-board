@@ -64,13 +64,9 @@ This BSP currently provides an RT-Thread Studio project. Below, we use the RT-Th
 
 **Create a Project**
 
-- Download the Titan Board resource package and **GNU Tools for ARM Embedded Processors v13.2.1** (if the download fails, switch the resource download source of RT-Thread Studio to the GitHub source and try downloading again).
+- Download the **Titan Board** resource package and **GNU Tools for ARM Embedded Processors v13.3**.
 
-![image-20250820103337128](figures/image-20250820103337128.png)
-
-​		Switch the resource download source
-
-![image-20250820094820852](figures/image-20250820094820852.png)
+![image-20250905143443927](figures/image-20250905143443927.png)
 
 - Create a new RT-Thread project.
 

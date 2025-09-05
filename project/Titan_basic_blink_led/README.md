@@ -34,15 +34,15 @@ In this example, the LED pin is configured as **output mode**, and the software 
 
 ## Hardware Description
 
-![image-20250730133227218](figures/image-20250730133227218.png)
+![image-20250905131018379](figures/image-20250905131018379.png)
 
-![image-20250730133257521](figures/image-20250730133257521.png)
+<img src="figures/image-20250905131050345.png" alt="image-20250905131050345" style="zoom:150%;" />
 
 As shown in the diagram above, the Titan Board provides three user LEDs: LED_R (RED), LED_B (BLUE), and LED_G (GREEN). The BLUE LED corresponds to pin P012 on the MCU. To turn on the LED, a low level signal is output from the MCU pin, and to turn it off, a high level signal is output.
 
 The positions of the LEDs on the development board are shown in the diagram below:
 
-![image-20250730133504282](figures/image-20250730133504282.png)
+![image-20250905131349156](figures/image-20250905131349156.png)
 
 ## Software Description
 

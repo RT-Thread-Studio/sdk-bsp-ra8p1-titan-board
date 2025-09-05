@@ -141,9 +141,9 @@ The RA8 SDHI module consists of the following sub-modules:
 
 ## Hardware Description
 
-![image-20250814181554624](figures/image-20250814181554624.png)
+![image-20250905140416594](figures/image-20250905140416594.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * The first step is to configure Flash. See the README.md in the `Titan_component_flash_fs` project for the Flash configuration.
 * Next, configure SDHI1 and create a new `r_sdhi` stack:

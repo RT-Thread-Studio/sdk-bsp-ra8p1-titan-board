@@ -104,11 +104,11 @@ The ADC16H has the following features:
 
 ## Hardware Description
 
-![image-20250730141037247](figures/image-20250730141037247.png)
+As shown in the following schematic diagram, there are 4 ADC channel interfaces on the Titan Board, namely channels 0, 1, 2 and 3 of adc0.
 
-As shown in the above schematic diagram, there are four ADC channel interfaces left on the Titan Board that are connected to the channels 0, 1, 2, and 3 of the MCU adc0 respectively.
+![image-20250905133843508](figures/image-20250905133843508.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Step 1: Open FSP and import the XML configuration file (or directly click the FSP link file in RT-Thread Studio).
 * Step 2: Create a new `r_adc` stack, configure the ADC device, and select the channels to be used.

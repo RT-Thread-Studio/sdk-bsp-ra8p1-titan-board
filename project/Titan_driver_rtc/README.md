@@ -170,7 +170,7 @@ RT-Thread provides a unified **RTC driver framework** that abstracts the underly
 
 The RTC device used in this example relies on the LOCO (Low speed On Chip Oscillator) clock. No other special connections are required.
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Open the FSP configuration tool and select the `configuration.xml` file under the corresponding project directory. Add the RTC Stack:
 

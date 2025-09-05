@@ -205,7 +205,13 @@ static rt_err_t timeout_cb(rt_device_t dev, rt_size_t size)
 }
 ```
 
-## FSP Configuration Instructions
+## Hardware Description
+
+The Raspberry Pi interface of the Titan Board has 6 PWM interfaces. In this example, P714 is used to output PWM waves.
+
+![image-20250905134841695](figures/image-20250905134841695.png)
+
+## FSP Configuration
 
 * The FSP is configured to enable GPT1 as a basic timer mode and GPT12 as a PWM mode:
 

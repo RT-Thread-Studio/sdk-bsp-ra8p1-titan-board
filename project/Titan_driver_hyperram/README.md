@@ -131,9 +131,9 @@ RA8 OSPI allows external memories to be **mapped into the MCU address space**, e
 
 ## Hardware Description
 
-![image-20250814155318312](figures/image-20250814155318312.png)
+![image-20250905135120259](figures/image-20250905135120259.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Create a `r_ospi_b` stack:
 

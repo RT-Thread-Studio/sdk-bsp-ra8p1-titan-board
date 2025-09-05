@@ -1,149 +1,153 @@
-# 产测程序使用说明
-## 测试准备
+# Production Test Program User Guide
 
-1. 开发板测试固件：rtthread.hex
-2. Wi-Fi 固件：43438A1.bin、43438A1.clm_blob
-3. SD 卡：SD 卡根目录中放入Wi-Fi 固件
-4. MIPI CSI 接口 OV5640 摄像头
-5. 800 * 480 RGB LCD 屏幕
-6. 3 - 6 个 LED 灯
+**English** | [**Chinese**](./README_zh.md)
 
-## 硬件连接
+## Test Preparation
+
+1. Development board test firmware: **rtthread.hex**
+2. Wi-Fi firmware: **43438A1.bin**, **43438A1.clm_blob**
+3. SD card: Place Wi-Fi firmware in the root directory of the SD card
+4. MIPI CSI interface OV5640 camera
+5. 800 × 480 RGB LCD screen
+6. 3–6 LED lights
+
+## Hardware Connections
 
 ### PWM
 
-​	将树莓派接口上的六个 PWM 引脚 VL_PWM(P714)、UL_PWM(P712)、WL_PWM(P108)、VH_PWM(P715)、UH_PWM(P713)、WH_PWM(P109) 外接 LED 灯。
+Connect LEDs to the six PWM pins on the Raspberry Pi interface: **VL_PWM (P714), UL_PWM (P712), WL_PWM (P108), VH_PWM (P715), UH_PWM (P713), and WH_PWM (P109).**
 
-![image-20250813140302048](figures/image-20250813140302048.png)
+![image-20250905141150256](figures/image-20250905141150256.png)
 
 ### CANFD
 
-​	连接 CAN0 与 CAN1 (CAN0_H 与 CAN1_H 连接；CAN0_L 与 CAN1_L 连接)。
+Connect CAN0 and CAN1 (CAN0_H to CAN1_H; CAN0_L to CAN1_L).
 
-![image-20250813132801305](figures/image-20250813132801305.png)
+![image-20250905141309245](figures/image-20250905141309245.png)
 
 ### RS485
 
-​	将开发板上的两个 RS485 接口中的任意一个与另一块开发板的 RS485 接口连接 (A 与 A 连接；B 与 B 连接)。
+Connect either of the two RS485 ports on the development board to the RS485 port of another development board (A to A; B to B).
 
-![image-20250813132842719](figures/image-20250813132842719.png)
+![image-20250905141405784](figures/image-20250905141405784.png)
 
-### MIPI CSI 摄像头
+### MIPI CSI Camera
 
-​	在 MIPI CSI 接口上连接一个 OV5640 摄像头模块。
+Connect an OV5640 camera module to the MIPI CSI interface.
 
-![image-20250813132935062](figures/image-20250813132935062.png)
+![image-20250905141434842](figures/image-20250905141434842.png)
 
-### RGB LCD 屏幕
+### RGB LCD Screen
 
-​	在开发板背面的 RGB LCD 接口接入一块 800*480 的 RGB 屏幕。
+Connect an 800 × 480 RGB screen to the RGB LCD interface on the back of the development board.
 
 ![image-20250813141932673](figures/image-20250813141932673.png)
 
-### 以太网
+### Ethernet
 
-​	将网线插入 ETH1 网口。
+Insert a network cable into the ETH1 port.
 
-![image-20250813133025768](figures/image-20250813133025768.png)
+![image-20250905141513257](figures/image-20250905141513257.png)
 
-## LED 指示灯
+## LED Indicators
 
-​	开发板上有蓝、绿、红三个 LED 指示灯：
+The development board has three LED indicators: blue, green, and red.
 
-* **蓝色 LED：**以 500ms 的间隔不断闪烁，指示程序的运行状态。当蓝色 LED 停止闪烁时，代表程序运行异常。
-* **绿色 LED：**默认为熄灭状态，当功能测试完成时，绿色 LED 亮起。
-* **红色 LED：**默认为熄灭状态，当有功能测试出错时，红色 LED 亮起。
+- **Blue LED:** Flashes continuously at 500 ms intervals, indicating program running status. If the blue LED stops flashing, the program has crashed.
+- **Green LED:** Off by default. Lights up when all functional tests pass.
+- **Red LED:** Off by default. Lights up when a functional test fails.
 
-![image-20250813133314596](figures/image-20250813133314596.png)
+![image-20250905141546512](figures/image-20250905141546512.png)
 
-## 程序运行流程
+## Program Execution Flow
 
-### 1. HyperFlash 与 SD 卡挂载文件系统
+### 1. Mounting HyperFlash and SD Card File Systems
 
-​	开发板上电后会自动挂载 SD 卡与 HyperFlash 上的文件系统。
+After power-on, the board automatically mounts the SD card and HyperFlash file systems.
 
 ![image-20250811133648869](figures/image-20250811133648869.png)
 
-### 2. 自动连接 WiFi
+### 2. Automatic Wi-Fi Connection
 
-​	开发板挂载完 SD 卡后从 SD 卡内加载 WiFi 固件并完成 WiFi 初始化，接着自动连接 WiFi (名称：Titan Board，密码：12345678)。
+After mounting the SD card, the board loads Wi-Fi firmware from it, initializes Wi-Fi, and automatically connects to the Wi-Fi network (SSID: **Titan Board**, Password: **12345678**).
 
 ![image-20250811154027832](figures/image-20250811154027832.png)
 
-### 3. 开发板输出 PWM
+### 3. PWM Output
 
-​	开发板上电后，树莓派接口上的六个 PWM 接口会输出 PWM 波， 观察接在 PWM 引脚上的 LED 的亮度变化（呼吸灯效果）。
+After power-on, the six PWM pins on the Raspberry Pi interface output PWM waves. LEDs connected to these pins should show brightness changes (breathing light effect).
 
 ![image-20250811094346315](figures/image-20250811094346315.png)
 
-### 3. 蜂鸣器测试
+### 4. Buzzer Test
 
-​	首先测试蜂鸣器功能，蜂鸣器会播放两只老虎的旋律。
+The buzzer plays the melody of "Two Tigers" as a functional test.
 
-### 4. HyperRAM 测试
+### 5. HyperRAM Test
 
-​	在 HyperRAM 测试程序中会测试 HyperRAM 的读写速度。
+The HyperRAM test program measures HyperRAM read/write speed.
 
 ![image-20250811151046625](figures/image-20250811151046625.png)
 
-### 5. WiFi 测试
+### 6. Wi-Fi Test
 
-​	开发板上电后会自动初始化 WiFi模块并从 SD 卡中下载固件到 WiFi 模块中。WiFi 测试程序调用 ping 命令来测试网络的连通性。
+The Wi-Fi test program initializes the Wi-Fi module, loads firmware from the SD card, and uses the `ping` command to test connectivity.
 
 ![image-20250811133756446](figures/image-20250811133756446.png)
 
-### 6. 以太网测试
+### 7. Ethernet Test
 
-​	以太网测试程序调用 ping 命令测试网络的连通性。
+The Ethernet test program uses the `ping` command to verify network connectivity.
 
 ![image-20250811134019902](figures/image-20250811134019902.png)
 
-### 7. RTC 测试
+### 8. RTC Test
 
-​	RTC 测试会在终端输出设置的日期与时间 。
+The RTC test outputs the configured date and time in the terminal.
 
 ![image-20250811134041938](figures/image-20250811134041938.png)
 
-### 8. ADC 测试
+### 9. ADC Test
 
-​	ADC 测试程序依次测试 ADC0 的通道0、1、2、3。
+The ADC test program sequentially tests channels 0, 1, 2, and 3 of ADC0.
 
 ![image-20250811134118655](figures/image-20250811134118655.png)
 
-### 9. CANFD 测试
+### 10. CANFD Test
 
-​	CANFD 测试程序中 CANFD0 发送数据，CANFD1 接收 CANFD0 发送的数据。
+In the CANFD test program, CANFD0 transmits data, and CANFD1 receives it.
 
 ![image-20250811134147266](figures/image-20250811134147266.png)
 
-### 10. IMU 测试
+### 11. IMU Test
 
-​	IMU 测试程序测试能否正确读取 BMI088 模块的数据。
+The IMU test program verifies correct data reading from the BMI088 module.
 
 ![image-20250811134535211](figures/image-20250811134535211.png)
 
-### 11. 磁力计测试
+### 12. Magnetometer Test
 
-​	磁力计测试程序测试能否正确读取 IST8310 模块的数据。
+The magnetometer test program verifies correct data reading from the IST8310 module.
 
 ![image-20250811134600225](figures/image-20250811134600225.png)
 
-### 12. 摄像头与屏幕测试
+### 13. Camera and Screen Test
 
-​	在测试程序的最后会开启摄像头，此时需要用手在摄像头前面晃动激活摄像头捕获，LCD 屏幕会显示摄像头捕获到的画面。
+At the end of the test program, the camera is activated. Wave your hand in front of the camera to trigger capture; the LCD screen will display the captured image.
 
 ![image-20250815172223282](figures/image-20250815172223282.png)
 
-## 测试结果说明
+## Test Result Description
 
-* **所有功能测试成功：**当测试结束并且所有功能测试通过时，开发板上的绿色 LED 灯会亮起并且终端会输出 `ALL Test Run Successful!`。
+- **All tests passed:** At the end of testing, if all functions pass, the green LED lights up and the terminal outputs `ALL Test Run Successful!`.
 
-![image-20250811135100512](figures/image-20250811135100512.png)
-
-* **有功能测试出错：**当测试结束但是有功能测试出错时，开发板上的红色 LED 灯会亮起并且终端会输出测试出错的功能有哪些。
+  ![image-20250811135100512](figures/image-20250811135100512.png)
+  
+- **Test failures detected:** If some tests fail, the red LED lights up and the terminal outputs which functions failed.
 
 ![image-20250811140343939](figures/image-20250811140343939.png)
 
-**测试程序终端输出：**
+**Example terminal output of test program:**
 
 ![2025-08-13_093555_600](figures/2025-08-13_093555_600.png)
+
