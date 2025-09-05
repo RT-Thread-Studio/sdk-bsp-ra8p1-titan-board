@@ -835,16 +835,24 @@ class PDFGeneratorV2:
         if author:
             detail_items.append(( '作者' if language == 'zh' else 'Author', author ))
         if website:
-            detail_items.append(( '官网' if language == 'zh' else 'Website', website ))
+            website_display = website.replace('官网: ', '').replace('Website: ', '')
+            detail_items.append(('', website_display))  # 空键名，不显示标签
         if copyright_txt:
-            detail_items.append(( '版权' if language == 'zh' else 'Copyright', copyright_txt ))
+            copyright_display = copyright_txt.replace('版权: ', '').replace('Copyright: ', '')
+            detail_items.append(('', copyright_display))  # 空键名，不显示标签
         if detail_items:
             lines = []
             for key, val in detail_items:
-                if key.lower().startswith(('官网','website')) and (val.startswith('http://') or val.startswith('https://')):
-                    lines.append(f'<div class="meta-line"><span class="k">{key}:</span> <a href="{val}">{val}</a></div>')
+                if not key:  # 如果键名为空，只显示值
+                    if val.startswith(('http://', 'https://')):
+                        lines.append(f'<div class="meta-line"><a href="{val}">{val}</a></div>')
+                    else:
+                        lines.append(f'<div class="meta-line">{val}</div>')
                 else:
-                    lines.append(f'<div class="meta-line"><span class="k">{key}:</span> {val}</div>')
+                    if key.lower().startswith(('官网','website')) and (val.startswith('http://') or val.startswith('https://')):
+                        lines.append(f'<div class="meta-line"><span class="k">{key}:</span> <a href="{val}">{val}</a></div>')
+                    else:
+                        lines.append(f'<div class="meta-line"><span class="k">{key}:</span> {val}</div>')
             meta_details_html = '<div class="meta-details">' + ''.join(lines) + '</div>'
         else:
             meta_details_html = ''
