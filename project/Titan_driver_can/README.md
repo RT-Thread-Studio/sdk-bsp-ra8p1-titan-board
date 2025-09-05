@@ -183,9 +183,9 @@ RA8 series MCUs integrate a high-performance **CANFD controller**, supporting IS
 
 ## Hardware Description
 
-![image-20250814143310328](figures/image-20250814143310328.png)
+![image-20250905134012664](figures/image-20250905134012664.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Create two `r_canfdlite` stacks:
 

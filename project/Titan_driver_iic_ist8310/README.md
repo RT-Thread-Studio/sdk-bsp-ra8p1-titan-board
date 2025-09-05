@@ -157,9 +157,9 @@ The RA8 I2C controller consists of:
 
 Titan Board uses IIC2 to communicate with IST8310.
 
-![image-20250730150751353](figures/image-20250730150751353.png)
+![image-20250905135202040](figures/image-20250905135202040.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Create a new stack and select `r_iic_master`. Then, configure the I2C2 settings as shown below:
 

@@ -184,13 +184,13 @@ The RA8 series MCUs (such as RA8P1) integrate a high-performance **Ethernet MAC*
 
 ETH0:
 
-![image-20250814130852786](figures/image-20250814130852786.png)
+![image-20250905134509713](figures/image-20250905134509713.png)
 
 ETH1:
 
-![image-20250814130701793](figures/image-20250814130701793.png)
+![image-20250905134424578](figures/image-20250905134424578.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Create a `r_mac` stack:
 

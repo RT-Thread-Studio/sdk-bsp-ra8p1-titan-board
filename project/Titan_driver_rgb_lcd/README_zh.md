@@ -91,7 +91,7 @@ RT-Thread 提供了 **统一的 LCD 驱动框架**，通过封装底层控制器
 
 ## 硬件说明
 
-<img src="figures/image-20250815130552333.png" alt="image-20250815130552333" style="zoom: 80%;" />
+![image-20250905135307931](figures/image-20250905135307931.png)
 
 ## FSP 配置
 

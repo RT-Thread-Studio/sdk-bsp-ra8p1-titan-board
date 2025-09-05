@@ -88,13 +88,13 @@ HID 通信基于 **端点（Endpoint）**：
 
 ## 硬件说明
 
-![image-20250815112503877](figures/image-20250815112503877.png)
+![image-20250905135809531](figures/image-20250905135809531.png)
 
 Titan Board 提供一个 USB-Device 外设，位于开发板的位置如下所示：
 
-![image-20250815112621372](figures/image-20250815112621372.png)
+![image-20250905135855760](figures/image-20250905135855760.png)
 
-## FSP配置说明
+## FSP 配置
 
 * 新建 `r_usb_hhid` stack。
 
@@ -108,7 +108,7 @@ Titan Board 提供一个 USB-Device 外设，位于开发板的位置如下所�
 
 ![image-20250815113705009](figures/image-20250815113705009.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 使能 USB HHID。
 

@@ -59,9 +59,9 @@ The RA8 series MCU provides an **Octal SPI / Quad SPI interface (OSPI)**, specif
 
 ## Hardware Description
 
-![image-20250730135427623](figures/image-20250730135427623.png)
+![image-20250905132908511](figures/image-20250905132908511.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Create a `r_ospi_b` stack:
 

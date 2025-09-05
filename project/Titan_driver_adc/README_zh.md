@@ -90,11 +90,11 @@ ADC16H 具有以下特性：
 
 ## 硬件说明
 
-![image-20250730141037247](figures/image-20250730141037247.png)
+如下面原理图所示，Titan Board 上留有 4 个 ADC 通道接口，分别为 adc0的通道0、1、2、3。
 
-如上述原理图所示：Titan Board 上留有 4 个 ADC 通道接口分别连接到单片机 adc0的通道0、1、2、3。
+![image-20250905133843508](figures/image-20250905133843508.png)
 
-## FSP配置说明
+## FSP 配置
 
 * 第一步：打开FSP导入xml配置文件；（或者直接点击 RT-Thread Studio 的 FSP 链接文件）；
 * 第二步：新建 r_adc Stack 配置 adc 设备以及所用通道;

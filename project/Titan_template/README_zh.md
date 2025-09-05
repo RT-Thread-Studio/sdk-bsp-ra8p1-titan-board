@@ -4,7 +4,7 @@
 
 ## 简介
 
-本文档为 RT-Thread Titan Board 开发板提供 BSP (板级支持包) 说明。通过阅读快速上手章节开发者可以快速地上手该 BSP，将 RT-Thread 运行在开发板上。
+本文档为 RT-Thread Titan Board 开发板提供 BSP (板级支持包) 说明。通过阅读快速上手章节，开发者可以快速地上手该 BSP，将 RT-Thread 运行在开发板上。
 
 主要内容如下：
 
@@ -52,7 +52,7 @@
 
 - 快速上手
 
-  本章节是为刚接触 RT-Thread 的新手准备的使用说明，遵循简单的步骤即可将 RT-Thread 操作系统运行在该开发板上，看到实验效果 。
+  本章节是为刚接触 RT-Thread 的新手准备的使用说明，遵循简单的步骤即可将 RT-Thread 操作系统运行在该开发板上，看到实验效果。
 - 进阶使用
 
   本章节是为需要在 RT-Thread 操作系统上使用更多开发板资源的开发者准备的。通过使用 FSP 和 RT-Thread Settings 工具对项目进行配置，可以开启更多板载资源，实现更多高级功能。
@@ -63,13 +63,9 @@
 
 **创建工程**
 
-* 下载 Titan Board 资源包、GNU_Tools_for_ARM_Embedded_Processors v13.2.1（如果下载失败，将 RT-Thread Studio 的资源下载源切换为 GitHub 源后重新下载）。
+* 下载 Titan Board 资源包、GNU_Tools_for_ARM_Embedded_Processors v13.3。
 
-![image-20250820103337128](figures/image-20250820103337128.png)
-
-​		切换资源下载源
-
-![image-20250820094820852](figures/image-20250820094820852.png)
+![image-20250905143443927](figures/image-20250905143443927.png)
 
 * 新建 RT-Thread 项目
 

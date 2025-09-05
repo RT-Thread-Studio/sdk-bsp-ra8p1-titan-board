@@ -65,7 +65,7 @@ RPMsg-Lite 基于 **virtio** 虚拟设备机制：
 
 无
 
-## FSP配置说明
+## FSP 配置
 
 * 新建两个 `r_ipc` stack：
 
@@ -79,7 +79,7 @@ RPMsg-Lite 基于 **virtio** 虚拟设备机制：
 
 ![image-20250829153357278](figures/image-20250829153357278.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 使能 sub-nuclear startup 和 rpmsg-lite。
 

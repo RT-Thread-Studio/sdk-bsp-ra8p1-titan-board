@@ -18,9 +18,9 @@ This template project provides the basic startup code, RT-Thread support, and pe
 
 Core1 uses UART5 as the debug serial port.
 
-![image-20250829135353615](figures/image-20250829135353615.png)
+![image-20250905140729392](figures/image-20250905140729392.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Create a `r_sci_b_uart` stack:
 

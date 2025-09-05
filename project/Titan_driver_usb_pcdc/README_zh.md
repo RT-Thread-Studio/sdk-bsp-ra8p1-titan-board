@@ -101,11 +101,15 @@ RA8 系列 MCU 内置 **USB PCDC（Peripheral CDC）模块**，专用于将 MCU 
 6. **事件回调上报**：将连接、配置、收发完成等事件通知应用
 7. **断开处理**：停止端点传输，释放缓冲区，处理拔出事件
 
-## 硬件说明
+## 硬件说明s
 
-![image-20250814173807855](figures/image-20250814173807855.png)
+![image-20250905135809531](figures/image-20250905135809531.png)
 
-## FSP配置说明
+Titan Board 提供一个 USB-Device 外设，位于开发板的位置如下所示：
+
+![image-20250905135855760](figures/image-20250905135855760.png)
+
+## FSP 配置
 
 * 新建 r_usb_pcdc stack：
 
@@ -127,7 +131,7 @@ RA8 系列 MCU 内置 **USB PCDC（Peripheral CDC）模块**，专用于将 MCU 
 >
 > ![image-20250902114517445](figures/image-20250902114517445.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 使能 USB PCDC。
 

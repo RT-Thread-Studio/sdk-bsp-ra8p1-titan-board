@@ -103,7 +103,11 @@ The RA8 Series MCU integrates a **USB PCDC (Peripheral CDC) module**, designed t
 
 ## Hardware Description
 
-![image-20250814173807855](figures/image-20250814173807855.png)
+![image-20250905135809531](figures/image-20250905135809531.png)
+
+Titan Board provides a USB-Device peripheral, located on the development board as shown below:
+
+![image-20250905135855760](figures/image-20250905135855760.png)
 
 ## FSP Configuration Configuration
 

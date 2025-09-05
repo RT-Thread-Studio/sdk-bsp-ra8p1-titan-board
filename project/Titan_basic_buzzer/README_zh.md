@@ -52,7 +52,13 @@
 
 > 注意：`period_ns/pulse_ns` 通常为 32 位数值，建议避免过低频率导致周期过大；若需要极低频，可考虑软件定时或分段播放。
 
-## FSP配置说明
+## 硬件说明
+
+蜂鸣器的引脚为 PA07。
+
+![image-20250905131643528](figures/image-20250905131643528.png)
+
+## FSP配置
 
 * FSP 配置使能 GPT7 为 PWM 模式：
 
@@ -62,7 +68,7 @@
 
 ![image-20250730145234806](figures/image-20250730145234806.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 在配置中打开 PWM7 使能：
 

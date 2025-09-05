@@ -177,7 +177,7 @@ RT-Thread 提供统一的 **RTC 驱动框架**，抽象底层硬件接口，提�
 
 本例程使用的RTC 设备依赖于LOCO 时钟，此外无需过多连接。
 
-## FSP配置说明
+## FSP 配置
 
 * 打开 FSP，选择对应的工程文件下的 configuration.xml，新增 RTC Stack;
 
@@ -187,7 +187,7 @@ RT-Thread 提供统一的 **RTC 驱动框架**，抽象底层硬件接口，提�
 
 ![image-20250728125146813](figures/image-20250728125146813.png)
 
-## RT-Thread Settings配置
+## RT-Thread Settings 配置
 
 * 打开 RT-Thread Settings，找到硬件选项，使能 RTC；
 

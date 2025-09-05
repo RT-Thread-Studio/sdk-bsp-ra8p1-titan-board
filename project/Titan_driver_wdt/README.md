@@ -196,7 +196,7 @@ rt_device_close(wdg_dev);
 
 None
 
-## FSP Configuration Instructions
+## FSP Configuration
 
 * Open the FSP tool and create a new stack, selecting `r_wdt`.
 
