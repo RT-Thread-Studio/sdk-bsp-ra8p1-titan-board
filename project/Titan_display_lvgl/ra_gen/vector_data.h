@@ -34,8 +34,8 @@
         #define GLCDC_LINE_DETECT_IRQn          ((IRQn_Type) 4) /* GLCDC LINE DETECT (Specified line) */
         #define VECTOR_NUMBER_DRW_INT ((IRQn_Type) 5) /* DRW INT (DRW interrupt) */
         #define DRW_INT_IRQn          ((IRQn_Type) 5) /* DRW INT (DRW interrupt) */
-        #define VECTOR_NUMBER_ICU_IRQ26 ((IRQn_Type) 6) /* ICU IRQ26 (External pin interrupt 26) */
-        #define ICU_IRQ26_IRQn          ((IRQn_Type) 6) /* ICU IRQ26 (External pin interrupt 26) */
+        #define VECTOR_NUMBER_ICU_IRQ28 ((IRQn_Type) 6) /* ICU IRQ28 (External pin interrupt 28) */
+        #define ICU_IRQ28_IRQn          ((IRQn_Type) 6) /* ICU IRQ28 (External pin interrupt 28) */
         #define VECTOR_NUMBER_IIC0_RXI ((IRQn_Type) 7) /* IIC0 RXI (Receive data full) */
         #define IIC0_RXI_IRQn          ((IRQn_Type) 7) /* IIC0 RXI (Receive data full) */
         #define VECTOR_NUMBER_IIC0_TXI ((IRQn_Type) 8) /* IIC0 TXI (Transmit data empty) */

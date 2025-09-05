@@ -286,9 +286,9 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 23U) /* External IRQ23 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 24U) /* External IRQ24 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 25U) /* External IRQ25 */ | \
-            (((1 > 0) ? 0U : 1U) << 26U) /* External IRQ26 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26U) /* External IRQ26 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27U) /* External IRQ27 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28U) /* External IRQ28 */ | \
+            (((1 > 0) ? 0U : 1U) << 28U) /* External IRQ28 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 29U) /* External IRQ29 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 30U) /* External IRQ30 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31U) /* External IRQ31 */)

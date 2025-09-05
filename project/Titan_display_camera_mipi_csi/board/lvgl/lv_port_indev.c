@@ -18,7 +18,7 @@
 
 #include "hal_data.h"
 
-#define GT9147_IRQ_PIN   BSP_IO_PORT_05_PIN_02
+#define GT9147_IRQ_PIN   BSP_IO_PORT_00_PIN_07
 #define GT9147_RST_PIN   BSP_IO_PORT_04_PIN_12
 
 static rt_device_t touch_dev;
@@ -104,7 +104,7 @@ rt_err_t gt9147_probe(rt_uint16_t x, rt_uint16_t y)
 }
 
 #define RST_PIN   "p412"
-#define INT_PIN   "p502"
+#define INT_PIN   "p007"
 
 rt_err_t rt_hw_gt9147_register(void)
 {

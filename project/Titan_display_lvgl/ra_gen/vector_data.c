@@ -10,7 +10,7 @@
             [3] = sci_b_uart_eri_isr, /* SCI8 ERI (Receive error) */
             [4] = glcdc_line_detect_isr, /* GLCDC LINE DETECT (Specified line) */
             [5] = drw_int_isr, /* DRW INT (DRW interrupt) */
-            [6] = r_icu_isr, /* ICU IRQ26 (External pin interrupt 26) */
+            [6] = r_icu_isr, /* ICU IRQ28 (External pin interrupt 28) */
             [7] = iic_master_rxi_isr, /* IIC0 RXI (Receive data full) */
             [8] = iic_master_txi_isr, /* IIC0 TXI (Transmit data empty) */
             [9] = iic_master_tei_isr, /* IIC0 TEI (Transmit end) */
@@ -25,7 +25,7 @@
             [3] = BSP_PRV_VECT_ENUM(EVENT_SCI8_ERI,GROUP3), /* SCI8 ERI (Receive error) */
             [4] = BSP_PRV_VECT_ENUM(EVENT_GLCDC_LINE_DETECT,GROUP4), /* GLCDC LINE DETECT (Specified line) */
             [5] = BSP_PRV_VECT_ENUM(EVENT_DRW_INT,GROUP5), /* DRW INT (DRW interrupt) */
-            [6] = BSP_PRV_VECT_ENUM(EVENT_ICU_IRQ26,GROUP6), /* ICU IRQ26 (External pin interrupt 26) */
+            [6] = BSP_PRV_VECT_ENUM(EVENT_ICU_IRQ28,GROUP6), /* ICU IRQ28 (External pin interrupt 28) */
             [7] = BSP_PRV_VECT_ENUM(EVENT_IIC0_RXI,GROUP7), /* IIC0 RXI (Receive data full) */
             [8] = BSP_PRV_VECT_ENUM(EVENT_IIC0_TXI,GROUP0), /* IIC0 TXI (Transmit data empty) */
             [9] = BSP_PRV_VECT_ENUM(EVENT_IIC0_TEI,GROUP1), /* IIC0 TEI (Transmit end) */
