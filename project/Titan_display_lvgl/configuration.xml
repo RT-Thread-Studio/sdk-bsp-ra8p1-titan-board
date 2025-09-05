@@ -793,8 +793,8 @@
     </module>
     <module id="module.driver.tes.dave2d.1209260772"/>
     <module id="module.driver.external_irq_on_icu.414288274">
-      <property id="module.driver.external_irq.name" value="g_external_irq26"/>
-      <property id="module.driver.external_irq.channel" value="26"/>
+      <property id="module.driver.external_irq.name" value="g_external_irq28"/>
+      <property id="module.driver.external_irq.channel" value="28"/>
       <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_rising"/>
       <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.false"/>
       <property id="module.driver.external_irq.filter_source" value="module.driver.external_irq.filter_source.pclk"/>
@@ -1186,7 +1186,7 @@
       <configSetting altId="iic0.mode.custom.free" configurationId="iic0.mode"/>
       <configSetting altId="iic0.scl0.p410" configurationId="iic0.scl0"/>
       <configSetting altId="iic0.sda0.p409" configurationId="iic0.sda0"/>
-      <configSetting altId="irq.irq26.p502" configurationId="irq.irq26"/>
+      <configSetting altId="irq.irq28.p007" configurationId="irq.irq28"/>
       <configSetting altId="irq.mode.custom.free" configurationId="irq.mode"/>
       <configSetting altId="jtag_fslash_swd.mode.jtag.free" configurationId="jtag_fslash_swd.mode"/>
       <configSetting altId="jtag_fslash_swd.tck.p211" configurationId="jtag_fslash_swd.tck"/>
@@ -1215,6 +1215,9 @@
       <configSetting altId="p006.input" configurationId="p006"/>
       <configSetting altId="p006.gpio_irq.gpio_irq_enabled" configurationId="p006.gpio_irq"/>
       <configSetting altId="p006.gpio_mode.gpio_mode_in" configurationId="p006.gpio_mode"/>
+      <configSetting altId="p007.irq.irq28" configurationId="p007"/>
+      <configSetting altId="p007.gpio_irq.gpio_irq_enabled" configurationId="p007.gpio_irq"/>
+      <configSetting altId="p007.gpio_mode.gpio_mode_irq" configurationId="p007.gpio_mode"/>
       <configSetting altId="p008.input" configurationId="p008"/>
       <configSetting altId="p008.gpio_irq.gpio_irq_enabled" configurationId="p008.gpio_irq"/>
       <configSetting altId="p008.gpio_mode.gpio_mode_in" configurationId="p008.gpio_mode"/>
@@ -1274,9 +1277,6 @@
       <configSetting altId="p501.sci8.txd8" configurationId="p501"/>
       <configSetting altId="p501.gpio_speed.gpio_speed_h" configurationId="p501.gpio_drivecapacity"/>
       <configSetting altId="p501.gpio_mode.gpio_mode_peripheral" configurationId="p501.gpio_mode"/>
-      <configSetting altId="p502.irq.irq26" configurationId="p502"/>
-      <configSetting altId="p502.gpio_irq.gpio_irq_enabled" configurationId="p502.gpio_irq"/>
-      <configSetting altId="p502.gpio_mode.gpio_mode_irq" configurationId="p502.gpio_mode"/>
       <configSetting altId="p513.glcdc.lcd_tcon3" configurationId="p513"/>
       <configSetting altId="p513.gpio_mode.gpio_mode_peripheral" configurationId="p513.gpio_mode"/>
       <configSetting altId="p514.output.low" configurationId="p514"/>

@@ -99,13 +99,13 @@ To run this example, an external RGB565 LCD screen is required. The 40-pin RGB56
 
 ![image-20250901142935913](figures/image-20250901142935913.png)
 
-* Configure IRQ26:
+* Configure IRQ28:
 
-![image-20250901143221357](figures/image-20250901143221357.png)
+![image-20250905145318536](figures/image-20250905145318536.png)
 
-* Configure IRQ26 pins:
+* Configure IRQ28 pins:
 
-![image-20250901143316514](figures/image-20250901143316514.png)
+![image-20250905145431587](figures/image-20250905145431587.png)
 
 ## RT-Thread Settings Configuration
 

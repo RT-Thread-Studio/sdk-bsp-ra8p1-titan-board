@@ -1,16 +1,16 @@
 /* generated common source file - do not edit */
 #include "common_data.h"
-icu_instance_ctrl_t g_external_irq26_ctrl;
+icu_instance_ctrl_t g_external_irq28_ctrl;
 
 /** External IRQ extended configuration for ICU HAL driver */
-const icu_extended_cfg_t g_external_irq26_ext_cfg =
+const icu_extended_cfg_t g_external_irq28_ext_cfg =
 {
     .filter_src         = EXTERNAL_IRQ_DIGITAL_FILTER_PCLK_DIV,
 };
 
-const external_irq_cfg_t g_external_irq26_cfg =
+const external_irq_cfg_t g_external_irq28_cfg =
 {
-    .channel             = 26,
+    .channel             = 28,
     .trigger             = EXTERNAL_IRQ_TRIG_RISING,
     .filter_enable       = false,
     .clock_source_div            = EXTERNAL_IRQ_CLOCK_SOURCE_DIV_64,
@@ -21,19 +21,19 @@ const external_irq_cfg_t g_external_irq26_cfg =
 #else
     .p_context           = (void *) &NULL,
 #endif
-    .p_extend            = (void *)&g_external_irq26_ext_cfg,
+    .p_extend            = (void *)&g_external_irq28_ext_cfg,
     .ipl                 = (8),
-#if defined(VECTOR_NUMBER_ICU_IRQ26)
-    .irq                 = VECTOR_NUMBER_ICU_IRQ26,
+#if defined(VECTOR_NUMBER_ICU_IRQ28)
+    .irq                 = VECTOR_NUMBER_ICU_IRQ28,
 #else
     .irq                 = FSP_INVALID_VECTOR,
 #endif
 };
 /* Instance structure to use this module. */
-const external_irq_instance_t g_external_irq26 =
+const external_irq_instance_t g_external_irq28 =
 {
-    .p_ctrl        = &g_external_irq26_ctrl,
-    .p_cfg         = &g_external_irq26_cfg,
+    .p_ctrl        = &g_external_irq28_ctrl,
+    .p_cfg         = &g_external_irq28_cfg,
     .p_api         = &g_external_irq_on_icu
 };
 const uint8_t DRW_INT_IPL = (2);
