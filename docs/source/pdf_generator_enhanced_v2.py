@@ -813,6 +813,13 @@ class PDFGeneratorV2:
         label_version = ('版本' if language == 'zh' else 'Version')
         label_language = ('语言' if language == 'zh' else 'Language')
         label_generated = ('生成时间' if language == 'zh' else 'Generated on')
+        
+        # 获取项目描述
+        project_description = ''
+        if language == 'zh':
+            project_description = self.project_meta.get('description', '')
+        else:
+            project_description = self.project_meta.get('description_en', '') or self.project_meta.get('description', '')
 
         # 封面信息（徽章 + 详情行）
         badge_lang = ('中文' if language == 'zh' else 'English')
@@ -856,6 +863,11 @@ class PDFGeneratorV2:
             meta_details_html = '<div class="meta-details">' + ''.join(lines) + '</div>'
         else:
             meta_details_html = ''
+
+        # 生成项目描述HTML
+        project_description_html = ''
+        if project_description:
+            project_description_html = f'<div class="cover-description">{project_description}</div>'
 
         html_template = f'''<!DOCTYPE html>
 <html lang="{lang_attr}">
@@ -910,6 +922,18 @@ class PDFGeneratorV2:
             color: #7f8c8d;
             margin-top: 0.6em;
             margin-bottom: 1.6em;
+        }}
+        
+        .cover-description {{
+            font-size: 1em;
+            color: #5a6c7d;
+            margin: 0 auto 1.5em auto;
+            max-width: 80%;
+            text-align: center;
+            line-height: 1.6;
+            font-style: italic;
+            display: block;
+            width: 100%;
         }}
 
         .cover-footer {{
@@ -1304,6 +1328,7 @@ class PDFGeneratorV2:
         <div class="cover-title">{title}</div>
         <div class="cover-subtitle">{cover_subtitle}</div>
         <div class="cover-footer">
+            {project_description_html}
             {meta_badges_html}
             {meta_details_html}
         </div>
@@ -1328,7 +1353,7 @@ class PDFGeneratorV2:
 
     def _load_project_meta(self) -> Dict[str, str]:
         """从 docs/source/config.yaml 读取项目信息（名称、版本、版权等）"""
-        meta = {"name": "", "version": "", "copyright": "", "website": ""}
+        meta = {"name": "", "version": "", "copyright": "", "website": "", "description": "", "description_en": ""}
         try:
             cfg_path = Path(__file__).parent / 'config.yaml'
             if cfg_path.exists():
@@ -1339,6 +1364,8 @@ class PDFGeneratorV2:
                     meta["name"] = proj.get('name', '')
                     meta["version"] = proj.get('version', '')
                     meta["website"] = proj.get('website', '')
+                    meta["description"] = proj.get('description', '')
+                    meta["description_en"] = proj.get('description_en', '')
                     meta["copyright"] = (proj.get('copyright')
                         or (cfg.get('project', {}).get('copyright'))
                         or '')

@@ -62,16 +62,42 @@ jobs:
       - name: Setup Google Chrome for headless PDF
         uses: browser-actions/setup-chrome@v1
 
-      - name: Install Chinese fonts for PDF rendering
+      - name: Install fonts and locale support
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             fonts-noto-cjk fonts-wqy-zenhei fonts-wqy-microhei \
-            fonts-arphic-uming fonts-arphic-ukai
+            fonts-arphic-uming fonts-arphic-ukai \
+            locales
+          # 生成中英文locale
+          sudo locale-gen zh_CN.UTF-8
+          sudo locale-gen zh_CN.GBK
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen en_GB.UTF-8
           sudo fc-cache -f -v || true
 
+      - name: Verify locale support
+        run: |
+          echo "=== 验证locale支持 ==="
+          echo "可用的locale列表:"
+          locale -a | grep -E "(zh|en)" || echo "警告: 未找到中英文locale"
+          echo "当前LANG: $LANG"
+          echo "当前LC_ALL: $LC_ALL"
+          echo "=== 测试中文locale ==="
+          export LANG=zh_CN.UTF-8
+          export LC_ALL=zh_CN.UTF-8
+          echo "中文LANG: $LANG"
+          echo "中文LC_ALL: $LC_ALL"
+          python3 -c "import locale; print('中文Python locale:', locale.getlocale())"
+          echo "=== 测试英文locale ==="
+          export LANG=en_US.UTF-8
+          export LC_ALL=en_US.UTF-8
+          echo "英文LANG: $LANG"
+          echo "英文LC_ALL: $LC_ALL"
+          python3 -c "import locale; print('英文Python locale:', locale.getlocale())"
+          
       - name: List version configurations
         run: |
           cd docs/source
@@ -80,11 +106,19 @@ jobs:
 
       - name: Build all versions
         env:
-          LANG: C.UTF-8
-          LC_ALL: C.UTF-8
           CHROME_PATH: ${{ env.CHROME_PATH }}
         run: |
           cd docs/source
+          echo "=== 构建环境信息 ==="
+          echo "LANG: $LANG"
+          echo "LC_ALL: $LC_ALL"
+          echo "LC_CTYPE: $LC_CTYPE"
+          echo "可用的locale:"
+          locale -a | grep -E "(zh|en)" | head -10
+          python3 -c "import locale; print('Python locale:', locale.getlocale())"
+          echo "=== 开始构建 ==="
+          echo "注意: 构建管理器将分别为中英文设置正确的locale环境变量"
+          # 不设置全局locale，让构建管理器自己控制
           python build_manager.py --clean
 
       - name: Upload build artifacts

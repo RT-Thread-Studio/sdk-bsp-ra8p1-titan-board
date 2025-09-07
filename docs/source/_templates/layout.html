@@ -7,7 +7,6 @@
       <div class="sdk-footer__left">
         <strong>{{ project|e }}</strong>
         {% if release %}<span class="sdk-footer__sep">•</span> 版本：{{ release|e }}{% endif %}
-        {% if copyright %}<span class="sdk-footer__sep">•</span> {{ copyright|e }}{% endif %}
       </div>
       <div class="sdk-footer__right">
         构建时间：<span id="sdk-build-time"></span>
@@ -26,6 +25,7 @@
     })();
   </script>
 {% endblock %}
+
 
 {% block extrahead %}
   {{ super() }}

@@ -37,7 +37,14 @@ author = project_config.get('author', 'unknown')
 
 # The full version, including alpha/beta/rc tags
 release = project_config.get('version', '0.0.1')
-master_doc = 'index'
+# 动态设置主文档：优先使用环境变量，否则使用默认值
+import os
+master_doc = os.environ.get('SPHINX_MASTER_DOC', 'index_zh')
+
+# 如果通过命令行参数指定了master_doc，则使用命令行参数的值
+# 这需要在构建脚本中通过环境变量传递
+if 'SPHINX_MASTER_DOC_OVERRIDE' in os.environ:
+    master_doc = os.environ['SPHINX_MASTER_DOC_OVERRIDE']
 
 # -- General configuration ---------------------------------------------------
 
@@ -59,21 +66,35 @@ templates_path = ['_templates']
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = project_config.get('language', 'zh_CN')
+# 优先使用环境变量，然后使用配置文件，最后使用默认值
+language = os.environ.get('SPHINX_LANGUAGE', project_config.get('language', 'zh_CN'))
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = [
+# 基础排除模式
+base_exclude_patterns = [
     'MIGRATION_GUIDE.md',
     'OPTIMIZATION_SUMMARY.md',
-    'README.md',
+    'README_NEW_BUILD_SYSTEM.md',
     'requirements.txt',
     'utils/',
     '_templates/',
     '_static/',
     '_build/',
 ]
+
+# 根据环境变量设置文档排除模式
+exclude_patterns = base_exclude_patterns.copy()
+if 'SPHINX_EXCLUDE_PATTERNS' in os.environ:
+    env_exclude_patterns = os.environ['SPHINX_EXCLUDE_PATTERNS'].split(',')
+    env_exclude_patterns = [pattern.strip() for pattern in env_exclude_patterns if pattern.strip()]
+    exclude_patterns.extend(env_exclude_patterns)
+
+# 调试信息
+print(f"DEBUG: master_doc = {master_doc}")
+print(f"DEBUG: language = {language}")
+print(f"DEBUG: exclude_patterns = {exclude_patterns}")
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -118,8 +139,8 @@ myst_url_schemes = ('http', 'https', 'mailto', 'ftp')
 
 # 图片路径配置
 html_extra_path = []
-html_css_files = ['version_menu.css', 'custom.css', 'pdf_button.css', 'edit_button.css']
-html_js_files = ['version_menu.js', 'download_pdf.js', 'version_info.js', 'edit_on_github.js']
+html_css_files = ['version_menu.css', 'custom.css', 'pdf_button.css', 'edit_button.css', 'language_switch.css', 'dark_mode.css']
+html_js_files = ['version_menu.js', 'download_pdf.js', 'version_info.js', 'edit_on_github.js', 'language_switch.js']
 
 # 配置图片路径处理
 html_favicon = None
@@ -165,17 +186,13 @@ is_github_actions = os.environ.get('GITHUB_ACTIONS') == 'true'
 if is_github_actions:
     # GitHub Pages环境：使用相对URL
     html_use_relative_urls = True
-    html_baseurl = None
+    html_baseurl = ""
 else:
     # 本地构建环境：使用相对URL，但禁用canonical链接
     html_use_relative_urls = True
-    html_baseurl = None
+    html_baseurl = ""
     # 禁用canonical链接以避免错误的绝对路径
     html_show_sourcelink = False
-    # 禁用canonical链接
-    html_use_relative_urls = True
-    # 设置空的canonical URL
-    html_baseurl = ""
 
 
 # 传递编辑基础 URL 给模板/前端脚本

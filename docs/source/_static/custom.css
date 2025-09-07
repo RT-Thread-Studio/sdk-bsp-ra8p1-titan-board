@@ -30,3 +30,58 @@
     clear: both;
 }
 
+/* 统一中英文界面字体大小设置 */
+/* 确保侧边栏导航字体大小一致 */
+.wy-nav-side .wy-menu {
+    font-size: 14px !important;
+}
+
+.wy-nav-side .wy-menu a {
+    font-size: 14px !important;
+}
+
+.wy-nav-side .wy-menu .toctree-l1 > a {
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.wy-nav-side .wy-menu .toctree-l2 > a {
+    font-size: 13px !important;
+    font-weight: 500;
+}
+
+.wy-nav-side .wy-menu .toctree-l3 > a {
+    font-size: 12px !important;
+    font-weight: 400;
+}
+
+.wy-nav-side .wy-menu .toctree-l4 > a {
+    font-size: 11px !important;
+    font-weight: 400;
+}
+
+/* 确保语言切换UI字体大小与PDF按钮一致 */
+.wy-nav-side .language-switch {
+    font-size: 12px !important;
+}
+
+.wy-nav-side .language-switch__option {
+    font-size: 12px !important;
+    font-weight: 600;
+}
+
+/* 确保搜索框字体大小一致 */
+.wy-nav-side .wy-side-nav-search input[type="text"] {
+    font-size: 14px !important;
+}
+
+/* 确保标题字体大小一致 */
+.wy-nav-side .wy-side-nav-search .icon {
+    font-size: 16px !important;
+}
+
+.wy-nav-side .caption {
+    font-size: 14px !important;
+    font-weight: 600;
+}
+

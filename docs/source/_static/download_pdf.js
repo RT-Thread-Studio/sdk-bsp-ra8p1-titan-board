@@ -67,36 +67,57 @@
       var zhPdfName = baseName + '.pdf';
       var enPdfName = baseName.replace(/\s+/g, '_') + '_EN.pdf';
 
-      // 中文按钮
-      var btnZh = document.createElement('a');
-      btnZh.href = staticBase + zhPdfName;
-      btnZh.setAttribute('download', displayName + '.pdf');
-      btnZh.setAttribute('aria-label', '下载 ' + displayName + ' 中文 PDF');
-      btnZh.className = 'sdk-download-pdf-btn sdk-download-pdf-btn--zh';
-      btnZh.innerHTML = '\n        <span class="sdk-pdf-icon" aria-hidden="true">\u2B07\uFE0F</span>\n        <span class="sdk-pdf-text">中文 PDF</span>\n      ';
+      // 检测当前语言
+      var currentLanguage = detectCurrentLanguage();
+      console.log('PDF下载UI检测到当前语言:', currentLanguage);
 
-      // 英文按钮
-      var btnEn = document.createElement('a');
-      btnEn.href = staticBase + enPdfName;
-      btnEn.setAttribute('download', (displayName || 'SDK Docs') + '_EN.pdf');
-      btnEn.setAttribute('aria-label', 'Download ' + (displayName || 'SDK Docs') + ' English PDF');
-      btnEn.className = 'sdk-download-pdf-btn sdk-download-pdf-btn--en';
-      btnEn.innerHTML = '\n        <span class="sdk-pdf-icon" aria-hidden="true">\u2B07\uFE0F</span>\n        <span class="sdk-pdf-text">English PDF</span>\n      ';
+      // 根据当前语言创建对应的按钮
+      var button = null;
+      if (currentLanguage === 'zh') {
+        // 中文按钮
+        button = document.createElement('a');
+        button.href = staticBase + zhPdfName;
+        button.setAttribute('download', displayName + '.pdf');
+        button.setAttribute('aria-label', '下载 ' + displayName + '下载 PDF');
+        button.className = 'sdk-download-pdf-btn sdk-download-pdf-btn--zh';
+        button.innerHTML = '\n        <span class="sdk-pdf-icon" aria-hidden="true">\u2B07\uFE0F</span>\n        <span class="sdk-pdf-text">下载 PDF</span>\n      ';
+      } else {
+        // 英文按钮
+        button = document.createElement('a');
+        button.href = staticBase + enPdfName;
+        button.setAttribute('download', (displayName || 'SDK Docs') + '_EN.pdf');
+        button.setAttribute('aria-label', 'Download ' + (displayName || 'SDK Docs') + 'Download PDF');
+        button.className = 'sdk-download-pdf-btn sdk-download-pdf-btn--en';
+        button.innerHTML = '\n        <span class="sdk-pdf-icon" aria-hidden="true">\u2B07\uFE0F</span>\n        <span class="sdk-pdf-text">Download PDF</span>\n      ';
+      }
 
       // 将按钮添加到容器
-      wrapper.appendChild(btnZh);
-      wrapper.appendChild(btnEn);
+      wrapper.appendChild(button);
 
-      // 仅当至少一个PDF存在时显示容器
-      Promise.all([fileExists(btnZh.href), fileExists(btnEn.href)]).then(function(results){
-        var anyExists = results.some(function(x){ return !!x; });
-        wrapper.style.visibility = anyExists ? 'visible' : 'hidden';
-        if (!anyExists) wrapper.remove();
-        // 若单个不存在，隐藏对应按钮
-        if (!results[0]) btnZh.style.display = 'none';
-        if (!results[1]) btnEn.style.display = 'none';
+      // 检查PDF文件是否存在
+      fileExists(button.href).then(function(exists){
+        wrapper.style.visibility = exists ? 'visible' : 'hidden';
+        if (!exists) wrapper.remove();
       });
     });
+  }
+
+  /**
+   * 检测当前页面的语言
+   */
+  function detectCurrentLanguage() {
+    const htmlLang = document.documentElement.getAttribute('lang');
+    const currentPath = window.location.pathname;
+    
+    // 根据HTML lang属性和URL路径判断语言
+    if (htmlLang === 'zh-CN' || currentPath.includes('_zh.html')) {
+      return 'zh';
+    } else if (htmlLang === 'en' || currentPath.endsWith('.html')) {
+      return 'en';
+    }
+    
+    // 默认返回英文
+    return 'en';
   }
 
   if (document.readyState === 'loading') {

@@ -3,10 +3,11 @@ project:
   name: "Titan-Board SDK"
   title: "Titan-Board"
   description: "Titan Board 开发板是 RT-Thread 推出基于瑞萨 Cortex-M85 与 Cortex-M33 双核架构 R7KA8P1 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在嵌入式物联网领域获得更深层次的体验。"
+  description_en: "Titan Board is the R7KA8P1 chip based on Renesas Cortex-M85 and Cortex-M33 dual-core architecture launched by RT-Thread, which provides a flexible and comprehensive development platform for engineers and helps developers obtain a deeper experience in the field of embedded Internet of things."
   version: "1.0.0"
   author: "RealThread"
   copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
-  language: "zh_CN"
+  # language: "zh_CN"
   website: "www.rt-thread.org"
 
 # 仓库配置

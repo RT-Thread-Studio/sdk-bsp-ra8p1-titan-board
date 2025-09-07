@@ -1,0 +1,26 @@
+{# 自定义全局目录模板，支持4级导航深度 #}
+{%- if theme_navigation_depth %}
+  {%- set navigation_depth = theme_navigation_depth %}
+{%- else %}
+  {%- set navigation_depth = 4 %}
+{%- endif %}
+
+<div class="globaltoc">
+  <h3><a href="{{ pathto(master_doc) }}">{{ _('Table of Contents') }}</a></h3>
+  {{ toctree(maxdepth=navigation_depth, collapse=False, includehidden=True, titles_only=False) }}
+</div>
+
+{# 中英文切换UI - 位于多级目录下方，作为独立的区域 #}
+<div class="language-switch-container">
+  <div class="language-switch" id="language-switch">
+    <div class="language-switch__container">
+      <button class="language-switch__option" data-lang="chinese" aria-label="切换到中文">
+        中文
+      </button>
+      <span class="language-switch__separator">|</span>
+      <button class="language-switch__option" data-lang="english" aria-label="Switch to English">
+        English
+      </button>
+    </div>
+  </div>
+</div>
