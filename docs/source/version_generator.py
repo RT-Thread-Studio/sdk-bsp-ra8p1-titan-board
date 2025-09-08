@@ -18,9 +18,7 @@ def load_versions():
     """从 versions.json 文件加载版本列表"""
     # 尝试多个可能的路径
     possible_paths = [
-        Path("../.github/versions.json"),  # 从根目录运行
-        Path("../../.github/versions.json"),  # 从docs/source运行
-        Path(".github/versions.json"),  # 从项目根目录运行
+        Path("../../.github/versions.json")  # 从docs/source运行
     ]
     
     versions_file = None
