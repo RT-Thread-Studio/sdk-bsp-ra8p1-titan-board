@@ -22,49 +22,14 @@
             let config = null;
             let configPath = '';
             
-            if (isLocalFileSystem) {
-                // 本地文件系统：优先使用嵌入的版本配置
-                console.log('本地文件系统，使用嵌入的版本配置');
-                const embeddedConfig = getEmbeddedVersionConfig();
-                if (embeddedConfig) {
-                    config = embeddedConfig;
-                    configPath = 'embedded';
-                    console.log('使用嵌入的版本配置');
-                } else {
-                    console.log('嵌入配置不可用，尝试其他方法');
-                }
+            console.log('本地文件系统，使用嵌入的版本配置');
+            const embeddedConfig = getEmbeddedVersionConfig();
+            if (embeddedConfig) {
+                config = embeddedConfig;
+                configPath = 'embedded';
+                console.log('使用嵌入的版本配置');
             } else {
-                // 网络环境：尝试加载配置文件
-                const possiblePaths = [
-                    // 当前版本的配置文件（优先）
-                    './_static/version_config.json',
-                    '_static/version_config.json',
-                    '/_static/version_config.json',
-                    '../_static/version_config.json',
-                    '../../_static/version_config.json',
-                    
-                    // 根目录通用配置文件（备选）
-                    '../version_config.json',
-                    '../../version_config.json',
-                    '/version_config.json',
-                    './version_config.json',
-                    'version_config.json'
-                ];
-                
-                for (const path of possiblePaths) {
-                    try {
-                        console.log('尝试加载配置文件:', path);
-                        const response = await fetch(path);
-                        if (response.ok) {
-                            config = await response.json();
-                            configPath = path;
-                            console.log('成功加载配置文件:', path);
-                            break;
-                        }
-                    } catch (e) {
-                        console.log('路径失败:', path, e.message);
-                    }
-                }
+                console.log('嵌入配置不可用，尝试其他方法');
             }
             
             // 如果仍然没有配置，使用嵌入的配置作为兜底
