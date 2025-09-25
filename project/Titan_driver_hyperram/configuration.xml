@@ -345,7 +345,7 @@
     <node id="board.clock.u60ck.div" option="board.clock.u60ck.div.8"/>
     <node id="board.clock.u60ck.display" option="board.clock.u60ck.display.value"/>
     <node id="board.clock.octaspiclk.source" option="board.clock.octaspiclk.source.pll1q"/>
-    <node id="board.clock.octaspiclk.div" option="board.clock.octaspiclk.div.2"/>
+    <node id="board.clock.octaspiclk.div" option="board.clock.octaspiclk.div.1"/>
     <node id="board.clock.octaspiclk.display" option="board.clock.octaspiclk.display.value"/>
     <node id="board.clock.adcclk.source" option="board.clock.adcclk.source.pll2r"/>
     <node id="board.clock.adcclk.div" option="board.clock.adcclk.div.4"/>
@@ -483,7 +483,7 @@
       <property id="module.driver.ospi_b.sdr_timing.drive_timing" value="module.driver.ospi_b.sdr_timing.drive_timing.before_ck_rising"/>
       <property id="module.driver.ospi_b.sdr_timing.ck_sampling_edge" value="module.driver.ospi_b.sdr_timing.ck_sampling_edge.falling"/>
       <property id="module.driver.ospi_b.sdr_timing.sampling_delay" value="module.driver.ospi_b.sdr_timing.sampling_delay.none"/>
-      <property id="module.driver.ospi_b.ddr_timing.sampling_extension" value="module.driver.ospi_b.ddr_timing.sampling_extension.none"/>
+      <property id="module.driver.ospi_b.ddr_timing.sampling_extension" value="module.driver.ospi_b.ddr_timing.sampling_extension.1"/>
       <property id="module.driver.ospi_b.xip.enter_code" value="0"/>
       <property id="module.driver.ospi_b.xip.exit_code" value="0"/>
       <property id="module.driver.ospi_b.dotf.name" value="g_ospi_dotf"/>
@@ -945,22 +945,25 @@
       <configSetting altId="p514.gpio_speed.gpio_speed_m" configurationId="p514.gpio_drivecapacity"/>
       <configSetting altId="p514.gpio_mode.gpio_mode_out.low" configurationId="p514.gpio_mode"/>
       <configSetting altId="p602.ospi1.om_1_sclkn" configurationId="p602"/>
-      <configSetting altId="p602.gpio_speed.gpio_speed_hh" configurationId="p602.gpio_drivecapacity"/>
+      <configSetting altId="p602.gpio_speed.gpio_speed_h" configurationId="p602.gpio_drivecapacity"/>
       <configSetting altId="p602.gpio_mode.gpio_mode_peripheral" configurationId="p602.gpio_mode"/>
       <configSetting altId="p603.ospi1.om_1_sclk" configurationId="p603"/>
-      <configSetting altId="p603.gpio_speed.gpio_speed_hh" configurationId="p603.gpio_drivecapacity"/>
+      <configSetting altId="p603.gpio_speed.gpio_speed_h" configurationId="p603.gpio_drivecapacity"/>
       <configSetting altId="p603.gpio_mode.gpio_mode_peripheral" configurationId="p603.gpio_mode"/>
       <configSetting altId="p604.ospi1.om_1_sio7" configurationId="p604"/>
-      <configSetting altId="p604.gpio_speed.gpio_speed_hh" configurationId="p604.gpio_drivecapacity"/>
+      <configSetting altId="p604.gpio_speed.gpio_speed_h" configurationId="p604.gpio_drivecapacity"/>
       <configSetting altId="p604.gpio_mode.gpio_mode_peripheral" configurationId="p604.gpio_mode"/>
+      <configSetting altId="p604.gpio_pupd.gpio_pupd_ip_up" configurationId="p604.gpio_pupd"/>
       <configSetting altId="p605.ospi1.om_1_sio1" configurationId="p605"/>
-      <configSetting altId="p605.gpio_speed.gpio_speed_hh" configurationId="p605.gpio_drivecapacity"/>
+      <configSetting altId="p605.gpio_speed.gpio_speed_h" configurationId="p605.gpio_drivecapacity"/>
       <configSetting altId="p605.gpio_mode.gpio_mode_peripheral" configurationId="p605.gpio_mode"/>
+      <configSetting altId="p605.gpio_pupd.gpio_pupd_ip_up" configurationId="p605.gpio_pupd"/>
       <configSetting altId="p606.ospi1.om_1_sio6" configurationId="p606"/>
-      <configSetting altId="p606.gpio_speed.gpio_speed_hh" configurationId="p606.gpio_drivecapacity"/>
+      <configSetting altId="p606.gpio_speed.gpio_speed_h" configurationId="p606.gpio_drivecapacity"/>
       <configSetting altId="p606.gpio_mode.gpio_mode_peripheral" configurationId="p606.gpio_mode"/>
+      <configSetting altId="p606.gpio_pupd.gpio_pupd_ip_up" configurationId="p606.gpio_pupd"/>
       <configSetting altId="p607.ospi1.om_1_dqs" configurationId="p607"/>
-      <configSetting altId="p607.gpio_speed.gpio_speed_hh" configurationId="p607.gpio_drivecapacity"/>
+      <configSetting altId="p607.gpio_speed.gpio_speed_h" configurationId="p607.gpio_drivecapacity"/>
       <configSetting altId="p607.gpio_mode.gpio_mode_peripheral" configurationId="p607.gpio_mode"/>
       <configSetting altId="p708.output.low" configurationId="p708"/>
       <configSetting altId="p708.gpio_speed.gpio_speed_m" configurationId="p708.gpio_drivecapacity"/>
@@ -984,31 +987,36 @@
       <configSetting altId="pa09.gpio_speed.gpio_speed_h" configurationId="pa09.gpio_drivecapacity"/>
       <configSetting altId="pa09.gpio_mode.gpio_mode_peripheral" configurationId="pa09.gpio_mode"/>
       <configSetting altId="pc00.ospi1.om_1_sio5" configurationId="pc00"/>
-      <configSetting altId="pc00.gpio_speed.gpio_speed_hh" configurationId="pc00.gpio_drivecapacity"/>
+      <configSetting altId="pc00.gpio_speed.gpio_speed_h" configurationId="pc00.gpio_drivecapacity"/>
       <configSetting altId="pc00.gpio_mode.gpio_mode_peripheral" configurationId="pc00.gpio_mode"/>
+      <configSetting altId="pc00.gpio_pupd.gpio_pupd_ip_up" configurationId="pc00.gpio_pupd"/>
       <configSetting altId="pc01.ospi1.om_1_sio0" configurationId="pc01"/>
-      <configSetting altId="pc01.gpio_speed.gpio_speed_hh" configurationId="pc01.gpio_drivecapacity"/>
+      <configSetting altId="pc01.gpio_speed.gpio_speed_h" configurationId="pc01.gpio_drivecapacity"/>
       <configSetting altId="pc01.gpio_mode.gpio_mode_peripheral" configurationId="pc01.gpio_mode"/>
+      <configSetting altId="pc01.gpio_pupd.gpio_pupd_ip_up" configurationId="pc01.gpio_pupd"/>
       <configSetting altId="pc02.ospi1.om_1_sio3" configurationId="pc02"/>
-      <configSetting altId="pc02.gpio_speed.gpio_speed_hh" configurationId="pc02.gpio_drivecapacity"/>
+      <configSetting altId="pc02.gpio_speed.gpio_speed_h" configurationId="pc02.gpio_drivecapacity"/>
       <configSetting altId="pc02.gpio_mode.gpio_mode_peripheral" configurationId="pc02.gpio_mode"/>
+      <configSetting altId="pc02.gpio_pupd.gpio_pupd_ip_up" configurationId="pc02.gpio_pupd"/>
       <configSetting altId="pc03.ospi1.om_1_sio4" configurationId="pc03"/>
-      <configSetting altId="pc03.gpio_speed.gpio_speed_hh" configurationId="pc03.gpio_drivecapacity"/>
+      <configSetting altId="pc03.gpio_speed.gpio_speed_h" configurationId="pc03.gpio_drivecapacity"/>
       <configSetting altId="pc03.gpio_mode.gpio_mode_peripheral" configurationId="pc03.gpio_mode"/>
+      <configSetting altId="pc03.gpio_pupd.gpio_pupd_ip_up" configurationId="pc03.gpio_pupd"/>
       <configSetting altId="pc04.ospi1.om_1_sio2" configurationId="pc04"/>
-      <configSetting altId="pc04.gpio_speed.gpio_speed_hh" configurationId="pc04.gpio_drivecapacity"/>
+      <configSetting altId="pc04.gpio_speed.gpio_speed_h" configurationId="pc04.gpio_drivecapacity"/>
       <configSetting altId="pc04.gpio_mode.gpio_mode_peripheral" configurationId="pc04.gpio_mode"/>
+      <configSetting altId="pc04.gpio_pupd.gpio_pupd_ip_up" configurationId="pc04.gpio_pupd"/>
       <configSetting altId="pc06.ospi1.om_1_ecsint1" configurationId="pc06"/>
-      <configSetting altId="pc06.gpio_speed.gpio_speed_hh" configurationId="pc06.gpio_drivecapacity"/>
+      <configSetting altId="pc06.gpio_speed.gpio_speed_h" configurationId="pc06.gpio_drivecapacity"/>
       <configSetting altId="pc06.gpio_mode.gpio_mode_peripheral" configurationId="pc06.gpio_mode"/>
       <configSetting altId="pc07.ospi1.om_1_reset" configurationId="pc07"/>
-      <configSetting altId="pc07.gpio_speed.gpio_speed_hh" configurationId="pc07.gpio_drivecapacity"/>
+      <configSetting altId="pc07.gpio_speed.gpio_speed_h" configurationId="pc07.gpio_drivecapacity"/>
       <configSetting altId="pc07.gpio_mode.gpio_mode_peripheral" configurationId="pc07.gpio_mode"/>
       <configSetting altId="pc08.ospi1.om_1_cs0" configurationId="pc08"/>
-      <configSetting altId="pc08.gpio_speed.gpio_speed_hh" configurationId="pc08.gpio_drivecapacity"/>
+      <configSetting altId="pc08.gpio_speed.gpio_speed_h" configurationId="pc08.gpio_drivecapacity"/>
       <configSetting altId="pc08.gpio_mode.gpio_mode_peripheral" configurationId="pc08.gpio_mode"/>
       <configSetting altId="pc09.ospi1.om_1_rsto1" configurationId="pc09"/>
-      <configSetting altId="pc09.gpio_speed.gpio_speed_hh" configurationId="pc09.gpio_drivecapacity"/>
+      <configSetting altId="pc09.gpio_speed.gpio_speed_h" configurationId="pc09.gpio_drivecapacity"/>
       <configSetting altId="pc09.gpio_mode.gpio_mode_peripheral" configurationId="pc09.gpio_mode"/>
       <configSetting altId="sci0.mode.asynchronousuart.free" configurationId="sci0.mode"/>
       <configSetting altId="sci0.rxd0.p113" configurationId="sci0.rxd0"/>

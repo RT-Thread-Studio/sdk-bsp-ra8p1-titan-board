@@ -189,6 +189,24 @@ The CEU camera interface and RGB LCD interface are shown in the following figure
 
 ## FSP Configuration
 
+### HyperRAM Configuration
+
+* Create a `r_ospi_b` stack:
+
+![image-20250814160234405](figures/image-20250814160234405.png)
+
+* Configure the r_ospi_b stack:
+
+![image-20250924115414432](figures/image-20250924115414432.png)
+
+* HyperRAM pin configuration:
+
+![image-20250814160618340](figures/image-20250814160618340.png)
+
+* The drive capability of all pins related to HyperRAM should be configured as H, and OM_1_SIO0 to OM_1_SIO7 need to be configured as Input pull-up.
+
+![image-20250924114605538](figures/image-20250924114605538.png)
+
 ### CEU Configuration
 
 * Create a  `r_ceu` stack：

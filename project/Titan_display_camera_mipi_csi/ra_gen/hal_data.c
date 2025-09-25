@@ -159,7 +159,7 @@ static ospi_b_timing_setting_t g_ospi1_timing_settings =
     .sdr_drive_timing            = OSPI_B_SDR_DRIVE_TIMING_BEFORE_CK,
     .sdr_sampling_edge           = OSPI_B_CK_EDGE_FALLING,
     .sdr_sampling_delay          = OSPI_B_SDR_SAMPLING_DELAY_NONE,
-    .ddr_sampling_extension      = OSPI_B_DDR_SAMPLING_EXTENSION_NONE,
+    .ddr_sampling_extension      = OSPI_B_DDR_SAMPLING_EXTENSION_1,
 };
 
 extern ospi_b_xspi_command_set_t g_hyper_ram_commands[];

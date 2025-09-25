@@ -182,6 +182,24 @@ MIPI DSI/CSI接口和 RGB LCD 接口如下图所示：
 
 ## FSP 配置
 
+### HyperRAM 配置
+
+* 新建 r_ospi_b stack：
+
+![image-20250814160234405](figures/image-20250814160234405.png)
+
+* 配置 r_ospi_b stack：
+
+![image-20250924115414432](figures/image-20250924115414432.png)
+
+* HyperRAM 引脚配置：
+
+![image-20250814160618340](figures/image-20250814160618340.png)
+
+* HyperRAM 所有相关引脚的驱动能力配置为 H，OM_1_SIO0~OM_1_SIO7 需要配置为输入上拉。
+
+![image-20250924114605538](figures/image-20250924114605538.png)
+
 ### I2C0 配置
 
 * 新建 `r_iic_master` stack：

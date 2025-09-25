@@ -427,7 +427,7 @@
 
 #ifndef BSP_CFG_DCACHE_ENABLED
  #if (0U == BSP_CFG_CPU_CORE)
-    #define BSP_CFG_DCACHE_ENABLED (0)
+    #define BSP_CFG_DCACHE_ENABLED (1)
  #else
     #define BSP_CFG_DCACHE_ENABLED (0)
  #endif

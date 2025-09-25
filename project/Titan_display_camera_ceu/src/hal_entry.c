@@ -23,7 +23,7 @@ volatile bool led_status = false;
 #define CAM_HEIGHT  480
 
 extern sensor_t sensor;
-uint8_t g_image_rgb565_sdram_buffer[CAM_WIDTH * CAM_HEIGHT * 2] BSP_PLACE_IN_SECTION(".bss") BSP_ALIGN_VARIABLE(8);
+uint8_t g_image_rgb565_sdram_buffer[CAM_WIDTH * CAM_HEIGHT * 2] BSP_PLACE_IN_SECTION(".ospi1_cs0_noinit") BSP_ALIGN_VARIABLE(8);
 
 void hal_entry(void)
 {
