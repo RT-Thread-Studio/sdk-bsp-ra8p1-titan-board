@@ -13,10 +13,6 @@
 #include <rtdevice.h>
 #include <board.h>
 
-#define DBG_TAG "hyperram"
-#define DBG_LVL DBG_LOG
-#include <rtdbg.h>
-
 #define LED_PIN_0    BSP_IO_PORT_00_PIN_12 /* Onboard LED pins */
 
 void hal_entry(void)

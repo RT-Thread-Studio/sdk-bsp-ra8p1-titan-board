@@ -111,7 +111,7 @@ To run this example, an external RGB565 LCD screen is required. The 40-pin RGB56
 
 * Enable the RGB565 LCD, the GT9147 touch driver, and LVGL.
 
-![image-20250901114302458](figures/image-20250901114302458.png)
+![image-20250925133427504](figures/image-20250925133427504.png)
 
 ## Software Description
 

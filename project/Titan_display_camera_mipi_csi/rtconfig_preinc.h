@@ -10,5 +10,6 @@
 #define _POSIX_C_SOURCE 1
 #define _RA_CORE 0
 #define __RTTHREAD__
+#define _REENT_SMALL
 
 #endif /*RTCONFIG_PREINC_H__*/
