@@ -141,7 +141,7 @@ The RA8 series SPI (r_spi_b) consists of the following submodules:
 
 The Titan Board uses SPI0 to communicate with the BMI088 gyroscope.
 
-![image-20250905135649811](figures/image-20250905135649811.png)
+![image-20251015150617446](figures/image-20251015150617446.png)
 
 ## FSP Configuration
 
@@ -180,8 +180,6 @@ Using the BMI088 package on the Titan Board requires the following modifications
 * Modify `./packages/bmi088-latest/src/bmi088.c`
 
 ​	Modify the CS pin adaptation Renesas development board:
-
-![image-20250901174150440](figures/image-20250901174150440.png)
 
 ![image-20250902113200056](figures/image-20250902113200056.png)
 

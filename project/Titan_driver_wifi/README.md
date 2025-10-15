@@ -141,7 +141,7 @@ The RA8 SDHI module consists of the following sub-modules:
 
 ## Hardware Description
 
-![image-20250905140416594](figures/image-20250905140416594.png)
+![image-20251015150921149](figures/image-20251015150921149.png)
 
 ## FSP Configuration
 

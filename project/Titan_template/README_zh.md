@@ -25,8 +25,6 @@
 - 调试接口：板载 DAP-Link 接口
 - 板载接口：40Pin 树莓派接口、MIPI DSI/CSI、CEU Camera、RGB LCD接口、2个以太网接口、4个 CAN 电机接口、2个 RS485接口、3路串口、1个 DBUS 接口、1个 USBHS/USBFS 接口、1个 RTC 电池接口。
 
-**更多详细资料及工具**
-
 ## 外设支持
 
 本 BSP 目前对外设的支持情况如下：
@@ -40,11 +38,14 @@
 | WDT          | 支持         | Telnet | 支持 |
 | RTC          | 支持         | **多核通信** | **支持情况** |
 | ADC          | 支持         | RPmsg-Lite | 支持 |
-| DAC          | 支持         |          |              |
-| SPI          | 支持         |          |              |
-| RS485 | 支持 | | |
-| CANFD | 支持 | | |
-| SDHI | 支持 | | |
+| DAC          | 支持         | **拓展外设** | **支持情况** |
+| SPI          | 支持         | MIPI CSI Camera | 支持 |
+| RS485 | 支持 | CEU Camera | 支持 |
+| CANFD | 支持 | RGB LCD | 支持 |
+| SDHI | 支持 | CYW43438 WIFI | 支持 |
+| USB | 支持 | | |
+| HyperRAM | 支持 | | |
+| HyperFlash | 支持 | | |
 
 ## 使用说明
 
@@ -71,7 +72,7 @@
 
 ![image-20250819171350806](figures/image-20250819171350806.png)
 
-![image-20250819172332143](figures/image-20250819172332143.png)
+![image-20251015155134540](figures/image-20251015155134540.png)
 
 **硬件连接**
 
@@ -132,11 +133,10 @@ void hal_entry(void)
 
 **资料及文档**
 
-- [开发板官网主页](https://www.renesas.cn/zh/products/ra8p1)
+- [开发板官网主页](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/hw-board/ra8p1-titan-board/ra8p1-titan-board)
 - [开发板数据手册](https://www.renesas.cn/zh/document/dst/25574255?r=25574019)
 - [开发板硬件手册](https://www.renesas.cn/zh/document/mah/25574257?r=25574019)
 - [多核开发指南](https://www.renesas.cn/zh/document/apn/developing-ra8-dual-core-mcu?r=25574019)
-- [示例项目包](https://www.renesas.cn/zh/document/apn/ek-ra8p1-example-project-bundle?r=25574019)
 - [Renesas RA8P1 Group](https://www.renesas.cn/zh/document/fly/renesas-ra8p1-group?r=25574019)
 
 **FSP 配置**

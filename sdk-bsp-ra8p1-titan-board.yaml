@@ -14,7 +14,7 @@ board:
   sale_contact_global: https://www.rt-thread.org/
   small_image: figures/small.png
   vendor: Renesas
-  version: 1.0.0
+  version: 1.1.0
 chip:
   chip_name: R7KA8P1KFLC
   clock_source: XTAL
@@ -31,9 +31,9 @@ docs:
 - category: Datasheet
   file: docs/ra8p1-datasheet.pdf
   title: RA8P1_Datasheet
-- category: User Manual
-  file: docs/ra8p1-users-manual.pdf
-  title: RA8P1_User_Manual
+- category: Hardware Manual
+  file: docs/ra8p1-user-manual.pdf
+  title: Hardware Manual
 - category: Board Schematic
   file: docs/Titan_Board_schematic.pdf
   title: Titan_Board_Schematic

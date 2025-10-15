@@ -142,7 +142,7 @@ RA8 系列 SPI（r_spi_b）内部主要由以下子模块组成：
 
 Titan Board 使用 SPI0 与 BMI088 陀螺仪通信。
 
-![image-20250905135649811](figures/image-20250905135649811.png)
+![image-20251015150617446](figures/image-20251015150617446.png)
 
 ## FSP 配置
 

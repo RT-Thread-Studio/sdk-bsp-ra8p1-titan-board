@@ -185,7 +185,7 @@ The RA8 series MCU (e.g., RA8P1) integrates a **GLCDC hardware module** for driv
 
 The CEU camera interface and RGB LCD interface are shown in the following figure:
 
-![image-20250905133106703](figures/image-20250905133106703.png)
+![image-20251015143936441](figures/image-20251015143936441.png)
 
 ## FSP Configuration
 

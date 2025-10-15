@@ -1,4 +1,4 @@
-# GPT Usage Guide
+# Buzzer Usage Instructions
 
 **English** | [**Chinese**](./README_zh.md)
 
@@ -57,6 +57,8 @@ For example, with `D = 50%`, `t_high = T_ns / 2`.
 The pin of the buzzer is PA07.
 
 ![image-20250905131643528](figures/image-20250905131643528.png)
+
+![image-20251015143157997](figures/image-20251015143157997.png)
 
 ## FSP Configuration
 

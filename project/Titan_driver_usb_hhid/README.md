@@ -94,7 +94,7 @@ HID communication uses **endpoints**:
 
 ## Hardware Description
 
-![image-20250905135809531](figures/image-20250905135809531.png)
+![image-20251015150725238](figures/image-20251015150725238.png)
 
 Titan Board provides a USB-Device peripheral, located on the development board as shown below:
 

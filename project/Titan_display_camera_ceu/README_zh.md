@@ -185,7 +185,7 @@ RA8 系列 MCU（如 RA8P1）集成 **GLCDC 硬件模块**，用于驱动 TFT/LC
 
 CEU 摄像头接口和 RGB LCD 接口如下图所示：
 
-![image-20250905133106703](figures/image-20250905133106703.png)
+![image-20251015143936441](figures/image-20251015143936441.png)
 
 ## FSP 配置
 

@@ -163,7 +163,7 @@ The RA8 series MCU integrates a high-performance **SDHI module** designed for hi
 
 This example is connected to the memory through the SDIO interface, using the SD0 of the hardware, the schematic diagram is as follows:
 
-![image-20250905135519400](figures/image-20250905135519400.png)
+![image-20251015150538811](figures/image-20251015150538811.png)
 
 ## FSP Configuration
 

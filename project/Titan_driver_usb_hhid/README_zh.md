@@ -88,7 +88,7 @@ HID 通信基于 **端点（Endpoint）**：
 
 ## 硬件说明
 
-![image-20250905135809531](figures/image-20250905135809531.png)
+![image-20251015150725238](figures/image-20251015150725238.png)
 
 Titan Board 提供一个 USB-Device 外设，位于开发板的位置如下所示：
 
