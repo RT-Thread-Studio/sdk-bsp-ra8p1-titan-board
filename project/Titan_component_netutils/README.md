@@ -12,7 +12,7 @@ This routine shows how to use the various features of the netutils package on th
 
 This routine needs to rely on the WiFi module on the Titan Board to complete the network communication, so please ensure that the WiFi module on the hardware platform can work properly.
 
-![image-20250905132947349](figures/image-20250905132947349.png)
+![image-20251015143654484](figures/image-20251015143654484.png)
 
 ## FSP Configuration
 

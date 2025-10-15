@@ -93,7 +93,7 @@ RT-Thread provides a **LCD driver framework**, which abstracts the underlying co
 
 ## Hardware Description
 
-![image-20250905135307931](figures/image-20250905135307931.png)
+![image-20251015150343012](figures/image-20251015150343012.png)
 
 ## FSP Configuration
 

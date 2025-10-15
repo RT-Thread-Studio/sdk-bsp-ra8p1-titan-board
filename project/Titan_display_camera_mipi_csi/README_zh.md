@@ -178,7 +178,7 @@ RA8 系列 MCU（如 RA8P1）集成 **GLCDC 硬件模块**，用于驱动 TFT/LC
 
 MIPI DSI/CSI接口和 RGB LCD 接口如下图所示：
 
-![image-20250905133324778](figures/image-20250905133324778.png)
+![image-20251015144052649](figures/image-20251015144052649.png)
 
 ## FSP 配置
 

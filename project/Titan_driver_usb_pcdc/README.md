@@ -103,7 +103,7 @@ The RA8 Series MCU integrates a **USB PCDC (Peripheral CDC) module**, designed t
 
 ## Hardware Description
 
-![image-20250905135809531](figures/image-20250905135809531.png)
+![image-20251015150816627](figures/image-20251015150816627.png)
 
 Titan Board provides a USB-Device peripheral, located on the development board as shown below:
 

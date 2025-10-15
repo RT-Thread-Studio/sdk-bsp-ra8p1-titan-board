@@ -183,7 +183,7 @@ RA8 series MCUs integrate a high-performance **CANFD controller**, supporting IS
 
 ## Hardware Description
 
-![image-20250905134012664](figures/image-20250905134012664.png)
+![image-20251015145921727](figures/image-20251015145921727.png)
 
 ## FSP Configuration
 

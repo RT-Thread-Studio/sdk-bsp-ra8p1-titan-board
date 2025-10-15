@@ -39,7 +39,7 @@ LVGL 作为一个开源项目，采用 **MIT License** 开源协议，既适合�
 
 运行本示例需要外接一块 RGB565 LCD 屏幕，开发板上 40pin RGB565 LCD 接口如下：
 
-![image-20250905133514670](figures/image-20250905133514670.png)
+![image-20251015145654450](figures/image-20251015145654450.png)
 
 ## FSP 配置
 

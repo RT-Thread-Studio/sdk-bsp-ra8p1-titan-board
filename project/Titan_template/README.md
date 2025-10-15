@@ -25,8 +25,6 @@ The commonly used **on-board resources** of this development board are as follow
 - **Debug interface**: On-board DAP-Link interface
 - **Board interfaces**: 40-pin Raspberry Pi interface, MIPI DSI/CSI, CEU Camera, RGB LCD interface, 2 Ethernet interfaces, 4 CAN motor interfaces, 2 RS485 interfaces, 3 UARTs, 1 DBUS interface, 1 USBHS/USBFS interface, 1 RTC battery interface.
 
-**More detailed information and tools**
-
 ## Peripheral Support
 
 The current peripheral support status in this BSP is as follows:
@@ -40,11 +38,14 @@ The current peripheral support status in this BSP is as follows:
 | WDT                    | Supported          | Telnet                      | Supported          |
 | RTC                    | Supported          | **Multicore Communication** | **Support Status** |
 | ADC                    | Supported          | RPmsg-Lite                  | Supported          |
-| DAC                    | Supported          |                             |                    |
-| SPI                    | Supported          |                             |                    |
-| RS485                  | Supported          |                             |                    |
-| CANFD                  | Supported          |                             |                    |
-| SDHI                   | Supported          |                             |                    |
+| DAC                    | Supported          | **Extended peripheral**     | **Support Status** |
+| SPI                    | Supported          | MIPI CSI Camera             | Supported          |
+| RS485                  | Supported          | CEU Camera                  | Supported          |
+| CANFD                  | Supported          | RGB LCD                     | Supported          |
+| SDHI                   | Supported          | CYW43438 WIFI               | Supported          |
+| USB                    | Supported          |                             |                    |
+| HyperRAM               | Supported          |                             |                    |
+| HyperFlash             | Supported          |                             |                    |
 
 ## User Guide
 
@@ -72,7 +73,7 @@ This BSP currently provides an RT-Thread Studio project. Below, we use the RT-Th
 
 ![image-20250819171350806](figures/image-20250819171350806.png)
 
-![image-20250819172332143](figures/image-20250819172332143.png)
+![image-20251015155134540](figures/image-20251015155134540.png)
 
 **Hardware Connection**
 
@@ -133,11 +134,10 @@ void hal_entry(void)
 
 **Resources and Documentation**
 
-- [Development Board Official Homepage](https://www.renesas.cn/zh/products/ra8p1)
+- [Development Board Official Homepage](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/hw-board/ra8p1-titan-board/ra8p1-titan-board)
 - [Development Board Datasheet](https://www.renesas.cn/zh/document/dst/25574255?r=25574019)
 - [Development Board Hardware Manual](https://www.renesas.cn/zh/document/mah/25574257?r=25574019)
 - [Dualcore Development Guide](https://www.renesas.cn/zh/document/apn/developing-ra8-dual-core-mcu?r=25574019)
-- [Example Project Bundle](https://www.renesas.cn/zh/document/apn/ek-ra8p1-example-project-bundle?r=25574019)
 - [Renesas RA8P1 Group](https://www.renesas.cn/zh/document/fly/renesas-ra8p1-group?r=25574019)
 
 **FSP Configuration**

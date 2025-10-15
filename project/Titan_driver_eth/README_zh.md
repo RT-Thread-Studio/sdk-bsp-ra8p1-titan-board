@@ -184,11 +184,11 @@ RA8 系列 MCU（如 RA8P1）集成高性能 **以太网 MAC**，支持 RGMII、
 
 ETH0：
 
-![image-20250905134509713](figures/image-20250905134509713.png)
+![image-20251015150029747](figures/image-20251015150029747.png)
 
 ETH1：
 
-![image-20250905134424578](figures/image-20250905134424578.png)
+![image-20251015150100313](figures/image-20251015150100313.png)
 
 ## FSP 配置
 

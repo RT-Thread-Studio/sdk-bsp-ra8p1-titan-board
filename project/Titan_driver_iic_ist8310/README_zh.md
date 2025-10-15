@@ -160,7 +160,7 @@ RA8 I2C 控制器主要由以下模块组成：
 
 Titan Board 使用 IIC2 与 IST8310 通信。
 
-![image-20250905135202040](figures/image-20250905135202040.png)
+![image-20251015150247064](figures/image-20251015150247064.png)
 
 ## FSP 配置
 

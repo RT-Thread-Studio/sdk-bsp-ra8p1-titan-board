@@ -103,7 +103,7 @@ RA8 系列 MCU 内置 **USB PCDC（Peripheral CDC）模块**，专用于将 MCU 
 
 ## 硬件说明s
 
-![image-20250905135809531](figures/image-20250905135809531.png)
+![image-20251015150816627](figures/image-20251015150816627.png)
 
 Titan Board 提供一个 USB-Device 外设，位于开发板的位置如下所示：
 
