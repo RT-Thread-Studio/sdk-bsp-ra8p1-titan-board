@@ -1,0 +1,1212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drivers &mdash; Titan-Board SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/version_menu.css?v=ad0e61b7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=694004e0" />
+      <link rel="stylesheet" type="text/css" href="../_static/pdf_button.css?v=b2b664f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/edit_button.css?v=d629c565" />
+      <link rel="stylesheet" type="text/css" href="../_static/language_switch.css?v=427b9138" />
+      <link rel="stylesheet" type="text/css" href="../_static/dark_mode.css?v=72ec50b7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a12e3537"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/version_menu.js?v=cc75255b"></script>
+      <script src="../_static/download_pdf.js?v=d1800c12"></script>
+      <script src="../_static/version_info.js"></script>
+      <script src="../_static/edit_on_github.js?v=5e1f1957"></script>
+      <script src="../_static/language_switch.js?v=53d89164"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ADC Application Example Usage Instructions" href="Titan_driver_adc/README.html" />
+    <link rel="prev" title="RGB Usage Instructions" href="../basic/Titan_basic_blink_led/README.html" />
+   
+  
+  
+    <script>window.SPHINX_EDIT_BASE_URL = "https://github.com/RT-Thread-Studio/sdk-bsp-ra8p1-titan-board/edit/";</script>
+    <meta name="edit-base-url" content="https://github.com/RT-Thread-Studio/sdk-bsp-ra8p1-titan-board/edit/">
+  
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Titan-Board SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../start/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../start/Titan_template/README.html">Titan Board BSP Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../start/Titan_template/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../start/Titan_template/README.html#development-board-introduction">Development Board Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../start/Titan_template/README.html#peripheral-support">Peripheral Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../start/Titan_template/README.html#user-guide">User Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../start/Titan_template/README.html#quick-start">Quick Start</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../start/Titan_template/README.html#advanced-usage">Advanced Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../start/Titan_template/README.html#contact-information">Contact Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../start/Titan_template/README.html#contribute-code">Contribute Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../basic/index.html">Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html">Button Interrupt Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#ra8-series-mcu-interrupt-system-overview">RA8 Series MCU Interrupt System Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_key_irq/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html">Buzzer Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#introduction-to-pwm-gpt">Introduction to PWM / GPT</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#passive-buzzer-and-pwm">Passive Buzzer and PWM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#basic-concepts-of-pwm">Basic Concepts of PWM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#overview-of-ra8-gpt-for-pwm">Overview of RA8 GPT (for PWM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#setting-frequency-and-duty-cycle-in-rt-thread">Setting Frequency and Duty Cycle in RT-Thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#example-project-instructions">Example Project Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_buzzer/README.html#running-results">Running Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html">RGB Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#gpio-introduction">GPIO Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#features-of-ra8-series-gpio">Features of RA8 Series GPIO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#rt-thread-abstraction-for-gpio">RT-Thread Abstraction for GPIO</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#software-description">Software Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/Titan_basic_blink_led/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Drivers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html">ADC Application Example Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#ra8p1-adc-features">RA8P1 ADC Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_adc/README.html#adc-overview">1. ADC Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_adc/README.html#adc-working-principle">2. ADC Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_adc/README.html#adc-type-and-ra8p1-features">3. ADC Type and RA8P1 Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_adc/README.html#key-adc-parameters">4. Key ADC Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_adc/README.html#typical-ra8p1-adc-applications">5. Typical RA8P1 ADC Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html">BMI088 Gyroscope Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#overview-of-bmi088">Overview of BMI088</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#key-features">2. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#working-principle">3. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#main-advantages">4. Main Advantages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#application-scenarios">5. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#ra8-series-spi-module-r-spi-b-instructions">RA8 Series SPI Module (r_spi_b) Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#id1">1. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#spi-module-architecture">2. SPI Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#id2">3. Working Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#software-description">Software Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html">CANFD Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-and-can-fd-protocol-overview">CAN and CAN FD Protocol Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-protocol-overview">1. CAN Protocol Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-frame-formats">2. CAN Frame Formats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-protocol-features">3. CAN Protocol Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-protocol-overview">4. CAN FD Protocol Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-frame-format">5. CAN FD Frame Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-features">6. CAN FD Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-vs-can-fd-comparison">7. CAN vs CAN FD Comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#ra8-series-canfd-features">RA8 Series CANFD Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#basic-parameters">1. Basic Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#hardware-features">2. Hardware Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#frame-format">3. Frame Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#applications">4. Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html">Ethernet Usage Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-introduction">Ethernet Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-frame-structure">2. Ethernet Frame Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-physical-layer-and-speed">3. Ethernet Physical Layer and Speed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-access-control">4. Ethernet Access Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#vlan-and-ethernet-extensions">5. VLAN and Ethernet Extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-frame-types">6. Ethernet Frame Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-trends">7. Ethernet Trends</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ra8-series-ethernet-features">RA8 Series Ethernet Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#network-interface-features">1. Network Interface Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#mac-features">2. MAC Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#dma-and-buffering">3. DMA and Buffering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#interrupt-mechanism">4. Interrupt Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#phy-management">5. PHY Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#protocol-and-stack-support">6. Protocol and Stack Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_eth/README.html#performance-and-reliability">7. Performance and Reliability</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#software-overview">Software Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html">GPT Usage Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#pwm-introduction">PWM Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#timer-introduction">Timer Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#types-of-timers">2. Types of Timers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#working-principle-of-timers">3. Working Principle of Timers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#timer-modes">4. Timer Modes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#ra8-series-gpt-module-overview">RA8 Series GPT Module Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#gpt-module-features">GPT Module Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#pwm-output-implementation">PWM Output Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#rt-thread-pwm-driver-framework">1. RT-Thread PWM Driver Framework</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#runtime-pwm-parameter-adjustment">2. Runtime PWM Parameter Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#hardware-timer-hwtimer-implementation">Hardware Timer (hwtimer) Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#rt-thread-hwtimer-driver-framework">1. RT-Thread hwtimer Driver Framework</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#ra8-gpt-configuration-example">2. RA8 GPT Configuration Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_gpt/README.html#timer-interrupt-handling">3. Timer Interrupt Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#example-project-instructions">Example Project Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#running-results">Running Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html">HyperRAM Usage Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#hyperram-overview">HyperRAM Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#architecture-and-interface">2. Architecture and Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#operating-principle">3. Operating Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#performance-characteristics">4. Performance Characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#advantages-of-hyperram">5. Advantages of HyperRAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#comparison-with-other-memories">6. Comparison with Other Memories</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#ra8-series-ospi-octa-spi-features">RA8 Series OSPI (Octa-SPI) Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#protocol-support">1. Protocol Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#data-transfer-capability">2. Data Transfer Capability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#memory-mapping-and-execution">3. Memory Mapping and Execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#command-and-timing-support">4. Command and Timing Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_hyperram/README.html#low-power-and-sleep-management">5. Low Power and Sleep Management</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#software-overview">Software Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html">IST8310 Example Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#ist8310-magnetometer-introduction">IST8310 Magnetometer Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#key-features">2. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#working-principle">3. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#performance-specifications">4. Performance Specifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#advantages-and-limitations">5. Advantages and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#ra8-series-i2c-master-features">RA8 Series I2C Master Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#architecture-overview">1. Architecture Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#supported-i2c-modes">2. Supported I2C Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#bus-management-multi-master-features">3. Bus Management &amp; Multi-Master Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#timing-and-data-transfer">4. Timing and Data Transfer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#dma-and-interrupt-mechanisms">5. DMA and Interrupt Mechanisms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#fault-detection-tolerance">6. Fault Detection &amp; Tolerance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#electrical-power-features">7. Electrical &amp; Power Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#example-project-description">Example Project Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html">RGB LCD Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#ra8-series-glcdc-module">RA8 Series GLCDC Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#module-architecture">2. Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#glcdc-working-principle">3. GLCDC Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#glcdc-supported-features">4. GLCDC Supported Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#rt-thread-lcd-driver-framework">RT-Thread LCD Driver Framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#main-interfaces">Main Interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#fsp-configuration">FSP Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#hyperram-configuration">HyperRAM Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#rgb-lcd-configuration">RGB LCD Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#lcd-backlight-configuration">LCD Backlight Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#d-ave-2d-configuration">D/AVE 2D Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html">RS485 Driver Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#rs-485-overview">RS-485 Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#physical-layer-characteristics">2. Physical Layer Characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#communication-modes">3. Communication Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#signal-characteristics">4. Signal Characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#advantages-and-limitations">5. Advantages and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#ra8-series-uart-module-overview">RA8 Series UART Module Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#uart-general-features">1. UART General Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#rs485-specific-features">2. RS485-Specific Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#uart-architecture-and-operation">3. UART Architecture and Operation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#rt-thread-uart-driver-framework">RT-Thread UART Driver Framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rs485/README.html#key-interfaces">Key Interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html">RTC and Alarm Example Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-real-time-clock-overview">RTC (Real-Time Clock) Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#working-principle">2. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-types">3. RTC Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#key-parameters">4. Key Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-functions">5. RTC Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-applications">6. RTC Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#ra8-series-rtc-module-overview">RA8 Series RTC Module Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#general-features">1. General Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-module-architecture">2. RTC Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#key-features">3. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#id1">4. Working Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rt-thread-rtc-driver-framework">RT-Thread RTC Driver Framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#key-interfaces">1. Key Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#common-rt-device-control-commands">2. Common <code class="docutils literal notranslate"><span class="pre">rt_device_control</span></code> Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_rtc/README.html#alarm-handling">3. Alarm Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#run-effect">Run Effect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#extension-rtc-operation-during-power-loss">Extension: RTC Operation During Power Loss</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html">SD Card File System Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#introduction">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sd-card-introduction">SD Card Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#ra8-series-sdhi-module-overview">RA8 Series SDHI Module Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#example-project-description">Example Project Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html">USB-HHID Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#usb-hhid-overview">USB HHID Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#general-overview">1. General Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hid-protocol-characteristics">2. HID Protocol Characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#data-communication-mechanism">3. Data Communication Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hid-device-categories">4. HID Device Categories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#application-scenarios">5. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#ra8-usb-hhid-module-overview">RA8 USB HHID Module Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#module-role-functions">1. Module Role &amp; Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#capabilities">2. Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#workflow">3. Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#running-results">Running Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html">USB-PCDC Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#usb-pcdc-instructions">USB PCDC Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#pcdc-protocol-features">2. PCDC Protocol Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#typical-application-architecture">3. Typical Application Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#advantages">4. Advantages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#ra8-series-usb-pcdc-module-r-usb-pcdc-overview">RA8 Series USB PCDC Module (r_usb_pcdc) Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#module-functionality">1. Module Functionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#supported-features">2. Supported Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#module-architecture">3. Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#workflow">4. Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#fsp-configuration-configuration">FSP Configuration Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#running-effect">Running Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html">WDT Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#wdt-watchdog-timer-instruction">WDT (Watchdog Timer) Instruction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#working-principle">2. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#types-of-wdt">3. Types of WDT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#key-parameters">4. Key Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#usage-guidelines">5. Usage Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#ra8-series-wdt-module-r-wdt-instruction">RA8 Series WDT Module (r_wdt) Instruction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#key-features">1. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#module-architecture">2. Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#working-flow">3. Working Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#rt-thread-wdt-framework-instruction">RT-Thread WDT Framework Instruction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#device-model">1. Device Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#operation-interfaces">2. Operation Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#framework-features">3. Framework Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wdt/README.html#usage-workflow">4. Usage Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#example-project-description">Example project description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#run-effects">Run Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html">Wi-Fi Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-introduction">WiFi Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#working-principle">2. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-standards">3. WiFi Standards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-modes">4. WiFi Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-security">5. WiFi Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-characteristics">6. WiFi Characteristics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#ra8-series-sdhi-module-introduction">RA8 Series SDHI Module Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#key-features">1. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#sdhi-module-architecture">2. SDHI Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#workflow-example-sdio-wifi">3. Workflow (Example: SDIO WiFi)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../component/index.html">Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html">Flash File System Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#ra8-series-ospi-features">RA8 Series OSPI Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#multi-line-high-speed-access">1. Multi-line High-Speed Access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#flexible-flash-operation-modes">2. Flexible Flash Operation Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#interrupt-and-dma-support">3. Interrupt and DMA Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#rt-thread-driver-integration">4. RT-Thread Driver Integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#high-reliability-features">5. High Reliability Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#abstraction-layer">Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#software-overview">Software Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_flash_fs/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../component/Titan_component_netutils/README.html">Netutils Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#instruction">Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#software-description">Software Description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#description-of-netutils-package-file-structure">Description of netutils package file structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../component/Titan_component_netutils/README.html#run-effect">Run Effect</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#mount-the-file-system">Mount the file system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#connect-to-wi-fi">Connect to Wi-Fi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#ping-tool">Ping tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#ntp-tool"><strong>NTP</strong> tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#tftp-tool"><strong>TFTP</strong> tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#telnet-tool">Telnet tool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../component/Titan_component_netutils/README.html#more-online-tools">More online tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../multimedia/index.html">Multimedia Display</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html">CEU Camera Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#ra8-series-ceu-camera-engine-unit-features">RA8 Series CEU (Camera Engine Unit) Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#ceu-hardware-interface-features">1. CEU Hardware Interface Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#image-formats-and-processing-capabilities">2. Image Formats and Processing Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#dma-support-and-buffer-mechanism">3. DMA Support and Buffer Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#interrupt-mechanism">4. Interrupt Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#timing-and-synchronization-features">5. Timing and Synchronization Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#performance-and-optimization">6. Performance and Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#application-scenarios">7. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#ra8-series-mcu-glcdc-graphics-lcd-controller-features">RA8 Series MCU GLCDC (Graphics LCD Controller) Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#hardware-features">1. Hardware Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#layers-and-display-modes">2. Layers and Display Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#dma-and-frame-buffer">3. DMA and Frame Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#hardware-graphics-functions">4. Hardware Graphics Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#id1">5. Interrupt Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#performance-optimization">6. Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#fsp-configuration">FSP Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#hyperram-configuration">HyperRAM Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#ceu-configuration">CEU Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#ceu-clock-configuration">CEU Clock Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#d-ave-2d-configuration">D/AVE 2D Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#rgb-lcd-configuration">RGB LCD Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#lcd-backlight-configuration">LCD Backlight Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_ceu/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html">LVGL Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#instruction">Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#lvgl-instruction">LVGL Instruction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#application-scenarios">Application Scenarios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#ecosystem-and-community">Ecosystem and Community</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#fsp-configuration">FSP Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#rgb-lcd-configuration">RGB LCD Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#lcd-backlight-configuration">LCD Backlight Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#d-ave-2d-configuration">D/AVE 2D Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#i2c0-configuration">I2C0 Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#touch-interrupt-configuration">Touch Interrupt Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#software-description">Software Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_lvgl/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html">MIPI CSI Camera Usage Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#ra8-series-mipi-csi-features">RA8 Series MIPI CSI Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#hardware-interface-features">1. Hardware Interface Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#image-formats-and-processing-capabilities">2. Image Formats and Processing Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#dma-support-and-buffering">3. DMA Support and Buffering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#interrupt-mechanism">4. Interrupt Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#timing-and-synchronization-features">5. Timing and Synchronization Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#performance-optimization">6. Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#application-scenarios">7. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#ra8-series-mcu-glcdc-graphics-lcd-controller-features">RA8 Series MCU GLCDC (Graphics LCD Controller) Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#hardware-features">1. Hardware Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#layers-and-display-modes">2. Layers and Display Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#dma-and-frame-buffer">3. DMA and Frame Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#hardware-graphics-functions">4. Hardware Graphics Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#id1">5. Interrupt Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#id2">6. Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#fsp-configuration">FSP Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#hyperram">HyperRAM 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#i2c0-configuration">I2C0 Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#vin-configuration">VIN Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#mipi-csi-configuration">MIPI CSI Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#mipi-phy-configuration">MIPI PHY Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#d-ave-2d-configuration">D/AVE 2D Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#rgb-lcd-configuration">RGB LCD Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#lcd-backlight-configuration">LCD Backlight Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multimedia/Titan_display_camera_mipi_csi/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../multcore/index.html">Multicore Communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html">RPMsg-Lite Usage Instructions（Core0 Master）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#rpmsg-lite-instructions">RPMsg-Lite Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#design-background">1. Design Background</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#key-features">2. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#working-principle">3. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#application-scenarios">4. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#compilation-download">Compilation &amp; Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#download-methods">Download Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html">RPMsg-Lite Usage Instructions（Core0 Master）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#rpmsg-lite-instructions">RPMsg-Lite Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#design-background">1. Design Background</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#key-features">2. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#working-principle">3. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#application-scenarios">4. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#compilation-download">Compilation &amp; Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#download-methods">Download Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Titan-Board SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Drivers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="drivers">
+<h1>Drivers<a class="headerlink" href="#drivers" title="Link to this heading"></a></h1>
+<p>This section contains SDK drivers.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Drivers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_adc/README.html">ADC Application Example Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#ra8p1-adc-features">RA8P1 ADC Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#adc-overview">1. ADC Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#adc-working-principle">2. ADC Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#adc-type-and-ra8p1-features">3. ADC Type and RA8P1 Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#key-adc-parameters">4. Key ADC Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_adc/README.html#typical-ra8p1-adc-applications">5. Typical RA8P1 ADC Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_adc/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html">BMI088 Gyroscope Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#overview-of-bmi088">Overview of BMI088</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#key-features">2. Key Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#accelerometer">(1) Accelerometer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#gyroscope">(2) Gyroscope</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#interface-power-supply">(3) Interface &amp; Power Supply</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#working-principle">3. Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#main-advantages">4. Main Advantages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#application-scenarios">5. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#ra8-series-spi-module-r-spi-b-instructions">RA8 Series SPI Module (r_spi_b) Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#id1">1. Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#spi-module-architecture">2. SPI Module Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#id2">3. Working Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#software-description">Software Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_spi_bmi088/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_can/README.html">CANFD Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#can-and-can-fd-protocol-overview">CAN and CAN FD Protocol Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-protocol-overview">1. CAN Protocol Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-frame-formats">2. CAN Frame Formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#standard-frame-can-2-0a">2.1 Standard Frame (CAN 2.0A)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#extended-frame-can-2-0b">2.2 Extended Frame (CAN 2.0B)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-protocol-features">3. CAN Protocol Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-protocol-overview">4. CAN FD Protocol Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-frame-format">5. CAN FD Frame Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-data-frame-structure">5.1 CAN FD Data Frame Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-fd-features">6. CAN FD Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#can-vs-can-fd-comparison">7. CAN vs CAN FD Comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#ra8-series-canfd-features">RA8 Series CANFD Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#basic-parameters">1. Basic Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#hardware-features">2. Hardware Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#frame-format">3. Frame Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_can/README.html#applications">4. Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_can/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_eth/README.html">Ethernet Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-introduction">Ethernet Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-frame-structure">2. Ethernet Frame Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-physical-layer-and-speed">3. Ethernet Physical Layer and Speed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-access-control">4. Ethernet Access Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#vlan-and-ethernet-extensions">5. VLAN and Ethernet Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-frame-types">6. Ethernet Frame Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#ethernet-trends">7. Ethernet Trends</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#ra8-series-ethernet-features">RA8 Series Ethernet Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#network-interface-features">1. Network Interface Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#mac-features">2. MAC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#dma-and-buffering">3. DMA and Buffering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#interrupt-mechanism">4. Interrupt Mechanism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#phy-management">5. PHY Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#protocol-and-stack-support">6. Protocol and Stack Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_eth/README.html#performance-and-reliability">7. Performance and Reliability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#software-overview">Software Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_eth/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_gpt/README.html">GPT Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#pwm-introduction">PWM Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#timer-introduction">Timer Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#types-of-timers">2. Types of Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#working-principle-of-timers">3. Working Principle of Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#timer-modes">4. Timer Modes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#ra8-series-gpt-module-overview">RA8 Series GPT Module Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#gpt-module-features">GPT Module Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#pwm-output-implementation">PWM Output Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#rt-thread-pwm-driver-framework">1. RT-Thread PWM Driver Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#runtime-pwm-parameter-adjustment">2. Runtime PWM Parameter Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#hardware-timer-hwtimer-implementation">Hardware Timer (hwtimer) Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#rt-thread-hwtimer-driver-framework">1. RT-Thread hwtimer Driver Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#ra8-gpt-configuration-example">2. RA8 GPT Configuration Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_gpt/README.html#timer-interrupt-handling">3. Timer Interrupt Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#example-project-instructions">Example Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_gpt/README.html#running-results">Running Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_hyperram/README.html">HyperRAM Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#hyperram-overview">HyperRAM Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#architecture-and-interface">2. Architecture and Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#operating-principle">3. Operating Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#performance-characteristics">4. Performance Characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#advantages-of-hyperram">5. Advantages of HyperRAM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#comparison-with-other-memories">6. Comparison with Other Memories</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#ra8-series-ospi-octa-spi-features">RA8 Series OSPI (Octa-SPI) Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#protocol-support">1. Protocol Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#data-transfer-capability">2. Data Transfer Capability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#memory-mapping-and-execution">3. Memory Mapping and Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#command-and-timing-support">4. Command and Timing Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_hyperram/README.html#low-power-and-sleep-management">5. Low Power and Sleep Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#software-overview">Software Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_hyperram/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html">IST8310 Example Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#ist8310-magnetometer-introduction">IST8310 Magnetometer Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#key-features">2. Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#working-principle">3. Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#performance-specifications">4. Performance Specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#advantages-and-limitations">5. Advantages and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#ra8-series-i2c-master-features">RA8 Series I2C Master Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#architecture-overview">1. Architecture Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#supported-i2c-modes">2. Supported I2C Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#bus-management-multi-master-features">3. Bus Management &amp; Multi-Master Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#timing-and-data-transfer">4. Timing and Data Transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#dma-and-interrupt-mechanisms">5. DMA and Interrupt Mechanisms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#fault-detection-tolerance">6. Fault Detection &amp; Tolerance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#electrical-power-features">7. Electrical &amp; Power Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#example-project-description">Example Project Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_iic_ist8310/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html">RGB LCD Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#ra8-series-glcdc-module">RA8 Series GLCDC Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#module-architecture">2. Module Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#glcdc-working-principle">3. GLCDC Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#glcdc-supported-features">4. GLCDC Supported Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#rt-thread-lcd-driver-framework">RT-Thread LCD Driver Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#main-interfaces">Main Interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#fsp-configuration">FSP Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#hyperram-configuration">HyperRAM Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#rgb-lcd-configuration">RGB LCD Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#lcd-backlight-configuration">LCD Backlight Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#d-ave-2d-configuration">D/AVE 2D Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rgb_lcd/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_rs485/README.html">RS485 Driver Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#rs-485-overview">RS-485 Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#physical-layer-characteristics">2. Physical Layer Characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#communication-modes">3. Communication Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#signal-characteristics">4. Signal Characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#advantages-and-limitations">5. Advantages and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#ra8-series-uart-module-overview">RA8 Series UART Module Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#uart-general-features">1. UART General Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#rs485-specific-features">2. RS485-Specific Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#uart-architecture-and-operation">3. UART Architecture and Operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#rt-thread-uart-driver-framework">RT-Thread UART Driver Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rs485/README.html#key-interfaces">Key Interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#build-download">Build &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rs485/README.html#running-result">Running Result</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_rtc/README.html">RTC and Alarm Example Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-real-time-clock-overview">RTC (Real-Time Clock) Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#working-principle">2. Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-types">3. RTC Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#key-parameters">4. Key Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-functions">5. RTC Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-applications">6. RTC Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#ra8-series-rtc-module-overview">RA8 Series RTC Module Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#general-features">1. General Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#rtc-module-architecture">2. RTC Module Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#key-features">3. Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#id1">4. Working Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#rt-thread-rtc-driver-framework">RT-Thread RTC Driver Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#key-interfaces">1. Key Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#common-rt-device-control-commands">2. Common <code class="docutils literal notranslate"><span class="pre">rt_device_control</span></code> Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_rtc/README.html#alarm-handling">3. Alarm Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#example-code-description">Example Code Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#run-effect">Run Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_rtc/README.html#extension-rtc-operation-during-power-loss">Extension: RTC Operation During Power Loss</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_sdcard/README.html">SD Card File System Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#sd-card-introduction">SD Card Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#overview">1. Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sd-card-types">2. SD Card Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sd-card-interfaces">3. SD Card Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#working-principle">4. Working Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sd-card-performance">5. SD Card Performance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sd-card-applications">6. SD Card Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_sdcard/README.html#ra8-series-sdhi-module-overview">RA8 Series SDHI Module Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#key-features">1. Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sdhi-module-architecture">2. SDHI Module Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_sdcard/README.html#sdhi-working-principle">3. SDHI Working Principle</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#example-project-description">Example Project Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_sdcard/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_usb_hhid/README.html">USB-HHID Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#usb-hhid-overview">USB HHID Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#general-overview">1. General Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hid-protocol-characteristics">2. HID Protocol Characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#data-communication-mechanism">3. Data Communication Mechanism</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hid-data-flow">HID Data Flow:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hid-device-categories">4. HID Device Categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#application-scenarios">5. Application Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#ra8-usb-hhid-module-overview">RA8 USB HHID Module Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#module-role-functions">1. Module Role &amp; Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#capabilities">2. Capabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#workflow">3. Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_hhid/README.html#running-results">Running Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html">USB-PCDC Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#usb-pcdc-instructions">USB PCDC Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#pcdc-protocol-features">2. PCDC Protocol Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#typical-application-architecture">3. Typical Application Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#advantages">4. Advantages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#ra8-series-usb-pcdc-module-r-usb-pcdc-overview">RA8 Series USB PCDC Module (r_usb_pcdc) Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#module-functionality">1. Module Functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#supported-features">2. Supported Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#module-architecture">3. Module Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#workflow">4. Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#fsp-configuration-configuration">FSP Configuration Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_usb_pcdc/README.html#running-effect">Running Effect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_wdt/README.html">WDT Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#wdt-watchdog-timer-instruction">WDT (Watchdog Timer) Instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#general-description">1. General Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#working-principle">2. Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#types-of-wdt">3. Types of WDT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#key-parameters">4. Key Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#usage-guidelines">5. Usage Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#ra8-series-wdt-module-r-wdt-instruction">RA8 Series WDT Module (r_wdt) Instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#key-features">1. Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#module-architecture">2. Module Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#working-flow">3. Working Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#rt-thread-wdt-framework-instruction">RT-Thread WDT Framework Instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#device-model">1. Device Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#operation-interfaces">2. Operation Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#framework-features">3. Framework Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wdt/README.html#usage-workflow">4. Usage Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#example-project-description">Example project description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#run-effects">Run Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wdt/README.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Titan_driver_wifi/README.html">Wi-Fi Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-introduction">WiFi Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#overview">1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#working-principle">2. Working Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-standards">3. WiFi Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-modes">4. WiFi Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-security">5. WiFi Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#wifi-characteristics">6. WiFi Characteristics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#advantages">Advantages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Titan_driver_wifi/README.html#disadvantages">Disadvantages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#ra8-series-sdhi-module-introduction">RA8 Series SDHI Module Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#key-features">1. Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#sdhi-module-architecture">2. SDHI Module Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Titan_driver_wifi/README.html#workflow-example-sdio-wifi">3. Workflow (Example: SDIO WiFi)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#hardware-description">Hardware Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#fsp-configuration">FSP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#rt-thread-settings-configuration">RT-Thread Settings Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#compilation-download">Compilation &amp; Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titan_driver_wifi/README.html#run-effect">Run Effect</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>These examples demonstrate SDK drivers.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../basic/Titan_basic_blink_led/README.html" class="btn btn-neutral float-left" title="RGB Usage Instructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Titan_driver_adc/README.html" class="btn btn-neutral float-right" title="ADC Application Example Usage Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright (c) 2006-2025, RT-Thread Development Team.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+   
+  <div class="sdk-footer">
+    <div class="sdk-footer__inner">
+      <div class="sdk-footer__left">
+        <strong>Titan-Board SDK</strong>
+        <span class="sdk-footer__sep">•</span> 版本：1.0.0
+      </div>
+      <div class="sdk-footer__right">
+        构建时间：<span id="sdk-build-time"></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      try {
+        var el = document.getElementById('sdk-build-time');
+        if (el) {
+          var d = new Date(document.lastModified);
+          el.textContent = d.toLocaleString();
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+
+</body>
+</html>

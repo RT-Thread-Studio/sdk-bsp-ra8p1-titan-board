@@ -1,0 +1,1261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HyperRAM 使用说明 &mdash; Titan-Board SDK 1.0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/version_menu.css?v=ad0e61b7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=694004e0" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pdf_button.css?v=b2b664f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/edit_button.css?v=d629c565" />
+      <link rel="stylesheet" type="text/css" href="../../_static/language_switch.css?v=427b9138" />
+      <link rel="stylesheet" type="text/css" href="../../_static/dark_mode.css?v=72ec50b7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=86952a2f"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script src="../../_static/version_menu.js?v=cc75255b"></script>
+      <script src="../../_static/download_pdf.js?v=d1800c12"></script>
+      <script src="../../_static/version_info.js"></script>
+      <script src="../../_static/edit_on_github.js?v=5e1f1957"></script>
+      <script src="../../_static/language_switch.js?v=53d89164"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex_zh.html" />
+    <link rel="search" title="搜索" href="../../search_zh.html" />
+    <link rel="next" title="IST8310 示例说明" href="../Titan_driver_iic_ist8310/README_zh.html" />
+    <link rel="prev" title="GPT 使用说明" href="../Titan_driver_gpt/README_zh.html" />
+   
+  
+  
+    <script>window.SPHINX_EDIT_BASE_URL = "https://github.com/RT-Thread-Studio/sdk-bsp-ra8p1-titan-board/edit/";</script>
+    <meta name="edit-base-url" content="https://github.com/RT-Thread-Studio/sdk-bsp-ra8p1-titan-board/edit/">
+  
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index_zh.html" class="icon icon-home">
+            Titan-Board SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../start/index_zh.html">快速上手</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../start/Titan_template/README_zh.html">Titan Board BSP 说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id2">开发板介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id3">外设支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id4">使用说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id5">快速上手</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id6">进阶使用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id7">联系人信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../start/Titan_template/README_zh.html#id8">贡献代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../basic/index_zh.html">基础篇</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html">RGB 使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#gpio">GPIO 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#ra8-gpio">RA8 系列 GPIO 特点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#rt-thread-gpio">RT-Thread 对 GPIO 的抽象</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#id2">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#id3">软件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#id4">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_blink_led/README_zh.html#id5">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html">按键中断使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#id2">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#ra8-mcu">RA8 系列 MCU 中断体系概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#id3">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#fsp">FSP配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#id4">示例代码说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#id5">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_key_irq/README_zh.html#id6">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html">蜂鸣器使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#id2">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#pwm-gpt">PWM / GPT 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#pwm">无源蜂鸣器与PWM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#id3">PWM 基本概念</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#ra8-gpt-pwm">RA8 GPT 概览（用于PWM）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#rt-thread">在 RT-Thread 中设置频率与占空比</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#id4">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#fsp">FSP配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#id5">示例工程说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#id6">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic/Titan_basic_buzzer/README_zh.html#id7">运行效果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index_zh.html">驱动篇</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_adc/README_zh.html">ADC应用示例说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#ra8p1-adc">RA8P1 ADC 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id2">1. ADC概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id3">2. ADC工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#adcra8p1">3. ADC类型与RA8P1特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id4">4. ADC关键参数解释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id5">5. RA8P1 ADC的典型应用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id6">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id7">工程实例说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id8">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_adc/README_zh.html#id9">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html">BMI088 陀螺仪使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id2">BMI088 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id4">2. 核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id6">3. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id7">4. 主要优势</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id8">5. 应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#ra8-spi-r-spi-b">RA8 系列 SPI 模块（r_spi_b）概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id9">1. 基本特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#spi">2. SPI 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id10">3. 工作原理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id11">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id12">软件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id13">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_spi_bmi088/README_zh.html#id14">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_can/README_zh.html">CANFD 应用示例说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#can-can-fd">CAN 与 CAN FD 协议详解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#can">1. CAN 协议概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id2">2. CAN 协议帧格式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id3">3. CAN 协议特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#can-fd">4. CAN FD 协议概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id4">5. CAN FD 帧格式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id6">6. CAN FD 特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id7">7. CAN 与 CAN FD 对比</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#ra8-canfd">RA8 系列 CANFD 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id8">1. 基本参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id9">2. 硬件特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id10">3. 帧格式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id11">4. 应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id12">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#fsp">FSP配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id13">工程示例说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id14">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_can/README_zh.html#id15">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_eth/README_zh.html">Ethernet 示例说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id2">以太网（Ethernet）简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id4">2. 以太网帧结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id5">3. 以太网物理层与速率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id6">4. 以太网访问控制机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#vlan">5. VLAN 与以太网扩展</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id7">6. 以太网帧类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id8">7. 以太网发展趋势</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#ra8">RA8 系列以太网特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id9">1. 网络接口特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#mac">2. MAC 特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#dma">3. DMA 与缓冲特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id10">4. 中断机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#phy">5. PHY 管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id11">6. 协议与栈支持</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id12">7. 性能与可靠性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id13">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id14">软件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id15">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_eth/README_zh.html#id16">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html">GPT 使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#pwm">PWM 简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#timer">定时器（Timer）简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id2">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id3">2. 定时器类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id4">3. 定时器工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id5">4. 定时器模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#ra8-gpt">RA8 系列 GPT 模块概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id6">GPT 模块特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id7">PWM 输出实现</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#rt-thread-pwm">1. RT-Thread PWM 驱动框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id8">2. 运行时调整 PWM 参数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#hwtimer">硬件定时器（hwtimer）实现</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#rt-thread-hwtimer">1. RT-Thread hwtimer 驱动框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id9">2. RA8 GPT 配置示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id10">3. 定时器中断处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id11">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#fsp">FSP 配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id12">示例工程说明</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id13">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_gpt/README_zh.html#id14">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HyperRAM 使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">HyperRAM 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2. 架构与接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">3. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4. 性能特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">5. HyperRAM 的优势</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">6. 与其他存储的对比</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ra8-ospi-octa-spi">RA8 系列 OSPI (Octa-SPI) 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">1. 协议支持</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">2. 数据传输能力</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">3. 存储器映射与执行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">4. 命令与时序支持</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">5. 低功耗与休眠管理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">软件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html">IST8310 示例说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id2">IST8310 磁力计简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id4">2. 主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id5">3. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id6">4. 性能指标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id7">5. 优势与限制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#ra8-i2c-master">RA8 系列 I2C Master 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id8">1. 总体架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#i2c">2. 支持的 I2C 模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id9">3. 总线管理与多主功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id10">4. 时序与数据传输特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#dma">5. DMA 与中断机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id11">6. 异常检测与容错机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id12">7. 电气与功耗特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id13">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id14">示例工程说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id15">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_iic_ist8310/README_zh.html#id16">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html">RGB LCD 使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#ra8-glcdc">RA8 系列 GLCDC 模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id2">1. 简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id3">2. 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#glcdc">3. GLCDC 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id4">4. GLCDC 支持的功能与特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#rt-thread-lcd">RT-Thread LCD 驱动框架</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id5">主要接口</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id6">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#fsp">FSP 配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#hyperram">HyperRAM 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id7">RGB LCD 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#lcd">LCD 背光配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#d-ave-2d">D/AVE 2D 配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id8">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rgb_lcd/README_zh.html#id9">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html">RS485 驱动例程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#rs-485">RS-485 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id2">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id3">2. 物理层特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id4">3. 通信模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id5">4. 信号特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id6">5. 优势与限制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#ra8-uart">RA8 系列 UART 模块概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#uart">1. UART 总体特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id7">2. RS485 相关功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id8">3. UART 架构与工作原理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#rt-thread-uart">RT-Thread UART 驱动框架</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id9">主要接口</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id10">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id11">编译&amp;下载</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rs485/README_zh.html#id12">运行效果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html">RTC 及 alarm 使用例程说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#rtc">RTC（实时时钟）简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id2">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id3">2. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id4">3. RTC 类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id5">4. 关键参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id6">5. RTC 功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id7">6. RTC 应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#ra8-rtc">RA8 系列 RTC 模块概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id8">1. 总体特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id9">2. RTC 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id10">3. 关键特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id11">4. 工作原理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#rt-thread-rtc">RT-Thread RTC 驱动框架</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id12">1. 主要接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#rt-device-control">2. <code class="docutils literal notranslate"><span class="pre">rt_device_control</span></code> 常用命令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id13">3. 闹钟处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id14">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id15">示例代码说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id16">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id17">运行效果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_rtc/README_zh.html#id18">拓展：RTC 掉电运行</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html">SD卡文件系统使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id2">SD 卡简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id4">2. SD 卡类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id5">3. SD 卡接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id6">4. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id7">5. SD 卡性能指标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id8">6. SD 卡应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#ra8-sdhi">RA8 系列 SDHI 模块概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id9">1. 总体特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#sdhi">2. SDHI 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id10">3. SDHI 工作原理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id11">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id12">示例工程说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id13">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_sdcard/README_zh.html#id14">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html">USB-HHID 驱动例程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id2">USB HHID 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#hid">2. HID 协议特点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id4">3. 数据通信方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id6">4. HID 设备分类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id7">5. 应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#ra8-usb-hhid">RA8 系列 USB HHID 模块简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id8">1. 模块定位与功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id9">2. 支持能力</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id10">3. 工作流程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id11">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id12">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_hhid/README_zh.html#id13">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html">USB-PCDC 驱动例程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id2">USB PCDC 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id3">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#pcdc">2. PCDC 的协议特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id4">3. 典型应用架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id5">4. 优点</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#ra8-usb-pcdc-r-usb-pcdc">RA8 系列 USB PCDC 模块（r_usb_pcdc）简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id6">1. 模块定位与功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id7">2. 支持能力</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id8">3. 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id9">4. 工作流程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#s">硬件说明s</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id10">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_usb_pcdc/README_zh.html#id11">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html">WDT 使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#wdt-watchdog-timer">WDT（Watchdog Timer）简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id2">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id3">2. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id4">3. WDT 类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id5">4. 关键参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id6">5. WDT 使用原则</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#ra8-wdt-r-wdt">RA8 系列 WDT 模块（r_wdt）简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id7">1. 基本特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id8">2. 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id9">3. 工作原理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#rt-thread-wdt">RT-Thread WDT 框架简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id10">1. 设备模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id11">2. 操作接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id12">3. 框架特点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id13">4. 使用流程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id14">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id15">示例工程说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id16">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id17">运行效果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wdt/README_zh.html#id18">引用参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html">Wi-Fi使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#wifi">WiFi 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id2">1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id3">2. 工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id4">3. WiFi 协议标准</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id5">4. WiFi 模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id6">5. WiFi 安全机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id7">6. WiFi 特点</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#ra8-sdhi">RA8 系列 SDHI 模块概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id8">1. 总体特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#sdhi">2. SDHI 模块架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#sdio-wifi">3. 工作流程（以 SDIO WiFi 为例）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id9">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id10">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Titan_driver_wifi/README_zh.html#id11">运行效果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../component/index_zh.html">组件篇</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html">Flash 文件系统使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#ra8-ospi">RA8 系列 OSPI 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id2">1. 多线高速访问</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id3">2. 灵活的 Flash 操作模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#dma">3. 中断与 DMA 支持</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#rt-thread">4. RT-Thread 驱动集成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id4">5. 高可靠性特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#fal">FAL 抽象层</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id5">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id6">软件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id7">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_flash_fs/README_zh.html#id8">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html">netutils 示例说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id2">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#fsp">FSP配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id3">软件说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id4">netutils 软件包文件结构说明</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id5">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id6">运行效果</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id7">挂载文件系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#wi-fi">连接 Wi-Fi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#ping">Ping 工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#ntp"><strong>NTP</strong> 工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#tftp"><strong>TFTP</strong> 工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#telnet">Telnet 工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../component/Titan_component_netutils/README_zh.html#id8">更多网络工具</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../multimedia/index_zh.html">多媒体显示篇</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html">CEU 摄像头使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#ra8-ceu-camera-engine-unit">RA8 系列 CEU（Camera Engine Unit）特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id2">1. CEU 硬件接口特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id3">2. 图像格式与处理能力</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#dma">3. DMA 支持与缓冲机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id4">4. 中断机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id5">5. 时序与同步特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id6">6. 性能与优化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id7">7. 应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#ra8-mcu-glcdc-graphics-lcd-controller">RA8 系列 MCU GLCDC（Graphics LCD Controller）特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id8">1. 硬件特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id9">2. 图层与显示模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id10">3. DMA 与帧缓冲</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id11">4. 硬件图形功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id12">5. 中断机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id13">6. 性能优化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id14">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#fsp">FSP 配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#hyperram">HyperRAM 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id15">CEU 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id16">CEU 时钟配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#d-ave-2d">D/AVE 2D 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#rgb-lcd">RGB LCD 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#lcd">LCD 背光配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id17">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_ceu/README_zh.html#id18">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html">LVGL 示例说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id2">LVGL 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id3">主要特点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id4">应用场景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id5">生态与社区</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id6">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#fsp">FSP 配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#rgb-lcd">RGB LCD 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#lcd">LCD 背光配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#d-ave-2d">D/AVE 2D 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#i2c0">I2C0 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id7">触摸中断配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id8">软件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id9">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_lvgl/README_zh.html#id10">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html">MIPI CSI 摄像头使用说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#ra8-mipi-csi">RA8 系列 MIPI CSI 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id2">1. 硬件接口特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id3">2. 图像格式与处理能力</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#dma">3. DMA 支持与缓冲机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id4">4. 中断机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id5">5. 时序与同步特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id6">6. 性能优化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id7">7. 应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#ra8-mcu-glcdc-graphics-lcd-controller">RA8 系列 MCU GLCDC（Graphics LCD Controller）特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id8">1. 硬件特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id9">2. 图层与显示模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id10">3. DMA 与帧缓冲</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id11">4. 硬件图形功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id12">5. 中断机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id13">6. 性能优化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id14">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#fsp">FSP 配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#hyperram">HyperRAM 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#i2c0">I2C0 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#vin">VIN 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id15">MIPI CSI 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#mipi-phy">MIPI PHY 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#d-ave-2d">D/AVE 2D 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#rgb-lcd">RGB LCD 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#lcd">LCD 背光配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id16">编译&amp;下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multimedia/Titan_display_camera_mipi_csi/README_zh.html#id17">运行效果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../multcore/index_zh.html">多核通信篇</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html">RPMsg-Lite 使用说明（Core0 Master）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#rpmsg-lite">RPMsg-Lite 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id2">一、设计背景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id3">二、核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id4">三、工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id5">四、应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id6">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id7">示例工程说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id8">编译&amp;下载</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id9">下载方式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_master/README_zh.html#id10">运行效果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html">RPMsg-Lite 使用说明（Core1 Remote）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#rpmsg-lite">RPMsg-Lite 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id2">一、设计背景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id3">二、核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id4">三、工作原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id5">四、应用场景</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id6">硬件说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#fsp">FSP 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#rt-thread-settings">RT-Thread Settings 配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id7">示例工程说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id8">编译&amp;下载</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id9">烧录方式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../multcore/Titan_mlc_rpmsg_lite/Titan_rpmsg_remote/README_zh.html#id10">运行效果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index_zh.html">Titan-Board SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index_zh.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index_zh.html">驱动篇</a></li>
+      <li class="breadcrumb-item active">HyperRAM 使用说明</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="hyperram">
+<h1>HyperRAM 使用说明<a class="headerlink" href="#hyperram" title="Link to this heading"></a></h1>
+<p><strong>中文</strong> | <a class="reference internal" href="README_zh.html"><span class="std std-doc"><strong>English</strong></span></a></p>
+<section id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>本示例演示了如何在 <strong>Titan Board</strong> 上使用 <strong>Octa-SPI (OSPI) 接口</strong>连接 <strong>HyperRAM</strong> 外部存储器，并基于 RT-Thread 驱动框架进行读写测试。通过该示例，用户可以熟悉 RA8 OSPI 控制器的配置方法、HyperRAM 的工作模式，以及在 RT-Thread 下访问外部存储器的应用流程。</p>
+</section>
+<section id="id2">
+<h2>HyperRAM 简介<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3>1. 概述<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p><strong>HyperRAM</strong> 是一种由 <strong>Cypress（现 Infineon）</strong> 首次推出的 <strong>高性能低引脚数（Low Pin Count, LPC）DRAM</strong>。</p>
+<p>它基于 <strong>HyperBus 接口</strong>，主要面向 <strong>嵌入式系统、显示控制、IoT 设备、汽车电子</strong> 等需要 <strong>高带宽、低功耗、简单接口</strong> 的应用。</p>
+<p>HyperRAM 属于 <strong>pSRAM（Pseudo-SRAM，伪静态RAM）</strong>，它在外部表现得像 SRAM（简单读写，无需用户刷新），但内部实际上是低功耗 DRAM（自刷新）。</p>
+</section>
+<section id="id4">
+<h3>2. 架构与接口<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>HyperRAM 使用 <strong>HyperBus 接口</strong>，其特点是：</p>
+<ul class="simple">
+<li><p><strong>引脚数少</strong>：通常仅需 <strong>13 个信号引脚</strong>（8-bit 数据总线 + 控制/时钟），相比传统 SDRAM（几十个引脚）大幅减少 PCB 复杂度。</p></li>
+<li><p><strong>双数据速率（DDR）传输</strong>：在时钟上升沿和下降沿传输数据，提高带宽。</p></li>
+<li><p><strong>串行控制协议</strong>：通过命令-地址-数据序列访问内存，简化设计。</p></li>
+</ul>
+<p>接口结构如下：</p>
+<ul class="simple">
+<li><p><strong>数据线 DQ[7:0]</strong>：8 位双向数据</p></li>
+<li><p><strong>RWDS（Read-Write Data Strobe）</strong>：数据同步信号</p></li>
+<li><p><strong>CLK</strong>：时钟输入</p></li>
+<li><p><strong>CS#</strong>：片选信号</p></li>
+<li><p><strong>RESET#</strong>：复位</p></li>
+<li><p><strong>CKE</strong>：时钟使能</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>3. 工作原理<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>HyperRAM 通过 <strong>命令+地址+数据</strong> 的方式访问：</p>
+<ol class="arabic simple">
+<li><p><strong>命令阶段</strong></p>
+<ul class="simple">
+<li><p>主机发送读/写命令和目标地址。</p></li>
+</ul>
+</li>
+<li><p><strong>延迟阶段</strong></p>
+<ul class="simple">
+<li><p>HyperRAM 准备内部存储阵列（延迟可配置）。</p></li>
+</ul>
+</li>
+<li><p><strong>数据传输阶段</strong></p>
+<ul class="simple">
+<li><p>以 DDR 方式在 <strong>DQ[7:0]</strong> 上传输数据，RWDS 提供数据同步。</p></li>
+</ul>
+</li>
+</ol>
+<p>内部采用 DRAM 技术，支持 <strong>自刷新</strong>，但对外表现为 “像 SRAM 一样” ——用户无需关心刷新操作。</p>
+</section>
+<section id="id6">
+<h3>4. 性能特性<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>数据总线宽度</strong>：8 位</p></li>
+<li><p><strong>工作电压</strong>：1.8 V 或 3.0 V 低功耗设计</p></li>
+<li><p><strong>数据速率</strong>：最高可达 <strong>400 MB/s（200 MHz DDR × 8-bit）</strong></p></li>
+<li><p><strong>容量范围</strong>：32 Mb ~ 512 Mb（4 MB ~ 64 MB）</p></li>
+<li><p><strong>低功耗</strong>：支持深度睡眠模式，待机电流 &lt; 10 µA</p></li>
+<li><p><strong>简单接口</strong>：13 根引脚即可完成高速访问</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>5. HyperRAM 的优势<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>低引脚数</strong></p>
+<ul class="simple">
+<li><p>与传统 SDRAM/PSRAM（30+ 引脚）相比大幅减少引脚需求，节省 PCB 走线。</p></li>
+</ul>
+</li>
+<li><p><strong>高带宽</strong></p>
+<ul class="simple">
+<li><p>DDR 接口，带宽可达 400 MB/s，足以支持 <strong>图像缓存、显示刷新</strong> 等应用。</p></li>
+</ul>
+</li>
+<li><p><strong>低功耗</strong></p>
+<ul class="simple">
+<li><p>适合电池供电设备，如 IoT、可穿戴设备。</p></li>
+</ul>
+</li>
+<li><p><strong>易用性</strong></p>
+<ul class="simple">
+<li><p>对外表现类似 SRAM，简单易用，无需用户刷新。</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id8">
+<h3>6. 与其他存储的对比<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>特性</p></th>
+<th class="head"><p>HyperRAM</p></th>
+<th class="head"><p>SDRAM / DDR</p></th>
+<th class="head"><p>SRAM</p></th>
+<th class="head"><p>NOR Flash</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>接口</p></td>
+<td><p>HyperBus (13-pin)</p></td>
+<td><p>并行 16~32 位</p></td>
+<td><p>并行/串行</p></td>
+<td><p>SPI/QSPI</p></td>
+</tr>
+<tr class="row-odd"><td><p>容量范围</p></td>
+<td><p>32Mb ~ 512Mb</p></td>
+<td><p>64Mb ~ 1Gb+</p></td>
+<td><p>小（Kb~Mb）</p></td>
+<td><p>4Mb ~ 2Gb</p></td>
+</tr>
+<tr class="row-even"><td><p>带宽</p></td>
+<td><p>~400 MB/s</p></td>
+<td><p>~800 MB/s+</p></td>
+<td><p>~50 MB/s</p></td>
+<td><p>~100 MB/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>功耗</p></td>
+<td><p>低</p></td>
+<td><p>较高</p></td>
+<td><p>较低</p></td>
+<td><p>较低</p></td>
+</tr>
+<tr class="row-even"><td><p>应用场景</p></td>
+<td><p>缓存/帧缓冲</p></td>
+<td><p>系统主存</p></td>
+<td><p>高速小容量</p></td>
+<td><p>程序存储</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ra8-ospi-octa-spi">
+<h2>RA8 系列 OSPI (Octa-SPI) 特性<a class="headerlink" href="#ra8-ospi-octa-spi" title="Link to this heading"></a></h2>
+<p><strong>OSPI (Octa-SPI)</strong> 是 RA8 系列 MCU 中的重要外设接口模块，专门用于连接高速外部存储器（如 <strong>Octa Flash、HyperFlash、HyperRAM</strong>），以满足嵌入式应用在 <strong>大容量存储、高速缓存、XIP 执行</strong>等方面的需求。</p>
+<section id="id9">
+<h3>1. 协议支持<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>RA8 OSPI 兼容多种存储接口协议，灵活适配不同外部存储器：</p>
+<ul class="simple">
+<li><p><strong>SPI 标准模式</strong>：1-1-1 (单线指令、地址、数据)</p></li>
+<li><p><strong>Dual-SPI</strong>：2-2-2 模式（双线）</p></li>
+<li><p><strong>Quad-SPI</strong>：4-4-4 模式（四线）</p></li>
+<li><p><strong>Octa-SPI</strong>：8-8-8 模式（八线，支持 DDR/SDR）</p></li>
+<li><p><strong>HyperBus 协议</strong>：</p>
+<ul>
+<li><p>用于连接 <strong>HyperRAM / HyperFlash</strong></p></li>
+<li><p>双边沿数据采样（DDR）</p></li>
+<li><p>传输速率可达 <strong>333 MB/s</strong></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id10">
+<h3>2. 数据传输能力<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>最高频率</strong>：支持 <strong>166MHz 时钟</strong></p></li>
+<li><p><strong>DDR 模式</strong>：数据在时钟上升沿与下降沿同时传输（带宽翻倍）</p></li>
+<li><p><strong>有效带宽</strong>：</p>
+<ul>
+<li><p>Octa-SPI DDR 模式，8-bit 总线，166 MHz → <strong>333 MB/s</strong></p></li>
+<li><p>HyperBus 模式同样可达 <strong>333 MB/s</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Burst 访问</strong>：支持可编程突发长度（16/32/64/128 字节），提升连续读写效率</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3>3. 存储器映射与执行<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>RA8 OSPI 支持将外部存储映射到 <strong>MCU 地址空间</strong>，使外设访问与片上 SRAM 类似，方便应用：</p>
+<ul class="simple">
+<li><p><strong>XIP (Execute-In-Place)</strong>：可直接在外部 Flash 中执行代码</p></li>
+<li><p><strong>存储映射缓存</strong>：</p>
+<ul>
+<li><p>内建预取缓冲器，提高指令读取速度</p></li>
+<li><p>适合频繁读取的代码和数据场景</p></li>
+</ul>
+</li>
+<li><p><strong>可配置读写访问模式</strong>：</p>
+<ul>
+<li><p>直接访问模式（命令驱动）</p></li>
+<li><p>存储映射模式（内存地址空间直接访问）</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id12">
+<h3>4. 命令与时序支持<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>可编程命令集</strong>：支持用户配置的指令序列（适配不同厂商 Flash/HyperRAM）</p></li>
+<li><p><strong>DQS (Data Strobe) 支持</strong>：在 DDR 模式下提供时序同步，提高数据完整性</p></li>
+<li><p><strong>片选控制</strong>：多片选引脚，可支持多个外部存储器</p></li>
+<li><p><strong>延迟补偿</strong>：可配置时钟延迟、采样点位置，以适配高速 HyperRAM/HyperFlash</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3>5. 低功耗与休眠管理<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>支持外设低功耗模式</strong>：</p>
+<ul>
+<li><p>HyperRAM 深度休眠模式 (Deep Power-Down)</p></li>
+<li><p>HyperFlash 待机模式</p></li>
+</ul>
+</li>
+<li><p><strong>快速唤醒</strong>：通过片选控制快速恢复存储访问</p></li>
+<li><p><strong>适合电池供电应用</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<h2>硬件说明<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<p><img alt="image-20251015150202098" src="../../_images/image-20251015150202098.png" /></p>
+</section>
+<section id="fsp">
+<h2>FSP 配置<a class="headerlink" href="#fsp" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>新建 r_ospi_b stack：</p></li>
+</ul>
+<p><img alt="image-20250814160234405" src="../../_images/image-20250814160234405.png" /></p>
+<ul class="simple">
+<li><p>配置 r_ospi_b stack：</p></li>
+</ul>
+<p><img alt="image-20250924115414432" src="../../_images/image-20250924115414432.png" /></p>
+<ul class="simple">
+<li><p>HyperRAM 引脚配置：</p></li>
+</ul>
+<p><img alt="image-20250814160618340" src="../../_images/image-20250814160618340.png" /></p>
+<ul class="simple">
+<li><p>HyperRAM 所有相关引脚的驱动能力配置为 H，OM_1_SIO0~OM_1_SIO7 需要配置为输入上拉。</p></li>
+</ul>
+<p><img alt="image-20250924114605538" src="../../_images/image-20250924114605538.png" /></p>
+</section>
+<section id="rt-thread-settings">
+<h2>RT-Thread Settings 配置<a class="headerlink" href="#rt-thread-settings" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>在 RT-Thread Settings 中使能 HyperRAM。</p></li>
+</ul>
+<p><img alt="image-20250902111615193" src="../../_images/image-20250902111615193.png" /></p>
+</section>
+<section id="id15">
+<h2>软件说明<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<p>本例程的 HyperRAM 测试源码位于 <code class="docutils literal notranslate"><span class="pre">./board/ports/hyperram</span></code> 中：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;inttypes.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;hal_data.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;hyper_ram_test.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rtthread.h&gt;</span>
+
+<span class="cp">#define DBG_TAG &quot;hyperram&quot;</span>
+<span class="cp">#define DBG_LVL DBG_INFO</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rtdbg.h&gt;</span>
+
+<span class="cp">#define ram_cfg     g_ospi1_cfg</span>
+<span class="cp">#define ram_ctrl    g_ospi1_ctrl</span>
+
+<span class="cp">#define OSPI_OM_RESET               BSP_IO_PORT_12_PIN_07</span>
+<span class="cp">#define HYPER_RAM_RESET_DELAY()     R_BSP_SoftwareDelay(10UL, BSP_DELAY_UNITS_MICROSECONDS)</span>
+
+<span class="cp">#define HYPER_RAM_CFG_REG_0_ADDRESS (0x01000000)</span>
+<span class="cp">#define HYPER_RAM_CFG_REG_1_ADDRESS (0x01000001)</span>
+
+<span class="n">ospi_b_xspi_command_set_t</span><span class="w"> </span><span class="n">g_hyper_ram_commands</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_FLASH_PROTOCOL_8D_8D_8D</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">frame_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OSPI_B_FRAME_FORMAT_XSPI_PROFILE_2_EXTENDED</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">latency_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OSPI_B_LATENCY_MODE_FIXED</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">command_bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OSPI_B_COMMAND_BYTES_1</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">address_bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_FLASH_ADDRESS_BYTES_4</span><span class="p">,</span>
+
+<span class="w">        </span><span class="p">.</span><span class="n">read_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xA0</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">read_dummy_cycles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">program_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">program_dummy_cycles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
+
+<span class="w">        </span><span class="p">.</span><span class="n">address_msb_mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xF0</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">status_needs_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span>
+
+<span class="w">        </span><span class="p">.</span><span class="n">p_erase_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">swap16</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ret</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">fsp_err_t</span><span class="w"> </span><span class="nf">hyper_ram_config_get</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">p_value_out</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">spi_flash_direct_transfer_t</span><span class="w"> </span><span class="n">xfer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">.</span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">address</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">address_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">command_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xE000</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">data_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">dummy_cycles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">fsp_err_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R_OSPI_B_DirectTransfer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ram_ctrl</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xfer</span><span class="p">,</span><span class="w"> </span><span class="n">SPI_FLASH_DIRECT_TRANSFER_DIR_READ</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">FSP_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_E</span><span class="p">(</span><span class="s">&quot;HyperRAM config get failed!&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="o">*</span><span class="n">p_value_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="w"> </span><span class="n">xfer</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FSP_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">fsp_err_t</span><span class="w"> </span><span class="nf">hyper_ram_config_set</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">spi_flash_direct_transfer_t</span><span class="w"> </span><span class="n">xfer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">.</span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">address</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">address_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x6000</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">command_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">data_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">dummy_cycles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">fsp_err_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R_OSPI_B_DirectTransfer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ram_ctrl</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xfer</span><span class="p">,</span><span class="w"> </span><span class="n">SPI_FLASH_DIRECT_TRANSFER_DIR_WRITE</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">FSP_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_E</span><span class="p">(</span><span class="s">&quot;HyperRAM config set failed!&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FSP_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/* Define the static array at address 0x70000000 using section attribute */</span>
+<span class="cp">#define TEST_SIZE 8388608 </span><span class="c1">// 32MB (8M x 4 bytes)</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">test_array</span><span class="p">[</span><span class="n">TEST_SIZE</span><span class="p">]</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">section</span><span class="p">(</span><span class="s">&quot;.ospi1_cs0_noinit&quot;</span><span class="p">)));</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">hyper_ram_test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">test_bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TEST_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="c1">// Total bytes: 32MB</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">rt_tick_t</span><span class="w"> </span><span class="n">start_time</span><span class="p">,</span><span class="w"> </span><span class="n">end_time</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">write_speed_kbs</span><span class="p">,</span><span class="w"> </span><span class="n">read_speed_kbs</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">write_time_ms</span><span class="p">,</span><span class="w"> </span><span class="n">read_time_ms</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* Write pattern to RAM and measure time */</span>
+<span class="w">    </span><span class="n">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rt_tick_get</span><span class="p">();</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TEST_SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">test_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mh">0xA5A5A5A5</span><span class="p">;</span><span class="w"> </span><span class="c1">// Use XOR pattern for better error detection</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">end_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rt_tick_get</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Calculate write speed in KB/s and time in ms */</span>
+<span class="w">    </span><span class="n">write_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RT_TICK_PER_SECOND</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">write_time_ms</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">write_speed_kbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">test_bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">write_time_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// KB/s</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">write_speed_kbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Avoid division by zero</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* Verify written pattern while measuring read time */</span>
+<span class="w">    </span><span class="n">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rt_tick_get</span><span class="p">();</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TEST_SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mh">0xA5A5A5A5</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actual</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">errors</span><span class="o">++</span><span class="p">;</span>
+<span class="c1">//            rt_kprintf(&quot;errors:%d actual:%d\n&quot;, errors, actual);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">end_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rt_tick_get</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Calculate read speed in KB/s and time in ms */</span>
+<span class="w">    </span><span class="n">read_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RT_TICK_PER_SECOND</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">read_time_ms</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">read_speed_kbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">test_bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">read_time_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// KB/s</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">read_speed_kbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Avoid division by zero</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* Print test results */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errors</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_I</span><span class="p">(</span><span class="s">&quot;Hyper RAM test passed successfully!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_E</span><span class="p">(</span><span class="s">&quot;Hyper RAM test failed with %u errors&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">errors</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* Print read and write speeds as integers */</span>
+<span class="w">    </span><span class="n">LOG_I</span><span class="p">(</span><span class="s">&quot;Write speed: %u KB/s (%u ms)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">write_speed_kbs</span><span class="p">,</span><span class="w"> </span><span class="n">write_time_ms</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_I</span><span class="p">(</span><span class="s">&quot;Read speed: %u KB/s (%u ms)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">read_speed_kbs</span><span class="p">,</span><span class="w"> </span><span class="n">read_time_ms</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">MSH_CMD_EXPORT</span><span class="p">(</span><span class="n">hyper_ram_test</span><span class="p">,</span><span class="w"> </span><span class="n">hyper_ram_test</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">hyper_ram_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Change OM_RESET back to normal IO mode. */</span>
+<span class="w">    </span><span class="n">R_IOPORT_PinCfg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_ioport_ctrl</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">OSPI_OM_RESET</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">IOPORT_CFG_PORT_DIRECTION_OUTPUT</span>
+<span class="w">                        </span><span class="o">|</span><span class="w"> </span><span class="n">IOPORT_CFG_DRIVE_HIGH</span>
+<span class="w">                        </span><span class="o">|</span><span class="w"> </span><span class="n">IOPORT_CFG_PORT_DIRECTION_OUTPUT</span>
+<span class="w">                        </span><span class="o">|</span><span class="w"> </span><span class="n">IOPORT_CFG_PORT_OUTPUT_HIGH</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* Pin reset the OctaFlash */</span>
+<span class="w">    </span><span class="n">R_BSP_PinWrite</span><span class="p">(</span><span class="n">OSPI_OM_RESET</span><span class="p">,</span><span class="w"> </span><span class="n">BSP_IO_LEVEL_LOW</span><span class="p">);</span>
+<span class="w">    </span><span class="n">HYPER_RAM_RESET_DELAY</span><span class="p">();</span>
+<span class="w">    </span><span class="n">R_BSP_PinWrite</span><span class="p">(</span><span class="n">OSPI_OM_RESET</span><span class="p">,</span><span class="w"> </span><span class="n">BSP_IO_LEVEL_HIGH</span><span class="p">);</span>
+<span class="w">    </span><span class="n">HYPER_RAM_RESET_DELAY</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Open the interface and immediately transition to 8D-8D-8D mode */</span>
+<span class="w">    </span><span class="n">R_OSPI_B_Open</span><span class="p">((</span><span class="n">spi_flash_ctrl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ram_ctrl</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ram_cfg</span><span class="p">);</span>
+<span class="w">    </span><span class="n">R_OSPI_B_SpiProtocolSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ram_ctrl</span><span class="p">,</span><span class="w"> </span><span class="n">SPI_FLASH_PROTOCOL_8D_8D_8D</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cfg_reg0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hyper_ram_config_get</span><span class="p">(</span><span class="n">HYPER_RAM_CFG_REG_0_ADDRESS</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg_reg0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_D</span><span class="p">(</span><span class="s">&quot;Read CR0 value: 0x%x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">swap16</span><span class="p">(</span><span class="n">cfg_reg0</span><span class="p">));</span>
+
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x8f1d</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hyper_ram_config_set</span><span class="p">(</span><span class="n">HYPER_RAM_CFG_REG_0_ADDRESS</span><span class="p">,</span><span class="w"> </span><span class="n">swap16</span><span class="p">(</span><span class="n">value0</span><span class="p">));</span>
+<span class="w">    </span><span class="n">LOG_D</span><span class="p">(</span><span class="s">&quot;Set CR0 to 0x%x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">cfg_reg0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hyper_ram_config_get</span><span class="p">(</span><span class="n">HYPER_RAM_CFG_REG_0_ADDRESS</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg_reg0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_D</span><span class="p">(</span><span class="s">&quot;Read CR0 value: 0x%x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">swap16</span><span class="p">(</span><span class="n">cfg_reg0</span><span class="p">));</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">RT_EOK</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">INIT_BOARD_EXPORT</span><span class="p">(</span><span class="n">hyper_ram_init</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id16">
+<h2>编译&amp;下载<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>RT-Thread Studio：在RT-Thread Studio 的包管理器中下载 Titan Board 资源包，然后创建新工程，执行编译。</p></li>
+</ul>
+<p>编译完成后，将开发板的 USB-DBG 接口与 PC 机连接，然后将固件下载至开发板。</p>
+</section>
+<section id="id17">
+<h2>运行效果<a class="headerlink" href="#id17" title="Link to this heading"></a></h2>
+<p>按下复位按键重启开发板，输入 <code class="docutils literal notranslate"><span class="pre">hyper_ram_test</span></code> 命令开始 HyperRAM 测试。</p>
+<p><img alt="image-20250925101109565" src="../../_images/image-20250925101109565.png" /></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../Titan_driver_gpt/README_zh.html" class="btn btn-neutral float-left" title="GPT 使用说明" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Titan_driver_iic_ist8310/README_zh.html" class="btn btn-neutral float-right" title="IST8310 示例说明" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 Copyright (c) 2006-2025, RT-Thread Development Team。</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+   
+  <div class="sdk-footer">
+    <div class="sdk-footer__inner">
+      <div class="sdk-footer__left">
+        <strong>Titan-Board SDK</strong>
+        <span class="sdk-footer__sep">•</span> 版本：1.0.0
+      </div>
+      <div class="sdk-footer__right">
+        构建时间：<span id="sdk-build-time"></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      try {
+        var el = document.getElementById('sdk-build-time');
+        if (el) {
+          var d = new Date(document.lastModified);
+          el.textContent = d.toLocaleString();
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+
+</body>
+</html>
