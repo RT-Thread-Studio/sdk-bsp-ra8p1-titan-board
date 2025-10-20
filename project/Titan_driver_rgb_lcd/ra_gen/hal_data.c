@@ -243,7 +243,7 @@ static ospi_b_timing_setting_t g_ospi1_timing_settings =
     .sdr_drive_timing            = OSPI_B_SDR_DRIVE_TIMING_BEFORE_CK,
     .sdr_sampling_edge           = OSPI_B_CK_EDGE_FALLING,
     .sdr_sampling_delay          = OSPI_B_SDR_SAMPLING_DELAY_NONE,
-    .ddr_sampling_extension      = OSPI_B_DDR_SAMPLING_EXTENSION_NONE,
+    .ddr_sampling_extension      = OSPI_B_DDR_SAMPLING_EXTENSION_1,
 };
 
 extern ospi_b_xspi_command_set_t g_hyper_ram_commands[];
@@ -274,7 +274,7 @@ static const ospi_b_extended_cfg_t g_ospi1_extended_cfg =
     .channel                                 = (ospi_b_device_number_t) 0,
     .p_timing_settings                       = &g_ospi1_timing_settings,
     .p_xspi_command_set                      = &g_ospi1_command_set,
-    .data_latch_delay_clocks                 = OSPI_B_DS_TIMING_DELAY_8,
+    .data_latch_delay_clocks                 = OSPI_B_DS_TIMING_DELAY_20,
     .p_autocalibration_preamble_pattern_addr = (uint8_t *) 0x00,
 #if OSPI_B_CFG_DMAC_SUPPORT_ENABLE
     .p_lower_lvl_transfer                    = &g_transfer0,

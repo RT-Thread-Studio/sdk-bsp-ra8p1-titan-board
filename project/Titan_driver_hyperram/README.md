@@ -218,7 +218,7 @@ static fsp_err_t hyper_ram_config_get(uint32_t address, uint16_t * const p_value
             .command_length = 2,
             .command = 0xE000,
             .data_length = 2,
-            .dummy_cycles = 1,
+            .dummy_cycles = 11,
     };
 
     fsp_err_t err = R_OSPI_B_DirectTransfer(&ram_ctrl, &xfer, SPI_FLASH_DIRECT_TRANSFER_DIR_READ);

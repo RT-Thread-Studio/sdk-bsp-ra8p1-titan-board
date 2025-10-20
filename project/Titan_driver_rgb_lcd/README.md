@@ -105,11 +105,15 @@ RT-Thread provides a **LCD driver framework**, which abstracts the underlying co
 
 * Configuration `r_ospi_b` stack：
 
-![image-20250815132512856](figures/image-20250815132512856.png)
+![image-20250924115414432](figures/image-20250924115414432.png)
 
 * Configuration HyperRAM pins：
 
 ![image-20250815132527184](figures/image-20250815132527184.png)
+
+* The drive capability of all pins related to HyperRAM should be configured as H, and OM_1_SIO0 to OM_1_SIO7 need to be configured as Input pull-up.
+
+![image-20250924114605538](figures/image-20250924114605538.png)
 
 ### RGB LCD Configuration
 

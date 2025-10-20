@@ -1,0 +1,13 @@
+import os
+from building import *
+
+src = []
+objs = []
+cwd  = GetCurrentDir()
+CPPPATH = [cwd]
+
+src += Glob('*.c')
+
+objs = DefineGroup('usb_hhid', src, depend = ['BSP_USING_USB_HHID'], CPPPATH = CPPPATH)
+
+Return('objs')

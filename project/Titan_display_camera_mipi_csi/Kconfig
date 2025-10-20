@@ -26,7 +26,7 @@ config ENV_DIR
 config PLATFORM_DIR
     string
     option env="PLATFORM_DIR"
-    default "D:/RT-ThreadStudio/workspace_Titan/Titan_demo_camera_display/platform"
+    default "C:/Users/RTT/Desktop/github/sdk-bsp-ra8p1-titan-board/project/Titan_display_camera_mipi_csi/platform"
 
 source "$RTT_DIR/Kconfig"
 source "$PKGS_DIR/Kconfig"
