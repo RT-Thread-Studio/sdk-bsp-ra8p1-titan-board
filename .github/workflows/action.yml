@@ -58,13 +58,15 @@ jobs:
          - {RTT_BSP: "Titan_component_netutils"}
          - {RTT_BSP: "Titan_display_camera_ceu"}
          - {RTT_BSP: "Titan_display_camera_mipi_csi"}
-         - {RTT_BSP: "Titan_display_lvgl"}
+         - {RTT_BSP: "Titan_display_mipi_lvgl"}
+         - {RTT_BSP: "Titan_display_rgb_lvgl"}
          - {RTT_BSP: "Titan_driver_adc"}
          - {RTT_BSP: "Titan_driver_can"}
          - {RTT_BSP: "Titan_driver_eth"}
          - {RTT_BSP: "Titan_driver_gpt"}
          - {RTT_BSP: "Titan_driver_hyperram"}
          - {RTT_BSP: "Titan_driver_iic_ist8310"}
+         - {RTT_BSP: "Titan_driver_mipi_lcd"}
          - {RTT_BSP: "Titan_driver_rgb_lcd"}
          - {RTT_BSP: "Titan_driver_rs485"}
          - {RTT_BSP: "Titan_driver_rtc"}
