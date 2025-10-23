@@ -54,7 +54,7 @@
                                                   BSP_FEATURE_CGC_SRAMPRCR_KW_OFFSET) | 0x0U)
 
 /* Determine whether SRAM wait states should be enabled */
-#if BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_NO_RAM_WAITS
+#if BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_SYSC_CLOCK_FREQ_NO_RAM_WAITS
  #define BSP_PRV_SRAM_WAIT_CYCLES               BSP_PRV_SRAMWTSC_WAIT_CYCLES_DISABLE
 #else
  #define BSP_PRV_SRAM_WAIT_CYCLES               BSP_FEATURE_SRAM_SRAMWTSC_WAIT_CYCLE_ENABLE
@@ -130,14 +130,14 @@
 #ifdef BSP_CFG_UCLK_DIV
 
 /* If the MCU has SCKDIVCR2 for USBCK configuration. */
- #if !BSP_FEATURE_BSP_HAS_USBCKDIVCR
+ #if !BSP_FEATURE_USB_HAS_USBCKDIVCR
 
 /* Location of bitfield used to configure USB clock divider. */
   #define BSP_PRV_SCKDIVCR2_UCK_BIT    (4U)
   #define BSP_PRV_UCK_DIV              (BSP_CFG_UCLK_DIV)
 
 /* If the MCU has USBCKDIVCR. */
- #elif BSP_FEATURE_BSP_HAS_USBCKDIVCR
+ #elif BSP_FEATURE_USB_HAS_USBCKDIVCR
   #if BSP_CLOCKS_USB_CLOCK_DIV_1 == BSP_CFG_UCLK_DIV
    #define BSP_PRV_UCK_DIV             (0U)
   #elif BSP_CLOCKS_USB_CLOCK_DIV_2 == BSP_CFG_UCLK_DIV
@@ -435,7 +435,7 @@
 #if (BSP_CFG_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)
  #define BSP_PRV_MAIN_OSC_USED                    (1)
  #define BSP_PRV_STABILIZE_MAIN_OSC               (1)
-#elif defined(BSP_CFG_UCLK_SOURCE) && BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ && \
+#elif defined(BSP_CFG_UCLK_SOURCE) && BSP_FEATURE_USB_HAS_CLOCK_REQ && \
     (BSP_CFG_UCLK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)
  #define BSP_PRV_MAIN_OSC_USED                    (1)
 #elif defined(BSP_CFG_CANFDCLK_SOURCE) && (BSP_CFG_CANFDCLK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)
@@ -498,7 +498,7 @@
 #elif defined(BSP_CFG_PLL2_SOURCE) && (BSP_CFG_PLL2_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_HOCO) && BSP_PRV_PLL2_USED
  #define BSP_PRV_HOCO_USED                        (1)
  #define BSP_PRV_STABILIZE_HOCO                   (1)
-#elif defined(BSP_CFG_UCLK_SOURCE) && BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ && \
+#elif defined(BSP_CFG_UCLK_SOURCE) && BSP_FEATURE_USB_HAS_CLOCK_REQ && \
     (BSP_CFG_UCLK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_HOCO)
  #define BSP_PRV_HOCO_USED                        (1)
 #elif defined(BSP_CFG_CLKOUT_SOURCE) && (BSP_CFG_CLKOUT_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_HOCO)
@@ -545,7 +545,7 @@
  #define BSP_PRV_MOCO_USED                        (1)
 #elif defined(BSP_CFG_CLKOUT1_SOURCE) && (BSP_CFG_CLKOUT1_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MOCO)
  #define BSP_PRV_MOCO_USED                        (1)
-#elif defined(BSP_CFG_UCLK_SOURCE) && BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ && \
+#elif defined(BSP_CFG_UCLK_SOURCE) && BSP_FEATURE_USB_HAS_CLOCK_REQ && \
     (BSP_CFG_UCLK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MOCO)
  #define BSP_PRV_MOCO_USED                        (1)
 #elif defined(BSP_CFG_SCISPICLK_SOURCE) && (BSP_CFG_SCISPICLK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MOCO)
@@ -639,25 +639,25 @@
  #define BSP_PRV_CLOCK_SUPPLY_TYPE_B              (0)
 #endif
 
-#if (BSP_FEATURE_BSP_HAS_CANFD_CLOCK && (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED) &&    \
-    (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)) ||                                \
-    (BSP_FEATURE_BSP_HAS_SCISPI_CLOCK && (BSP_CFG_SCISPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) || \
-    (BSP_FEATURE_BSP_HAS_SCI_CLOCK && (BSP_CFG_SCICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_SPI_CLOCK && (BSP_CFG_SPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_PERIPHERAL_GPT_GTCLK_PRESENT && (BSP_CFG_GPTCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||    \
-    (BSP_FEATURE_BSP_HAS_IIC_CLOCK && (BSP_CFG_IICCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_CEC_CLOCK && (BSP_CFG_CECCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_I3C_CLOCK && (BSP_CFG_I3CCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_USB60_CLOCK && (BSP_CFG_USB60CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||   \
-    (BSP_FEATURE_BSP_HAS_LCD_CLOCK && (BSP_CFG_LCDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_ADC_CLOCK && (BSP_CFG_ADCCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_ESW_CLOCK && (BSP_CFG_ESWCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||       \
-    (BSP_FEATURE_BSP_HAS_ESWPHY_CLOCK && (BSP_CFG_ESWPHYCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) || \
-    (defined(BSP_CFG_BCLKA_SOURCE) && (BSP_CFG_BCLKA_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||        \
-    (BSP_FEATURE_BSP_HAS_EXTRA_PERIPHERAL0_CLOCK &&                                                  \
-     (BSP_CFG_EXTRA_PERIPHERAL0CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||                          \
-    (BSP_FEATURE_BSP_HAS_EXTRA_PERIPHERAL1_CLOCK &&                                                  \
-     (BSP_CFG_EXTRA_PERIPHERAL1CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED))
+#if (BSP_FEATURE_CANFD_HAS_CLOCK && (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED) &&         \
+    (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)) ||                                 \
+    (BSP_FEATURE_SCI_HAS_SCISPI_CLOCK && (BSP_CFG_SCISPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||  \
+    (BSP_FEATURE_SCI_HAS_CLOCK && (BSP_CFG_SCICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_FEATURE_SPI_HAS_CLOCK && (BSP_CFG_SPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_PERIPHERAL_GPT_GTCLK_PRESENT && (BSP_CFG_GPTCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||     \
+    (BSP_FEATURE_IIC_HAS_CLOCK && (BSP_CFG_IICCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_FEATURE_CEC_HAS_CLOCK && (BSP_CFG_CECCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_FEATURE_I3C_HAS_CLOCK && (BSP_CFG_I3CCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_FEATURE_USB_HAS_USB60_CLOCK && (BSP_CFG_USB60CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||    \
+    (BSP_FEATURE_LCD_HAS_CLOCK && (BSP_CFG_LCDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_FEATURE_ADC_HAS_CLOCK && (BSP_CFG_ADCCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||            \
+    (BSP_FEATURE_ESWM_HAS_CLOCK && (BSP_CFG_ESWCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||           \
+    (BSP_FEATURE_ESWM_HAS_ESWPHY_CLOCK && (BSP_CFG_ESWPHYCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) || \
+    (defined(BSP_CFG_BCLKA_SOURCE) && (BSP_CFG_BCLKA_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||         \
+    (BSP_FEATURE_BSP_HAS_DSMIF_CLOCK &&                                                               \
+     (BSP_CFG_DSMIFCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)) ||                                       \
+    (BSP_FEATURE_BSP_HAS_ESC_CLOCK &&                                                                 \
+     (BSP_CFG_ESCCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED))
 
  #define BSP_PRV_HAS_ENABLED_PERIPHERAL_CLOCKS    (1U)
 #else
@@ -889,9 +889,8 @@ void bsp_prv_operating_mode_set (uint8_t operating_mode)
     /* Disable DCDC if transitioning to an incompatible mode. */
     if ((operating_mode > BSP_PRV_OPERATING_MODE_MIDDLE_SPEED) && (R_SYSTEM->DCDCCTL & R_SYSTEM_DCDCCTL_DCDCON_Msk))
     {
-        /* LDO boost must be used if entering subclock speed mode (see RA2L1 User's Manual (R01UH0853EJ0100) Section
-         * 10.5.1 (5) Switching from High-speed/Middle-speed mode in DCDC power mode to Subosc-speed mode or Software
-         * Standby mode). */
+        /* LDO boost must be used if entering subclock speed mode (see "Switching from High-speed/Middle-speed mode
+         * in DCDC power mode to Subosc-speed mode or Software Standby mode" in the LPM section of the relevant hardware manual). */
         power_mode = R_BSP_PowerModeSet((BSP_PRV_OPERATING_MODE_SUBOSC_SPEED == operating_mode) ?
                                         BSP_POWER_MODE_LDO_BOOST : BSP_POWER_MODE_LDO);
     }
@@ -1045,9 +1044,13 @@ void SystemCoreClockUpdate (void)
         if (BSP_CLOCKS_FMAIN_SOURCE_CLOCK_FOCO == R_SYSTEM->FMAINSCR_b.CKST)
  #endif
         {
+ #if BSP_FEATURE_CGC_HAS_MOCO
             SystemCoreClock = R_SYSTEM->FOCOSCR_b.CKST ?                                        \
                               g_clock_freq[BSP_CLOCKS_SOURCE_CLOCK_MOCO] >> R_SYSTEM->MOCODIV : \
                               g_clock_freq[BSP_CLOCKS_SOURCE_CLOCK_HOCO] >> R_SYSTEM->HOCODIV;
+ #else
+            SystemCoreClock = g_clock_freq[BSP_CLOCKS_SOURCE_CLOCK_HOCO] >> R_SYSTEM->HOCODIV;
+ #endif
         }
     }
 #endif
@@ -1056,8 +1059,8 @@ void SystemCoreClockUpdate (void)
 #if BSP_FEATURE_LPM_CHANGE_MSTP_REQUIRED
 
 /*******************************************************************************************************************//**
- * Sets MSTP bits as required by the hardware manual for the MCU (reference Figure 9.2 "Example flow for changing the
- * value of SCKDIVCR" in the RA6M3 manual R01UH0886EJ0100).
+ * Sets MSTP bits as required by the hardware manual for the MCU (refer Figure "Example flow for changing the
+ * value of SCKDIVCR" in the CGC section of the relevant hardware manual).
  *
  * This function must be called before entering standby or changing SCKDIVCR.
  *
@@ -1096,7 +1099,7 @@ uint32_t bsp_prv_power_change_mstp_set (void)
 
 /*******************************************************************************************************************//**
  * Clears MSTP bits set by bsp_prv_power_change_mstp_set as required by the hardware manual for the MCU (reference
- * Figure 9.2 "Example flow for changing the value of SCKDIVCR" in the RA6M3 manual R01UH0886EJ0100).
+ * Figure "Example flow for changing the value of SCKDIVCR" in the CGC section of the relevant hardware manual).
  *
  * This function must be called after exiting standby or changing SCKDIVCR.
  *
@@ -1457,7 +1460,7 @@ void bsp_prv_clock_set (uint32_t clock, uint32_t sckdivcr, uint16_t sckdivcr2)
 bool bsp_prv_clock_prepare_pre_sleep (void)
 {
     /* Must wait before entering or exiting sleep modes.
-     * See Section 10.7.10 in RA8M1 manual R01UH0994EJ0100 */
+     * See "Notes on transitioning to or canceling low power state" in the LPM section of the relevant hardware manual */
     R_BSP_SoftwareDelay(BSP_CFG_CLOCK_SETTLING_DELAY_US, BSP_DELAY_UNITS_MICROSECONDS);
 
     /* Need to slow CPUCLK down before sleeping if it is above 240MHz. */
@@ -1490,7 +1493,7 @@ bool bsp_prv_clock_prepare_pre_sleep (void)
 void bsp_prv_clock_prepare_post_sleep (bool cpuclk_slowed)
 {
     /* Set CPUCLK back to original speed here if it was slowed down before sleeping (dropped to below 240MHz)
-     * Add delays as described in Section 10.7.10 of RA8M1 manual R01UH0994EJ0100 */
+     * Add delays as described in "Notes on transitioning to or canceling low power state" in the LPM section of the relevant hardware manual */
     R_BSP_SoftwareDelay(BSP_CFG_CLOCK_SETTLING_DELAY_US, BSP_DELAY_UNITS_MICROSECONDS);
     if (cpuclk_slowed)
     {
@@ -1526,16 +1529,27 @@ uint32_t bsp_prv_clock_source_get (void)
      * | SOSC                | x             | x              | 0U            | 1U            |
      *
      * */
+ #if BSP_FEATURE_CGC_HAS_MOSC
     uint32_t clock = BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC;
+ #else
+    uint32_t clock = BSP_CLOCKS_SOURCE_CLOCK_HOCO;
+ #endif
 
     if (BSP_CLOCKS_SOURCE_CLOCK_FSUB == R_SYSTEM->ICLKSCR_b.CKST)
     {
+ #if BSP_FEATURE_CGC_HAS_SOSC
         clock = R_SYSTEM->FSUBSCR ? BSP_CLOCKS_SOURCE_CLOCK_LOCO : BSP_CLOCKS_SOURCE_CLOCK_SUBCLOCK;
+ #else
+        clock = BSP_CLOCKS_SOURCE_CLOCK_LOCO;
+ #endif
     }
+
+ #if BSP_FEATURE_CGC_HAS_MOCO
     else if (BSP_CLOCKS_FMAIN_SOURCE_CLOCK_FOCO == R_SYSTEM->FMAINSCR_b.CKST)
     {
         clock = R_SYSTEM->FOCOSCR_b.CKST ? BSP_CLOCKS_SOURCE_CLOCK_MOCO : BSP_CLOCKS_SOURCE_CLOCK_HOCO;
     }
+ #endif
     else
     {
         /* Do nothing. */
@@ -1568,6 +1582,7 @@ void bsp_prv_clock_set (uint32_t clock, uint8_t hocodiv, uint8_t mocodiv, uint8_
     R_SYSTEM->ICLKSCR_b.CKSEL = BSP_CLOCKS_SOURCE_CLOCK_FMAIN;
     FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->ICLKSCR_b.CKST, BSP_CLOCKS_SOURCE_CLOCK_FMAIN);
 
+ #if BSP_FEATURE_CGC_HAS_MOCO
     if ((BSP_CLOCKS_SOURCE_CLOCK_HOCO == clock) || (BSP_CLOCKS_SOURCE_CLOCK_MOCO == clock))
     {
         R_SYSTEM->FMAINSCR_b.CKSEL = BSP_CLOCKS_FMAIN_SOURCE_CLOCK_FOCO;
@@ -1578,7 +1593,8 @@ void bsp_prv_clock_set (uint32_t clock, uint8_t hocodiv, uint8_t mocodiv, uint8_
             R_SYSTEM->FOCOSCR_b.CKSEL = BSP_CLOCKS_FOCO_SOURCE_CLOCK_HOCO;
             FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->FOCOSCR_b.CKST, BSP_CLOCKS_FOCO_SOURCE_CLOCK_HOCO);
 
-            /* Due to register access restrictions (see 8.6.1 Register Access), only set the HOCODIV when system clock source is HOCO */
+            /* Due to register access restrictions, only set the HOCODIV when system clock source is HOCO. *
+             * See in hardware manual: Clock Generation Circuit > Usage Notes > Register Access */
             R_SYSTEM->HOCODIV = hocodiv;
         }
         else
@@ -1587,6 +1603,15 @@ void bsp_prv_clock_set (uint32_t clock, uint8_t hocodiv, uint8_t mocodiv, uint8_
             FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->FOCOSCR_b.CKST, BSP_CLOCKS_FOCO_SOURCE_CLOCK_MOCO);
         }
     }
+
+ #else
+    if (BSP_CLOCKS_SOURCE_CLOCK_HOCO == clock)
+    {
+        /* Due to register access restrictions, only set the HOCODIV when system clock source is HOCO. *
+         * See in hardware manual: Clock Generation Circuit > Usage Notes > Register Access */
+        R_SYSTEM->HOCODIV = hocodiv;
+    }
+ #endif
 
  #if BSP_CLOCK_CFG_MAIN_OSC_POPULATED
     else if (BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC == clock)
@@ -1613,8 +1638,17 @@ void bsp_prv_clock_set (uint32_t clock, uint8_t hocodiv, uint8_t mocodiv, uint8_
         FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->ICLKSCR_b.CKST, BSP_CLOCKS_SOURCE_CLOCK_FSUB);
     }
 
+ #if BSP_FEATURE_CGC_HAS_MOCO
     R_SYSTEM->MOCODIV = mocodiv;
+ #else
+    FSP_PARAMETER_NOT_USED(mocodiv);
+ #endif
+
+ #if BSP_FEATURE_CGC_HAS_MOSC
     R_SYSTEM->MOSCDIV = moscdiv;
+ #else
+    FSP_PARAMETER_NOT_USED(moscdiv);
+ #endif
 
     /* Clock is now at requested frequency. Update the CMSIS core clock variable so that it reflects the new ICLK frequency.*/
     SystemCoreClockUpdate();
@@ -1669,20 +1703,20 @@ static void bsp_prv_clock_set_hard_reset (void)
 
     /* Calculate the wait states for ROM */
  #if BSP_FEATURE_CGC_HAS_FLWT
-  #if BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_ONE_ROM_WAITS
+  #if BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_SYSC_CLOCK_FREQ_ONE_ROM_WAITS
 
     /* Do nothing. Default setting in FLWT is correct. */
-  #elif BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS || \
-    BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS == 0
+  #elif BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS || \
+    BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS == 0
     R_FCACHE->FLWT = BSP_PRV_ROM_ONE_WAIT_CYCLES;
-  #elif 0 == BSP_FEATURE_BSP_SYS_CLOCK_FREQ_THREE_ROM_WAITS || \
-    (BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_THREE_ROM_WAITS)
+  #elif 0 == BSP_FEATURE_SYSC_CLOCK_FREQ_THREE_ROM_WAITS || \
+    (BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_SYSC_CLOCK_FREQ_THREE_ROM_WAITS)
     R_FCACHE->FLWT = BSP_PRV_ROM_TWO_WAIT_CYCLES;
-  #elif 0 == BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FOUR_ROM_WAITS || \
-    (BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FOUR_ROM_WAITS)
+  #elif 0 == BSP_FEATURE_SYSC_CLOCK_FREQ_FOUR_ROM_WAITS || \
+    (BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_SYSC_CLOCK_FREQ_FOUR_ROM_WAITS)
     R_FCACHE->FLWT = BSP_PRV_ROM_THREE_WAIT_CYCLES;
-  #elif 0 == BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FIVE_ROM_WAITS || \
-    (BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FIVE_ROM_WAITS)
+  #elif 0 == BSP_FEATURE_SYSC_CLOCK_FREQ_FIVE_ROM_WAITS || \
+    (BSP_STARTUP_ICLK_HZ <= BSP_FEATURE_SYSC_CLOCK_FREQ_FIVE_ROM_WAITS)
     R_FCACHE->FLWT = BSP_PRV_ROM_FOUR_WAIT_CYCLES;
   #else
     R_FCACHE->FLWT = BSP_PRV_ROM_FIVE_WAIT_CYCLES;
@@ -1858,8 +1892,8 @@ static void bsp_prv_clock_set_hard_reset (void)
     R_SRAM->SRAMPRCR = BSP_PRV_SRAM_UNLOCK;
    #endif
 
-    /* Execute data memory barrier before and after setting the wait states, See Section 50.4.2 in the RA8M1
-     * manual R01UH0994EJ0100 */
+    /* Execute data memory barrier before and after setting the wait states, See "Note of write to SRAMCR0, SRAMCR1 and SRAMECCRGN0 registers"
+     * in the SRAM section of the relevant hardware manual */
     __DMB();
     R_SRAM->SRAMWTSC = BSP_PRV_SRAM_WAIT_CYCLES;
     __DMB();
@@ -2112,33 +2146,39 @@ void bsp_soft_reset_prepare (void)
  **********************************************************************************************************************/
 void bsp_prv_cmc_init (void)
 {
+ #if BSP_FEATURE_CGC_HAS_MOSC || BSP_FEATURE_CGC_HAS_SOSC
+
     /* The CMC register can be written only once after release from the reset state. If clock registers not reset
      * values during startup, assume CMC register has already been set appropriately. */
     uint8_t cmc_reg = 0x00U;
 
     /* Set main clock oscillator drive capability */
- #if BSP_CLOCK_CFG_MAIN_OSC_POPULATED
+  #if BSP_CLOCK_CFG_MAIN_OSC_POPULATED
     cmc_reg |= BSP_PRV_CMC_MOSC;
- #endif
+  #endif
 
     /* Set sub-clock oscillator drive capability and pin switching */
- #if BSP_CLOCK_CFG_SUBCLOCK_POPULATED
+  #if BSP_CLOCK_CFG_SUBCLOCK_POPULATED
     cmc_reg |= BSP_PRV_CMC_SOSC;
- #endif
+  #endif
 
     R_SYSTEM->CMC = cmc_reg;
+ #endif
 
  #if (BSP_CFG_FSXP_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     uint8_t osmc = R_SYSTEM->OSMC;
 
     if (BSP_PRV_OSMC != osmc)
     {
+  #if BSP_PERIPHERAL_RTC_C_PRESENT || BSP_PERIPHERAL_RTC_PRESENT
+
         /* Stop RTC counter operation to update the OSMC register. */
         BSP_MSTP_REG_FSP_IP_RTC(0) &= ~BSP_MSTP_BIT_FSP_IP_RTC(0);
         FSP_REGISTER_READ(BSP_MSTP_REG_FSP_IP_RTC(0));
         R_RTC_C->RTCC0_b.RTCE       = 0U;
         BSP_MSTP_REG_FSP_IP_RTC(0) |= BSP_MSTP_BIT_FSP_IP_RTC(0);
         FSP_REGISTER_READ(BSP_MSTP_REG_FSP_IP_RTC(0));
+  #endif
 
   #if BSP_CLOCK_CFG_SUBCLOCK_POPULATED
         if (0U == osmc)
@@ -2206,8 +2246,8 @@ void bsp_clock_init (void)
     R_SYSTEM->PRCR = (uint16_t) BSP_PRV_PRCR_UNLOCK;
 #endif
 
-#if BSP_FEATURE_BSP_FLASH_CACHE || defined(R_CACHE)
- #if !BSP_CFG_USE_LOW_VOLTAGE_MODE && BSP_FEATURE_BSP_FLASH_CACHE_DISABLE_OPM
+#if BSP_FEATURE_FLASH_CACHE || defined(R_CACHE)
+ #if !BSP_CFG_USE_LOW_VOLTAGE_MODE && BSP_FEATURE_FLASH_CACHE_DISABLE_OPM
 
     /* Disable flash cache before modifying MEMWAIT, SOPCCR, or OPCCR. */
     R_BSP_FlashCacheDisable();
@@ -2224,7 +2264,7 @@ void bsp_clock_init (void)
  #endif
 #endif
 
-#if BSP_FEATURE_BSP_FLASH_PREFETCH_BUFFER
+#if BSP_FEATURE_FLASH_PREFETCH_BUFFER
 
     /* Enable the flash prefetch buffer. */
     R_FACI_LP->PFBER = 1;
@@ -2475,19 +2515,34 @@ void bsp_clock_init (void)
  #if BSP_FEATURE_CGC_PLLCCR_WAIT_US > 0
 
         /* This loop is provided to ensure at least 1 us passes between setting PLLMUL and clearing PLLSTP on some
-         * MCUs (see PLLSTP notes in Section 8.2.4 "PLL Control Register (PLLCR)" of the RA4M1 manual R01UH0887EJ0100).
+         * MCUs (see PLLSTP notes in "PLL Control Register (PLLCR)" description in the CGC section of the relevant hardware manual).
          * Five loops are needed here to ensure the most efficient path takes at least 1 us from the setting of
          * PLLMUL to the clearing of PLLSTP. HOCO is the fastest clock we can be using here since PLL cannot be running
          * while setting PLLCCR. */
         bsp_prv_software_delay_loop(BSP_DELAY_LOOPS_CALCULATE(BSP_PRV_MAX_HOCO_CYCLES_PER_US));
  #endif
 
- #if BSP_MCU_GROUP_RA8_GEN2
+ #if BSP_MCU_GROUP_RA8_GEN2 && (BSP_CFG_CPU_CORE == 0)
+
+        /* Do not access the CM85 ITCM, DTCM, I-Cache, or D-Cache during voltage scaling change. */
+        /* Disable CM85 I-Cache allocations and invalidate for later coherence. */
+        SCB_DisableICache();
+
+        /* Disable CM85 I-Cache and D-Cache lookups and allocations. D-Cache should already be clean and allocations disabled, so no cache maintenance required. */
+        MEMSYSCTL->MSCR &= ~(MEMSYSCTL_MSCR_ICACTIVE_Msk | MEMSYSCTL_MSCR_DCACTIVE_Msk);
+        __DSB();
+        __ISB();
 
         /* Always set not high VSCR_1 (non-default), change before enabling PLL.
-         * - Note this will consume more power than necessary for certain configuraitons. See User Manual for more infomration. */
+         * - Note this will consume more power than necessary for certain configurations. See User Manual for more information. */
         R_SYSTEM->VSCR_b.VSCM = 0x1U;
         FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->VSCR_b.VSCMTSF, 0U);
+
+        /* Re-enable CM85 I-Cache and D-Cache lookups and allow allocations per CCR.xC (TZ banked) bits . */
+        MEMSYSCTL->MSCR |= (MEMSYSCTL_MSCR_ICACTIVE_Msk | MEMSYSCTL_MSCR_DCACTIVE_Msk);
+        __DSB();
+        __ISB();
+        SCB_EnableICache();
  #endif
 
         R_SYSTEM->PLLCR = 0U;
@@ -2586,12 +2641,12 @@ void bsp_clock_init (void)
  #if BSP_CFG_UCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED
 
     /* If the USB clock has a divider setting in SCKDIVCR2. */
-  #if BSP_FEATURE_BSP_SCKDIVCR2_HAS_USB_CLOCK_DIV
+  #if BSP_FEATURE_USB_SCKDIVCR2_HAS_CLOCK_DIV
     R_SYSTEM->SCKDIVCR2 = BSP_PRV_UCK_DIV << BSP_PRV_SCKDIVCR2_UCK_BIT;
-  #endif                               /* BSP_FEATURE_BSP_SCKDIVCR2_HAS_USB_CLOCK_DIV */
+  #endif                               /* BSP_FEATURE_USB_SCKDIVCR2_HAS_CLOCK_DIV */
 
-    /* If there is a REQ bit in USBCKCR, then follow sequence from section 8.2.29 in RA6M4 hardware manual R01UH0890EJ0050. */
-  #if BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ
+    /* If there is a REQ bit in USBCKCR, then follow sequence from "USBCKCR : USB Clock Control Register" description in the CGC section of the relevant hardware manual. */
+  #if BSP_FEATURE_USB_HAS_CLOCK_REQ
 
     /* Request to change the USB Clock. */
     R_SYSTEM->USBCKCR_b.USBCKSREQ = 1;
@@ -2599,20 +2654,20 @@ void bsp_clock_init (void)
     /* Wait for the clock to be stopped. */
     FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->USBCKCR_b.USBCKSRDY, 1U);
 
-   #if BSP_FEATURE_BSP_HAS_USBCKDIVCR
+   #if BSP_FEATURE_USB_HAS_USBCKDIVCR
 
     /* Write the settings. */
     R_SYSTEM->USBCKDIVCR = BSP_PRV_UCK_DIV;
-   #endif                              /* BSP_FEATURE_BSP_HAS_USBCKDIVCR */
+   #endif                              /* BSP_FEATURE_USB_HAS_USBCKDIVCR */
 
     /* Select the USB Clock without enabling it. */
     R_SYSTEM->USBCKCR = BSP_CFG_UCLK_SOURCE | R_SYSTEM_USBCKCR_USBCKSREQ_Msk;
-  #endif                               /* BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ */
+  #endif                               /* BSP_FEATURE_USB_HAS_CLOCK_REQ */
 
-  #if BSP_FEATURE_BSP_HAS_USB_CLOCK_SEL
+  #if BSP_FEATURE_USB_HAS_CLOCK_SEL
 
     /* Some MCUs use an alternate register for selecting the USB clock source. */
-   #if BSP_FEATURE_BSP_HAS_USB_CLOCK_SEL_ALT
+   #if BSP_FEATURE_USB_HAS_CLOCK_SEL_ALT
     #if BSP_CLOCKS_SOURCE_CLOCK_PLL == BSP_CFG_UCLK_SOURCE
 
     /* Write to USBCKCR to select the PLL. */
@@ -2627,28 +2682,28 @@ void bsp_clock_init (void)
     /* Select the USB Clock. */
     R_SYSTEM->USBCKCR = BSP_CFG_UCLK_SOURCE;
    #endif
-  #endif                               /* BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ */
+  #endif                               /* BSP_FEATURE_USB_HAS_CLOCK_REQ */
 
-  #if BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ
+  #if BSP_FEATURE_USB_HAS_CLOCK_REQ
 
     /* Wait for the USB Clock to be started. */
     FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->USBCKCR_b.USBCKSRDY, 0U);
-  #endif                               /* BSP_FEATURE_BSP_HAS_USB_CLOCK_REQ */
+  #endif                               /* BSP_FEATURE_USB_HAS_CLOCK_REQ */
  #endif                                /* BSP_CFG_USB_ENABLE */
 #endif                                 /* BSP_PRV_STARTUP_OPERATING_MODE != BSP_PRV_OPERATING_MODE_LOW_SPEED */
 
-    /* Set the OCTASPI clock if it exists on the MCU (See section 8.2.30 of the RA6M4 hardware manual R01UH0890EJ0050). */
-#if BSP_FEATURE_BSP_HAS_OCTASPI_CLOCK && BSP_CFG_OCTACLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED
+    /* Set the OCTASPI clock if it exists on the MCU (See "OCTACKCR : Octal-SPI Clock Control Register" description in the CGC section of the relevant hardware manual). */
+#if BSP_FEATURE_OSPI_HAS_CLOCK && BSP_CFG_OCTACLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED
     bsp_octaclk_settings_t octaclk_settings =
     {
         .source_clock = (bsp_clocks_source_t) BSP_CFG_OCTACLK_SOURCE,
         .divider      = (bsp_clocks_octaclk_div_t) BSP_CFG_OCTACLK_DIV
     };
     R_BSP_OctaclkUpdate(&octaclk_settings);
-#endif                                 /* BSP_FEATURE_BSP_HAS_OCTASPI_CLOCK && BSP_CFG_OCTASPI_CLOCK_ENABLE */
+#endif                                 /* BSP_FEATURE_OSPI_HAS_CLOCK && BSP_CFG_OCTASPI_CLOCK_ENABLE */
 
     /* Set the CANFD clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_CANFD_CLOCK && (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED) && \
+#if BSP_FEATURE_CANFD_HAS_CLOCK && (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED) && \
     (BSP_CFG_CANFDCLK_SOURCE != BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)
 
     bsp_peripheral_clock_set(&R_SYSTEM->CANFDCKCR,
@@ -2658,7 +2713,7 @@ void bsp_clock_init (void)
 #endif
 
     /* Set the SCISPI clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_SCISPI_CLOCK && (BSP_CFG_SCISPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_SCI_HAS_SCISPI_CLOCK && (BSP_CFG_SCISPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->SCISPICKCR,
                              &R_SYSTEM->SCISPICKDIVCR,
                              BSP_CFG_SCISPICLK_DIV,
@@ -2666,12 +2721,12 @@ void bsp_clock_init (void)
 #endif
 
     /* Set the SCI clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_SCI_CLOCK && (BSP_CFG_SCICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_SCI_HAS_CLOCK && (BSP_CFG_SCICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->SCICKCR, &R_SYSTEM->SCICKDIVCR, BSP_CFG_SCICLK_DIV, BSP_CFG_SCICLK_SOURCE);
 #endif
 
     /* Set the SPI clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_SPI_CLOCK && (BSP_CFG_SPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_SPI_HAS_CLOCK && (BSP_CFG_SPICLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->SPICKCR, &R_SYSTEM->SPICKDIVCR, BSP_CFG_SPICLK_DIV, BSP_CFG_SPICLK_SOURCE);
 #endif
 
@@ -2681,27 +2736,27 @@ void bsp_clock_init (void)
 #endif
 
     /* Set the IIC clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_IIC_CLOCK && (BSP_CFG_IICCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_IIC_HAS_CLOCK && (BSP_CFG_IICCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->IICCKCR, &R_SYSTEM->IICCKDIVCR, BSP_CFG_IICCLK_DIV, BSP_CFG_IICCLK_SOURCE);
 #endif
 
     /* Set the CEC clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_CEC_CLOCK && (BSP_CFG_CECCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_CEC_HAS_CLOCK && (BSP_CFG_CECCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->CECCKCR, &R_SYSTEM->CECCKDIVCR, BSP_CFG_CECCLK_DIV, BSP_CFG_CECCLK_SOURCE);
 #endif
 
     /* Set the I3C clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_I3C_CLOCK && (BSP_CFG_I3CCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_I3C_HAS_CLOCK && (BSP_CFG_I3CCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->I3CCKCR, &R_SYSTEM->I3CCKDIVCR, BSP_CFG_I3CCLK_DIV, BSP_CFG_I3CCLK_SOURCE);
 #endif
 
     /* Set the LCD clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_LCD_CLOCK && (BSP_CFG_LCDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_LCD_HAS_CLOCK && (BSP_CFG_LCDCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->LCDCKCR, &R_SYSTEM->LCDCKDIVCR, BSP_CFG_LCDCLK_DIV, BSP_CFG_LCDCLK_SOURCE);
 #endif
 
     /* Set the USB-HS clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_USB60_CLOCK && (BSP_CFG_USB60CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_USB_HAS_USB60_CLOCK && (BSP_CFG_USB60CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->USB60CKCR,
                              &R_SYSTEM->USB60CKDIVCR,
                              BSP_CFG_USB60CLK_DIV,
@@ -2709,17 +2764,17 @@ void bsp_clock_init (void)
 #endif
 
     /* Set the ADC clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_ADC_CLOCK && (BSP_CFG_ADCCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_ADC_HAS_CLOCK && (BSP_CFG_ADCCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->ADCCKCR, &R_SYSTEM->ADCCKDIVCR, BSP_CFG_ADCCLK_DIV, BSP_CFG_ADCCLK_SOURCE);
 #endif
 
     /* Set the ESW clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_ESW_CLOCK && (BSP_CFG_ESWCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_ESWM_HAS_CLOCK && (BSP_CFG_ESWCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->ESWCKCR, &R_SYSTEM->ESWCKDIVCR, BSP_CFG_ESWCLK_DIV, BSP_CFG_ESWCLK_SOURCE);
 #endif
 
     /* Set the ESWPHY clock if it exists on the MCU */
-#if BSP_FEATURE_BSP_HAS_ESWPHY_CLOCK && (BSP_CFG_ESWPHYCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_ESWM_HAS_ESWPHY_CLOCK && (BSP_CFG_ESWPHYCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
     bsp_peripheral_clock_set(&R_SYSTEM->ESWPCKCR,
                              &R_SYSTEM->ESWPCKDIVCR,
                              BSP_CFG_ESWPHYCLK_DIV,
@@ -2734,24 +2789,21 @@ void bsp_clock_init (void)
                              BSP_CFG_ETHPHYCLK_SOURCE);
 #endif
 
-#if BSP_FEATURE_BSP_HAS_EXTRA_PERIPHERAL0_CLOCK && \
-    (BSP_CFG_EXTRA_PERIPHERAL0CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
-    bsp_peripheral_clock_set(BSP_PRV_EXTRA_PERIPHERAL0_CLOCK_CKCR,
-                             BSP_PRV_EXTRA_PERIPHERAL0_CLOCK_CKDIVCR,
-                             BSP_CFG_EXTRA_PERIPHERAL0CLK_DIV,
-                             BSP_CFG_EXTRA_PERIPHERAL0CLK_SOURCE);
+#if BSP_FEATURE_BSP_HAS_DSMIF_CLOCK && \
+    (BSP_CFG_DSMIFCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+    bsp_peripheral_clock_set(&R_SYSTEM->DSMIFCKCR,
+                             &R_SYSTEM->DSMIFCKDIVCR,
+                             BSP_CFG_DSMIFCLK_DIV,
+                             BSP_CFG_DSMIFCLK_SOURCE);
 #endif
 
-#if BSP_FEATURE_BSP_HAS_EXTRA_PERIPHERAL1_CLOCK && \
-    (BSP_CFG_EXTRA_PERIPHERAL1CLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
-    bsp_peripheral_clock_set(BSP_PRV_EXTRA_PERIPHERAL1_CLOCK_CKCR,
-                             BSP_PRV_EXTRA_PERIPHERAL1_CLOCK_CKDIVCR,
-                             BSP_CFG_EXTRA_PERIPHERAL1CLK_DIV,
-                             BSP_CFG_EXTRA_PERIPHERAL1CLK_SOURCE);
+#if BSP_FEATURE_BSP_HAS_ESC_CLOCK && \
+    (BSP_CFG_ESCCLK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+    bsp_peripheral_clock_set(&R_SYSTEM->ESCCKCR, &R_SYSTEM->ESCCKDIVCR, BSP_CFG_ESCCLK_DIV, BSP_CFG_ESCCLK_SOURCE);
 #endif
 
     /* Set the SDADC clock if it exists on the MCU. */
-#if BSP_FEATURE_BSP_HAS_SDADC_CLOCK && (BSP_CFG_SDADC_CLOCK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
+#if BSP_FEATURE_SDADC_HAS_CLOCK && (BSP_CFG_SDADC_CLOCK_SOURCE != BSP_CLOCKS_CLOCK_DISABLED)
  #if BSP_CFG_SDADC_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_HOCO
     uint8_t sdadcckcr = 1U;
  #elif BSP_CFG_SDADC_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_PLL
@@ -2771,7 +2823,7 @@ void bsp_clock_init (void)
     R_SYSTEM->PRCR = (uint16_t) BSP_PRV_PRCR_LOCK;
 #endif
 
-#if (BSP_FEATURE_BSP_FLASH_CACHE || defined(R_CACHE)) && BSP_FEATURE_BSP_FLASH_CACHE_DISABLE_OPM
+#if (BSP_FEATURE_FLASH_CACHE || defined(R_CACHE)) && BSP_FEATURE_FLASH_CACHE_DISABLE_OPM
     R_BSP_FlashCacheEnable();
 #endif
 }
@@ -2873,7 +2925,7 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
  #if BSP_FEATURE_CGC_HAS_SRAMWTSC
 
     /* Wait states for SRAM (SRAM0, SRAM1 and SRAM0 (DED)). */
-    if (requested_freq_hz > BSP_FEATURE_BSP_SYS_CLOCK_FREQ_NO_RAM_WAITS)
+    if (requested_freq_hz > BSP_FEATURE_SYSC_CLOCK_FREQ_NO_RAM_WAITS)
     {
   #if BSP_FEATURE_CGC_HAS_SRAMPRCR2 == 1
         R_SRAM->SRAMPRCR2 = BSP_PRV_SRAM_UNLOCK;
@@ -2888,8 +2940,8 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
         R_SRAM->SRAMPRCR = BSP_PRV_SRAM_UNLOCK;
    #endif
 
-        /* Execute data memory barrier before and after setting the wait states, See Section 50.4.2 in the RA8M1
-         * manual R01UH0994EJ0100 */
+        /* Execute data memory barrier before and after setting the wait states, See "Note of write to SRAMCR0, SRAMCR1 and SRAMECCRGN0 registers"
+         * in the SRAM section of the relevant hardware manual */
         __DMB();
         R_SRAM->SRAMWTSC = BSP_FEATURE_SRAM_SRAMWTSC_WAIT_CYCLE_ENABLE;
         __DMB();
@@ -2907,8 +2959,8 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
  #if BSP_FEATURE_CGC_HAS_FLWT
 
     /* Calculate the wait states for ROM */
-  #if BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS == 0
-    if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_ONE_ROM_WAITS)
+  #if BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS == 0
+    if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_ONE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ZERO_WAIT_CYCLES;
     }
@@ -2917,12 +2969,12 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
         new_rom_wait_state = BSP_PRV_ROM_ONE_WAIT_CYCLES;
     }
 
-  #elif BSP_FEATURE_BSP_SYS_CLOCK_FREQ_THREE_ROM_WAITS == 0
-    if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_ONE_ROM_WAITS)
+  #elif BSP_FEATURE_SYSC_CLOCK_FREQ_THREE_ROM_WAITS == 0
+    if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_ONE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ZERO_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ONE_WAIT_CYCLES;
     }
@@ -2931,16 +2983,16 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
         new_rom_wait_state = BSP_PRV_ROM_TWO_WAIT_CYCLES;
     }
 
-  #elif BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FOUR_ROM_WAITS == 0
-    if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_ONE_ROM_WAITS)
+  #elif BSP_FEATURE_SYSC_CLOCK_FREQ_FOUR_ROM_WAITS == 0
+    if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_ONE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ZERO_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ONE_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_THREE_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_THREE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_TWO_WAIT_CYCLES;
     }
@@ -2949,20 +3001,20 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
         new_rom_wait_state = BSP_PRV_ROM_THREE_WAIT_CYCLES;
     }
 
-  #elif BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FIVE_ROM_WAITS == 0
-    if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_ONE_ROM_WAITS)
+  #elif BSP_FEATURE_SYSC_CLOCK_FREQ_FIVE_ROM_WAITS == 0
+    if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_ONE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ZERO_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ONE_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_THREE_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_THREE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_TWO_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FOUR_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_FOUR_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_THREE_WAIT_CYCLES;
     }
@@ -2972,23 +3024,23 @@ static uint8_t bsp_clock_set_prechange (uint32_t requested_freq_hz)
     }
 
   #else
-    if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_ONE_ROM_WAITS)
+    if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_ONE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ZERO_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_TWO_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_TWO_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_ONE_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_THREE_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_THREE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_TWO_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FOUR_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_FOUR_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_THREE_WAIT_CYCLES;
     }
-    else if (requested_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_FIVE_ROM_WAITS)
+    else if (requested_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_FIVE_ROM_WAITS)
     {
         new_rom_wait_state = BSP_PRV_ROM_FOUR_WAIT_CYCLES;
     }
@@ -3038,7 +3090,7 @@ static void bsp_clock_set_postchange (uint32_t updated_freq_hz, uint8_t new_rom_
  #if BSP_FEATURE_CGC_HAS_SRAMWTSC
 
     /* Wait states for SRAM (SRAM0, SRAM1 and SRAM0 (DED)). */
-    if (updated_freq_hz <= BSP_FEATURE_BSP_SYS_CLOCK_FREQ_NO_RAM_WAITS)
+    if (updated_freq_hz <= BSP_FEATURE_SYSC_CLOCK_FREQ_NO_RAM_WAITS)
     {
   #if BSP_FEATURE_CGC_HAS_SRAMPRCR2 == 1
         R_SRAM->SRAMPRCR2 = BSP_PRV_SRAM_UNLOCK;
@@ -3053,8 +3105,8 @@ static void bsp_clock_set_postchange (uint32_t updated_freq_hz, uint8_t new_rom_
         R_SRAM->SRAMPRCR = BSP_PRV_SRAM_UNLOCK;
    #endif
 
-        /* Execute data memory barrier before and after setting the wait states,See Section 50.4.2 in the RA8M1
-         * manual R01UH0994EJ0100*/
+        /* Execute data memory barrier before and after setting the wait states, See "Note of write to SRAMCR0, SRAMCR1 and SRAMECCRGN0 registers"
+         * in the SRAM section of the relevant hardware manual*/
         __DMB();
         R_SRAM->SRAMWTSC = BSP_PRV_SRAMWTSC_WAIT_CYCLES_DISABLE;
         __DMB();
@@ -3153,7 +3205,7 @@ static void bsp_prv_sosc_init (void)
                 R_BSP_SoftwareDelay(BSP_PRV_SUBCLOCK_STOP_INTERVAL_US, BSP_DELAY_UNITS_MICROSECONDS);
 
                 /*
-                 * r01uh0893ej0120-ra4m3 8.2.9 SOSCCR : Sub-Clock Oscillator Control Register:
+                 * In the CGC section of the relevant hardware manual, SOSCCR : Sub-Clock Oscillator Control Register:
                  * When changing the value of the SOSTP bit, execute subsequent instructions
                  * only after reading the bit to check that the value is updated.
                  */
@@ -3170,7 +3222,7 @@ static void bsp_prv_sosc_init (void)
 
             R_SYSTEM->SOSCCR = 0U;
 
-            /* r01uh0893ej0120-ra4m3 8.2.9 SOSCCR : Sub-Clock Oscillator Control Register:
+            /* In the CGC sectin of the relevant hardware manual "SOSCCR : Sub-Clock Oscillator Control Register":
              * After setting the SOSTP bit to 0, use the sub-clock only after the sub-clock
              * oscillation stabilization time has elapsed.
              */
@@ -3204,7 +3256,12 @@ static void bsp_prv_sosc_init (void)
  **********************************************************************************************************************/
 void R_BSP_OctaclkUpdate (bsp_octaclk_settings_t * p_octaclk_setting)
 {
-#if BSP_FEATURE_BSP_HAS_OCTASPI_CLOCK
+#if BSP_FEATURE_OSPI_HAS_CLOCK
+ #if BSP_FEATURE_OSPI_B_IS_AVAILABLE
+  #define OSPI_UNIT_COUNT    BSP_FEATURE_OSPI_B_UNIT_COUNT
+ #else
+  #define OSPI_UNIT_COUNT    (1U)
+ #endif
 
     /* Store initial value of CGC and LPM protection registers. */
  #if BSP_FEATURE_TZ_VERSION == 2 && BSP_TZ_NONSECURE_BUILD == 1
@@ -3219,6 +3276,29 @@ void R_BSP_OctaclkUpdate (bsp_octaclk_settings_t * p_octaclk_setting)
  #else
     R_SYSTEM->PRCR = (uint16_t) BSP_PRV_PRCR_UNLOCK;
  #endif
+
+    /* All OSPI_B peripherals need to be stopped before the clock change.
+     * Technical Update TN-RA*-A0147A/E. */
+    uint32_t started_modules = 0;
+    for (uint32_t i = 0; i < OSPI_UNIT_COUNT; i++)
+    {
+        /* BSP_MSTP_BIT_FSP_IP_OSPI has a semi-colon at the end of the macro which messes up using
+         * it in an expression. Save the flag then if it is zero the IP is stopped. */
+        const uint32_t ip_stopped = BSP_MSTP_REG_FSP_IP_OSPI(i) & BSP_MSTP_BIT_FSP_IP_OSPI(i);
+        if (0 == ip_stopped)
+        {
+            /* Save the module index as a flag then stop it. */
+            started_modules |= (1U << i);
+            R_BSP_MODULE_STOP(FSP_IP_OSPI, i);
+        }
+    }
+
+    /* Must wait 2 OCTACLK cycles after the module has been stopped before changing the clock: TU TN-RA*-A0147A/E. */
+    const uint32_t octaclk_freq_hz = R_BSP_SourceClockHzGet((fsp_priv_source_clock_t) R_SYSTEM->OCTACKCR_b.OCTACKSEL) /
+                                     R_FSP_ClockDividerGet(R_SYSTEM->OCTACKDIVCR_b.OCTACKDIV);
+    const uint32_t octaclk_period_us = octaclk_freq_hz / BSP_PRV_HZ_PER_MHZ;
+
+    R_BSP_SoftwareDelay(2U * octaclk_period_us, BSP_DELAY_UNITS_MICROSECONDS);
 
     /* Request to change the OCTASPI Clock. */
     R_SYSTEM->OCTACKCR_b.OCTACKSREQ = 1;
@@ -3236,11 +3316,20 @@ void R_BSP_OctaclkUpdate (bsp_octaclk_settings_t * p_octaclk_setting)
     /* Wait for the OCTASPI Clock to be started. */
     FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->OCTACKCR_b.OCTACKSRDY, 0U);
 
+    /* Restore any OSPI_B peripherals that were stopped. */
+    for (uint32_t i = 0; i < OSPI_UNIT_COUNT; i++)
+    {
+        if (started_modules & (1U << i))
+        {
+            R_BSP_MODULE_START(FSP_IP_OSPI, i);
+        }
+    }
+
     /* Restore CGC and LPM protection registers. */
  #if BSP_FEATURE_TZ_VERSION == 2 && BSP_TZ_NONSECURE_BUILD == 1
-    R_SYSTEM->PRCR_NS = bsp_prv_prcr_orig;
+    R_SYSTEM->PRCR_NS = BSP_PRV_PRCR_KEY | bsp_prv_prcr_orig;
  #else
-    R_SYSTEM->PRCR = bsp_prv_prcr_orig;
+    R_SYSTEM->PRCR = BSP_PRV_PRCR_KEY | bsp_prv_prcr_orig;
  #endif
 #else
     FSP_PARAMETER_NOT_USED(p_octaclk_setting);
@@ -3260,7 +3349,7 @@ uint32_t R_BSP_SourceClockHzGet (fsp_priv_source_clock_t clock)
     return source_clock;
 }
 
-#if BSP_FEATURE_RTC_IS_AVAILABLE || BSP_FEATURE_RTC_HAS_TCEN || BSP_FEATURE_SYSC_HAS_VBTICTLR
+#if BSP_FEATURE_RTC_IS_AVAILABLE || BSP_FEATURE_RTC_HAS_TCEN || BSP_FEATURE_RTC_HAS_VBTICTLR
 
 /*******************************************************************************************************************//**
  * RTC Initialization
@@ -3271,7 +3360,7 @@ uint32_t R_BSP_SourceClockHzGet (fsp_priv_source_clock_t clock)
  **********************************************************************************************************************/
 void R_BSP_Init_RTC (void)
 {
-    /* RA4M3 UM r01uh0893ej0120: Figure 23.14 Initialization procedure */
+    /* Figure "Initialization procedure" in the RTC section of the relevant hardware manual */
 
     /* RCKSEL bit is not initialized after reset. Use LOCO as the default
      * clock source if it is available. Note RCR4.ROPSEL is also cleared.
@@ -3310,7 +3399,7 @@ void R_BSP_Init_RTC (void)
     R_RTC->RCR1 = 0;
 
     /* When the RCR1 register is modified, check that all the bits are updated before proceeding
-     * (see section 26.2.17 "RTC Control Register 1 (RCR1)" of the RA6M3 manual R01UH0886EJ0100)*/
+     * (see "RTC Control Register 1 (RCR1)" description in the RTC section of the relevant hardware manual)*/
     FSP_HARDWARE_REGISTER_WAIT(R_RTC->RCR1, 0);
    #endif
 
@@ -3325,7 +3414,7 @@ void R_BSP_Init_RTC (void)
   #endif
  #endif
 
- #if BSP_FEATURE_SYSC_HAS_VBTICTLR
+ #if BSP_FEATURE_RTC_HAS_VBTICTLR
 
     /* VBTICTLR.VCHnINEN must be cleared after reset. */
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_OM_LPC_BATT);

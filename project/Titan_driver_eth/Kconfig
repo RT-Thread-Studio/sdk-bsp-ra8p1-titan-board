@@ -23,6 +23,11 @@ config ENV_DIR
     option env="ENV_ROOT"
     default "/"
 
+config PLATFORM_DIR
+    string
+    option env="PLATFORM_DIR"
+    default  "C:/Softwares/RT-ThreadStudio/workspace/Titan-Board/Titan_driver_eth_620/platform"
+
 source "$RTT_DIR/Kconfig"
 source "$PKGS_DIR/Kconfig"
 source "libraries/Kconfig"

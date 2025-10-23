@@ -15295,12 +15295,12 @@ typedef struct                         /*!< (@ 0x4001E000) R_SYSTEM Structure   
 
     union
     {
-        __IOM uint8_t GPTCKDIVCR;      /*!< (@ 0x0000005C) GPT Clock Division Control Register                        */
+        __IOM uint8_t GPTCKDIVCR;       /*!< (@ 0x0000005C) GPT Clock Division Control Register                        */
 
         struct
         {
-            __IOM uint8_t CKDIV : 4;   /*!< [3..0] GPT Clock (GPTCLK) Division Select                                 */
-            uint8_t             : 4;
+            __IOM uint8_t GPTCKDIV : 4; /*!< [3..0] GPT Clock (GPTCLK) Division Select                                 */
+            uint8_t                : 4;
         } GPTCKDIVCR_b;
     };
 
@@ -35012,11 +35012,11 @@ typedef struct                         /*!< (@ 0x403E0000) R_GPTP Structure     
 
     union
     {
-        __IM uint32_t PTPTMDC;         /*!< (@ 0x00000014) Timer Disable Configuration Register                       */
+        __IOM uint32_t PTPTMDC;        /*!< (@ 0x00000014) Timer Disable Configuration Register                       */
 
         struct
         {
-            __IM uint32_t TD : 2;      /*!< [1..0] Timer Disable                                                      */
+            __OM uint32_t TD : 2;      /*!< [1..0] Timer Disable                                                      */
             uint32_t         : 30;
         } PTPTMDC_b;
     };
@@ -71987,8 +71987,8 @@ typedef struct                         /*!< (@ 0x4001C800) R_TCM Structure      
  #define R_SYSTEM_ADCCKCR_CKSRDY_Pos             (7UL)          /*!< CKSRDY (Bit 7)                                        */
  #define R_SYSTEM_ADCCKCR_CKSRDY_Msk             (0x80UL)       /*!< CKSRDY (Bitfield-Mask: 0x01)                          */
 /* ======================================================  GPTCKDIVCR  ======================================================= */
- #define R_SYSTEM_GPTCKDIVCR_CKDIV_Pos           (0UL)          /*!< CKDIV (Bit 0)                                         */
- #define R_SYSTEM_GPTCKDIVCR_CKDIV_Msk           (0xfUL)        /*!< CKDIV (Bitfield-Mask: 0x0f)                           */
+ #define R_SYSTEM_GPTCKDIVCR_GPTCKDIV_Pos        (0UL)          /*!< GPTCKDIV (Bit 0)                                      */
+ #define R_SYSTEM_GPTCKDIVCR_GPTCKDIV_Msk        (0xfUL)        /*!< GPTCKDIV (Bitfield-Mask: 0x0f)                        */
 /* ========================================================  GPTCKCR  ======================================================== */
  #define R_SYSTEM_GPTCKCR_GPTCKSEL_Pos           (0UL)          /*!< GPTCKSEL (Bit 0)                                      */
  #define R_SYSTEM_GPTCKCR_GPTCKSEL_Msk           (0xfUL)        /*!< GPTCKSEL (Bitfield-Mask: 0x0f)                        */
@@ -72727,8 +72727,10 @@ typedef struct                         /*!< (@ 0x4001C800) R_TCM Structure      
  #define R_SYSTEM_SVSCR_SVSCM_Pos                (0UL)          /*!< SVSCM (Bit 0)                                         */
  #define R_SYSTEM_SVSCR_SVSCM_Msk                (0x7UL)        /*!< SVSCM (Bitfield-Mask: 0x07)                           */
 /* =========================================================  LVOCR  ========================================================= */
- #define R_SYSTEM_LVOCR_LVOE_Pos                 (0UL)          /*!< LVOE (Bit 0)                                          */
- #define R_SYSTEM_LVOCR_LVOE_Msk                 (0x1UL)        /*!< LVOE (Bitfield-Mask: 0x01)                            */
+ #define R_SYSTEM_LVOCR_LVO0E_Pos                (0UL)          /*!< LVO0E (Bit 0)                                         */
+ #define R_SYSTEM_LVOCR_LVO0E_Msk                (0x1UL)        /*!< LVO0E (Bitfield-Mask: 0x01)                           */
+ #define R_SYSTEM_LVOCR_LVO1E_Pos                (1UL)          /*!< LVO1E (Bit 1)                                         */
+ #define R_SYSTEM_LVOCR_LVO1E_Msk                (0x2UL)        /*!< LVO1E (Bitfield-Mask: 0x01)                           */
 /* =========================================================  MWMCR  ========================================================= */
  #define R_SYSTEM_MWMCR_MWM_Pos                  (0UL)          /*!< MWM (Bit 0)                                           */
  #define R_SYSTEM_MWMCR_MWM_Msk                  (0x3UL)        /*!< MWM (Bitfield-Mask: 0x03)                             */

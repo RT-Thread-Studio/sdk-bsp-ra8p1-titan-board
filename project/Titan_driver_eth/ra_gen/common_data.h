@@ -50,6 +50,12 @@ extern const rmac_phy_extended_cfg_t g_rmac_phy0_extended_cfg;
 #ifndef NULL
 void NULL(ether_switch_callback_args_t * p_args);
 #endif
+#ifndef NULL
+void NULL(ether_switch_callback_args_t * p_args);
+#endif
+#ifndef NULL
+void NULL(ether_switch_callback_args_t * p_args);
+#endif
 
 /** Ethernet Switch on Layer3 Switch Instance. */
 extern const ether_switch_instance_t g_layer3_switch0;
