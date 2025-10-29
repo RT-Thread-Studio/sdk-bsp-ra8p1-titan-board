@@ -227,9 +227,6 @@ static int rt_soft_rtc_init(void)
         return 0;
     }
     /* make sure only one 'rtc' device */
-#if defined(RT_USING_SOFT_RTC) && defined(RT_USING_RTC)
-#warning "Please note: Currently only one RTC device is allowed in the system, and the name is "rtc"."
-#endif
     RT_ASSERT(!rt_device_find("rtc"));
 
 #ifdef RT_USING_ALARM
@@ -320,7 +317,7 @@ static void cmd_rtc_sync(int argc, char **argv)
     rt_kprintf("local time: %.*s", 25, ctime(&now));
     rt_kprintf("timestamps: %ld\n", (long)tv.tv_sec);
 }
-MSH_CMD_EXPORT_ALIAS(cmd_rtc_sync, rtc_sync, Update time by rtc);
+MSH_CMD_EXPORT_ALIAS(cmd_rtc_sync, rtc_sync, Update time by real rtc);
 #endif
 
 #endif /* RT_USING_SYSTEM_WORKQUEUE */

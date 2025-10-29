@@ -235,16 +235,16 @@ void rt_application_init(void)
  *
  * @return Normally never returns. If 0 is returned, the scheduler failed.
  */
-#include <hal_data.h>
-
 int rtthread_startup(void)
 {
 #ifdef RT_USING_SMP
     rt_hw_spin_lock_init(&_cpus_lock);
 #endif
-    
     rt_hw_local_irq_disable();
 
+    /* board level initialization
+     * NOTE: please initialize heap inside board initialization.
+     */
     rt_hw_board_init();
 
     /* show RT-Thread version */

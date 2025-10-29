@@ -43,7 +43,7 @@
 #define MEMITEM_SIZE(item)      ((rt_ubase_t)item->next - (rt_ubase_t)item - RT_MEMHEAP_SIZE)
 #define MEMITEM(ptr)            (struct rt_memheap_item*)((rt_uint8_t*)ptr - RT_MEMHEAP_SIZE)
 
-static void _remove_next_ptr(struct rt_memheap_item *next_ptr)
+static void _remove_next_ptr(volatile struct rt_memheap_item *next_ptr)
 {
     /* Fix the crash problem after opening Oz optimization on ac6  */
     /* Fix IAR compiler warning  */
@@ -393,7 +393,7 @@ void *rt_memheap_realloc(struct rt_memheap *heap, void *ptr, rt_size_t newsize)
     if (newsize > oldsize)
     {
         void *new_ptr;
-        struct rt_memheap_item *next_ptr;
+        volatile struct rt_memheap_item *next_ptr;
 
         if (heap->locked == RT_FALSE)
         {
