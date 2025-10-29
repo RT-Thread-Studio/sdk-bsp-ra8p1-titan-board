@@ -30,7 +30,7 @@ $ sdk-bsp-ra8p1-titan-board
 │   ├── Titan_component_netutils
 │   ├── Titan_display_camera_ceu
 │   ├── Titan_display_camera_mipi_csi
-│   ├── Titan_display_lvgl
+│   ├── Titan_display_rgb_lvgl
 │   ├── Titan_driver_adc
 │   ├── Titan_driver_can
 │   ├── Titan_driver_eth
