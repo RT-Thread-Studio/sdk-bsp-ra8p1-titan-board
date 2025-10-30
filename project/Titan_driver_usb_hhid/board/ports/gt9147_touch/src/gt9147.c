@@ -5,13 +5,14 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2021-01-13     RiceChen     the first version
+ * 2019-06-01     tyustli     the first version
  */
 
 #include <rtthread.h>
-#include <rtdevice.h>
+#include <board.h>
 
 #include <string.h>
+#include <stdlib.h>
 
 #define DBG_TAG "gt9147"
 #define DBG_LVL DBG_INFO
@@ -19,40 +20,40 @@
 
 #include "gt9147.h"
 
-static struct rt_i2c_client gt9147_client;
+static struct rt_i2c_client *gt9147_client;
 
 /* hardware section */
 static rt_uint8_t GT9147_CFG_TBL[] =
 {
-    0x6b, 0x00, 0x04, 0x58, 0x02, 0x05, 0x0d, 0x00, 0x01, 0x0f,
-    0x28, 0x0f, 0x50, 0x32, 0x03, 0x05, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8a, 0x2a, 0x0c,
-    0x45, 0x47, 0x0c, 0x08, 0x00, 0x00, 0x00, 0x40, 0x03, 0x2c,
-    0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x64, 0x32, 0x00, 0x00,
-    0x00, 0x28, 0x64, 0x94, 0xd5, 0x02, 0x07, 0x00, 0x00, 0x04,
-    0x95, 0x2c, 0x00, 0x8b, 0x34, 0x00, 0x82, 0x3f, 0x00, 0x7d,
-    0x4c, 0x00, 0x7a, 0x5b, 0x00, 0x7a, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x18, 0x16, 0x14, 0x12, 0x10, 0x0e, 0x0c, 0x0a,
-    0x08, 0x06, 0x04, 0x02, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x16, 0x18, 0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x21,
-    0x22, 0x24, 0x13, 0x12, 0x10, 0x0f, 0x0a, 0x08, 0x06, 0x04,
-    0x02, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x79, 0x01,
+    0X00, 0XE0, 0X01, 0X10, 0X01, 0X05, 0X3C, 0X00, 0X02, 0X08,
+    0X1E, 0X08, 0X50, 0X3C, 0X0F, 0X05, 0X00, 0X00, 0XFF, 0X67,
+    0X50, 0X00, 0X00, 0X18, 0X1A, 0X1E, 0X14, 0X89, 0X28, 0X0A,
+    0X30, 0X2E, 0XBB, 0X0A, 0X03, 0X00, 0X00, 0X02, 0X33, 0X1D,
+    0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X32, 0X00, 0X00,
+    0X2A, 0X1C, 0X5A, 0X94, 0XC5, 0X02, 0X07, 0X00, 0X00, 0X00,
+    0XB5, 0X1F, 0X00, 0X90, 0X28, 0X00, 0X77, 0X32, 0X00, 0X62,
+    0X3F, 0X00, 0X52, 0X50, 0X00, 0X52, 0X00, 0X00, 0X00, 0X00,
+    0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+    0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X0F,
+    0X0F, 0X03, 0X06, 0X10, 0X42, 0XF8, 0X0F, 0X14, 0X00, 0X00,
+    0X00, 0X00, 0X1A, 0X18, 0X16, 0X14, 0X12, 0X10, 0X0E, 0X0C,
+    0X0A, 0X08, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+    0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+    0X00, 0X00, 0X29, 0X28, 0X24, 0X22, 0X20, 0X1F, 0X1E, 0X1D,
+    0X0E, 0X0C, 0X0A, 0X08, 0X06, 0X05, 0X04, 0X02, 0X00, 0XFF,
+    0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+    0X00, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF,
+    0XFF, 0XFF, 0XFF, 0XFF,
 };
 
-static rt_err_t gt9147_write_reg(struct rt_i2c_client *dev, rt_uint8_t *data, rt_uint8_t len)
+static rt_err_t gt9147_write_reg(struct rt_i2c_client *dev, rt_uint8_t write_len, rt_uint8_t *write_data)
 {
     struct rt_i2c_msg msgs;
 
     msgs.addr  = dev->client_addr;
     msgs.flags = RT_I2C_WR;
-    msgs.buf   = data;
-    msgs.len   = len;
+    msgs.buf   = write_data;
+    msgs.len   = write_len;
 
     if (rt_i2c_transfer(dev->bus, &msgs, 1) == 1)
     {
@@ -64,19 +65,19 @@ static rt_err_t gt9147_write_reg(struct rt_i2c_client *dev, rt_uint8_t *data, rt
     }
 }
 
-static rt_err_t gt9147_read_regs(struct rt_i2c_client *dev, rt_uint8_t *reg, rt_uint8_t *data, rt_uint8_t len)
+static rt_err_t gt9147_read_regs(struct rt_i2c_client *dev, rt_uint8_t *cmd_buf, rt_uint8_t cmd_len, rt_uint8_t read_len, rt_uint8_t *read_buf)
 {
     struct rt_i2c_msg msgs[2];
 
     msgs[0].addr  = dev->client_addr;
     msgs[0].flags = RT_I2C_WR;
-    msgs[0].buf   = reg;
-    msgs[0].len   = GT9147_REGITER_LEN;
+    msgs[0].buf   = cmd_buf;
+    msgs[0].len   = cmd_len;
 
     msgs[1].addr  = dev->client_addr;
     msgs[1].flags = RT_I2C_RD;
-    msgs[1].buf   = data;
-    msgs[1].len   = len;
+    msgs[1].buf   = read_buf;
+    msgs[1].len   = read_len;
 
     if (rt_i2c_transfer(dev->bus, msgs, 2) == 2)
     {
@@ -88,56 +89,181 @@ static rt_err_t gt9147_read_regs(struct rt_i2c_client *dev, rt_uint8_t *reg, rt_
     }
 }
 
-static rt_err_t gt9147_get_product_id(struct rt_i2c_client *dev, rt_uint8_t *data, rt_uint8_t len)
+/**
+ * This function read the product id
+ *
+ * @param dev the pointer of device driver structure
+ * @param reg the register for gt9xx
+ * @param read data len
+ * @param read data pointer
+ *
+ * @return the read status, RT_EOK reprensents  read the value of the register successfully.
+ */
+static rt_err_t gt9147_get_product_id(struct rt_i2c_client *dev, rt_uint8_t read_len, rt_uint8_t *read_data)
 {
-    rt_uint8_t reg[2];
+    rt_uint8_t cmd_buf[2];
 
-    reg[0] = (rt_uint8_t)(GT9147_PRODUCT_ID >> 8);
-    reg[1] = (rt_uint8_t)(GT9147_PRODUCT_ID & 0xff);
+    cmd_buf[0] = (rt_uint8_t)(GT9XX_PRODUCT_ID >> 8);
+    cmd_buf[1] = (rt_uint8_t)(GT9XX_PRODUCT_ID & 0xff);
 
-    if (gt9147_read_regs(dev, reg, data, len) != RT_EOK)
+    if (gt9147_read_regs(dev, cmd_buf, 2, read_len, read_data) != RT_EOK)
     {
-        LOG_E("read id failed");
+        LOG_D("read id failed \n");
+
         return -RT_ERROR;
     }
+
     return RT_EOK;
 }
 
 static rt_err_t gt9147_get_info(struct rt_i2c_client *dev, struct rt_touch_info *info)
 {
-    rt_uint8_t reg[2];
-    rt_uint8_t out_info[7];
-    rt_uint8_t out_len = 7;
+    rt_uint8_t opr_buf[7] = {0};
+    rt_uint8_t cmd_buf[2];
 
-    reg[0] = (rt_uint8_t)(GT9147_CONFIG_REG >> 8);
-    reg[1] = (rt_uint8_t)(GT9147_CONFIG_REG & 0xFF);
+    cmd_buf[0] = (rt_uint8_t)(GT9147_CONFIG >> 8);
+    cmd_buf[1] = (rt_uint8_t)(GT9147_CONFIG & 0xff);
 
-    if (gt9147_read_regs(dev, reg, out_info, out_len) != RT_EOK)
+    if (gt9147_read_regs(dev, cmd_buf, 2, 7, opr_buf) != RT_EOK)
     {
-        LOG_E("read info failed");
+        LOG_D("read id failed \n");
+
         return -RT_ERROR;
     }
 
-    info->range_x = (out_info[2] << 8) | out_info[1];
-    info->range_y = (out_info[4] << 8) | out_info[3];
-    info->point_num = out_info[5] & 0x0f;
+    info->range_x = (opr_buf[2] << 8) + opr_buf[1];
+    info->range_y = (opr_buf[4] << 8) + opr_buf[3];
+    info->point_num = opr_buf[5] & 0x0f;
 
     return RT_EOK;
+
 }
 
 static rt_err_t gt9147_soft_reset(struct rt_i2c_client *dev)
 {
     rt_uint8_t buf[3];
 
-    buf[0] = (rt_uint8_t)(GT9147_COMMAND_REG >> 8);
-    buf[1] = (rt_uint8_t)(GT9147_COMMAND_REG & 0xFF);
+    buf[0] = (rt_uint8_t)(GT9147_COMMAND >> 8);
+    buf[1] = (rt_uint8_t)(GT9147_COMMAND & 0xFF);
     buf[2] = 0x02;
 
-    if (gt9147_write_reg(dev, buf, 3) != RT_EOK)
+    if (gt9147_write_reg(dev, 3, buf) != RT_EOK)
     {
-        LOG_E("soft reset failed");
+        LOG_D("soft reset gt9147 failed\n");
         return -RT_ERROR;
     }
+
+    return RT_EOK;
+}
+
+static rt_err_t gt9147_control(struct rt_touch_device *device, int cmd, void *data)
+{
+    if (cmd == RT_TOUCH_CTRL_GET_ID)
+    {
+        return gt9147_get_product_id(gt9147_client, 6, data);
+    }
+
+    if (cmd == RT_TOUCH_CTRL_GET_INFO)
+    {
+        return gt9147_get_info(gt9147_client, data);
+    }
+
+    rt_uint8_t buf[4];
+    rt_uint8_t i = 0;
+    rt_uint8_t *config;
+
+    config = (rt_uint8_t *)rt_calloc(1, sizeof(GT9147_CFG_TBL) + GTP_ADDR_LENGTH);
+
+    if (config == RT_NULL)
+    {
+        LOG_D("malloc config memory failed\n");
+        return -RT_ERROR;
+    }
+
+    config[0] = (rt_uint8_t)((GT9147_CONFIG >> 8) & 0xFF); /* config reg */
+    config[1] = (rt_uint8_t)(GT9147_CONFIG & 0xFF);
+
+    memcpy(&config[2], GT9147_CFG_TBL, sizeof(GT9147_CFG_TBL)); /* config table */
+
+    switch(cmd)
+    {
+    case RT_TOUCH_CTRL_SET_X_RANGE: /* set x range */
+    {
+        rt_uint16_t x_ran;
+
+        x_ran = *(rt_uint16_t *)data;
+        config[4] = (rt_uint8_t)(x_ran >> 8);
+        config[3] = (rt_uint8_t)(x_ran & 0xff);
+
+        GT9147_CFG_TBL[2] = config[4];
+        GT9147_CFG_TBL[1] = config[3];
+
+        break;
+    }
+    case RT_TOUCH_CTRL_SET_Y_RANGE: /* set y range */
+    {
+        rt_uint16_t y_ran;
+
+        y_ran = *(rt_uint16_t *)data;
+        config[6] = (rt_uint8_t)(y_ran >> 8);
+        config[5] = (rt_uint8_t)(y_ran & 0xff);
+
+        GT9147_CFG_TBL[4] = config[6];
+        GT9147_CFG_TBL[3] = config[5];
+
+        break;
+    }
+    case RT_TOUCH_CTRL_SET_X_TO_Y: /* change x y */
+    {
+        config[8] = config[8] ^= (1 << 3);
+        break;
+    }
+    case RT_TOUCH_CTRL_SET_MODE: /* change int trig type */
+    {
+        rt_uint16_t trig_type;
+        trig_type = *(rt_uint16_t *)data;
+
+        switch (trig_type)
+        {
+        case RT_DEVICE_FLAG_INT_RX:
+            config[8] &= 0xFC;
+            break;
+        case RT_DEVICE_FLAG_RDONLY:
+            config[8] &= 0xFC;
+            config[8] |= 0x02;
+            break;
+        default:
+            break;
+        }
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+
+    memcpy(GT9147_CFG_TBL, &config[2], sizeof(GT9147_CFG_TBL));
+
+    if (gt9147_write_reg(gt9147_client, sizeof(GT9147_CFG_TBL) + GTP_ADDR_LENGTH, config) != RT_EOK)  /* send config */
+    {
+        LOG_D("send config failed\n");
+        return -RT_ERROR;
+    }
+
+    buf[0] = (rt_uint8_t)((GT9147_CHECK_SUM >> 8) & 0xFF);
+    buf[1] = (rt_uint8_t)(GT9147_CHECK_SUM & 0xFF);
+    buf[2] = 0;
+
+    for(i = GTP_ADDR_LENGTH; i < sizeof(GT9147_CFG_TBL) + GTP_ADDR_LENGTH; i++)
+        buf[GTP_ADDR_LENGTH] += config[i];
+
+    buf[2] = (~buf[2]) + 1;
+    buf[3] = 1;
+
+    gt9147_write_reg(gt9147_client, 4, buf);
+    rt_free(config);
+
     return RT_EOK;
 }
 
@@ -151,7 +277,7 @@ static void gt9147_touch_up(void *buf, int8_t id)
 {
     read_data = (struct rt_touch_data *)buf;
 
-    if (s_tp_dowm[id] == 1)
+    if(s_tp_dowm[id] == 1)
     {
         s_tp_dowm[id] = 0;
         read_data[id].event = RT_TOUCH_EVENT_UP;
@@ -218,7 +344,7 @@ static rt_size_t gt9147_read_point(struct rt_touch_device *touch, void *buf, rt_
     cmd[0] = (rt_uint8_t)((GT9147_READ_STATUS >> 8) & 0xFF);
     cmd[1] = (rt_uint8_t)(GT9147_READ_STATUS & 0xFF);
 
-    if (gt9147_read_regs(&gt9147_client, cmd, &point_status, 1) != RT_EOK)
+    if (gt9147_read_regs(gt9147_client, cmd, 2, 1, &point_status) != RT_EOK)
     {
         LOG_D("read point failed\n");
         read_num = 0;
@@ -248,15 +374,15 @@ static rt_size_t gt9147_read_point(struct rt_touch_device *touch, void *buf, rt_
     cmd[0] = (rt_uint8_t)((GT9147_POINT1_REG >> 8) & 0xFF);
     cmd[1] = (rt_uint8_t)(GT9147_POINT1_REG & 0xFF);
 
-    /* read point num is touch_num */
-    if (gt9147_read_regs(&gt9147_client, cmd, read_buf, read_num * GT9147_POINT_INFO_NUM) != RT_EOK)
+    /* read point num is read_num */
+    if (gt9147_read_regs(gt9147_client, cmd, 2, read_num * GT9147_POINT_INFO_NUM, read_buf) != RT_EOK)
     {
         LOG_D("read point failed\n");
         read_num = 0;
         goto exit_;
     }
 
-    if (pre_touch > touch_num)                                      /* point up */
+    if (pre_touch > touch_num)                                       /* point up */
     {
         for (read_index = 0; read_index < pre_touch; read_index++)
         {
@@ -265,8 +391,6 @@ static rt_size_t gt9147_read_point(struct rt_touch_device *touch, void *buf, rt_
             for (j = 0; j < touch_num; j++)                          /* this time touch num */
             {
                 read_id = read_buf[j * 8] & 0x0F;
-
-                if (read_id > 0) continue;
 
                 if (pre_id[read_index] == read_id)                   /* this id is not free */
                     break;
@@ -281,7 +405,7 @@ static rt_size_t gt9147_read_point(struct rt_touch_device *touch, void *buf, rt_
         }
     }
 
-    if (touch_num)                                                /* point down */
+    if (touch_num)                                                 /* point down */
     {
         rt_uint8_t off_set;
 
@@ -289,20 +413,17 @@ static rt_size_t gt9147_read_point(struct rt_touch_device *touch, void *buf, rt_
         {
             off_set = read_index * 8;
             read_id = read_buf[off_set] & 0x0f;
-
-            if (read_id > 0) continue;
-
             pre_id[read_index] = read_id;
-            input_x = read_buf[off_set + 1] | (read_buf[off_set + 2] << 8); /* x */
-            input_y = read_buf[off_set + 3] | (read_buf[off_set + 4] << 8); /* y */
-            input_w = read_buf[off_set + 5] | (read_buf[off_set + 6] << 8); /* size */
+            input_x = read_buf[off_set + 1] | (read_buf[off_set + 2] << 8);	/* x */
+            input_y = read_buf[off_set + 3] | (read_buf[off_set + 4] << 8);	/* y */
+            input_w = read_buf[off_set + 5] | (read_buf[off_set + 6] << 8);	/* size */
 
             gt9147_touch_down(buf, read_id, input_x, input_y, input_w);
         }
     }
     else if (pre_touch)
     {
-        for (read_index = 0; read_index < pre_touch; read_index++)
+        for(read_index = 0; read_index < pre_touch; read_index++)
         {
             gt9147_touch_up(buf, pre_id[read_index]);
         }
@@ -314,200 +435,68 @@ exit_:
     write_buf[0] = (rt_uint8_t)((GT9147_READ_STATUS >> 8) & 0xFF);
     write_buf[1] = (rt_uint8_t)(GT9147_READ_STATUS & 0xFF);
     write_buf[2] = 0x00;
-    gt9147_write_reg(&gt9147_client, write_buf, 3);
-
+    gt9147_write_reg(gt9147_client, 3, write_buf);
     return read_num;
 }
 
-static rt_err_t gt9147_control(struct rt_touch_device *touch, int cmd, void *arg)
-{
-    if (cmd == RT_TOUCH_CTRL_GET_ID)
-    {
-        return gt9147_get_product_id(&gt9147_client, arg, 6);
-    }
-
-    if (cmd == RT_TOUCH_CTRL_GET_INFO)
-    {
-        return gt9147_get_info(&gt9147_client, arg);
-    }
-
-    rt_uint8_t buf[4];
-    rt_uint8_t i = 0;
-    rt_uint8_t *config;
-
-    config = (rt_uint8_t *)rt_calloc(1, sizeof(GT9147_CFG_TBL) + GT9147_REGITER_LEN);
-    if (config == RT_NULL)
-    {
-        LOG_D("malloc config memory failed\n");
-        return -RT_ERROR;
-    }
-
-    config[0] = (rt_uint8_t)((GT9147_CONFIG_REG >> 8) & 0xFF);
-    config[1] = (rt_uint8_t)(GT9147_CONFIG_REG & 0xFF);
-
-    memcpy(&config[2], GT9147_CFG_TBL, sizeof(GT9147_CFG_TBL));
-
-    switch (cmd)
-    {
-    case RT_TOUCH_CTRL_SET_X_RANGE:
-    {
-        rt_uint16_t x_range;
-
-        x_range = *(rt_uint16_t *)arg;
-        config[4] = (rt_uint8_t)(x_range >> 8);
-        config[3] = (rt_uint8_t)(x_range & 0xff);
-
-        GT9147_CFG_TBL[2] = config[4];
-        GT9147_CFG_TBL[1] = config[3];
-        break;
-    }
-    case RT_TOUCH_CTRL_SET_Y_RANGE:
-    {
-        rt_uint16_t y_range;
-
-        y_range = *(rt_uint16_t *)arg;
-        config[6] = (rt_uint8_t)(y_range >> 8);
-        config[5] = (rt_uint8_t)(y_range & 0xff);
-
-        GT9147_CFG_TBL[4] = config[6];
-        GT9147_CFG_TBL[3] = config[5];
-        break;
-    }
-    case RT_TOUCH_CTRL_SET_X_TO_Y:
-    {
-        config[8] ^= (1 << 3);
-        break;
-    }
-    case RT_TOUCH_CTRL_SET_MODE:
-    {
-        rt_uint16_t trig_type;
-        trig_type = *(rt_uint16_t *)arg;
-
-        switch (trig_type)
-        {
-        case RT_DEVICE_FLAG_INT_RX:
-            config[8] &= 0xFC;
-            break;
-        case RT_DEVICE_FLAG_RDONLY:
-            config[8] &= 0xFC;
-            config[8] |= 0x02;
-            break;
-        default:
-            break;
-        }
-        break;
-    }
-    default:
-    {
-        break;
-    }
-    }
-
-    if (gt9147_write_reg(&gt9147_client, config, sizeof(GT9147_CFG_TBL) + GT9147_ADDR_LEN) != RT_EOK)
-    {
-        LOG_D("send config failed");
-        return -1;
-    }
-
-    buf[0] = (rt_uint8_t)((GT9147_CHECK_SUM >> 8) & 0xFF);
-    buf[1] = (rt_uint8_t)(GT9147_CHECK_SUM & 0xFF);
-    buf[2] = 0;
-
-    for (i = GT9147_ADDR_LEN; i < sizeof(GT9147_CFG_TBL) + GT9147_ADDR_LEN; i++)
-    {
-        buf[GT9147_ADDR_LEN] += config[i];
-    }
-
-    buf[2] = (~buf[2]) + 1;
-    buf[3] = 1;
-
-    gt9147_write_reg(&gt9147_client, buf, 4);
-    rt_free(config);
-
-    return RT_EOK;
-}
-
-static struct rt_touch_ops gt9147_touch_ops =
+static struct rt_touch_ops touch_ops =
 {
     .touch_readpoint = gt9147_read_point,
     .touch_control = gt9147_control,
 };
 
-int gt9147_i2c_probe(struct rt_i2c_bus_device *i2c_bus, char addr)
-{
-    unsigned char cmd[1];
-    cmd[0] = 0;
-
-    struct rt_i2c_msg msgs;
-    msgs.addr = addr;
-    msgs.flags = RT_I2C_WR;
-    msgs.buf = cmd;
-    msgs.len = 0;
-
-    return rt_i2c_transfer(i2c_bus, &msgs, 1);
-}
-
 int rt_hw_gt9147_init(const char *name, struct rt_touch_config *cfg)
 {
-    struct rt_touch_device *touch_device = RT_NULL;
+    rt_touch_t touch_device = RT_NULL;
 
-    touch_device = (struct rt_touch_device *)rt_malloc(sizeof(struct rt_touch_device));
+    touch_device = (rt_touch_t)rt_calloc(1, sizeof(struct rt_touch_device));
+
     if (touch_device == RT_NULL)
-    {
-        LOG_E("touch device malloc fail");
         return -RT_ERROR;
-    }
-    rt_memset((void *)touch_device, 0, sizeof(struct rt_touch_device));
 
-    /* hw init*/
+    /* hardware init */
     rt_pin_mode(*(rt_uint8_t *)cfg->user_data, PIN_MODE_OUTPUT);
     rt_pin_mode(cfg->irq_pin.pin, PIN_MODE_OUTPUT);
     rt_pin_write(*(rt_uint8_t *)cfg->user_data, PIN_LOW);
-    rt_thread_delay(200);
+    rt_thread_mdelay(10);
     rt_pin_write(*(rt_uint8_t *)cfg->user_data, PIN_HIGH);
-    rt_thread_delay(10);
-    rt_pin_write(cfg->irq_pin.pin, PIN_MODE_INPUT);
-    rt_thread_delay(100);
+    rt_thread_mdelay(10);
+    rt_pin_mode(cfg->irq_pin.pin, PIN_MODE_INPUT);
+    rt_thread_mdelay(100);
 
-    gt9147_client.bus = (struct rt_i2c_bus_device *)rt_device_find(cfg->dev_name);
+    /* interface bus */
+    gt9147_client = (struct rt_i2c_client *)rt_calloc(1, sizeof(struct rt_i2c_client));
 
-    if (gt9147_client.bus == RT_NULL)
+    gt9147_client->bus = (struct rt_i2c_bus_device *)rt_device_find(cfg->dev_name);
+
+    if (gt9147_client->bus == RT_NULL)
     {
-        LOG_E("Can't find %s device", cfg->dev_name);
+        LOG_E("Can't find device\n");
         return -RT_ERROR;
     }
 
-    if (rt_device_open((rt_device_t)gt9147_client.bus, RT_DEVICE_FLAG_RDWR) != RT_EOK)
+    if (rt_device_open((rt_device_t)gt9147_client->bus, RT_DEVICE_FLAG_RDWR) != RT_EOK)
     {
-        LOG_E("open %s device failed", cfg->dev_name);
+        LOG_E("open device failed\n");
         return -RT_ERROR;
     }
 
-    int res;
-    res = gt9147_i2c_probe(gt9147_client.bus, GT9147_ADDRESS_LOW);
-    if (res == 1)
-    {
-        LOG_I("GT9147 ADDRESS SET LOW");
-        gt9147_client.client_addr = GT9147_ADDRESS_LOW;
-        LOG_I("gt9147 id:%x", GT9147_ADDRESS_LOW);
-    }
-    else
-    {
-        LOG_I("GT9147 ADDRESS SET HIGH");
-        gt9147_client.client_addr = GT9147_ADDRESS_HIGH;
-        LOG_I("gt9147 id:%x", GT9147_ADDRESS_HIGH);
-    }
-    gt9147_soft_reset(&gt9147_client);
+    gt9147_client->client_addr = GT9147_ADDRESS_HIGH;
+    gt9147_soft_reset(gt9147_client);
 
     /* register touch device */
     touch_device->info.type = RT_TOUCH_TYPE_CAPACITANCE;
     touch_device->info.vendor = RT_TOUCH_VENDOR_GT;
     rt_memcpy(&touch_device->config, cfg, sizeof(struct rt_touch_config));
-    touch_device->ops = &gt9147_touch_ops;
+    touch_device->ops = &touch_ops;
 
     rt_hw_touch_register(touch_device, name, RT_DEVICE_FLAG_INT_RX, RT_NULL);
 
-    LOG_I("touch device gt9147 init success");
+    LOG_I("touch device gt9147 init success\n");
 
     return RT_EOK;
 }
+
+/************************** end of file ********************************/
+
+

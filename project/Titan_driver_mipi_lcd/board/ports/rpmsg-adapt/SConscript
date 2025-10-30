@@ -1,0 +1,16 @@
+import os
+from building import *
+
+src = []
+objs = []
+cwd  = GetCurrentDir()
+CPPPATH = [cwd,        
+           cwd + '/include/',
+           cwd + '/platform/inc/']
+
+src += Glob('platform/src/*.c')
+src += Glob('app/*.c')
+
+objs = DefineGroup('rpmsg-port', src, depend = ['PKG_USING_RPMSG_LITE'], CPPPATH = CPPPATH)
+
+Return('objs')

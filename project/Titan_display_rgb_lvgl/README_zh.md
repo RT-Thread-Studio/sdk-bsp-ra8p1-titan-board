@@ -197,7 +197,11 @@ void lv_port_disp_init(void)
 #include <lvgl.h>
 #include <rtdevice.h>
 
+#ifdef RT_USING_TOUCH
+
 #include "gt9147.h"
+#define GT9147_IRQ_PIN   BSP_IO_PORT_00_PIN_07
+#define GT9147_RST_PIN   BSP_IO_PORT_04_PIN_12
 
 #define DBG_TAG "lv_port_indev"
 #define DBG_LVL DBG_LOG
@@ -205,14 +209,9 @@ void lv_port_disp_init(void)
 
 #include "hal_data.h"
 
-#define GT9147_IRQ_PIN   BSP_IO_PORT_05_PIN_02
-#define GT9147_RST_PIN   BSP_IO_PORT_04_PIN_12
-
 static rt_device_t touch_dev;
 struct rt_touch_data *read_data;
 static lv_indev_t *touch_indev;
-
-volatile static rt_uint8_t touch_detect_flag = 0;
 
 #if LVGL_VERSION_MAJOR < 9
 static void touchpad_read(lv_indev_drv_t *indev, lv_indev_data_t *data)
@@ -220,36 +219,24 @@ static void touchpad_read(lv_indev_drv_t *indev, lv_indev_data_t *data)
 static void touchpad_read(lv_indev_t *indev, lv_indev_data_t *data)
 #endif
 {
-    if (touch_detect_flag != 1)
-        return;
+    if (RT_NULL != rt_device_read(touch_dev, 0, read_data, 1))
+    {
+        if (read_data->event == RT_TOUCH_EVENT_NONE)
+            return;
 
-    rt_device_read(touch_dev, 0, read_data, 1);
+        data->point.x = LV_HOR_RES_MAX - read_data->x_coordinate;
+        data->point.y = LV_VER_RES_MAX - read_data->y_coordinate;
 
-    if (read_data->event == RT_TOUCH_EVENT_NONE)
-        return;
-
-    data->point.x = read_data->x_coordinate;
-    data->point.y = read_data->y_coordinate;
-
-    if (read_data->event == RT_TOUCH_EVENT_DOWN)
-        data->state = LV_INDEV_STATE_PR;
-    if (read_data->event == RT_TOUCH_EVENT_MOVE)
-        data->state = LV_INDEV_STATE_PR;
-    if (read_data->event == RT_TOUCH_EVENT_UP)
-        data->state = LV_INDEV_STATE_REL;
-
-    touch_detect_flag = 0;
-    rt_device_control(touch_dev, RT_TOUCH_CTRL_ENABLE_INT, RT_NULL);
+        if (read_data->event == RT_TOUCH_EVENT_DOWN)
+            data->state = LV_INDEV_STATE_PR;
+        if (read_data->event == RT_TOUCH_EVENT_MOVE)
+            data->state = LV_INDEV_STATE_PR;
+        if (read_data->event == RT_TOUCH_EVENT_UP)
+            data->state = LV_INDEV_STATE_REL;
+    }
 }
 
-static rt_err_t rx_callback(rt_device_t dev, rt_size_t size)
-{
-    touch_detect_flag = 1;
-    rt_device_control(dev, RT_TOUCH_CTRL_DISABLE_INT, RT_NULL);
-    return 0;
-}
-
-rt_err_t gt9147_probe(rt_uint16_t x, rt_uint16_t y)
+static rt_err_t gt9147_probe(rt_uint16_t x, rt_uint16_t y)
 {
     void *id;
 
@@ -266,7 +253,7 @@ rt_err_t gt9147_probe(rt_uint16_t x, rt_uint16_t y)
         return -1;
     }
 
-    id = rt_malloc(sizeof(rt_uint8_t) * 8);
+    id = rt_malloc(sizeof(struct rt_touch_info));
     rt_device_control(touch_dev, RT_TOUCH_CTRL_GET_ID, id);
     rt_uint8_t *read_id = (rt_uint8_t *)id;
     rt_kprintf("id = GT%d%d%d \n", read_id[0] - '0', read_id[1] - '0', read_id[2] - '0');
@@ -279,8 +266,6 @@ rt_err_t gt9147_probe(rt_uint16_t x, rt_uint16_t y)
     rt_kprintf("point_num = %d \n", (*(struct rt_touch_info *)id).point_num);
     rt_free(id);
 
-    rt_device_set_rx_indicate(touch_dev, rx_callback);
-
     read_data = (struct rt_touch_data *)rt_calloc(1, sizeof(struct rt_touch_data));
     if (!read_data)
     {
@@ -290,30 +275,35 @@ rt_err_t gt9147_probe(rt_uint16_t x, rt_uint16_t y)
     return RT_EOK;
 }
 
-#define RST_PIN   "p412"
-#define INT_PIN   "p502"
-
 rt_err_t rt_hw_gt9147_register(void)
 {
-    struct rt_touch_config cfg;
-    rt_base_t int_pin = rt_pin_get(INT_PIN);
-    rt_base_t rst_pin = rt_pin_get(RST_PIN);
+    struct rt_touch_config config;
+    rt_uint8_t rst;
+    rst = GT9147_RST_PIN;
+    config.dev_name = "i2c0";
+    config.irq_pin.pin = GT9147_IRQ_PIN;
+    config.irq_pin.mode = PIN_MODE_INPUT_PULLDOWN;
+    config.user_data = &rst;
 
-    cfg.dev_name = "i2c0";
-    cfg.irq_pin.pin = int_pin;
-    cfg.irq_pin.mode = PIN_MODE_INPUT_PULLDOWN;
-    cfg.irq_pin.mode = PIN_MODE_INPUT;
-    cfg.user_data = &rst_pin;
+    if (rt_hw_gt9147_init("gt9147", &config) != RT_EOK)
+    {
+        rt_kprintf("touch device gt9147 init failed.\n");
+        return -RT_ERROR;
+    }
 
-    rt_hw_gt9147_init("gt9147", &cfg);
-
-    gt9147_probe(800, 480);
-
+    if (gt9147_probe(LV_HOR_RES_MAX, LV_VER_RES_MAX) != RT_EOK)
+    {
+        rt_kprintf("probe gt9147 failed.\n");
+        return -RT_ERROR;
+    }
     return RT_EOK;
 }
+#endif
 
 void lv_port_indev_init(void)
 {
+#ifdef RT_USING_TOUCH
+
 #if LVGL_VERSION_MAJOR < 9
     static lv_indev_drv_t indev_drv;         /* Descriptor of a input device driver */
     lv_indev_drv_init(&indev_drv);           /* Basic initialization */
@@ -331,6 +321,8 @@ void lv_port_indev_init(void)
     /* Register touch device */
     rt_err_t res = rt_hw_gt9147_register();
     RT_ASSERT(res == RT_EOK);
+
+#endif
 }
 ```
 

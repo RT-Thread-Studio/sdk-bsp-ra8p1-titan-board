@@ -21,7 +21,7 @@
              #endif
             #endif
             #ifndef BSP_CFG_RTC_USED
-             #define BSP_CFG_RTC_USED (RA_NOT_DEFINED)
+             #define BSP_CFG_RTC_USED (1)
             #endif
             #undef RA_NOT_DEFINED
             #if defined(_RA_BOOT_IMAGE)
@@ -30,7 +30,7 @@
             #define BSP_CFG_MCU_VCC_MV (3300)
             #define BSP_CFG_STACK_MAIN_BYTES (0x20000)
             #define BSP_CFG_HEAP_BYTES (0x4000)
-            #define BSP_CFG_PARAM_CHECKING_ENABLE (1)
+            #define BSP_CFG_PARAM_CHECKING_ENABLE (0)
             #define BSP_CFG_ASSERT (0)
 
             #define BSP_CFG_PFS_PROTECT ((1))

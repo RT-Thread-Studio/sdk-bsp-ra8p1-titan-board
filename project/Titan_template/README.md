@@ -130,6 +130,24 @@ void hal_entry(void)
 }
 ```
 
+**The FSP of the Titan_template project has already pre-configured the following peripherals. Users can refer to the FSP configuration instructions below to generate their own setup.**
+
+* Uart8、Uart5、Uart9
+* HyperFlash
+* HyperRAM
+* timer0、timer1
+* SD Card
+* SDIO WiFi
+* I2C0、I2C2
+* SPI0
+* MIPI CSI
+* RGB565 LCD
+* ETH1
+* pwm2、pwm7、pwm10、pwm12
+* CAN0、CAN1
+* RTC
+* ADC0
+
 ### Advanced Usage
 
 **Resources and Documentation**
@@ -146,6 +164,26 @@ If you need to modify the Renesas BSP peripheral configuration or add new periph
 
 1. [Download Flexible Software Package (FSP) | Renesas](https://github.com/renesas/fsp/releases/download/v6.0.0/setup_fsp_v6_0_0_rasc_v2025-04.1.exe), please use **FSP version 6.0.0**
 2. Refer to the documentation: [Configuring Peripheral Drivers Using FSP for the RA Series](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/tutorial/make-bsp/renesas-ra/RA系列使用FSP配置外设驱动?id=ra系列使用-fsp-配置外设驱动).
+
+- **Method 1: Configure development by importing FSP:**
+
+Users can locate the `configuration.xml` file in the project and import it into FSP to start configuration:
+
+Select **File → Open** at the top-left corner to open the configuration file.
+
+![image-20251030163423452](figures/image-20251030163423452.png)
+
+- **Method 2: Configure FSP using built-in commands in RT-Thread Studio:**
+
+After installing RA-FSP, first create a **Titan Board** project in Studio. Under the project, you will see the built-in Renesas FSP configuration option: **RA Smart Configurator**.
+
+Double-click this option, then locate the root directory where RA-FSP was installed, and set this directory as the FSP installation path.
+
+![image-20251030163520438](figures/image-20251030163520438.png)
+
+* **Generate FSP Code:**
+
+![image-20251030163707813](figures/image-20251030163707813.png)
 
 **RT-Thread Settings**
 

@@ -182,10 +182,30 @@ RA8 SDHI 模块主要包含以下子模块：
 
 按下复位按键重启开发板，如果终端输出固件读取错误的信息，那么需要使用 **ymodem** 向 Flash 中下载 WiFi 固件。使用 `whd_res_download whd_firmware` 命令下载 43438A1.bin 到 Flash 的 `whd_firmware` 分区中；使用 `whd_res_download whd_clm` 命令下载 43438A1.clm_blob 到 Flash 的 `whd_clm` 分区中。
 
-WiFi 固件可以在工程根目录的 `/firmware` 文件夹中找到。
+WiFi 固件可以在工程根目录的 `/firmware` 文件夹中找到。 
 
-![image-20250814183443630](figures/image-20250814183443630.png)
+**烧录 WiFi 固件:**
 
-下载 WiFi 固件后复位开发板，能看到 WiFi 固件正常加载，WiFi 模块初始化成功。接着输入 `wifi join TitanBoard 12345678` 连接 WiFi，然后输入 `ping baidu.com`进行 ping 测试。
+使用带有 ymodem 功能的串口工具，如 Xshell。
+
+输入 `whd_res_download whd_firmware` 命令后右键窗口，然后点击传输->YMODEM->用YMODEM发送。
+
+![image-20251030155516144](figures/image-20251030155516144.png)
+
+选择 43438A1.bin 文件，然后点击打开开始烧录 43438A1.bin。
+
+![image-20251030155333851](figures/image-20251030155333851.png)
+
+输入 `whd_res_download whd_clm` 命令后右键窗口，然后点击传输->YMODEM->用YMODEM发送。
+
+![image-20251030155614191](figures/image-20251030155614191.png)
+
+选择 43438A1.clm_blob 文件，然后点击打开开始烧录 43438A1.clm_blob。
+
+![image-20251030155751227](figures/image-20251030155751227.png)
+
+**测试 WiFi:**
+
+下载 WiFi 固件后复位开发板，能看到 WiFi 固件正常加载，WiFi 模块初始化成功。接着输入 `wifi join 自己家的2.4Gwifi名称 wifi密码` 连接 WiFi，然后输入 `ping baidu.com`进行 ping 测试。
 
 ![image-20250815092538932](figures/image-20250815092538932.png)

@@ -44,7 +44,7 @@
             #define BSP_CFG_SLEEP_MODE_DELAY_ENABLE      (1)
             #define BSP_CFG_MSTP_CHANGE_DELAY_ENABLE     (1)
             #define BSP_CFG_RTOS_SLEEP_MODE_DELAY_ENABLE (1)
-            #define BSP_CFG_CLOCK_SETTLING_DELAY_US      (30)
+            #define BSP_CFG_CLOCK_SETTLING_DELAY_US      (150)
 
             #if defined(BSP_PACKAGE_HLQFP)
                 #define BSP_MAX_CLOCK_CHANGE_THRESHOLD (300000000U)
@@ -97,25 +97,25 @@
 #ifndef BSP_TZ_CFG_PSARB
 #define BSP_TZ_CFG_PSARB (\
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4) /* I3C */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7) /* IIC2 */ | \
+            (((1 > 0) ? 0U : 1U) << 7) /* IIC2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 8) /* IIC1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 9) /* IIC0 */ | \
+            (((1 > 0) ? 0U : 1U) << 9) /* IIC0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 11) /* USBFS */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 12) /* USBHS */ | \
             (1 << 16) /* OSPI0 */ | \
             (1 << 17) /* OSPI1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18) /* SPI1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19) /* SPI0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22) /* SCI9 */ | \
+            (((1 > 0) ? 0U : 1U) << 19) /* SPI0 */ | \
+            (((1 > 0) ? 0U : 1U) << 22) /* SCI9 */ | \
             (((1 > 0) ? 0U : 1U) << 23) /* SCI8 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 24) /* SCI7 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 25) /* SCI6 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26) /* SCI5 */ | \
+            (((1 > 0) ? 0U : 1U) << 26) /* SCI5 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* SCI4 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28) /* SCI3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 29) /* SCI2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 30) /* SCI1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* SCI0 */)
+            (((1 > 0) ? 0U : 1U) << 31) /* SCI0 */)
 #endif
 #ifndef BSP_TZ_CFG_PSARC
 #define BSP_TZ_CFG_PSARC (\
@@ -123,17 +123,17 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1) /* CRC */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7) /* SSIE1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 8) /* SSIE0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 11) /* SDHI1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 12) /* SDHI0 */ | \
+            (((1 > 0) ? 0U : 1U) << 11) /* SDHI1 */ | \
+            (((1 > 0) ? 0U : 1U) << 12) /* SDHI0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 13) /* DOC */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 15) /* GLCDC/MIPI-DSI/DRW */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 15) /* MIPI_CSI */ | \
+            (((1 > 0) ? 0U : 1U) << 15) /* GLCDC/MIPI-DSI/DRW */ | \
+            (((1 > 0) ? 0U : 1U) << 15) /* MIPI_CSI */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16) /* CEU */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 24) /* PDM */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26) /* CANFD1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* CANFD0 */ | \
+            (((1 > 0) ? 0U : 1U) << 26) /* CANFD1 */ | \
+            (((1 > 0) ? 0U : 1U) << 27) /* CANFD0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28) /* ETHPHYCLK */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 30) /* ESWM */ | \
+            (((1 > 0) ? 0U : 1U) << 30) /* ESWM */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* RSIP-E50D */)
 #endif
 #ifndef BSP_TZ_CFG_PSARD
@@ -147,8 +147,8 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 14) /* PGI0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19) /* DAC121 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20) /* DAC120 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 21) /* ADC_B */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22) /* TSN */ | \
+            (((1 > 0) ? 0U : 1U) << 21) /* ADC_B */ | \
+            (((1 > 0) ? 0U : 1U) << 22) /* TSN */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 25) /* ACMPHS3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26) /* ACMPHS2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* ACMPHS1 */ | \
@@ -159,19 +159,19 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0) /* WDT1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1) /* WDT0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 2) /* IWDT */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 3) /* RTC */ | \
+            (((1 > 0) ? 0U : 1U) << 3) /* RTC */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 8) /* ULPT1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 9) /* ULPT0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 15) /* GPT COMMON */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18) /* GPT13 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19) /* GPT12 */ | \
+            (((1 > 0) ? 0U : 1U) << 19) /* GPT12 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20) /* GPT11 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 21) /* GPT10 */ | \
+            (((1 > 0) ? 0U : 1U) << 21) /* GPT10 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* GPT4 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28) /* GPT3 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 29) /* GPT2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 30) /* GPT1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* GPT0 */)
+            (((1 > 0) ? 0U : 1U) << 28) /* GPT3 */ | \
+            (((1 > 0) ? 0U : 1U) << 29) /* GPT2 */ | \
+            (((1 > 0) ? 0U : 1U) << 30) /* GPT1 */ | \
+            (((1 > 0) ? 0U : 1U) << 31) /* GPT0 */)
 #endif
 #ifndef BSP_TZ_CFG_MSSAR
 #define BSP_TZ_CFG_MSSAR (\
@@ -273,14 +273,14 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 10U) /* External IRQ10 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 11U) /* External IRQ11 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 12U) /* External IRQ12 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 13U) /* External IRQ13 */ | \
+            (((1 > 0) ? 0U : 1U) << 13U) /* External IRQ13 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 14U) /* External IRQ14 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 15U) /* External IRQ15 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16U) /* External IRQ16 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 17U) /* External IRQ17 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18U) /* External IRQ18 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19U) /* External IRQ19 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20U) /* External IRQ20 */ | \
+            (((1 > 0) ? 0U : 1U) << 20U) /* External IRQ20 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 21U) /* External IRQ21 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22U) /* External IRQ22 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 23U) /* External IRQ23 */ | \
@@ -303,20 +303,20 @@
 #ifndef BSP_TZ_CFG_DMACCHSAR
 #if (0 == BSP_CFG_CPU_CORE)
 #define BSP_TZ_CFG_DMACCHSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0U) /* DMAC Channel 0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1U) /* DMAC Channel 1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 2U) /* DMAC Channel 2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 3U) /* DMAC Channel 3 */ | \
+            (((1 > 0) ? 0U : 1U) << 0U) /* DMAC Channel 0 */ | \
+            (((1 > 0) ? 0U : 1U) << 1U) /* DMAC Channel 1 */ | \
+            (((1 > 0) ? 0U : 1U) << 2U) /* DMAC Channel 2 */ | \
+            (((1 > 0) ? 0U : 1U) << 3U) /* DMAC Channel 3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4U) /* DMAC Channel 4 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 5U) /* DMAC Channel 5 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 6U) /* DMAC Channel 6 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7U) /* DMAC Channel 7 */)
 #else
 #define BSP_TZ_CFG_DMACCHSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16U) /* DMAC1 Channel 0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 17U) /* DMAC1 Channel 1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18U) /* DMAC1 Channel 2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19U) /* DMAC1 Channel 3 */ | \
+            (((1 > 0) ? 0U : 1U) << 16U) /* DMAC1 Channel 0 */ | \
+            (((1 > 0) ? 0U : 1U) << 17U) /* DMAC1 Channel 1 */ | \
+            (((1 > 0) ? 0U : 1U) << 18U) /* DMAC1 Channel 2 */ | \
+            (((1 > 0) ? 0U : 1U) << 19U) /* DMAC1 Channel 3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20U) /* DMAC1 Channel 4 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 21U) /* DMAC1 Channel 5 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22U) /* DMAC1 Channel 6 */ | \

@@ -184,8 +184,28 @@ Press the reset button to restart the development board, if the terminal output 
 
 The WiFi firmware can be found in the `/firmware` folder of the project root.
 
-![image-20250814183443630](figures/image-20250814183443630.png)
+**Download WiFi firmware :**
 
-After downloading the WiFi firmware, reset the Titan Board, and you can see that the WiFi firmware is loaded normally and the WiFi module is initialized successfully. Then type `wifi join TitanBoard 12345678` to connect to WiFi and `ping baidu.com` to ping test.
+Use a serial tool that supports **YMODEM**, such as **Xshell**.
+
+After entering the command `whd_res_download whd_firmware`, right-click in the window, then select **Transfer → YMODEM → Send with YMODEM**.
+
+![image-20251030155516144](figures/image-20251030155516144.png)
+
+Select the `43438A1.bin` file, then click **Open** to start flashing `43438A1.bin`.
+
+![image-20251030155333851](figures/image-20251030155333851.png)
+
+After entering the command `whd_res_download whd_clm`, right-click in the window, then select **Transfer → YMODEM → Send with YMODEM**.
+
+![image-20251030155614191](figures/image-20251030155614191.png)
+
+Select the `43438A1.clm_blob` file, then click **Open** to start flashing `43438A1.clm_blob`.
+
+![image-20251030155751227](figures/image-20251030155751227.png)
+
+**Test WiFi:**
+
+After downloading the WiFi firmware, reset the Titan Board, and you can see that the WiFi firmware is loaded normally and the WiFi module is initialized successfully. Then type `wifi join ssid password` to connect to WiFi and `ping baidu.com` to ping test.
 
 ![image-20250815092538932](figures/image-20250815092538932.png)

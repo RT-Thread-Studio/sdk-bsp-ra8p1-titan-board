@@ -2,7 +2,7 @@ menu "Hardware Drivers Config"
 
     config SOC_R7KA8P1KF
         bool
-        select SOC_SERIES_R7KA8P1_CORE1
+        select SOC_SERIES_R7KA8P1_CORE0
         select RT_USING_COMPONENTS_INIT
         select RT_USING_USER_MAIN
         default y
@@ -749,10 +749,6 @@ menu "Hardware Drivers Config"
 
     menu "Board extended module Drivers"
 
-        config BSP_USING_BUS_SERVO
-            bool "Enable bus servo driver(single serial wire)"
-            default n
-
         menuconfig BSP_USING_MIPI_CSI_CAMERA
             bool "Enable mipi csi camera driver"
             select BSP_USING_HW_I2C
@@ -840,6 +836,7 @@ menu "Hardware Drivers Config"
 
                 menuconfig BSP_USING_GT9147
                     bool "Enable gt9147 touch driver"
+                    select RT_USING_TOUCH
                     default n
                     if BSP_USING_GT9147
                         config BSP_USING_GT9147_SAMPLE
@@ -862,6 +859,10 @@ menu "Hardware Drivers Config"
                     hex "LCD reset pin number (hex)"
                     range 0x0000 0xFFFF
                     default 0x000B
+                config BSP_USING_LCD_BL_PIN
+                    hex "LCD backlight pin number (hex)"
+                    range 0x0000 0xFFFF
+                    default 0x0303
             endif
     endmenu
 endmenu

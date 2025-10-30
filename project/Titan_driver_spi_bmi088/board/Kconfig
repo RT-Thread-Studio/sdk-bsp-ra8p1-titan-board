@@ -836,6 +836,7 @@ menu "Hardware Drivers Config"
 
                 menuconfig BSP_USING_GT9147
                     bool "Enable gt9147 touch driver"
+                    select RT_USING_TOUCH
                     default n
                     if BSP_USING_GT9147
                         config BSP_USING_GT9147_SAMPLE
@@ -858,7 +859,10 @@ menu "Hardware Drivers Config"
                     hex "LCD reset pin number (hex)"
                     range 0x0000 0xFFFF
                     default 0x000B
+                config BSP_USING_LCD_BL_PIN
+                    hex "LCD backlight pin number (hex)"
+                    range 0x0000 0xFFFF
+                    default 0x0303
             endif
     endmenu
 endmenu
-

@@ -154,6 +154,14 @@ static void ra_pin_map_init(void)
     pin_irq_map[26].irq_ctrl = &g_external_irq26_ctrl;
     pin_irq_map[26].irq_cfg = &g_external_irq26_cfg;
 #endif
+#if defined(VECTOR_NUMBER_ICU_IRQ27) || (VECTOR_NUMBER_IRQ027)
+    pin_irq_map[27].irq_ctrl = &g_external_irq27_ctrl;
+    pin_irq_map[27].irq_cfg = &g_external_irq27_cfg;
+#endif
+#if defined(VECTOR_NUMBER_ICU_IRQ28) || (VECTOR_NUMBER_IRQ028)
+    pin_irq_map[28].irq_ctrl = &g_external_irq28_ctrl;
+    pin_irq_map[28].irq_cfg = &g_external_irq28_cfg;
+#endif
 }
 #endif  /* R_ICU_H */
 

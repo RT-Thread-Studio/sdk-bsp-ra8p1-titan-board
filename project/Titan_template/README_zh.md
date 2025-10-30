@@ -129,6 +129,26 @@ void hal_entry(void)
 }
 ```
 
+### 拓展说明
+
+**Titan_template 工程的 FSP 已经默认配置了如下外设，用户可参考下文FSP配置说明生成。**
+
+* Uart8、Uart5、Uart9
+* HyperFlash
+* HyperRAM
+* timer0、timer1
+* SD卡
+* SDIO WiFi
+* I2C0、I2C2
+* SPI0
+* MIPI CSI
+* RGB565 LCD
+* ETH1
+* pwm2、pwm7、pwm10、pwm12
+* CAN0、CAN1
+* RTC
+* ADC0
+
 ### 进阶使用
 
 **资料及文档**
@@ -145,6 +165,26 @@ void hal_entry(void)
 
 1. [下载灵活配置软件包 (FSP) | Renesas](https://github.com/renesas/fsp/releases/download/v6.0.0/setup_fsp_v6_0_0_rasc_v2025-04.1.exe)，请使用 FSP 6.0.0 版本
 2. 请参考文档：[RA系列使用FSP配置外设驱动](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/tutorial/make-bsp/renesas-ra/RA系列使用FSP配置外设驱动?id=ra系列使用-fsp-配置外设驱动)。
+
+* **方式一：通过导入fsp进行开发配置：**
+
+用户可通过找到工程下的configuration.xml文件，将其导入到fsp中，即可开始配置：
+
+选择左上角 file->open 打开配置文件
+
+![image-20251030163423452](figures/image-20251030163423452.png)
+
+* **方式二：通过RT-Thread studio内置命令配置fsp：**
+
+在安装ra-fsp后，我们先基于studio创建一个 Titan Board 工程，在工程下可以看到内置了瑞萨FSP配置项：RA Smart Configurator;
+
+双击此项后，我们需要找到前面安装ra-fsp的根目录，并且设置该目录为fsp的安装目录：
+
+![image-20251030163520438](figures/image-20251030163520438.png)
+
+* **生成 FSP 代码：**
+
+![image-20251030163707813](figures/image-20251030163707813.png)
 
 **RT-Thread Settings**
 

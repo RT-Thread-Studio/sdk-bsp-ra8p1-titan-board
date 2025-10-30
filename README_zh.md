@@ -32,6 +32,7 @@ $ sdk-bsp-ra8p1-titan-board
 │   ├── Titan_component_netutils
 │   ├── Titan_display_camera_ceu
 │   ├── Titan_display_camera_mipi_csi
+│   ├── Titan_display_mipi_lvgl
 │   ├── Titan_display_rgb_lvgl
 │   ├── Titan_driver_adc
 │   ├── Titan_driver_can
@@ -39,6 +40,7 @@ $ sdk-bsp-ra8p1-titan-board
 │   ├── Titan_driver_gpt
 │   ├── Titan_driver_hyperram
 │   ├── Titan_driver_iic_ist8310
+│   ├── Titan_driver_mipi_lcd
 │   ├── Titan_driver_rgb_lcd
 │   ├── Titan_driver_rs485
 │   ├── Titan_driver_rtc
@@ -55,6 +57,7 @@ $ sdk-bsp-ra8p1-titan-board
 │   ├── Titan_mlc_rpmsg_lite
 │   │   ├── Titan_rpmsg_master
 │   │   └── Titan_rpmsg_remote
+│   ├── Titan_npu_ai_face_detection
 │   └── Titan_template
 ├── README.md
 ├── README_zh.md

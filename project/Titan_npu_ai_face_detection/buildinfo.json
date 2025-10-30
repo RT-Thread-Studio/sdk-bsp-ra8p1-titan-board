@@ -1,0 +1,49 @@
+{
+  "definedMacros": [
+    "_RA_CORE=CPU0",
+    "_RA_ORDINAL=1",
+    "_RENESAS_RA_"
+  ],
+  "sourcePaths": [
+    "ra",
+    "ra_gen",
+    "src"
+  ],
+  "excludedFilePaths": [],
+  "includePaths": [
+    "ra/arm/CMSIS-NN",
+    "ra/arm/CMSIS-NN/Include",
+    "ra/arm/CMSIS-View/EventRecorder/Config",
+    "ra/arm/CMSIS-View/EventRecorder/Include",
+    "ra/arm/CMSIS_6/CMSIS/Core/Include",
+    "ra/fsp/inc",
+    "ra/fsp/inc/api",
+    "ra/fsp/inc/instances",
+    "ra/fsp/src/rm_ethosu",
+    "ra/npu/ethos-u-core-driver/include",
+    "ra/npu/ethos-u-core-software/lib/arm_profiler/include",
+    "ra/npu/ethos-u-core-software/lib/crc/include",
+    "ra/npu/ethos-u-core-software/lib/ethosu_monitor/include",
+    "ra/npu/ethos-u-core-software/lib/ethosu_profiler/include",
+    "ra/npu/ethos-u-core-software/lib/layer_by_layer_profiler/include",
+    "ra/npu/flatbuffers/include",
+    "ra/npu/gemmlowp",
+    "ra/npu/ruy",
+    "ra/npu/tflite-micro",
+    "ra/tes/dave2d/inc",
+    "ra_cfg/fsp_cfg",
+    "ra_cfg/fsp_cfg/bsp",
+    "ra_gen",
+    "src"
+  ],
+  "libraryPaths": [],
+  "libraryNames": [],
+  "objectFiles": [],
+  "linkerScript": "script/fsp.ld",
+  "targetDeviceName": "R7KA8P1KFLCAC",
+  "entrySymbol": "Reset_Handler",
+  "isPreBuildContentGenEnabled": true,
+  "isPostBuildContentGenEnabled": true,
+  "isTargetDeviceSupportsTrustZone": true,
+  "buildOptionsMap": {}
+}

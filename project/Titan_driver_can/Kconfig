@@ -23,6 +23,11 @@ config ENV_DIR
     option env="ENV_ROOT"
     default "/"
 
+config PLATFORM_DIR
+    string
+    option env="PLATFORM_DIR"
+    default  "C:/Users/RTT/Desktop/github/sdk-bsp-ra8p1-titan-board/project/Titan_driver_can/platform"
+
 source "$RTT_DIR/Kconfig"
 source "$PKGS_DIR/Kconfig"
 source "libraries/Kconfig"

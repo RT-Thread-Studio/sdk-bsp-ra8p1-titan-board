@@ -61,6 +61,13 @@ categories:
       - "Titan_mlc_rpmsg_lite/Titan_rpmsg_master"
       - "Titan_mlc_rpmsg_lite/Titan_rpmsg_remote"
 
+  npu_vision:
+    name: "NPU AI视觉篇"
+    name_en: "NPU Intelligent Vision"
+    description: "基于NPU的人脸检测与目标识别示例"
+    patterns:
+      - "Titan_npu_ai_face_detection"
+
 # 文档生成配置
 generation:
   copy_files:
@@ -75,6 +82,7 @@ generation:
     - "component"
     - "multimedia"
     - "multcore"
+    - "npu_vision"
 
 # Sphinx 配置
 sphinx:

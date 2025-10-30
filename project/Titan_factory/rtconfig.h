@@ -607,6 +607,7 @@
 #define BSP_USING_LCD
 #define BSP_USING_RGB565_LCD
 #define BSP_USING_LCD_RST_PIN 0x000B
+#define BSP_USING_LCD_BL_PIN 0x0303
 /* end of Board extended module Drivers */
 /* end of Hardware Drivers Config */
 

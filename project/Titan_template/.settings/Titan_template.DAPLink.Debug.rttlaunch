@@ -23,7 +23,7 @@
 <intAttribute key="ilg.gnumcueclipse.debug.gdbjtag.pyocd.gdbServerTelnetPortNumber" value="4444"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.pyocd.otherInitCommands" value=""/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.pyocd.otherRunCommands" value=""/>
-<stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.pyocd.programMode" value="HEX"/>
+<stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.pyocd.programMode" value="BIN"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.pyocd.secondResetType" value="halt"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.svdPath" value=""/>
 <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value=""/>
