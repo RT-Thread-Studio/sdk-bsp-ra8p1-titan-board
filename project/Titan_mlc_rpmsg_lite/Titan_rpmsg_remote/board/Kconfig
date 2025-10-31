@@ -2,7 +2,7 @@ menu "Hardware Drivers Config"
 
     config SOC_R7KA8P1KF
         bool
-        select SOC_SERIES_R7KA8P1_CORE0
+        select SOC_SERIES_R7KA8P1_CORE1
         select RT_USING_COMPONENTS_INIT
         select RT_USING_USER_MAIN
         default y
@@ -118,7 +118,7 @@ menu "Hardware Drivers Config"
 
     menu "On-chip Peripheral Drivers"
 
-        rsource "../libraries/HAL_Drivers/Kconfig"
+        source "libraries/HAL_Drivers/Kconfig"
 
         menuconfig BSP_USING_UART
             bool "Enable UART"

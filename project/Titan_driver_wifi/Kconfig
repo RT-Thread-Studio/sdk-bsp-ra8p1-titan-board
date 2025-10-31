@@ -27,6 +27,6 @@ config PKGS_DIR
     default "C:/Softwares/RT-ThreadStudio/platform/env_released/env/packages"
 
 source "$(RTT_DIR)/Kconfig"
-osource "$PKGS_DIR/Kconfig"
-rsource "libraries/Kconfig"
+source "$PKGS_DIR/Kconfig"
+source "libraries/Kconfig"
 source "$(BSP_DIR)/board/Kconfig"

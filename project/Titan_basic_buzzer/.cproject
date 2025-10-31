@@ -70,6 +70,11 @@
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/inc/api}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/inc/instances}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/inc}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/src/r_mipi_csi}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/src/r_vin}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/src/rm_ethosu}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/npu/ethos-u-core-driver/include}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/tes/dave2d/inc}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra_cfg/fsp_cfg/bsp}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra_cfg/fsp_cfg}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra_gen}&quot;" />
@@ -178,6 +183,11 @@
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/inc/api}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/inc/instances}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/inc}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/src/r_mipi_csi}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/src/r_vin}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/fsp/src/rm_ethosu}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/npu/ethos-u-core-driver/include}&quot;" />
+                  <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra/tes/dave2d/inc}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra_cfg/fsp_cfg/bsp}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra_cfg/fsp_cfg}&quot;" />
                   <listOptionValue builtIn="false" value="&quot;${workspace_loc://${ProjName}//ra_gen}&quot;" />

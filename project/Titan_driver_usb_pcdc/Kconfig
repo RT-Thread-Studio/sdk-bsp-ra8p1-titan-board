@@ -14,19 +14,19 @@ ENV_DIR := /
 config PLATFORM_DIR
     string
     option env="PLATFORM_DIR"
-    default "E:/Desktop/ra8p1/project/Titan_driver_usb_pcdc/platform"
+    default "C:/Users/RTT/Desktop/PR/sdk-bsp-ra8p1-titan-board/project/Titan_driver_usb_pcdc/platform"
 
 config RTT_DIR
     string
     option env="RTT_DIR"
-    default "E:/Desktop/ra8p1/project/Titan_driver_usb_pcdc/rt-thread"
+    default "C:/Users/RTT/Desktop/PR/sdk-bsp-ra8p1-titan-board/project/Titan_driver_usb_pcdc/rt-thread"
 
 config PKGS_DIR
     string
     option env="PKGS_DIR"
-    default "D:/RT-ThreadStudio/platform/env_released/env/packages"
+    default "C:/Softwares/RT-ThreadStudio/platform/env_released/env/packages"
 
 source "$(RTT_DIR)/Kconfig"
-osource "$PKGS_DIR/Kconfig"
-rsource "libraries/Kconfig"
+source "$PKGS_DIR/Kconfig"
+source "libraries/Kconfig"
 source "$(BSP_DIR)/board/Kconfig"

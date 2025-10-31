@@ -26,7 +26,7 @@ config ENV_DIR
 config PLATFORM_DIR
     string
     option env="PLATFORM_DIR"
-    default "C:/Users/RTT/Desktop/github/sdk-bsp-ra8p1-titan-board/project/Titan_component_flash_fs/platform"
+    default "C:/Users/RTT/Desktop/PR/sdk-bsp-ra8p1-titan-board/project/Titan_component_flash_fs/platform"
 
 source "$RTT_DIR/Kconfig"
 source "$PKGS_DIR/Kconfig"
