@@ -68,6 +68,13 @@ categories:
     patterns:
       - "Titan_npu_ai_face_detection"
 
+  faq:
+    name: "FAQ"
+    name_en: "FAQ"
+    description: "常见问题解答"
+    patterns:
+      - "FAQ_page"
+
 # 文档生成配置
 generation:
   copy_files:
@@ -83,6 +90,7 @@ generation:
     - "multimedia"
     - "multcore"
     - "npu_vision"
+    - "faq"
 
 # Sphinx 配置
 sphinx:
