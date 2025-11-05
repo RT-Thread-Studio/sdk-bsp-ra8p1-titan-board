@@ -3,7 +3,6 @@
 /Objects
 /Debug
 /build
-/makefile.targets
 /rtconfig.pyc
 /rt-thread
 /libraries
