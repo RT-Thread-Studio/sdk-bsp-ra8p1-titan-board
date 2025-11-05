@@ -117,6 +117,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_basic_buzzer
   project_description: PWM驱动无源蜂鸣器示例
   project_type: rt-thread|@full|@5.1.0
@@ -142,6 +149,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -173,6 +187,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_component_flash_fs
   project_description: littlefs 文件系统
   project_type: rt-thread|@full|@5.1.0
@@ -198,6 +219,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -229,6 +257,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_display_camera_ceu
   project_description: CEU摄像头与RGB屏幕示例
   project_type: rt-thread|@full|@5.1.0
@@ -254,6 +289,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -285,6 +327,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_display_mipi_lvgl
   project_description: MIPI DSI 屏幕运行LVGL示例
   project_type: rt-thread|@full|@5.1.0
@@ -310,6 +359,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -341,6 +397,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_adc
   project_description: adc 示例
   project_type: rt-thread|@full|@5.1.0
@@ -366,6 +429,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -397,6 +467,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_eth
   project_description: 以太网示例
   project_type: rt-thread|@full|@5.1.0
@@ -422,6 +499,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -453,6 +537,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_hyperram
   project_description: hyperram示例
   project_type: rt-thread|@full|@5.1.0
@@ -478,6 +569,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -509,6 +607,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_mipi_lcd
   project_description: MIPI DSI 屏幕示例
   project_type: rt-thread|@full|@5.1.0
@@ -534,6 +639,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -565,6 +677,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_rs485
   project_description: rs485 示例
   project_type: rt-thread|@full|@5.1.0
@@ -590,6 +709,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -621,6 +747,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_sdcard
   project_description: SD卡示例
   project_type: rt-thread|@full|@5.1.0
@@ -646,6 +779,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -677,6 +817,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_usb_hhid
   project_description: USB HHID 示例
   project_type: rt-thread|@full|@5.1.0
@@ -702,6 +849,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -733,6 +887,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_driver_wdt
   project_description: wdt 示例
   project_type: rt-thread|@full|@5.1.0
@@ -758,6 +919,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -789,6 +957,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_dual_core0
   project_description: 双核示例工程（M85）
   project_type: rt-thread|@full|@5.1.0
@@ -814,6 +989,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -845,6 +1027,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_rpmsg_master
   project_description: 双核rpmsg-lite通讯工程 (Master)
   project_type: rt-thread|@full|@5.1.0
@@ -870,6 +1059,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -901,6 +1097,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 - project_name: Titan_npu_ai_face_detection
   project_description: NPU 加速 AI 人脸检测
   project_type: rt-thread|@full|@5.1.0
@@ -926,6 +1129,13 @@ example_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
@@ -957,6 +1167,13 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
 template_projects:
 - project_name: Titan_template
   project_description: 实现 LED 闪烁功能,可作为二次开发的基础工程
@@ -983,6 +1200,13 @@ template_projects:
     package_type: Debugger_Support_Packages
     package_vendor: 'RealThread'
     package_version: 0.2.9
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: J-Link
+    package_type: Debugger_Support_Packages
+    package_vendor: 'SEGGER'
+    package_version: v8.48
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
