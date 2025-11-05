@@ -87,7 +87,7 @@ features_zh:
 - 电压：核心 1.1V，I/O 3.3V，1.8V
 pkg_type: Board_Support_Packages
 pkg_vendor: RealThread
-pkg_version: 1.0.0
+pkg_version: 1.0.1
 example_projects:
 - project_name: Titan_basic_blink_led
   project_description: LED闪烁示例
