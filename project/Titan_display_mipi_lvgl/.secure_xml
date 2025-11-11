@@ -159,21 +159,21 @@
       <configSetting altId="jtag_fslash_swd.tdo.p209" configurationId="jtag_fslash_swd.tdo" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.tms.p210" configurationId="jtag_fslash_swd.tms" peripheral="JTAG/SWD"/>
       <configSetting altId="mipi.dsi_te.p411" configurationId="mipi.dsi_te" peripheral="MIPI"/>
-      <configSetting altId="ospi1.om_1_cs0.pc08" configurationId="ospi1.om_1_cs0" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_dqs.p607" configurationId="ospi1.om_1_dqs" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_ecsint1.pc06" configurationId="ospi1.om_1_ecsint1" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_reset.pc07" configurationId="ospi1.om_1_reset" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_rsto1.pc09" configurationId="ospi1.om_1_rsto1" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sclk.p603" configurationId="ospi1.om_1_sclk" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sclkn.p602" configurationId="ospi1.om_1_sclkn" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio0.pc01" configurationId="ospi1.om_1_sio0" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio1.p605" configurationId="ospi1.om_1_sio1" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio2.pc04" configurationId="ospi1.om_1_sio2" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio3.pc02" configurationId="ospi1.om_1_sio3" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio4.pc03" configurationId="ospi1.om_1_sio4" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio5.pc00" configurationId="ospi1.om_1_sio5" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio6.p606" configurationId="ospi1.om_1_sio6" isUsedByDriver="true" peripheral="OSPI1"/>
-      <configSetting altId="ospi1.om_1_sio7.p604" configurationId="ospi1.om_1_sio7" isUsedByDriver="true" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_cs0.pc08" configurationId="ospi1.om_1_cs0" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_dqs.p607" configurationId="ospi1.om_1_dqs" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_ecsint1.pc06" configurationId="ospi1.om_1_ecsint1" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_reset.pc07" configurationId="ospi1.om_1_reset" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_rsto1.pc09" configurationId="ospi1.om_1_rsto1" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sclk.p603" configurationId="ospi1.om_1_sclk" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sclkn.p602" configurationId="ospi1.om_1_sclkn" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio0.pc01" configurationId="ospi1.om_1_sio0" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio1.p605" configurationId="ospi1.om_1_sio1" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio2.pc04" configurationId="ospi1.om_1_sio2" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio3.pc02" configurationId="ospi1.om_1_sio3" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio4.pc03" configurationId="ospi1.om_1_sio4" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio5.pc00" configurationId="ospi1.om_1_sio5" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio6.p606" configurationId="ospi1.om_1_sio6" peripheral="OSPI1"/>
+      <configSetting altId="ospi1.om_1_sio7.p604" configurationId="ospi1.om_1_sio7" peripheral="OSPI1"/>
       <configSetting altId="p000.input" configurationId="p000"/>
       <configSetting altId="p006.input" configurationId="p006"/>
       <configSetting altId="p008.input" configurationId="p008"/>
