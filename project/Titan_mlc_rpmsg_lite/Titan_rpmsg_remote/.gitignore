@@ -20,3 +20,5 @@
 /.secure_rzone
 /.secure_xml
 /ra_cfg.txt
+/packages/pkgs.json
+/packages/pkgs_error.json
