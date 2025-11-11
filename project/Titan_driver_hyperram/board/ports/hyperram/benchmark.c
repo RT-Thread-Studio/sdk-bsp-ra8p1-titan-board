@@ -9,7 +9,6 @@
  */
 
 // @brief   This file provides xip benchmarks for HYPERRAM.
-
 #include <rtthread.h>
 #include <board.h>
 
@@ -24,44 +23,47 @@
 
 static void FillBuff(uint32_t pattern)
 {
+    uint32_t i;
+    uint32_t *pBuf;
+    uint32_t buf;
+    uint32_t err_cnt;
 
-  uint32_t i;
-  uint32_t *pBuf;
-  uint32_t buf;
-  uint32_t err_cnt;
-
-  pBuf = (uint32_t *)EXT_HYPERRAM_ADDR;
-  err_cnt = 0;
-  for (i = 0; i < 1024 * 1024 ; i++)
-  {
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-      *pBuf++ = pattern;
-  }
-  // rt_thread_mdelay(1);
-  pBuf = (uint32_t *)EXT_HYPERRAM_ADDR;
-  for (i = 0; i < 1024 * 1024 * 8; i++)
-  {
-    buf = *pBuf;
-    if (buf != pattern)
+    pBuf = (uint32_t *) EXT_HYPERRAM_ADDR;
+    err_cnt = 0;
+    for (i = 0; i < 1024 * 1024; i++)
     {
-      err_cnt++;
-      LOG_W("FillBuff read check error.offset:0x%08x, read:0x%08x,should be:0x%08x", i, buf, pattern);
-      if (err_cnt >= 5)
-      {
-        LOG_W("FillBuff read check error more than 5 times, skip this round.\n");
-        break;
-      }
-
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
+        *pBuf++ = pattern;
     }
-    pBuf++;
-  }
+
+    // 清理 D-Cache
+    SCB_CleanInvalidateDCache();
+
+    pBuf = (uint32_t *) EXT_HYPERRAM_ADDR;
+    for (i = 0; i < 1024 * 1024 * 8; i++)
+    {
+        buf = *pBuf;
+        if (buf != pattern)
+        {
+            err_cnt++;
+            LOG_W("FillBuff read check error.offset:0x%08x, read:0x%08x,should be:0x%08x", i, buf, pattern);
+            if (err_cnt >= 5)
+            {
+                LOG_W("FillBuff read check error more than 5 times, skip this round.\n");
+                break;
+            }
+
+        }
+        pBuf++;
+    }
 }
+
 /**
  * @brief
  * @attention with error check
@@ -74,12 +76,11 @@ static void WriteSpeedTest(void)
     int32_t iTime;
     uint32_t *pBuf;
 
-
-
     FillBuff(0x5AA55AA5);
     FillBuff(0xA55AA55A);
+
     j = 0;
-    pBuf = (uint32_t *)EXT_HYPERRAM_ADDR;
+    pBuf = (uint32_t *) EXT_HYPERRAM_ADDR;
     start = rt_tick_get_millisecond();
 
     for (i = 1024 * 1024 / 4; i > 0; i--)
@@ -120,12 +121,17 @@ static void WriteSpeedTest(void)
         *pBuf++ = j++;
         *pBuf++ = j++;
     }
+
+    // 清理 D-Cache，确保外设/外部 RAM 可以正确读取
+    SCB_CleanInvalidateDCache();
+
     end = rt_tick_get_millisecond();
     cnt = end - start;
     iTime = cnt;
+
     /* readback check */
     j = 0;
-    pBuf = (uint32_t *)EXT_HYPERRAM_ADDR;
+    pBuf = (uint32_t *) EXT_HYPERRAM_ADDR;
     for (i = 0; i < 1024 * 1024 * 8; i++)
     {
         if (*pBuf++ != j++)
@@ -154,7 +160,10 @@ static void ReadSpeedTest(void)
     uint32_t *pBuf;
     __IO uint32_t ulTemp;
 
-    pBuf = (uint32_t *)EXT_HYPERRAM_ADDR;
+    // 清理 D-Cache，保证读取最新数据
+    SCB_CleanInvalidateDCache();
+
+    pBuf = (uint32_t *) EXT_HYPERRAM_ADDR;
     start = rt_tick_get_millisecond();
 
     for (i = 1024 * 1024 / 4; i > 0; i--) //128 Byte per cycle, without error check.
@@ -195,13 +204,14 @@ static void ReadSpeedTest(void)
         ulTemp = *pBuf++;
         ulTemp = *pBuf++;
     }
+
     end = rt_tick_get_millisecond();
     cnt = end - start;
     iTime = cnt;
 
     /* readback check */
     uint32_t j = 0;
-    pBuf = (uint32_t *)EXT_HYPERRAM_ADDR;
+    pBuf = (uint32_t *) EXT_HYPERRAM_ADDR;
     for (i = 0; i < 1024 * 1024 * 8; i++)
     {
         if (*pBuf++ != j++)
@@ -216,26 +226,25 @@ static void ReadSpeedTest(void)
 }
 MSH_CMD_EXPORT_ALIAS(ReadSpeedTest, testread, HYPERRAM Read Test);
 
-/**
- * @brief
- *
- */
 static void ReadWriteTest(void)
 {
     uint32_t i;
     uint32_t *pBuf;
 
     /* payload data 0xAAAA5555 */
-    pBuf = (uint32_t *)(EXT_HYPERRAM_ADDR + TEST_ADDRESS);
+    pBuf = (uint32_t *) (EXT_HYPERRAM_ADDR + TEST_ADDRESS);
     for (i = 0; i < TEST_BUF_SIZE; i++)
     {
         pBuf[i] = 0xAAAA5555;
     }
 
+    // 清理 D-Cache
+    SCB_CleanInvalidateDCache();
+
     rt_kprintf("physical address: %08X, size: %dbyte, display: %d details: \r\n", EXT_HYPERRAM_ADDR + TEST_ADDRESS, EXT_HYPERRAM_SIZE, TEST_BUF_SIZE * 4);
 
     /* print data */
-    pBuf = (uint32_t *)(EXT_HYPERRAM_ADDR + TEST_ADDRESS);
+    pBuf = (uint32_t *) (EXT_HYPERRAM_ADDR + TEST_ADDRESS);
     for (i = 0; i < TEST_BUF_SIZE; i++)
     {
         rt_kprintf(" %04X", pBuf[i]);
@@ -254,13 +263,11 @@ MSH_CMD_EXPORT_ALIAS(ReadWriteTest, testrw, HYPERRAM Read-Write Test);
 
 void test_memburn_wr()
 {
-    while(1)
+    while (1)
     {
         WriteSpeedTest();
         ReadSpeedTest();
         rt_thread_mdelay(5);
     }
-
 }
 MSH_CMD_EXPORT_ALIAS(test_memburn_wr, testburn, HYPERRAM benchmark);
-

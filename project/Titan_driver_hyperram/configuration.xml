@@ -274,11 +274,11 @@
     <node id="board.clock.pll1r.display" option="board.clock.pll1r.display.value"/>
     <node id="board.clock.pll2.source" option="board.clock.pll2.source.xtal"/>
     <node id="board.clock.pll2.div" option="board.clock.pll2.div.3"/>
-    <node id="board.clock.pll2.mul" option="board.clock.pll2.mul.300_00"/>
+    <node id="board.clock.pll2.mul" option="board.clock.pll2.mul.266_00"/>
     <node id="board.clock.pll2.display" option="board.clock.pll2.display.value"/>
-    <node id="board.clock.pll2p.div" option="board.clock.pll2p.div.4"/>
+    <node id="board.clock.pll2p.div" option="board.clock.pll2p.div.2"/>
     <node id="board.clock.pll2p.display" option="board.clock.pll2p.display.value"/>
-    <node id="board.clock.pll2q.div" option="board.clock.pll2q.div.3"/>
+    <node id="board.clock.pll2q.div" option="board.clock.pll2q.div.8"/>
     <node id="board.clock.pll2q.display" option="board.clock.pll2q.display.value"/>
     <node id="board.clock.pll2r.div" option="board.clock.pll2r.div.5"/>
     <node id="board.clock.pll2r.display" option="board.clock.pll2r.display.value"/>
@@ -308,7 +308,7 @@
     <node id="board.clock.bclk.div" option="board.clock.bclk.div.8"/>
     <node id="board.clock.bclk.display" option="board.clock.bclk.display.value"/>
     <node id="board.clock.bclka.source" option="board.clock.bclka.source.pll2q"/>
-    <node id="board.clock.bclka.div" option="board.clock.bclka.div.6"/>
+    <node id="board.clock.bclka.div" option="board.clock.bclka.div.2"/>
     <node id="board.clock.bclka.display" option="board.clock.bclka.display.value"/>
     <node id="board.clock.sdclkout.enable" option="board.clock.sdclkout.enable.enabled"/>
     <node id="board.clock.sdclkout.display" option="board.clock.sdclkout.display.value"/>
@@ -318,36 +318,36 @@
     <node id="board.clock.clkout.source" option="board.clock.clkout.source.hoco"/>
     <node id="board.clock.clkout.div" option="board.clock.clkout.div.1"/>
     <node id="board.clock.clkout.display" option="board.clock.clkout.display.value"/>
-    <node id="board.clock.sciclk.source" option="board.clock.sciclk.source.pll2r"/>
+    <node id="board.clock.sciclk.source" option="board.clock.sciclk.source.pll1r"/>
     <node id="board.clock.sciclk.div" option="board.clock.sciclk.div.4"/>
     <node id="board.clock.sciclk.display" option="board.clock.sciclk.display.value"/>
     <node id="board.clock.spiclk.source" option="board.clock.spiclk.source.pll1q"/>
     <node id="board.clock.spiclk.div" option="board.clock.spiclk.div.1"/>
     <node id="board.clock.spiclk.display" option="board.clock.spiclk.display.value"/>
-    <node id="board.clock.canfdclk.source" option="board.clock.canfdclk.source.pll2r"/>
-    <node id="board.clock.canfdclk.div" option="board.clock.canfdclk.div.6"/>
+    <node id="board.clock.canfdclk.source" option="board.clock.canfdclk.source.pll1r"/>
+    <node id="board.clock.canfdclk.div" option="board.clock.canfdclk.div.5"/>
     <node id="board.clock.canfdclk.display" option="board.clock.canfdclk.display.value"/>
-    <node id="board.clock.gptclk.source" option="board.clock.gptclk.source.pll2p"/>
+    <node id="board.clock.gptclk.source" option="board.clock.gptclk.source.disabled"/>
     <node id="board.clock.gptclk.div" option="board.clock.gptclk.div.2"/>
     <node id="board.clock.gptclk.display" option="board.clock.gptclk.display.value"/>
-    <node id="board.clock.gtclk.source" option="board.clock.gtclk.source.gptclk"/>
+    <node id="board.clock.gtclk.source" option="board.clock.gtclk.source.pclkd"/>
     <node id="board.clock.gtclk.display" option="board.clock.gtclk.display.value"/>
-    <node id="board.clock.lcdclk.source" option="board.clock.lcdclk.source.pll2r"/>
+    <node id="board.clock.lcdclk.source" option="board.clock.lcdclk.source.pll1r"/>
     <node id="board.clock.lcdclk.div" option="board.clock.lcdclk.div.2"/>
     <node id="board.clock.lcdclk.display" option="board.clock.lcdclk.display.value"/>
-    <node id="board.clock.i3cclk.source" option="board.clock.i3cclk.source.pll2q"/>
+    <node id="board.clock.i3cclk.source" option="board.clock.i3cclk.source.disabled"/>
     <node id="board.clock.i3cclk.div" option="board.clock.i3cclk.div.4"/>
     <node id="board.clock.i3cclk.display" option="board.clock.i3cclk.display.value"/>
-    <node id="board.clock.uck.source" option="board.clock.uck.source.pll2r"/>
-    <node id="board.clock.uck.div" option="board.clock.uck.div.10"/>
+    <node id="board.clock.uck.source" option="board.clock.uck.source.disabled"/>
+    <node id="board.clock.uck.div" option="board.clock.uck.div.8"/>
     <node id="board.clock.uck.display" option="board.clock.uck.display.value"/>
-    <node id="board.clock.u60ck.source" option="board.clock.u60ck.source.pll2r"/>
+    <node id="board.clock.u60ck.source" option="board.clock.u60ck.source.disabled"/>
     <node id="board.clock.u60ck.div" option="board.clock.u60ck.div.8"/>
     <node id="board.clock.u60ck.display" option="board.clock.u60ck.display.value"/>
-    <node id="board.clock.octaspiclk.source" option="board.clock.octaspiclk.source.pll1q"/>
+    <node id="board.clock.octaspiclk.source" option="board.clock.octaspiclk.source.pll2q"/>
     <node id="board.clock.octaspiclk.div" option="board.clock.octaspiclk.div.1"/>
     <node id="board.clock.octaspiclk.display" option="board.clock.octaspiclk.display.value"/>
-    <node id="board.clock.adcclk.source" option="board.clock.adcclk.source.pll2r"/>
+    <node id="board.clock.adcclk.source" option="board.clock.adcclk.source.pll1r"/>
     <node id="board.clock.adcclk.div" option="board.clock.adcclk.div.4"/>
     <node id="board.clock.adcclk.display" option="board.clock.adcclk.display.value"/>
     <node id="board.clock.eswclk.source" option="board.clock.eswclk.source.pll1p"/>
@@ -356,8 +356,8 @@
     <node id="board.clock.eswphyclk.source" option="board.clock.eswphyclk.source.pll1p"/>
     <node id="board.clock.eswphyclk.div" option="board.clock.eswphyclk.div.2"/>
     <node id="board.clock.eswphyclk.display" option="board.clock.eswphyclk.display.value"/>
-    <node id="board.clock.ethphyclk.source" option="board.clock.ethphyclk.source.pll2q"/>
-    <node id="board.clock.ethphyclk.div" option="board.clock.ethphyclk.div.32"/>
+    <node id="board.clock.ethphyclk.source" option="board.clock.ethphyclk.source.pll1r"/>
+    <node id="board.clock.ethphyclk.div" option="board.clock.ethphyclk.div.8"/>
     <node id="board.clock.ethphyclk.display" option="board.clock.ethphyclk.display.value"/>
   </raClockConfiguration>
   <raComponentSelection>
