@@ -22,14 +22,14 @@ ospi_b_xspi_command_set_t g_hyper_ram_commands[] =
     {
         .protocol = SPI_FLASH_PROTOCOL_8D_8D_8D,
         .frame_format = OSPI_B_FRAME_FORMAT_XSPI_PROFILE_2_EXTENDED,
-        .latency_mode = OSPI_B_LATENCY_MODE_VARIABLE,
-        .command_bytes = OSPI_B_COMMAND_BYTES_2,
+        .latency_mode = OSPI_B_LATENCY_MODE_FIXED,
+        .command_bytes = OSPI_B_COMMAND_BYTES_1,
         .address_bytes = SPI_FLASH_ADDRESS_BYTES_4,
 
-        .read_command = 0xA000,
-        .read_dummy_cycles = 5,
-        .program_command = 0x2000,
-        .program_dummy_cycles = 5,
+        .read_command = 0xA0,
+        .read_dummy_cycles = 11,
+        .program_command = 0x20,
+        .program_dummy_cycles = 11,
 
         .address_msb_mask = 0xF0,
         .status_needs_address = false,
@@ -54,7 +54,7 @@ static fsp_err_t hyper_ram_config_get(uint32_t address, uint16_t * const p_value
             .command_length = 2,
             .command = 0xE000,
             .data_length = 2,
-            .dummy_cycles = 5,
+            .dummy_cycles = 11,
     };
 
     fsp_err_t err = R_OSPI_B_DirectTransfer(&ram_ctrl, &xfer, SPI_FLASH_DIRECT_TRANSFER_DIR_READ);
@@ -184,13 +184,11 @@ int hyper_ram_init(void)
     R_OSPI_B_Open((spi_flash_ctrl_t *)&ram_ctrl, &ram_cfg);
     R_OSPI_B_SpiProtocolSet(&ram_ctrl, SPI_FLASH_PROTOCOL_8D_8D_8D);
 
-    R_XSPI1->LIOCFGCS_b[0].WRMSKMD = 1;
-
     uint16_t cfg_reg0 = 0;
     hyper_ram_config_get(HYPER_RAM_CFG_REG_0_ADDRESS, &cfg_reg0);
     LOG_D("Read CR0 value: 0x%x", swap16(cfg_reg0));
 
-    uint16_t value0 = 0x8f0d;
+    uint16_t value0 = 0x8f1d;
     hyper_ram_config_set(HYPER_RAM_CFG_REG_0_ADDRESS, swap16(value0));
     LOG_D("Set CR0 to 0x%x", value0);
 

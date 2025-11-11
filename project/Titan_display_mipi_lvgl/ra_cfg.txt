@@ -966,7 +966,7 @@ FSP Configuration
         
         Instance "g_mipi_phy0 MIPI Physical Layer (r_mipi_phy)"
           General: Name: g_mipi_phy0
-          DSI PLL Frequency (MHz): 800.00
+          DSI PLL Frequency (MHz): 1000.00
           Timing: LP Clock Divider: 5
           Timing: TINIT (ns): 600000
           Timing: THSPREP: ns: 40

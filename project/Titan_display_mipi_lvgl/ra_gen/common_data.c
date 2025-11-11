@@ -39,10 +39,10 @@ const external_irq_instance_t g_external_irq26 =
 const uint8_t DRW_INT_IPL = (2);
             d2_device *   d2_handle0;
 /* MIPI PHY Macros */
-        #define MIPI_PHY_CLKSTPT   ((uint16_t)1226.5)
-        #define MIPI_PHY_CLKBFHT   ((uint8_t)9 + 1)
-        #define MIPI_PHY_CLKKPT    ((uint8_t)19 + 4)
-        #define MIPI_PHY_GOLPBKT   ((uint16_t)34)
+        #define MIPI_PHY_CLKSTPT   ((uint16_t)1183)
+        #define MIPI_PHY_CLKBFHT   ((uint8_t)10 + 1)
+        #define MIPI_PHY_CLKKPT    ((uint8_t)22 + 4)
+        #define MIPI_PHY_GOLPBKT   ((uint16_t)40)
 
         #define MIPI_PHY_TINIT     (74999)
         #define MIPI_PHY_TCLKPREP  (9)
@@ -51,12 +51,12 @@ const uint8_t DRW_INT_IPL = (2);
         #define MIPI_PHY_THSPREP   (6)
         #define MIPI_PHY_THSETT    (24)
         #define MIPI_PHY_TCLKTRAIL (7)
-        #define MIPI_PHY_TCLKPOST  (23)
-        #define MIPI_PHY_TCLKPRE   (2)
+        #define MIPI_PHY_TCLKPOST  (20)
+        #define MIPI_PHY_TCLKPRE   (1)
         #define MIPI_PHY_TCLKZERO  (28)
         #define MIPI_PHY_THSEXIT   (12)
         #define MIPI_PHY_THSTRAIL  (8)
-        #define MIPI_PHY_THSZERO   (20)
+        #define MIPI_PHY_THSZERO   (19)
         #define MIPI_PHY_TLPEXIT   (7)
 
 
@@ -82,7 +82,7 @@ const uint8_t DRW_INT_IPL = (2);
         mipi_phy_ctrl_t g_mipi_phy0_ctrl;
         const mipi_phy_cfg_t g_mipi_phy0_cfg =
         {
-            .pll_settings = /* Calculated MIPI PHY PLL frequency: 800000000 Hz (error 0.00%) = (24000000 Hz / 3) * 100.00 / 1 */{.div      = 3 - 1,.pll_div  = 0, .mul_int  = 100 - 1,.mul_frac = 0 /* Value: 0 */},
+            .pll_settings = /* Calculated MIPI PHY PLL frequency: 1000000000 Hz (error 0.00%) = (24000000 Hz / 3) * 125.00 / 1 */{.div      = 3 - 1,.pll_div  = 0, .mul_int  = 125 - 1,.mul_frac = 0 /* Value: 0 */},
             .lp_divisor   = 5 - 1,
             .p_timing     = &g_mipi_phy0_timing,
             .dsi_mode     = (1),
@@ -156,14 +156,14 @@ mipi_dsi_instance_ctrl_t g_mipi_dsi0_ctrl;
             .horizontal_front_porch   = (674 - 480 - 12 - 2),
             .horizontal_sync_polarity = (DISPLAY_SIGNAL_POLARITY_LOACTIVE != DISPLAY_SIGNAL_POLARITY_HIACTIVE),
 
-            .video_mode_delay         = 186 /* This value was calculated by FSP. An override is available but not recommended for most users */,
+            .video_mode_delay         = 248 /* This value was calculated by FSP. An override is available but not recommended for most users */,
 
             .hsa_no_lp                = (( 0x0) & R_MIPI_DSI_VMSET0R_HSANOLP_Msk),
             .hbp_no_lp                = (( 0x0) & R_MIPI_DSI_VMSET0R_HBPNOLP_Msk),
             .hfp_no_lp                = (( 0x0) & R_MIPI_DSI_VMSET0R_HFPNOLP_Msk),
 
             .num_lanes                = 2,
-            .ulps_wakeup_period       = 78,
+            .ulps_wakeup_period       = 97,
             .continuous_clock         = (1),
 
 

@@ -866,7 +866,7 @@
     </module>
     <module id="module.driver.mipi_phy.1406576614">
       <property id="module.driver.mipi_phy.name" value="g_mipi_phy0"/>
-      <property id="module.driver.mipi_phy.pll_mhz" value="800.00"/>
+      <property id="module.driver.mipi_phy.pll_mhz" value="1000.00"/>
       <property id="module.driver.mipi_phy.lp_divisor" value="5"/>
       <property id="module.driver.mipi_phy.t_init" value="600000"/>
       <property id="module.driver.mipi_phy.t_hs_prep_ns" value="40"/>

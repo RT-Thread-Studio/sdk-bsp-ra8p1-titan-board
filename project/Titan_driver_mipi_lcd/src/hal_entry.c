@@ -17,9 +17,8 @@
 
 void hal_entry(void)
 {
-    rt_kprintf("\nHello RT-Thread!\n");
-    rt_kprintf("==================================================\n");
-    rt_kprintf("This example project is an mipi lcd routine!\n");
+    rt_kprintf("\n==================================================\n");
+    rt_kprintf("Hello, Titan Board!\n");
     rt_kprintf("==================================================\n");
 
     while (1)

@@ -4,7 +4,7 @@ sci_b_uart_instance_ctrl_t     g_uart8_ctrl;
 
             sci_b_baud_setting_t               g_uart8_baud_setting =
             {
-                /* Baud rate calculated with 0.469% error. */ .baudrate_bits_b.abcse = 0, .baudrate_bits_b.abcs = 0, .baudrate_bits_b.bgdm = 1, .baudrate_bits_b.cks = 0, .baudrate_bits_b.brr = 53, .baudrate_bits_b.mddr = (uint8_t) 256, .baudrate_bits_b.brme = false
+                /* Baud rate calculated with 0.160% error. */ .baudrate_bits_b.abcse = 0, .baudrate_bits_b.abcs = 0, .baudrate_bits_b.bgdm = 1, .baudrate_bits_b.cks = 0, .baudrate_bits_b.brr = 64, .baudrate_bits_b.mddr = (uint8_t) 256, .baudrate_bits_b.brme = false
             };
 
             /** UART extended configuration for UARTonSCI HAL driver */

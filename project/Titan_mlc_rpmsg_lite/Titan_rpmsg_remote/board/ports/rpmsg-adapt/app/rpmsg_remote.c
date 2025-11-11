@@ -61,7 +61,6 @@ static void rpmsg_app_entry()
             rpmsg_comm_send(&rpmsg_comm, tx_msg, sizeof(m33_to_m85_msg_t));
             rt_free(tx_msg);
         }
-        rt_thread_mdelay(1);
     }
 
     rpmsg_comm_deinit(&rpmsg_comm);
@@ -82,6 +81,6 @@ static int rp_remote()
     }
     return 0;
 }
-MSH_CMD_EXPORT(rp_remote, rpmsg frame for remote);
+INIT_APP_EXPORT(rp_remote);
 
 #endif /* (SOC_SERIES_R7KA8P1_CORE1) */
