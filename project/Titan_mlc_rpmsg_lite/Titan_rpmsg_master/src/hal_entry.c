@@ -23,6 +23,7 @@ void hal_entry(void)
     rt_kprintf("==================================================\n");
 
     rt_kprintf("\nThe dual-core project should collaborate with the SDK project for development: << Titan_rpmsg_remote >>\n");
+
     while (1)
     {
         rt_pin_write(LED_PIN_0, PIN_HIGH);
