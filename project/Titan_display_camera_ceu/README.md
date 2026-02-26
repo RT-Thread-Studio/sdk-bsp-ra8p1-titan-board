@@ -183,9 +183,23 @@ The RA8 series MCU (e.g., RA8P1) integrates a **GLCDC hardware module** for driv
 
 ## Hardware Description
 
-The CEU camera interface and RGB LCD interface are shown in the following figure:
+* The CEU camera interface and RGB LCD interface are shown in the following figure:
 
 ![image-20251015143936441](figures/image-20251015143936441.png)
+
+* The connection method of the CEU camera is as follows:
+
+Use a **22-pin reverse FFC cable** to connect the development board’s **CEU_CAM** connector to the camera adapter board’s **DVP** connector.
+
+![image-20251103133556818](figures/image-20251103133556818.png)
+
+* The connection method of RGB LCD is as follows:
+
+Display model: **ALIENTEK 4.3" RGB LCD 800×480**
+
+Use a **40-pin same-direction FFC cable** to connect the development board’s **LCD_RGB** connector to the display.
+
+![image-20251103115738001](figures/image-20251103115738001.png)
 
 ## FSP Configuration
 

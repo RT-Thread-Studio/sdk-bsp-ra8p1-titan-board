@@ -78,13 +78,21 @@ RA8 GLCDC 模块主要包含以下子模块：
 
 ## 硬件说明
 
-下图是 Titan Board 上的 MIPI DSI/CSI 接口，连接 MIPI DSI 屏幕需要再接一块转接板。
+* 下图是 Titan Board 上的 MIPI DSI/CSI 接口，连接 MIPI DSI 屏幕需要再接一块转接板。
 
 ![image-20251017171808172](figures/image-20251017171808172.png)
 
-在本示例中，需要使用一根杜邦线连接屏幕转接板上的 BL 引脚与 PB07 引脚（提供背光的 GPIO 引脚可以自由修改）。
+* 在本示例中，需要使用一根杜邦线连接屏幕转接板上的 BL 引脚与 PB07 引脚（提供背光的 GPIO 引脚可以自由修改）。
 
 ![image-20251105125023597](figures/image-20251105125023597.png)
+
+* MIPI DSI屏幕连接方式如下：
+
+屏幕型号：冠显 TL043WVV02CT
+
+使用 22Pin 异向排线连接开发板的 MIPI DSI/CSI 排线座与屏幕转接板的 DIS-MIPI 排线座，MIPI 屏幕连接转接板的 TITAN-MIPI 排线座。
+
+![image-20251103115211524](figures/image-20251103115211524.png)
 
 ## FSP 配置
 

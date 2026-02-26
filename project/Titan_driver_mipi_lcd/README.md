@@ -78,13 +78,22 @@ The RA8 GLCDC module mainly consists of the following submodules:
 
 ## Hardware Description
 
-The following figure shows the MIPI DSI/CSI interface on the Titan Board. To connect the MIPI DSI screen, another adapter board is needed.
+* The following figure shows the MIPI DSI/CSI interface on the Titan Board. To connect the MIPI DSI screen, another adapter board is needed.
 
 ![image-20251017171808172](figures/image-20251017171808172.png)
 
-In this example, a Dupont wire is required to connect the **BL** pin on the display adapter board to the **PB07** pin (the GPIO pin used to provide backlight can be changed as needed).
+* In this example, a Dupont wire is required to connect the **BL** pin on the display adapter board to the **PB07** pin (the GPIO pin used to provide backlight can be changed as needed).
 
 ![image-20251105125023597](figures/image-20251105125023597.png)
+
+* The MIPI LCD connection method is as follows:
+
+Display model: **Guanxian TL043WVV02CT**
+
+Use a **22-pin reverse FFC cable** to connect the development board’s **MIPI DSI/CSI** connector to the display adapter board’s **DIS-MIPI** connector.
+Then connect the **MIPI display** to the adapter board’s **TITAN-MIPI** connector.
+
+![image-20251103115211524](figures/image-20251103115211524.png)
 
 ## FSP Configuration
 

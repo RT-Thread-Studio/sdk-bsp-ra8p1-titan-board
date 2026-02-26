@@ -10,7 +10,7 @@
 
 ### 1. 简介
 
-**GLCDC（Graphics LCD Controller）**是 RA8 系列 MCU 内置的高性能图形控制器模块，专门用于驱动 TFT/RGB LCD 屏幕，支持各种分辨率、色彩格式和图像处理功能。结合 RT-Thread 的 **LCD 驱动框架**，可以实现统一接口下的屏幕初始化、刷新、图像绘制及 DMA 加速等功能。
+**GLCDC(Graphics LCD Controller)**是 RA8 系列 MCU 内置的高性能图形控制器模块，专门用于驱动 TFT/RGB LCD 屏幕，支持各种分辨率、色彩格式和图像处理功能。结合 RT-Thread 的 **LCD 驱动框架**，可以实现统一接口下的屏幕初始化、刷新、图像绘制及 DMA 加速等功能。
 
 RA8 系列 **GLCDC (Graphics LCD Controller)** 提供了从 MCU 内部存储器或外部图像缓存向 RGB/LCD 显示屏输出图像的能力。它集成了：
 
@@ -77,6 +77,14 @@ RA8 GLCDC 模块主要包含以下子模块：
 ## 硬件说明
 
 ![image-20251015150343012](figures/image-20251015150343012.png)
+
+* RGB LCD连接方式如下：
+
+屏幕型号：正点原子 4.3寸 RGBLCD 800*480
+
+使用 40Pin 同向排线连接开发板的 LCD_RGB 排线座与屏幕。
+
+![image-20251103115738001](figures/image-20251103115738001.png)
 
 ## FSP 配置
 

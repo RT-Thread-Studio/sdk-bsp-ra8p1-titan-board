@@ -78,6 +78,14 @@ The RA8 GLCDC module mainly consists of the following submodules:
 
 ![image-20251015150343012](figures/image-20251015150343012.png)
 
+* The connection method of RGB LCD is as follows:
+
+Display model: **ALIENTEK 4.3" RGB LCD 800×480**
+
+Use a **40-pin same-direction FFC cable** to connect the development board’s **LCD_RGB** connector to the display.
+
+![image-20251103115738001](figures/image-20251103115738001.png)
+
 ## FSP Configuration
 
 ### HyperRAM Configuration

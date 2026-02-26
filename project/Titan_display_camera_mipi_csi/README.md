@@ -176,9 +176,23 @@ The RA8 series MCU (e.g., RA8P1) integrates a **GLCDC hardware module** for driv
 
 ## Hardware Description
 
-The MIPI DSI/CSI interface and the RGB LCD interface are shown in the following figure:
+* The MIPI DSI/CSI interface and the RGB LCD interface are shown in the following figure:
 
 ![image-20251015144052649](figures/image-20251015144052649.png)
+
+* The connection method of the MIPI CSI camera is as follows:
+
+Use a **22-pin reverse FFC cable** to connect the development board’s **MIPI DSI/CSI** connector to the camera adapter board’s **MIPI** connector.
+
+![image-20251103133548729](figures/image-20251103133548729.png)
+
+* The connection method of RGB LCD is as follows:
+
+Display model: **ALIENTEK 4.3" RGB LCD 800×480**
+
+Use a **40-pin same-direction FFC cable** to connect the development board’s **LCD_RGB** connector to the display.
+
+![image-20251103115738001](figures/image-20251103115738001.png)
 
 ## FSP Configuration
 

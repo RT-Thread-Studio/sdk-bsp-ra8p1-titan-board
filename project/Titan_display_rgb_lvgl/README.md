@@ -37,9 +37,17 @@ As an open-source project under the **MIT License**, LVGL is equally suitable fo
 
 ## Hardware Description
 
-To run this example, an external RGB565 LCD screen is required. The 40-pin RGB565 LCD interface on the development board is as follows:
+* To run this example, an external RGB565 LCD screen is required. The 40-pin RGB565 LCD interface on the development board is as follows:
 
 ![image-20251015145654450](figures/image-20251015145654450.png)
+
+* The connection method of RGB LCD is as follows:
+
+Display model: **ALIENTEK 4.3" RGB LCD 800×480**
+
+Use a **40-pin same-direction FFC cable** to connect the development board’s **LCD_RGB** connector to the display.
+
+![image-20251103115738001](figures/image-20251103115738001.png)
 
 ## FSP Configuration
 
