@@ -67,6 +67,7 @@ categories:
     description: "基于NPU的人脸检测与目标识别示例"
     patterns:
       - "Titan_npu_ai_face_detection"
+      - "Titan_npu_ai_face_detection/manual"
 
   faq:
     name: "FAQ"
