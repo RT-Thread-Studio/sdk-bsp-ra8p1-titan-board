@@ -31,8 +31,6 @@
 
 #include "rtthread.h"
 
-#ifdef WHD_RESOURCES_IN_EXTERNAL_STORAGE
-
 #include "wiced_resource.h"
 #include "whd_resource_api.h"
 #include "wifi_nvram_image.h"
@@ -381,5 +379,3 @@ whd_resource_source_t resource_ops =
     .whd_get_resource_block = host_get_resource_block,
     .whd_resource_read = host_resource_read
 };
-
-#endif /* WHD_RESOURCES_IN_EXTERNAL_STORAGE */
