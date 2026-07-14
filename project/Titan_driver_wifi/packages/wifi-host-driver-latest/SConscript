@@ -23,7 +23,7 @@ path += [cwd + '/wifi-host-driver/WiFi_Host_Driver/src/bus_protocols']
 path += [cwd + '/wifi-host-driver/WiFi_Host_Driver/resources/resource_imp']
 
 # Add wifi local resource files
-if GetDepend(['WHD_RESOURCES_IN_EXTERNAL_STORAGE']) == False:
+if not GetDepend(['WHD_RESOURCES_IN_EXTERNAL_STORAGE_FS']) and not GetDepend(['WHD_RESOURCES_IN_EXTERNAL_STORAGE_FAL']):
     src += Glob('wifi-host-driver/WiFi_Host_Driver/resources/resource_imp/*.c')
     # add cyw4343W chip drivers source and header files
     if GetDepend(['WHD_USING_CHIP_CYW4343W']):
