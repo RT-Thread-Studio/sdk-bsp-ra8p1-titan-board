@@ -3,8 +3,8 @@
 
 const ether_phy_lsi_cfg_t g_rmac_phy_lsi1 =
 {
-    .address           = 1,
-    .type              = ETHER_PHY_LSI_TYPE_CUSTOM,
+    .address                = 1,
+    .type                   = ETHER_PHY_LSI_TYPE_CUSTOM,
 };
 rmac_phy_instance_ctrl_t g_rmac_phy1_ctrl;
 #define RA_NOT_DEFINED (1)
@@ -29,6 +29,28 @@ const rmac_phy_extended_cfg_t g_rmac_phy1_extended_cfg =
 #endif
     },
     .default_phy_lsi_cfg_index = 1,
+    .frame_preemption_enable = false,
+    .frame_preemption_verification_interval = 10,
+    .easi_irq =
+    {
+    #if defined(VECTOR_NUMBER_ETHER_EASI0)
+        VECTOR_NUMBER_ETHER_EASI0,
+    #else
+        FSP_INVALID_VECTOR,
+    #endif
+    #if defined(VECTOR_NUMBER_ETHER_EASI1)
+        VECTOR_NUMBER_ETHER_EASI1,
+    #else
+        FSP_INVALID_VECTOR,
+    #endif
+    },
+    .easi_ipl =
+    {
+        (BSP_IRQ_DISABLED),
+        (BSP_IRQ_DISABLED),
+    },
+    .p_callback = NULL,
+    .p_context = NULL,
 };
 #undef RA_NOT_DEFINED
 
@@ -53,8 +75,8 @@ const ether_phy_instance_t g_rmac_phy1 =
 };
 const ether_phy_lsi_cfg_t g_rmac_phy_lsi0 =
 {
-    .address           = 2,
-    .type              = ETHER_PHY_LSI_TYPE_CUSTOM,
+    .address                = 2,
+    .type                   = ETHER_PHY_LSI_TYPE_CUSTOM,
 };
 rmac_phy_instance_ctrl_t g_rmac_phy0_ctrl;
 #define RA_NOT_DEFINED (1)
@@ -79,6 +101,28 @@ const rmac_phy_extended_cfg_t g_rmac_phy0_extended_cfg =
 #endif
     },
     .default_phy_lsi_cfg_index = 0,
+    .frame_preemption_enable = false,
+    .frame_preemption_verification_interval = 10,
+    .easi_irq =
+    {
+    #if defined(VECTOR_NUMBER_ETHER_EASI0)
+        VECTOR_NUMBER_ETHER_EASI0,
+    #else
+        FSP_INVALID_VECTOR,
+    #endif
+    #if defined(VECTOR_NUMBER_ETHER_EASI1)
+        VECTOR_NUMBER_ETHER_EASI1,
+    #else
+        FSP_INVALID_VECTOR,
+    #endif
+    },
+    .easi_ipl =
+    {
+        (BSP_IRQ_DISABLED),
+        (BSP_IRQ_DISABLED),
+    },
+    .p_callback = NULL,
+    .p_context = NULL,
 };
 #undef RA_NOT_DEFINED
 
@@ -180,6 +224,17 @@ const layer3_switch_extended_cfg_t g_layer3_switch0_extended_cfg =
     {
         (LAYER3_SWITCH_PORT_BITMASK_PORT2 |  0U),
         (LAYER3_SWITCH_PORT_BITMASK_PORT2 |  0U),
+        ( 0U),
+    },
+    .ipv_queue_preemptable_bitmask =
+    {
+        ( 0U),
+        ( 0U),
+    },
+    .frame_preemption_fragment_size =
+    {
+    	LAYER3_SWITCH_PREEMPTABLE_FRAME_FRAGMENT_SIZE_64BYTE,
+    	LAYER3_SWITCH_PREEMPTABLE_FRAME_FRAGMENT_SIZE_64BYTE,
     },
     .p_mac_addresses =
     {

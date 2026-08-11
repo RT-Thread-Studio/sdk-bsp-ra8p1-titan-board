@@ -159,8 +159,8 @@
 #define NETDEV_IPV4 1
 #define NETDEV_IPV6 0
 #define RT_USING_LWIP
-#define RT_USING_LWIP203
-#define RT_USING_LWIP_VER_NUM 0x20003
+#define RT_USING_LWIP212
+#define RT_USING_LWIP_VER_NUM 0x20102
 #define RT_LWIP_MEM_ALIGNMENT 4
 #define RT_LWIP_IGMP
 #define RT_LWIP_ICMP
@@ -178,21 +178,21 @@
 #define RT_LWIP_UDP
 #define RT_LWIP_TCP
 #define RT_LWIP_RAW
-#define RT_MEMP_NUM_NETCONN 8
-#define RT_LWIP_PBUF_NUM 16
+#define RT_MEMP_NUM_NETCONN 16
+#define RT_LWIP_PBUF_NUM 256
 #define RT_LWIP_RAW_PCB_NUM 4
-#define RT_LWIP_UDP_PCB_NUM 4
-#define RT_LWIP_TCP_PCB_NUM 4
-#define RT_LWIP_TCP_SEG_NUM 40
-#define RT_LWIP_TCP_SND_BUF 8196
-#define RT_LWIP_TCP_WND 8196
-#define RT_LWIP_TCPTHREAD_PRIORITY 10
-#define RT_LWIP_TCPTHREAD_MBOX_SIZE 8
-#define RT_LWIP_TCPTHREAD_STACKSIZE 1024
+#define RT_LWIP_UDP_PCB_NUM 24
+#define RT_LWIP_TCP_PCB_NUM 24
+#define RT_LWIP_TCP_SEG_NUM 512
+#define RT_LWIP_TCP_SND_BUF 65535
+#define RT_LWIP_TCP_WND 65535
+#define RT_LWIP_TCPTHREAD_PRIORITY 6
+#define RT_LWIP_TCPTHREAD_MBOX_SIZE 144
+#define RT_LWIP_TCPTHREAD_STACKSIZE 2048
 #define LWIP_NO_TX_THREAD
-#define RT_LWIP_ETHTHREAD_PRIORITY 12
-#define RT_LWIP_ETHTHREAD_STACKSIZE 1024
-#define RT_LWIP_ETHTHREAD_MBOX_SIZE 8
+#define RT_LWIP_ETHTHREAD_PRIORITY 5
+#define RT_LWIP_ETHTHREAD_STACKSIZE 2048
+#define RT_LWIP_ETHTHREAD_MBOX_SIZE 144
 #define LWIP_NETIF_STATUS_CALLBACK 1
 #define LWIP_NETIF_LINK_CALLBACK 1
 #define RT_LWIP_NETIF_NAMESIZE 6
@@ -245,6 +245,11 @@
 
 /* end of CYW43439 WiFi */
 /* end of Wi-Fi */
+#define PKG_USING_NETUTILS
+#define PKG_NETUTILS_IPERF
+#define IPERF_THREAD_STACK_SIZE 2048
+#define PKG_USING_NETUTILS_V133
+#define PKG_NETUTILS_VER_NUM 0x10303
 
 /* IoT Cloud */
 
@@ -308,41 +313,9 @@
 
 /* end of STM32 HAL & SDK Drivers */
 
-/* Infineon HAL Packages */
-
-/* end of Infineon HAL Packages */
-
 /* Kendryte SDK */
 
 /* end of Kendryte SDK */
-
-/* WCH HAL & SDK Drivers */
-
-/* end of WCH HAL & SDK Drivers */
-
-/* AT32 HAL & SDK Drivers */
-
-/* end of AT32 HAL & SDK Drivers */
-
-/* HC32 DDL Drivers */
-
-/* end of HC32 DDL Drivers */
-
-/* NXP HAL & SDK Drivers */
-
-/* end of NXP HAL & SDK Drivers */
-
-/* NUVOTON Drivers */
-
-/* end of NUVOTON Drivers */
-
-/* GD32 Drivers */
-
-/* end of GD32 Drivers */
-
-/* HPMicro SDK */
-
-/* end of HPMicro SDK */
 /* end of HAL & SDK Drivers */
 
 /* sensors drivers */

@@ -28,6 +28,10 @@ extern const ether_phy_instance_t g_rmac_phy1;
 extern rmac_phy_instance_ctrl_t g_rmac_phy1_ctrl;
 extern const ether_phy_cfg_t g_rmac_phy1_cfg;
 extern const rmac_phy_extended_cfg_t g_rmac_phy1_extended_cfg;
+
+#ifndef NULL
+void NULL(ether_phy_callback_args_t * p_args);
+#endif
 #ifndef ETHER_PHY_LSI_TYPE_KIT_COMPONENT
   #define ETHER_PHY_LSI_TYPE_KIT_COMPONENT ETHER_PHY_LSI_TYPE_DEFAULT
 #endif
@@ -47,6 +51,10 @@ extern const ether_phy_instance_t g_rmac_phy0;
 extern rmac_phy_instance_ctrl_t g_rmac_phy0_ctrl;
 extern const ether_phy_cfg_t g_rmac_phy0_cfg;
 extern const rmac_phy_extended_cfg_t g_rmac_phy0_extended_cfg;
+
+#ifndef NULL
+void NULL(ether_phy_callback_args_t * p_args);
+#endif
 #ifndef NULL
 void NULL(ether_switch_callback_args_t * p_args);
 #endif

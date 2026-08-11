@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -533,6 +533,7 @@ fsp_err_t R_RMAC_WakeOnLANEnable (ether_ctrl_t * const p_ctrl)
  *                                                      received.
  * @retval  FSP_ERR_INVALID_POINTER                     Value of the pointer is NULL.
  * @retval  FSP_ERR_BUFFER_EMPTY                        There is no available internal RX buffer.
+ * @retval  FSP_ERR_INVALID_SIZE                        The buffer size is smaller than  @ref ether_cfg_t::ether_buffer_size.
  ***********************************************************************************************************************/
 fsp_err_t R_RMAC_Read (ether_ctrl_t * const p_ctrl, void * const p_buffer, uint32_t * const length_bytes)
 {
@@ -550,6 +551,9 @@ fsp_err_t R_RMAC_Read (ether_ctrl_t * const p_ctrl, void * const p_buffer, uint3
     FSP_ERROR_RETURN(RMAC_OPEN == p_instance_ctrl->open, FSP_ERR_NOT_OPEN);
     FSP_ERROR_RETURN(NULL != p_buffer, FSP_ERR_INVALID_POINTER);
     FSP_ERROR_RETURN(NULL != length_bytes, FSP_ERR_INVALID_POINTER);
+ #if (RMAC_CFG_READ_BUFFER_SIZE_CHECK)
+    FSP_ERROR_RETURN(p_instance_ctrl->p_cfg->ether_buffer_size <= *length_bytes, FSP_ERR_INVALID_SIZE);
+ #endif
 #endif
 
     /* (1) Retrieve the receive buffer location controlled by the  descriptor. */
@@ -1018,17 +1022,8 @@ static void rmac_configure_reception_filter (rmac_instance_ctrl_t const * const 
             mrafc &= ~(R_RMAC0_MRAFC_MCENE_Msk | R_RMAC0_MRAFC_MCENP_Msk);
         }
 
-        /* Configure broadcast reception features. */
-        if (0 < p_instance_ctrl->p_cfg->broadcast_filter)
-        {
-            /* Enable broadcast reception. */
-            mrafc |= R_RMAC0_MRAFC_BCENE_Msk | R_RMAC0_MRAFC_BCENP_Msk;
-        }
-        else
-        {
-            mrafc &=
-                ~(R_RMAC0_MRAFC_BCENE_Msk | R_RMAC0_MRAFC_BCENP_Msk);
-        }
+        /* Enable broadcast reception. */
+        mrafc |= R_RMAC0_MRAFC_BCENE_Msk | R_RMAC0_MRAFC_BCENP_Msk;
     }
 
     /* Set the broadcast storm filter regardless of the promiscuous mode configuration. */
@@ -1041,6 +1036,10 @@ static void rmac_configure_reception_filter (rmac_instance_ctrl_t const * const 
         /*  Configure how many broadcast frames can be received consecutively. */
         p_instance_ctrl->p_reg_rmac->MRSCE_b.CBFE = (R_RMAC0_MRSCE_CBFE_Msk >> R_RMAC0_MRSCE_CBFE_Pos) &
                                                     (p_instance_ctrl->p_cfg->broadcast_filter - 1);
+    }
+    else
+    {
+        mrafc &= ~(R_RMAC0_MRAFC_BSTENE_Msk | R_RMAC0_MRAFC_BSTENP_Msk);
     }
 
     p_instance_ctrl->p_reg_rmac->MRAFC = mrafc;
@@ -1579,8 +1578,20 @@ static fsp_err_t r_rmac_set_tx_buffer (rmac_instance_ctrl_t * p_instance_ctrl,
     descriptor.basic.ds_l   = RMAC_DESCRIPTOR_FIELD_DS_LOWER_MASK & frame_length;
     descriptor.basic.dt     = LAYER3_SWITCH_DESCRIPTOR_TYPE_FSINGLE;
     descriptor.basic.die    = 1;
-    descriptor.info1_tx.dv  = RMAC_DESCRIPTOR_FIELD_DV_MASK & (1 << p_instance_ctrl->p_cfg->channel);
-    descriptor.info1_tx.fmt = 1;
+    descriptor.info1_tx.fmt = (uint8_t) (p_extend->transmission_descriptor_format & 0x1);
+
+    /*
+     * If the TX descriptor uses the direct descriptor format, set DV to select the destination ports.
+     * Otherwise, forwarding rules are used and DV is ignored.
+     */
+    if (RMAC_TRANSMISSION_DESCRIPTOR_FORMAT_DIRECT == descriptor.info1_tx.fmt)
+    {
+        descriptor.info1_tx.dv = RMAC_DESCRIPTOR_FIELD_DV_MASK & (1 << p_instance_ctrl->p_cfg->channel);
+    }
+    else
+    {
+        descriptor.info1_tx.dv = 0;
+    }
 
     if (RMAC_WRITE_CFG_TX_TIMESTAMP_ENABLE == p_instance_ctrl->write_cfg.tx_timestamp_enable)
     {

@@ -21,6 +21,9 @@
 #ifndef ETHER_PHY_CFG_TARGET_GPY111_ENABLE
             #define ETHER_PHY_CFG_TARGET_GPY111_ENABLE             (0)
 #endif
+#ifndef ETHER_PHY_CFG_TARGET_VSC8541_ENABLE
+            #define ETHER_PHY_CFG_TARGET_VSC8541_ENABLE             (0)
+#endif
 #ifndef ETHER_PHY_CFG_USE_CUSTOM_PHY_LSI_ENABLE
             #define ETHER_PHY_CFG_USE_CUSTOM_PHY_LSI_ENABLE         (1)
 #endif

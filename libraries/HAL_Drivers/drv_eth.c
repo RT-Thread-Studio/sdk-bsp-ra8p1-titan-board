@@ -17,15 +17,21 @@
 #include <hal_data.h>
 #include <netif/ethernetif.h>
 #include <lwipopts.h>
+#include "r_layer3_switch.h"
+#include "r_rmac.h"
 
-/* debug option */
-// #define ETH_RX_DUMP
-// #define ETH_TX_DUMP
 #define MINIMUM_ETHERNET_FRAME_SIZE (60U)
-#define ETH_MAX_PACKET_SIZE (1514U)
+#define ETH_MAX_PACKET_SIZE (1536U)
 #define ETHER_GMAC_INTERRUPT_FACTOR_RECEPTION (0x000000C0)
 #define ETH_RX_BUF_SIZE ETH_MAX_PACKET_SIZE
 #define ETH_TX_BUF_SIZE ETH_MAX_PACKET_SIZE
+#define ETH_TX_DMA_BUF_SIZE (1536U)
+#define ETH_TX_POOL_COUNT (16U)
+#define ETH_TOTAL_BUFFER_COUNT (192U)
+#define ETH_TX_DESC_RUNTIME_COUNT (8U)
+#define ETH_RX_DESC_RUNTIME_COUNT (32U)
+#define ETH_TX_QUEUE_DESC_ARRAY_LENGTH (8U)
+#define ETH_RX_QUEUE_DESC_ARRAY_LENGTH (12U)
 // #define DRV_DEBUG
 #define LOG_TAG "drv.eth"
 #ifdef DRV_DEBUG
@@ -44,13 +50,37 @@ struct rt_eth_dev
 #endif
 };
 
-static rt_uint8_t *Rx_Buff, *Tx_Buff;
-// static  ETH_HandleTypeDef EthHandle;
 static struct rt_eth_dev ra_eth_device;
+
+static ether_cfg_t g_ether0_cfg_cache_safe;
+static rmac_extended_cfg_t g_ether0_extended_cfg_cache_safe;
+static rmac_queue_info_t g_ether0_ts_queue_cache_safe[1];
+static rmac_queue_info_t g_ether0_tx_queue_list_cache_safe[2];
+static rmac_queue_info_t g_ether0_rx_queue_list_cache_safe[2];
+static uint8_t *g_ether0_pp_ether_buffers_cache_safe[ETH_TOTAL_BUFFER_COUNT];
+
+static rmac_buffer_node_t g_ether0_buffer_node_list_cache_safe[ETH_TOTAL_BUFFER_COUNT] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static layer3_switch_ts_reception_process_descriptor_t g_ether0_ts_descriptor_array0_cache_safe[8] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static layer3_switch_descriptor_t g_ether0_tx_descriptor_array0_cache_safe[ETH_TX_QUEUE_DESC_ARRAY_LENGTH] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static layer3_switch_descriptor_t g_ether0_tx_descriptor_array1_cache_safe[ETH_TX_QUEUE_DESC_ARRAY_LENGTH] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static layer3_switch_descriptor_t g_ether0_rx_descriptor_array0_cache_safe[ETH_RX_QUEUE_DESC_ARRAY_LENGTH] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static layer3_switch_descriptor_t g_ether0_rx_descriptor_array1_cache_safe[ETH_RX_QUEUE_DESC_ARRAY_LENGTH] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static uint8_t g_ether0_ether_buffers_cache_safe[ETH_TOTAL_BUFFER_COUNT][1536] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+static uint8_t g_eth_tx_buffers[ETH_TX_POOL_COUNT][ETH_TX_DMA_BUF_SIZE] BSP_ALIGN_VARIABLE(32) BSP_PLACE_IN_SECTION(".ram_nocache");
+
+static rt_uint32_t g_eth_tx_busy_mask;
+static rt_uint32_t g_eth_tx_alloc_index;
+static rt_uint32_t g_eth_tx_inflight;
 
 static uint8_t g_link_change = 0; ///< Link change (bit0:port0, bit1:port1, bit2:port2)
 static uint8_t g_link_status = 0; ///< Link status (bit0:port0, bit1:port1, bit2:port2)
 static uint8_t previous_link_status = 0;
+
+static void eth_tx_pool_init(void);
+static rt_uint8_t *eth_tx_buffer_acquire(void);
+static void eth_tx_buffer_release_completed(void);
+static void eth_tx_buffer_release(rt_uint8_t *buffer);
+static void eth_rx_drain_ready(void);
 
 /* Multi-PHY support structures */
 typedef struct {
@@ -65,6 +95,191 @@ static const phy_port_info_t phy_ports[] = {
 };
 
 #define PHY_PORTS_COUNT (sizeof(phy_ports) / sizeof(phy_ports[0]))
+
+static const char *phy_link_speed_to_string(uint32_t link_speed_duplex)
+{
+    switch (link_speed_duplex)
+    {
+    case ETHER_PHY_LINK_SPEED_10H:
+        return "10M/Half";
+    case ETHER_PHY_LINK_SPEED_10F:
+        return "10M/Full";
+    case ETHER_PHY_LINK_SPEED_100H:
+        return "100M/Half";
+    case ETHER_PHY_LINK_SPEED_100F:
+        return "100M/Full";
+    case ETHER_PHY_LINK_SPEED_1000H:
+        return "1000M/Half";
+    case ETHER_PHY_LINK_SPEED_1000F:
+        return "1000M/Full";
+    default:
+        return "No-Link";
+    }
+}
+
+static void phy_log_partner_ability(uint8_t phy_index)
+{
+    fsp_err_t res;
+    uint32_t line_speed_duplex = ETHER_PHY_LINK_SPEED_NO_LINK;
+    uint32_t local_pause       = 0;
+    uint32_t partner_pause     = 0;
+
+    if (phy_index >= PHY_PORTS_COUNT)
+    {
+        return;
+    }
+
+    res = R_RMAC_PHY_LinkPartnerAbilityGet(phy_ports[phy_index].p_ctrl,
+                                           &line_speed_duplex,
+                                           &local_pause,
+                                           &partner_pause);
+    if (res == FSP_SUCCESS)
+    {
+        LOG_I("%s negotiated: %s, pause local=0x%lx partner=0x%lx",
+              phy_ports[phy_index].name,
+              phy_link_speed_to_string(line_speed_duplex),
+              local_pause,
+              partner_pause);
+    }
+    else
+    {
+        LOG_W("%s link ability get failed, res = %d", phy_ports[phy_index].name, res);
+    }
+}
+
+static void eth_prepare_cache_safe_rmac_cfg(void)
+{
+    const rmac_extended_cfg_t *p_src_extend = (const rmac_extended_cfg_t *) g_ether0_cfg.p_extend;
+
+    g_ether0_cfg_cache_safe = g_ether0_cfg;
+    g_ether0_extended_cfg_cache_safe = *p_src_extend;
+    g_ether0_cfg_cache_safe.num_tx_descriptors = ETH_TX_DESC_RUNTIME_COUNT;
+    g_ether0_cfg_cache_safe.num_rx_descriptors = ETH_RX_DESC_RUNTIME_COUNT;
+
+    g_ether0_ts_queue_cache_safe[0] = p_src_extend->p_ts_queue[0];
+    g_ether0_ts_queue_cache_safe[0].queue_cfg.p_ts_descriptor_array = g_ether0_ts_descriptor_array0_cache_safe;
+    g_ether0_extended_cfg_cache_safe.p_ts_queue = g_ether0_ts_queue_cache_safe;
+
+    g_ether0_tx_queue_list_cache_safe[0] = p_src_extend->p_tx_queue_list[0];
+    g_ether0_tx_queue_list_cache_safe[1] = p_src_extend->p_tx_queue_list[1];
+    g_ether0_tx_queue_list_cache_safe[0].queue_cfg.array_length = ETH_TX_QUEUE_DESC_ARRAY_LENGTH;
+    g_ether0_tx_queue_list_cache_safe[1].queue_cfg.array_length = ETH_TX_QUEUE_DESC_ARRAY_LENGTH;
+    g_ether0_tx_queue_list_cache_safe[0].queue_cfg.p_descriptor_array = g_ether0_tx_descriptor_array0_cache_safe;
+    g_ether0_tx_queue_list_cache_safe[1].queue_cfg.p_descriptor_array = g_ether0_tx_descriptor_array1_cache_safe;
+    g_ether0_extended_cfg_cache_safe.p_tx_queue_list = g_ether0_tx_queue_list_cache_safe;
+
+    g_ether0_rx_queue_list_cache_safe[0] = p_src_extend->p_rx_queue_list[0];
+    g_ether0_rx_queue_list_cache_safe[1] = p_src_extend->p_rx_queue_list[1];
+    g_ether0_rx_queue_list_cache_safe[0].queue_cfg.array_length = ETH_RX_QUEUE_DESC_ARRAY_LENGTH;
+    g_ether0_rx_queue_list_cache_safe[1].queue_cfg.array_length = ETH_RX_QUEUE_DESC_ARRAY_LENGTH;
+    g_ether0_rx_queue_list_cache_safe[0].queue_cfg.p_descriptor_array = g_ether0_rx_descriptor_array0_cache_safe;
+    g_ether0_rx_queue_list_cache_safe[1].queue_cfg.p_descriptor_array = g_ether0_rx_descriptor_array1_cache_safe;
+    g_ether0_extended_cfg_cache_safe.p_rx_queue_list = g_ether0_rx_queue_list_cache_safe;
+
+    g_ether0_extended_cfg_cache_safe.p_buffer_node_list = g_ether0_buffer_node_list_cache_safe;
+
+    for (rt_size_t i = 0; i < ETH_TOTAL_BUFFER_COUNT; i++)
+    {
+        g_ether0_pp_ether_buffers_cache_safe[i] = g_ether0_ether_buffers_cache_safe[i];
+    }
+
+    g_ether0_cfg_cache_safe.pp_ether_buffers = g_ether0_pp_ether_buffers_cache_safe;
+    g_ether0_cfg_cache_safe.p_extend = &g_ether0_extended_cfg_cache_safe;
+}
+
+static void eth_tx_pool_init(void)
+{
+    rt_base_t level;
+
+    level = rt_hw_interrupt_disable();
+    g_eth_tx_busy_mask = 0U;
+    g_eth_tx_alloc_index = 0;
+    g_eth_tx_inflight = 0;
+
+    rt_hw_interrupt_enable(level);
+}
+
+static void eth_tx_buffer_release(rt_uint8_t *buffer)
+{
+    uintptr_t base;
+    uintptr_t addr;
+    uintptr_t offset;
+    rt_size_t idx;
+    rt_uint32_t bit;
+
+    if (buffer == RT_NULL)
+    {
+        return;
+    }
+
+    base = (uintptr_t) &g_eth_tx_buffers[0][0];
+    addr = (uintptr_t) buffer;
+
+    if ((addr < base) || (addr >= (base + sizeof(g_eth_tx_buffers))))
+    {
+        return;
+    }
+
+    offset = addr - base;
+    if ((offset % ETH_TX_DMA_BUF_SIZE) != 0U)
+    {
+        return;
+    }
+
+    idx = (rt_size_t) (offset / ETH_TX_DMA_BUF_SIZE);
+    if (idx >= ETH_TX_POOL_COUNT)
+    {
+        return;
+    }
+
+    bit = (rt_uint32_t) 1U << idx;
+    if ((g_eth_tx_busy_mask & bit) != 0U)
+    {
+        g_eth_tx_busy_mask &= ~bit;
+        if (g_eth_tx_inflight > 0U)
+        {
+            g_eth_tx_inflight--;
+        }
+    }
+}
+
+static void eth_tx_buffer_release_completed(void)
+{
+    rt_uint8_t *released = RT_NULL;
+
+    while ((g_eth_tx_inflight > 0U) && (R_RMAC_TxStatusGet(&g_ether0_ctrl, &released) == FSP_SUCCESS))
+    {
+        eth_tx_buffer_release(released);
+    }
+}
+
+static rt_uint8_t *eth_tx_buffer_acquire(void)
+{
+    rt_uint8_t *buffer = RT_NULL;
+
+    eth_tx_buffer_release_completed();
+    if (g_eth_tx_inflight < ETH_TX_POOL_COUNT)
+    {
+        rt_size_t count;
+
+        for (count = 0; count < ETH_TX_POOL_COUNT; count++)
+        {
+            rt_uint32_t idx = (g_eth_tx_alloc_index + count) % ETH_TX_POOL_COUNT;
+            rt_uint32_t bit = (rt_uint32_t) 1U << idx;
+
+            if ((g_eth_tx_busy_mask & bit) == 0U)
+            {
+                g_eth_tx_busy_mask |= bit;
+                g_eth_tx_alloc_index = (idx + 1U) % ETH_TX_POOL_COUNT;
+                g_eth_tx_inflight++;
+                buffer = g_eth_tx_buffers[idx];
+                break;
+            }
+        }
+    }
+
+    return buffer;
+}
 
 #if defined(SOC_SERIES_R9A07G0)
 
@@ -85,31 +300,28 @@ static const phy_port_info_t phy_ports[] = {
 
 #endif
 
-#if defined(ETH_RX_DUMP) || defined(ETH_TX_DUMP)
-#define __is_print(ch) ((unsigned int)((ch) - ' ') < 127u - ' ')
-static void dump_hex(const rt_uint8_t *ptr, rt_size_t buflen)
+static void eth_rx_drain_ready(void)
 {
-    unsigned char *buf = (unsigned char *)ptr;
-    int i, j;
-
-    for (i = 0; i < buflen; i += 16)
+    while (eth_device_ready(&(ra_eth_device.parent)) == RT_EOK)
     {
-        rt_kprintf("%08X: ", i);
+        fsp_err_t res;
+        uint32_t len = ETH_MAX_PACKET_SIZE;
+        uint8_t *rx_buffer = RT_NULL;
 
-        for (j = 0; j < 16; j++)
-            if (i + j < buflen)
-                rt_kprintf("%02X ", buf[i + j]);
-            else
-                rt_kprintf("   ");
-        rt_kprintf(" ");
+        res = R_ETHER_Read(&g_ether0_ctrl, &rx_buffer, &len);
+        if (res != FSP_SUCCESS)
+        {
+            break;
+        }
 
-        for (j = 0; j < 16; j++)
-            if (i + j < buflen)
-                rt_kprintf("%c", __is_print(buf[i + j]) ? buf[i + j] : '.');
-        rt_kprintf("\n");
+        res = R_RMAC_BufferRelease(&g_ether0_ctrl);
+        if (res != FSP_SUCCESS)
+        {
+            LOG_W("R_RMAC_BufferRelease failed in drain, res = %d", res);
+            break;
+        }
     }
 }
-#endif
 
 /* Multi-PHY utility functions */
 static rt_err_t phy_read_status_all(uint8_t *link_status)
@@ -185,7 +397,7 @@ static rt_err_t rt_ra_eth_init(void)
     uint8_t i;
     uint32_t basic_status, control_reg;
 
-    res = R_ETHER_Open(&g_ether0_ctrl, &g_ether0_cfg);
+    res = R_ETHER_Open(&g_ether0_ctrl, &g_ether0_cfg_cache_safe);
     if (res != FSP_SUCCESS)
         LOG_W("R_ETHER_Open failed!, res = %d", res);
 
@@ -200,6 +412,10 @@ static rt_err_t rt_ra_eth_init(void)
             LOG_I("  Control Reg:  0x%04X", control_reg);
             LOG_I("  Link Status:  %s", (basic_status & 0x04) ? "UP" : "DOWN");
             LOG_I("  Auto-Neg:     %s", (basic_status & 0x20) ? "Complete" : "In Progress");
+            if ((basic_status & 0x24) == 0x24)
+            {
+                phy_log_partner_ability(i);
+            }
         }
         else
         {
@@ -276,12 +492,21 @@ rt_err_t rt_ra_eth_tx(rt_device_t dev, struct pbuf *p)
 {
     fsp_err_t res;
     struct pbuf *q;
-    uint8_t *buffer = Tx_Buff;
+    uint8_t *buffer;
     uint32_t framelength = 0;
     uint32_t bufferoffset = 0;
     uint32_t byteslefttocopy = 0;
     uint32_t payloadoffset = 0;
     bufferoffset = 0;
+
+    FSP_PARAMETER_NOT_USED(dev);
+
+    buffer = eth_tx_buffer_acquire();
+    if (buffer == RT_NULL)
+    {
+        LOG_W("No free TX DMA buffer");
+        return (err_t) ERR_USE;
+    }
 
     LOG_D("send frame len : %d", p->tot_len);
 
@@ -310,25 +535,10 @@ rt_err_t rt_ra_eth_tx(rt_device_t dev, struct pbuf *p)
         framelength = framelength + byteslefttocopy;
     }
 
-#ifdef ETH_TX_DUMP
-    dump_hex(buffer, p->tot_len);
-#endif
-#ifdef ETH_RX_DUMP
-    if (p)
-    {
-        LOG_E("******p buf frame *********");
-        for (q = p; q != NULL; q->next)
-        {
-            dump_hex(q->payload, q->len);
-        }
-    }
-#endif
-#if defined(__DCACHE_PRESENT)
-    SCB_CleanInvalidateDCache();
-#endif
     res = R_ETHER_Write(&g_ether0_ctrl, buffer, p->tot_len < MINIMUM_ETHERNET_FRAME_SIZE ?  MINIMUM_ETHERNET_FRAME_SIZE : p->tot_len);
     if (res != FSP_SUCCESS)
     {
+        eth_tx_buffer_release(buffer);
         LOG_W("R_ETHER_Write failed!, res = %d", res);
         return (err_t)ERR_USE;
     }
@@ -339,86 +549,53 @@ rt_err_t rt_ra_eth_tx(rt_device_t dev, struct pbuf *p)
 struct pbuf *rt_ra_eth_rx(rt_device_t dev)
 {
     struct pbuf *p = NULL;
-    struct pbuf *q = NULL;
-    uint32_t len = 0;
-    uint8_t *buffer = Rx_Buff;
-    fsp_err_t res;
-    uint32_t bufferoffset = 0;
-    uint32_t payloadoffset = 0;
-    uint32_t byteslefttocopy = 0;
-    uint32_t remaining_data;
 
-    res = R_ETHER_Read(&g_ether0_ctrl, buffer, &len);
-    if (res != FSP_SUCCESS)
+    FSP_PARAMETER_NOT_USED(dev);
+
+    while (1)
     {
-        LOG_D("R_ETHER_Read failed!, res = %d", res);
-        return NULL;
-    }
+        uint32_t len = ETH_MAX_PACKET_SIZE;
+        fsp_err_t res;
+        uint8_t *rx_buffer = RT_NULL;
 
-    LOG_D("receive frame len : %d", len);
-    
-#if defined(__DCACHE_PRESENT)
-    SCB_CleanInvalidateDCache();
-#endif
-
-    if (len > 0)
-    {
-        /* We allocate a pbuf chain of pbufs from the Lwip buffer pool */
-        p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
-        if (p == NULL)
+        res = R_ETHER_Read(&g_ether0_ctrl, &rx_buffer, &len);
+        if (res != FSP_SUCCESS)
         {
-            LOG_E("Failed to allocate pbuf for %d bytes", len);
             return NULL;
         }
-    }
 
-#ifdef ETH_RX_DUMP
-    if (p)
-    {
-        dump_hex(buffer, p->tot_len);
-    }
-#endif
 
-    if (p != NULL)
-    {
-        bufferoffset = 0;
-        for (q = p; q != NULL; q = q->next)
+        p = pbuf_alloc(PBUF_RAW, (u16_t) len, PBUF_POOL);
+        if (p == NULL)
         {
-            byteslefttocopy = q->len;
-            payloadoffset = 0;
-
-            if (bufferoffset >= len)
+            res = R_RMAC_BufferRelease(&g_ether0_ctrl);
+            if (res != FSP_SUCCESS)
             {
-                LOG_W("Buffer offset exceeds received length");
-                break;
+                LOG_W("R_RMAC_BufferRelease failed after pbuf alloc miss, res = %d", res);
             }
-
-            remaining_data = len - bufferoffset;
-            if (byteslefttocopy > remaining_data)
-            {
-                byteslefttocopy = remaining_data;
-            }
-
-            /* Copy remaining data in pbuf */
-            SMEMCPY((uint8_t *)((uint8_t *)q->payload + payloadoffset), 
-                   (uint8_t *)((uint8_t *)buffer + bufferoffset), 
-                   byteslefttocopy);
-            bufferoffset += byteslefttocopy;
+            return NULL;
         }
-    }
 
-#ifdef ETH_RX_DUMP
-    if (p)
-    {
-        LOG_E("******p buf frame *********");
-        for (q = p; q != NULL; q = q->next)
+        if (pbuf_take(p, rx_buffer, (u16_t) len) != ERR_OK)
         {
-            dump_hex(q->payload, q->len);
+            pbuf_free(p);
+            res = R_RMAC_BufferRelease(&g_ether0_ctrl);
+            if (res != FSP_SUCCESS)
+            {
+                LOG_W("R_RMAC_BufferRelease failed after pbuf_take error, res = %d", res);
+            }
+            return NULL;
         }
-    }
-#endif
 
-    return p;
+        res = R_RMAC_BufferRelease(&g_ether0_ctrl);
+        if (res != FSP_SUCCESS)
+        {
+            pbuf_free(p);
+            LOG_W("R_RMAC_BufferRelease failed!, res = %d", res);
+            return NULL;
+        }
+        return p;
+    }
 }
 
 static void phy_linkchange()
@@ -485,6 +662,7 @@ static void phy_linkchange()
                 /* Changed to Link-up */
                 eth_device_linkchange(&ra_eth_device.parent, RT_TRUE);
                 LOG_I("%s link up", phy_ports[port].name);
+                phy_log_partner_ability(port);
             }
             else
             {
@@ -521,6 +699,14 @@ void user_ether0_callback(ether_callback_args_t *p_args)
     case ETHER_EVENT_WAKEON_LAN:    ///< Magic packet detection event
     /* If EDMAC FR (Frame Receive Event) or FDE (Receive Descriptor Empty Event)
         * interrupt occurs, send rx mailbox. */
+    case ETHER_EVENT_TX_COMPLETE:
+        eth_tx_buffer_release_completed();
+        break;
+
+    case ETHER_EVENT_RX_MESSAGE_LOST:
+        eth_rx_drain_ready();
+        break;
+
     case ETHER_EVENT_RX_COMPLETE: ///< BSD Interrupt event
     {
         rt_err_t result;
@@ -543,23 +729,6 @@ static int rt_hw_ra_eth_init(void)
 {
     rt_err_t state = RT_EOK;
 
-    /* Prepare receive and send buffers */
-    Rx_Buff = (rt_uint8_t *)rt_calloc(1, ETH_MAX_PACKET_SIZE);
-    if (Rx_Buff == RT_NULL)
-    {
-        LOG_E("No memory");
-        state = -RT_ENOMEM;
-        goto __exit;
-    }
-
-    Tx_Buff = (rt_uint8_t *)rt_calloc(1, ETH_MAX_PACKET_SIZE);
-    if (Tx_Buff == RT_NULL)
-    {
-        LOG_E("No memory");
-        state = -RT_ENOMEM;
-        goto __exit;
-    }
-
     ra_eth_device.parent.parent.init = NULL;
     ra_eth_device.parent.parent.open = rt_ra_eth_open;
     ra_eth_device.parent.parent.close = rt_ra_eth_close;
@@ -571,6 +740,8 @@ static int rt_hw_ra_eth_init(void)
     ra_eth_device.parent.eth_rx = rt_ra_eth_rx;
     ra_eth_device.parent.eth_tx = rt_ra_eth_tx;
 
+    eth_prepare_cache_safe_rmac_cfg();
+    eth_tx_pool_init();
     rt_ra_eth_init();
 
     /* register eth device */
@@ -593,19 +764,6 @@ static int rt_hw_ra_eth_init(void)
         LOG_E("Start link change detection timer failed");
     }
 __exit:
-    if (state != RT_EOK)
-    {
-        if (Rx_Buff)
-        {
-            rt_free(Rx_Buff);
-        }
-
-        if (Tx_Buff)
-        {
-            rt_free(Tx_Buff);
-        }
-    }
-
     return state;
 }
 INIT_DEVICE_EXPORT(rt_hw_ra_eth_init);
