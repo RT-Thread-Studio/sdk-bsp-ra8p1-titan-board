@@ -15,7 +15,11 @@ import sys
 import yaml
 from datetime import datetime
 from pathlib import Path
-sys.path.insert(0, os.path.abspath('..'))
+
+# Sphinx may be launched from the repository root (or another working
+# directory), so resolve local helper modules relative to this file.
+source_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(source_dir))
 
 from utils.language_support import (
     alternate_docname,
@@ -44,7 +48,6 @@ sphinx_config = config.get('sphinx', {})
 repository_config = config.get('repository', {})
 generation_config = config.get('generation', {})
 giscus_config = config.get('giscus', {})
-source_dir = Path(__file__).resolve().parent
 configured_build_languages = tuple(
     language.strip()
     for language in os.environ.get("DOCS_AVAILABLE_LANGUAGES", "").split(",")
