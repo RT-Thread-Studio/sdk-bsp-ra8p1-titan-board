@@ -1,0 +1,203 @@
+# SDK 文档构建配置文件
+project:
+  name: "Titan-Board SDK"
+  title: "Titan-Board"
+  description: "Titan Board 开发板是 RT-Thread 推出基于瑞萨 Cortex-M85 与 Cortex-M33 双核架构 R7KA8P1 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在嵌入式物联网领域获得更深层次的体验。"
+  description_en: "The Titan Board, developed by RT-Thread, is built on Renesas' R7KA8P1 chip featuring a dual-core architecture of Cortex-M85 and Cortex-M33. It offers engineers a flexible and comprehensive development platform, empowering developers to gain deeper expertise in the embedded IoT field."
+  version: "1.0.0"
+  author: "KurisaW"
+  copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
+  # language: "zh_CN"
+  website: "www.rt-thread.org"
+
+# 仓库配置
+repository:
+  name: "sdk-bsp-ra8p1-titan-board"
+  projects_dir: "../project"
+  docs_dir: "."
+
+# 文档分类配置
+categories:
+  start:
+    name: "快速上手"
+    name_en: "Getting Started"
+    description: "快速上手"
+    patterns:
+      - "Titan_template"
+
+  basic:
+    name: "基础篇"
+    name_en: "Basics"
+    description: "基础功能示例"
+    patterns:
+      - "Titan_basic_*"
+  
+  driver:
+    name: "驱动篇"
+    name_en: "Drivers"
+    description: "外设驱动示例"
+    patterns:
+      - "Titan_driver_*"
+  
+  component:
+    name: "组件篇"
+    name_en: "Components"
+    description: "组件示例"
+    patterns:
+      - "Titan_component_*"
+
+  multimedia:
+    name: "多媒体显示篇"
+    name_en: "Multimedia Display"
+    description: "多媒体显示示例"
+    patterns:
+      - "Titan_display_*"
+
+  multicore:
+    name: "多核通信篇"
+    name_en: "Multicore Communication"
+    description: "双核与 RPMsg-Lite 多核通信示例"
+    patterns:
+      - "Titan_dual_core/Titan_dual_core0"
+      - "Titan_dual_core/Titan_dual_core1"
+      - "Titan_mlc_rpmsg_lite/Titan_rpmsg_master"
+      - "Titan_mlc_rpmsg_lite/Titan_rpmsg_remote"
+
+  npu_vision:
+    name: "NPU AI视觉篇"
+    name_en: "NPU Intelligent Vision"
+    description: "基于NPU的人脸检测与目标识别示例"
+    patterns:
+      - "Titan_npu_ai_face_detection"
+
+  factory:
+    name: "出厂测试篇"
+    name_en: "Factory Tests"
+    description: "开发板出厂测试与硬件验证"
+    patterns:
+      - "Titan_factory"
+
+  faq:
+    name: "FAQ"
+    name_en: "FAQ"
+    description: "常见问题解答"
+    patterns:
+      - "FAQ_page"
+
+# 文档生成配置
+generation:
+  # 兼容旧配置；实际收录范围与导航结构分别由 discovery/navigation 控制。
+  mode: "project_catalog"
+
+  # 项目目录模式只收录每个匹配项目根目录的双语 README 与 figures/**。
+  # 不带路径分隔符的 patterns 只匹配 project 下的一级目录；嵌套项目必须显式列出。
+  discovery:
+    mode: "project_catalog"
+    entry_files:
+      zh: "README_zh.md"
+      en: "README.md"
+    asset_globs:
+      - "figures/**"
+    unmatched_projects: "error"
+    duplicate_categories: "error"
+
+  # 按分类组织 HTML 侧栏与 PDF 一级章节。
+  navigation:
+    mode: "categories"
+    order:
+      - "start"
+      - "basic"
+      - "driver"
+      - "component"
+      - "multimedia"
+      - "multicore"
+      - "npu_vision"
+      - "factory"
+      - "faq"
+
+  # 通过根 README 自动识别语言；两个文件都存在时启用中英文切换 UI。
+  language_detection:
+    zh: "README_zh.md"
+    en: "README.md"
+  default_language: "zh"
+
+  # PDF 版式：word 保持项目默认样式；thesis 使用研究生论文预览规范。
+  # 也可通过环境变量 PDF_STYLE 临时覆盖。
+  pdf_style: "web"
+
+  # PDF 字体必须在本地与 CI 中安装同名字体；缺失时构建失败，不使用回退字体。
+  pdf_fonts:
+    latin: "TeX Gyre Termes"
+    cjk_body: "FandolSong-Regular.otf"
+    cjk_heading: "FandolHei-Regular.otf"
+    cjk_emphasis: "FandolKai-Regular.otf"
+    code: "Source Code Pro"
+
+  # 相对于 repository.projects_dir，分别配置各语言的网站首页。
+  default_page:
+    zh: "README_zh.md"
+    en: "README.md"
+
+  # 相对于每个文档目录。README 存在时优先使用，否则自动生成语言索引。
+  directory_index:
+    zh: "README_zh.md"
+    en: "README.md"
+
+  # 同步到 Sphinx source 的文档及资源类型。
+  sync_extensions:
+    - ".md"
+    - ".rst"
+    - ".png"
+    - ".jpg"
+    - ".jpeg"
+    - ".gif"
+    - ".svg"
+    - ".webp"
+
+  # 旧版排序键，保留用于兼容早期构建脚本。
+  output_structure:
+    - "start"
+    - "basic"
+    - "driver"
+    - "component"
+    - "multimedia"
+    - "multicore"
+    - "npu_vision"
+    - "factory"
+    - "faq"
+
+# Sphinx 配置
+sphinx:
+  theme: "sphinx_rtd_theme"
+  extensions:
+    - "myst_parser"
+  source_suffix:
+    ".rst": "restructuredtext"
+    ".md": "markdown"
+  myst_extensions:
+    - "colon_fence"
+    - "deflist"
+    - "dollarmath"
+    - "html_image"
+    - "html_admonition"
+    - "replacements"
+    - "smartquotes"
+    - "strikethrough"
+    - "substitution"
+    - "tasklist"
+
+# giscus 评论系统配置（按需填写 repo/category 信息以启用）
+giscus:
+  enabled: true
+  repo: "RT-Thread-Studio/sdk-bsp-ra8p1-titan-board"
+  repo_id: "R_kgDOPoLRzw"           # 必填：GitHub 提供的 Repo ID
+  category: "General"               # 可选：分类名（与 category_id 二选一，若两者均填则优先使用 category_id）
+  category_id: "DIC_kwDOPoLRz84CxbfI"                   # 可选：分类 ID（推荐）
+  mapping: "url"                    # pathname | url | title | og:title | specific
+  strict: 0                          # 0/1
+  reactions_enabled: 1               # 0/1
+  emit_metadata: 1                   # 0/1
+  input_position: "bottom"          # top | bottom
+  theme: "noborder_light"   # light | dark | preferred_color_scheme | transparent_dark 等
+  lang: "zh-CN"
+  lazy: true                         # 懒加载 iframe

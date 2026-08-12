@@ -3,3 +3,6 @@
 **/packages.dbsqlite
 **/.config.old
 /libraries/*.o
+/source/_build/
+/source/source_build/
+/source/.doc_generator_manifest.json

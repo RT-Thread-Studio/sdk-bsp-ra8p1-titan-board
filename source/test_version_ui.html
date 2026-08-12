@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>版本切换UI测试</title>
+    <link rel="stylesheet" type="text/css" href="_build/versions/latest/_static/version_menu.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .icon-home {
+            font-size: 19px;
+            font-weight: 650;
+            margin-top: 8px;
+            margin-bottom: 2px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+        .wy-nav-side {
+            position: relative;
+        }
+        .wy-side-scroll {
+            position: relative;
+        }
+        .wy-side-nav-search {
+            position: relative;
+        }
+        #rtd-search-form {
+            margin: 10px 0;
+        }
+        .test-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .test-info h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>版本切换UI测试页面</h1>
+        
+        <div class="test-info">
+            <h3>测试说明</h3>
+            <p>这个页面用于测试版本切换UI是否正常工作。如果版本切换菜单出现在下面的侧边栏中，说明功能正常。</p>
+            <p>当前页面路径: <code id="current-path"></code></p>
+        </div>
+        
+        <!-- 模拟侧边栏 -->
+        <div class="sidebar wy-nav-side">
+            <div class="wy-side-scroll">
+                <div class="wy-side-nav-search">
+                    <a href="#" class="icon icon-home">EtherKit_SDK_Docs</a>
+                    <div role="search">
+                        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+                            <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+                            <input type="hidden" name="check_keywords" value="yes" />
+                            <input type="hidden" name="area" value="default" />
+                        </form>
+                    </div>
+                </div>
+                <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+                    <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+                    <ul>
+                        <li><a href="#">快速上手篇</a></li>
+                        <li><a href="#">基础篇</a></li>
+                        <li><a href="#">驱动篇</a></li>
+                        <li><a href="#">组件篇</a></li>
+                        <li><a href="#">工业协议篇</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-info">
+            <h3>调试信息</h3>
+            <div id="debug-info">
+                <p>等待版本菜单初始化...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="_build/versions/latest/_static/version_menu.js"></script>
+    <script>
+        // 显示当前路径
+        document.getElementById('current-path').textContent = window.location.pathname;
+        
+        // 监听版本菜单事件
+        document.addEventListener('version-changed', function(e) {
+            console.log('版本切换事件:', e.detail);
+            document.getElementById('debug-info').innerHTML += `
+                <p>版本切换事件: ${e.detail.version} -> ${e.detail.versionName}</p>
+            `;
+        });
+        
+        // 定期检查版本菜单是否存在
+        let checkCount = 0;
+        const checkVersionMenu = setInterval(() => {
+            checkCount++;
+            const versionMenu = document.querySelector('.rtd-version-menu');
+            if (versionMenu) {
+                document.getElementById('debug-info').innerHTML += `
+                    <p>✓ 版本菜单已创建 (${checkCount}秒后)</p>
+                `;
+                clearInterval(checkVersionMenu);
+            } else if (checkCount >= 10) {
+                document.getElementById('debug-info').innerHTML += `
+                    <p>✗ 版本菜单未创建 (10秒后)</p>
+                `;
+                clearInterval(checkVersionMenu);
+            } else {
+                document.getElementById('debug-info').innerHTML = `
+                    <p>检查版本菜单... (${checkCount}/10)</p>
+                `;
+            }
+        }, 1000);
+    </script>
+</body>
+</html> 
