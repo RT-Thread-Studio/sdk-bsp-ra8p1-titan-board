@@ -1,0 +1,91 @@
+# Configuration template for tutorials, manuals, and documentation repositories.
+project:
+  name: "Example_Docs"
+  title: "Example SDK 开发文档"
+  title_en: "Example SDK Documentation"
+  description: "Example SDK 的开发、集成与调试文档。"
+  description_en: "Development, integration, and debugging documentation for Example SDK."
+  version: "1.0.0"
+  author: "Example Team"
+  copyright: "2026, Example Team"
+  website: "https://example.com"
+
+repository:
+  name: "example-sdk-docs"
+  projects_dir: "../projects"
+  docs_dir: "."
+
+# In recursive_tree mode, category keys map to directories under projects_dir.
+categories:
+  getting_started:
+    name: "快速上手篇"
+    name_en: "Getting Started"
+    description: "环境准备和首个示例。"
+    description_en: "Environment setup and the first example."
+  applications:
+    name: "应用篇"
+    name_en: "Applications"
+    description: "典型应用和完整工作流。"
+    description_en: "Typical applications and complete workflows."
+
+generation:
+  # Legacy compatibility marker. New code uses discovery/navigation below.
+  mode: "directory_tree"
+  discovery:
+    mode: "recursive_tree"
+  navigation:
+    mode: "directory_tree"
+    order:
+      - "getting_started"
+      - "applications"
+
+  language_detection:
+    zh: "README_zh.md"
+    en: "README.md"
+  default_language: "zh"
+  default_page:
+    zh: "README_zh.md"
+    en: "README.md"
+  directory_index:
+    zh: "README_zh.md"
+    en: "README.md"
+
+  sync_extensions:
+    - ".md"
+    - ".rst"
+    - ".png"
+    - ".jpg"
+    - ".jpeg"
+    - ".gif"
+    - ".svg"
+    - ".webp"
+
+  pdf_style: "web"
+  pdf_fonts:
+    latin: "TeX Gyre Termes"
+    cjk_body: "FandolSong-Regular.otf"
+    cjk_heading: "FandolHei-Regular.otf"
+    cjk_emphasis: "FandolKai-Regular.otf"
+    code: "Source Code Pro"
+
+sphinx:
+  theme: "sphinx_rtd_theme"
+  extensions:
+    - "myst_parser"
+  source_suffix:
+    ".rst": "restructuredtext"
+    ".md": "markdown"
+  myst_extensions:
+    - "colon_fence"
+    - "deflist"
+    - "dollarmath"
+    - "html_image"
+    - "html_admonition"
+    - "replacements"
+    - "smartquotes"
+    - "strikethrough"
+    - "substitution"
+    - "tasklist"
+
+giscus:
+  enabled: false

@@ -1,13 +1,13 @@
 {
   "versions": [
     {
-      "name": "main",
-      "display_name": "latest",
+      "name": "lts",
+      "display_name": "lts",
       "branch": "main",
-      "url_path": "latest",
+      "url_path": "lts",
       "description": "最新开发版本"
     }
   ],
-  "default_version": "main",
-  "latest_version": "main"
+  "default_version": "lts",
+  "latest_version": "lts"
 } 

@@ -1,0 +1,9 @@
+sphinx-rtd-theme==3.1.0
+Sphinx==8.1.3
+sphinx-autobuild==2024.10.3
+requests==2.34.2
+myst-parser==4.0.1
+PyYAML==6.0.3
+beautifulsoup4==4.15.0
+Markdown==3.10.2
+Pillow==12.1.1

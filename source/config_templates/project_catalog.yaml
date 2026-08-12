@@ -1,0 +1,103 @@
+# Configuration template for SDK/BSP repositories containing many projects.
+project:
+  name: "Example_BSP"
+  title: "Example Board SDK"
+  title_en: "Example Board SDK"
+  description: "Example Board 的 SDK 示例项目开发文档。"
+  description_en: "Developer documentation for Example Board SDK projects."
+  version: "1.0.0"
+  author: "Example Team"
+  copyright: "2026, Example Team"
+  website: "https://example.com"
+
+repository:
+  name: "example-board-sdk"
+  projects_dir: "../project"
+  docs_dir: "."
+
+# Patterns without a slash match only first-level directories. Use an explicit
+# relative path for a nested project root.
+categories:
+  start:
+    name: "快速上手"
+    name_en: "Getting Started"
+    description: "模板项目和基础工作流。"
+    description_en: "Template projects and basic workflows."
+    patterns:
+      - "Board_template"
+  basic:
+    name: "基础篇"
+    name_en: "Basics"
+    description: "基础功能示例。"
+    description_en: "Basic feature examples."
+    patterns:
+      - "Board_basic_*"
+  multicore:
+    name: "多核通信篇"
+    name_en: "Multicore Communication"
+    description: "多核启动和通信示例。"
+    description_en: "Multicore startup and communication examples."
+    patterns:
+      - "Board_dual_core/core0"
+      - "Board_dual_core/core1"
+
+generation:
+  # Legacy compatibility marker. New code uses discovery/navigation below.
+  mode: "project_catalog"
+  discovery:
+    mode: "project_catalog"
+    entry_files:
+      zh: "README_zh.md"
+      en: "README.md"
+    asset_globs:
+      - "figures/**"
+    # Strict mode prevents silently incomplete HTML/PDF output.
+    unmatched_projects: "error"
+    duplicate_categories: "error"
+  navigation:
+    mode: "categories"
+    order:
+      - "start"
+      - "basic"
+      - "multicore"
+
+  language_detection:
+    zh: "README_zh.md"
+    en: "README.md"
+  default_language: "zh"
+  default_page:
+    zh: "README_zh.md"
+    en: "README.md"
+  directory_index:
+    zh: "README_zh.md"
+    en: "README.md"
+
+  pdf_style: "web"
+  pdf_fonts:
+    latin: "TeX Gyre Termes"
+    cjk_body: "FandolSong-Regular.otf"
+    cjk_heading: "FandolHei-Regular.otf"
+    cjk_emphasis: "FandolKai-Regular.otf"
+    code: "Source Code Pro"
+
+sphinx:
+  theme: "sphinx_rtd_theme"
+  extensions:
+    - "myst_parser"
+  source_suffix:
+    ".rst": "restructuredtext"
+    ".md": "markdown"
+  myst_extensions:
+    - "colon_fence"
+    - "deflist"
+    - "dollarmath"
+    - "html_image"
+    - "html_admonition"
+    - "replacements"
+    - "smartquotes"
+    - "strikethrough"
+    - "substitution"
+    - "tasklist"
+
+giscus:
+  enabled: false
