@@ -10,16 +10,16 @@ on:
     branches:
       - main
     paths-ignore:
-      - docs/**
+      - source/**
       - '**/README.md'
-      # - '**/README_ZH.md'
+      - '**/README_ZH.md'
   pull_request:
     branches:
       - main
     paths-ignore:
-      - docs/**
+      - source/**
       - '**/README.md'
-      # - '**/README_ZH.md'
+      - '**/README_ZH.md'
 
 env:
   RTT_TOOL_CHAIN: "sourcery-arm"

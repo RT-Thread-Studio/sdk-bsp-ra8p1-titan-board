@@ -21,6 +21,7 @@ from utils.html_builder import build_html_site, write_site_entry
 from utils.language_support import (
     configured_language_paths,
     detect_languages,
+    document_language,
     select_default_language,
 )
 from utils.pdf_builder import build_detected_pdfs
@@ -78,6 +79,72 @@ class BuildManager:
         for version_dict in config.get('versions', []):
             versions.append(VersionConfig(version_dict))
         return versions
+
+    @staticmethod
+    def _resolve_language_master_doc(docs_source: Path, config: Dict, language: str) -> str:
+        """Return an existing source-relative Sphinx master docname."""
+        generation = config.get('generation', {}) or {}
+        candidates = []
+        configured_sources = (
+            (generation, 'default_page'),
+            (generation.get('discovery', {}) or {}, 'entry_files'),
+            (generation, 'language_detection'),
+        )
+        for source_config, option in configured_sources:
+            configured = configured_language_paths(source_config, option)
+            if configured.get(language):
+                candidates.append(Path(configured[language]))
+        candidates.extend([
+            Path('README_zh.md' if language == 'zh' else 'README.md'),
+            Path('index_zh.rst' if language == 'zh' else 'index.rst'),
+            Path('index_zh.md' if language == 'zh' else 'index.md'),
+        ])
+        source_root = docs_source.resolve()
+        checked = []
+        for candidate in candidates:
+            if candidate.is_absolute() or '..' in candidate.parts:
+                continue
+            resolved = (source_root / candidate).resolve()
+            try:
+                relative = resolved.relative_to(source_root)
+            except ValueError:
+                continue
+            checked.append(relative.as_posix())
+            if resolved.is_file():
+                return relative.with_suffix('').as_posix()
+        raise FileNotFoundError(
+            f"未找到 {language} 主文档；Sphinx source={source_root}，"
+            f"已检查: {', '.join(dict.fromkeys(checked)) or '无有效候选'}。"
+            "请确认 doc_generator 已生成/复制配置的 default_page 文件。"
+        )
+
+    @staticmethod
+    def _language_exclude_patterns(docs_source: Path, language: str) -> str:
+        """Exclude only the opposite language while keeping the master page."""
+        patterns = []
+        source_root = docs_source.resolve()
+        for path in source_root.rglob('*'):
+            if not path.is_file() or path.suffix.lower() not in {'.md', '.rst'}:
+                continue
+            relative = path.relative_to(source_root)
+            if document_language(relative) != language:
+                patterns.append(relative.as_posix())
+        return ','.join(sorted(patterns))
+
+    def _sphinx_environment(
+        self, environment: Dict[str, str], docs_source: Optional[Path] = None
+    ) -> Dict[str, str]:
+        """Make source helper modules importable from any version worktree."""
+        source_paths = [
+            str(path.resolve())
+            for path in (docs_source, self.docs_source)
+            if path is not None and path.exists()
+        ]
+        current = environment.get('PYTHONPATH', '')
+        environment['PYTHONPATH'] = os.pathsep.join(
+            dict.fromkeys(item for item in (*source_paths, current) if item)
+        )
+        return environment
     
     def create_worktree(self, version_config: VersionConfig) -> Path:
         """为指定版本创建 Git worktree"""
@@ -179,6 +246,7 @@ class BuildManager:
             projects_dir_web,
             directory_index_files,
         )
+        self._ensure_version_index(output_dir, config)
         return True
     
     def build_docs_in_worktree(self, worktree_path: Path, version_config: VersionConfig) -> bool:
@@ -260,9 +328,14 @@ class BuildManager:
             print("构建中文版文档...")
             zh_output_dir = output_dir / 'zh'
             zh_config = self.i18n_manager.get_language_config('zh')
-            zh_env = os.environ.copy()
-            zh_env['SPHINX_MASTER_DOC'] = zh_config['index_filename'].replace('.rst', '')
-            zh_env['SPHINX_MASTER_DOC_OVERRIDE'] = zh_config['index_filename'].replace('.rst', '')
+            zh_master_doc = self._resolve_language_master_doc(
+                docs_source_in_worktree, build_config, 'zh'
+            )
+            zh_env = self._sphinx_environment(
+                os.environ.copy(), docs_source_in_worktree
+            )
+            zh_env['SPHINX_MASTER_DOC'] = zh_master_doc
+            zh_env['SPHINX_MASTER_DOC_OVERRIDE'] = zh_master_doc
             zh_env['SPHINX_LANGUAGE'] = 'zh_CN'
             # 确保中文locale环境变量
             zh_env['LANG'] = 'zh_CN.UTF-8'
@@ -299,7 +372,9 @@ class BuildManager:
                 print(f"  警告: 移动英文版文件时出错: {e}")
             
             # 中文版构建时排除英文文档
-            zh_env['SPHINX_EXCLUDE_PATTERNS'] = '*.md'
+            zh_env['SPHINX_EXCLUDE_PATTERNS'] = self._language_exclude_patterns(
+                docs_source_in_worktree, 'zh'
+            )
             
             print(f"中文版构建环境变量:")
             print(f"  LANG: {zh_env.get('LANG', 'N/A')}")
@@ -313,7 +388,7 @@ class BuildManager:
                 sys.executable, '-m', 'sphinx.cmd.build',
                 '-b', 'html',
                 '-D', 'language=zh_CN',
-                '-D', 'master_doc=' + zh_config['index_filename'].replace('.rst', ''),
+                '-D', 'master_doc=' + zh_master_doc,
                 str(docs_source_in_worktree),
                 str(zh_output_dir)
             ], check=True, env=zh_env)
@@ -345,9 +420,14 @@ class BuildManager:
             print("构建英文版文档...")
             en_output_dir = output_dir / 'en'
             en_config = self.i18n_manager.get_language_config('en')
-            en_env = os.environ.copy()
-            en_env['SPHINX_MASTER_DOC'] = en_config['index_filename'].replace('.rst', '')
-            en_env['SPHINX_MASTER_DOC_OVERRIDE'] = en_config['index_filename'].replace('.rst', '')
+            en_master_doc = self._resolve_language_master_doc(
+                docs_source_in_worktree, build_config, 'en'
+            )
+            en_env = self._sphinx_environment(
+                os.environ.copy(), docs_source_in_worktree
+            )
+            en_env['SPHINX_MASTER_DOC'] = en_master_doc
+            en_env['SPHINX_MASTER_DOC_OVERRIDE'] = en_master_doc
             en_env['SPHINX_LANGUAGE'] = 'en'
             # 确保英文locale环境变量
             en_env['LANG'] = 'en_US.UTF-8'
@@ -384,7 +464,9 @@ class BuildManager:
                 print(f"  警告: 移动中文版文件时出错: {e}")
             
             # 英文版构建时排除中文文档
-            en_env['SPHINX_EXCLUDE_PATTERNS'] = '*_zh.md'
+            en_env['SPHINX_EXCLUDE_PATTERNS'] = self._language_exclude_patterns(
+                docs_source_in_worktree, 'en'
+            )
             
             print(f"英文版构建环境变量:")
             print(f"  LANG: {en_env.get('LANG', 'N/A')}")
@@ -395,7 +477,7 @@ class BuildManager:
             subprocess.run([
                 sys.executable, '-m', 'sphinx.cmd.build',
                 '-b', 'html',
-                '-D', 'master_doc=' + en_config['index_filename'].replace('.rst', ''),
+                '-D', 'master_doc=' + en_master_doc,
                 '-D', 'language=en',
                 str(docs_source_in_worktree),
                 str(en_output_dir)
@@ -449,6 +531,7 @@ class BuildManager:
             # 合并文档集到统一目录
             print("合并文档集...")
             self._merge_docs_with_i18n(zh_output_dir, en_output_dir, output_dir)
+            self._ensure_version_index(output_dir, build_config)
             
             # 生成版本配置（注入项目源目录片段与复制文件规则）
             # 从 source/config.yaml 读取 repository.projects_dir，并转换为仓库内相对路径片段
@@ -607,6 +690,43 @@ class BuildManager:
         
         print(f"[OK] 生成版本配置文件: {version_config_file}")
         print(f"[OK] 生成静态配置文件: {static_config_file}")
+
+    def _ensure_version_index(self, output_dir: Path, config: Dict) -> None:
+        """Create a stable version entry page for GitHub Pages deployments."""
+        index_file = output_dir / 'index.html'
+        if index_file.is_file():
+            return
+
+        generation = config.get('generation', {}) or {}
+        default_language = str(generation.get('default_language', 'zh') or 'zh')
+        candidates = (
+            ('README_zh.html', 'README.html')
+            if default_language == 'zh'
+            else ('README.html', 'README_zh.html')
+        )
+        target = next((name for name in candidates if (output_dir / name).is_file()), None)
+        if target is None:
+            target = next(
+                (path.name for path in output_dir.glob('*.html') if path.name != 'index.html'),
+                None,
+            )
+        if target is None:
+            raise FileNotFoundError(
+                f'版本输出目录没有可用 HTML 首页: {output_dir}'
+            )
+
+        index_file.write_text(
+            '<!doctype html>\n'
+            '<html lang="zh-CN"><head>\n'
+            '<meta charset="utf-8">\n'
+            '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            f'<meta http-equiv="refresh" content="0; url=./{target}">\n'
+            f'<title>SDK 文档</title></head><body>\n'
+            f'<p><a href="./{target}">打开文档</a></p>\n'
+            '</body></html>\n',
+            encoding='utf-8',
+        )
+        print(f'[OK] 创建版本入口页面: {index_file} -> {target}')
     
     
     def _merge_docs_with_i18n(self, zh_dir: Path, en_dir: Path, output_dir: Path):
@@ -751,12 +871,15 @@ class BuildManager:
             # 尝试 latexpdf 构建器
             latexpdf_dir = self.build_root / 'latexpdf' / version_config.url_path
             print(f"尝试使用 latexpdf 构建: {latexpdf_dir}")
+            sphinx_env = self._sphinx_environment(
+                os.environ.copy(), docs_source_in_worktree
+            )
             subprocess.run([
                 sys.executable, '-m', 'sphinx.cmd.build',
                 '-b', 'latexpdf',
                 str(docs_source_in_worktree),
                 str(latexpdf_dir)
-            ], check=True)
+            ], check=True, env=sphinx_env)
 
             # 预期输出：conf.py 设定主文档名 sdk-docs.tex -> sdk-docs.pdf
             candidate = latexpdf_dir / 'sdk-docs.pdf'
@@ -776,7 +899,7 @@ class BuildManager:
                 '-b', 'latex',
                 str(docs_source_in_worktree),
                 str(latex_dir)
-            ], check=True)
+            ], check=True, env=sphinx_env)
 
             try:
                 tex_files = list(latex_dir.glob('*.tex'))
@@ -951,7 +1074,7 @@ class BuildManager:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDK 文档</title>
-    <meta http-equiv="refresh" content="0; url=./versions/{default_url}/index.html">
+    <meta http-equiv="refresh" content="0; url=./{default_url}/index.html">
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1002,7 +1125,7 @@ class BuildManager:
         <div class="spinner"></div>
         <h1>SDK 文档</h1>
         <p>正在跳转到文档首页...</p>
-        <p><a href="./versions/{default_url}/index.html">如果页面没有自动跳转，请点击这里</a></p>
+        <p><a href="./{default_url}/index.html">如果页面没有自动跳转，请点击这里</a></p>
     </div>
 </body>
 </html>"""

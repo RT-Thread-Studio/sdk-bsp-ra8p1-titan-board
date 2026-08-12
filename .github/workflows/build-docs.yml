@@ -141,6 +141,28 @@ jobs:
           # 不设置全局locale，让构建管理器自己控制
           python build.py --clean
 
+      - name: Verify Pages entry files
+        run: |
+          test -f source/source_build/html/index.html
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("source/source_build/html")
+          versions = json.loads(Path(".github/versions.json").read_text(encoding="utf-8"))["versions"]
+          missing = []
+          for version in versions:
+              entry = root / version["url_path"] / "index.html"
+              if not entry.is_file():
+                  missing.append(str(entry))
+          if missing:
+              raise SystemExit("Missing Pages entry files: " + ", ".join(missing))
+          print("Pages entries verified:")
+          print(root / "index.html")
+          for version in versions:
+              print(root / version["url_path"] / "index.html")
+          PY
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
