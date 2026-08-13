@@ -1,6 +1,7 @@
 import sys
 import tempfile
 import unittest
+import json
 from pathlib import Path
 
 
@@ -11,10 +12,61 @@ if str(SOURCE_DIR) not in sys.path:
 from build_local import (
     cleanup_generated_source_files,
     cleanup_temporary_build_files,
+    write_local_version_config,
 )
 
 
 class BuildLocalCleanupTests(unittest.TestCase):
+    def test_local_version_config_matches_repository_versions(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / ".github").mkdir()
+            versions = {
+                "versions": [
+                    {
+                        "name": "stable",
+                        "display_name": "Stable",
+                        "branch": "stable",
+                        "url_path": "stable",
+                        "description": "Stable docs",
+                    },
+                    {
+                        "name": "next",
+                        "display_name": "Next",
+                        "branch": "next",
+                        "url_path": "next",
+                        "description": "Next docs",
+                    },
+                ],
+                "default_version": "stable",
+                "latest_version": "next",
+            }
+            (root / ".github" / "versions.json").write_text(
+                json.dumps(versions), encoding="utf-8"
+            )
+            build_dir = root / "build"
+            static_dir = build_dir / "_static"
+            static_dir.mkdir(parents=True)
+            (static_dir / "version_menu.js").write_text(
+                "function getEmbeddedVersionConfig() { return null; }",
+                encoding="utf-8",
+            )
+
+            write_local_version_config(build_dir, root)
+
+            self.assertEqual(
+                json.loads(
+                    (static_dir / "version_config.json").read_text(
+                        encoding="utf-8"
+                    )
+                ),
+                versions,
+            )
+            self.assertIn(
+                '"default_version": "stable"',
+                (static_dir / "version_menu.js").read_text(encoding="utf-8"),
+            )
+
     def test_cleanup_removes_generated_source_files_only(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             source_root = Path(temp_dir) / "source"

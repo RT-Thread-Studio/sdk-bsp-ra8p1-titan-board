@@ -810,7 +810,26 @@ class BuildManager:
         try:
             with open(source_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-            
+
+            # Preserve links converted from Markdown cross-language targets.
+            # The marker is emitted by FileProcessor and is independent of the
+            # document filename (README is only one possible source name).
+            protected_links = {}
+            link_marker = '<!-- docs-cross-language-link -->'
+            marked_link_pattern = re.compile(
+                r'(?P<prefix><a\s+[^>]*?href=")(?P<url>[^"]+)"'
+                r'(?P<suffix>[^>]*>.*?</a>)\s*'
+                + re.escape(link_marker),
+                re.IGNORECASE,
+            )
+
+            def protect_link(match):
+                token = f'__DOCS_MARKED_LINK_{len(protected_links)}__'
+                protected_links[token] = match.group('url')
+                return f'{match.group("prefix")}{token}"{match.group("suffix")}'
+
+            content = marked_link_pattern.sub(protect_link, content)
+
             # 修复语言属性
             if language == 'en':
                 # 英文版修复
@@ -844,6 +863,12 @@ class BuildManager:
                 content = re.sub(r'aria-label="Footer"', 'aria-label="页脚"', content)
             
             # 写入修复后的文件
+            for token, url in protected_links.items():
+                content = content.replace(
+                    f'href="{token}"', f'href="{url}"'
+                )
+            content = content.replace(link_marker, '')
+
             with open(target_file, 'w', encoding='utf-8') as f:
                 f.write(content)
                 
