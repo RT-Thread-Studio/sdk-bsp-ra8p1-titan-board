@@ -19,11 +19,67 @@ from utils.language_support import (
 )
 from utils.html_builder import build_html_site, write_site_entry
 from utils.pdf_builder import build_detected_pdfs
+from utils.embed_version_config import embed_config_to_js
+from utils.version_utils import load_versions_config
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REQUIREMENTS_PATH = SCRIPT_DIR / "requirements.txt"
 BUILD_ROOT = SCRIPT_DIR / "_build"
 GENERATED_MANIFEST_NAME = ".doc_generator_manifest.json"
+
+
+def write_local_version_config(build_dir: Path, project_root: Path = None):
+    """Write the repository version configuration into a local HTML build."""
+    build_dir = Path(build_dir).resolve()
+    project_root = (
+        Path(project_root).resolve()
+        if project_root is not None
+        else SCRIPT_DIR.parent.resolve()
+    )
+    config = load_versions_config(project_root)
+    serialized = json.dumps(config, ensure_ascii=False, indent=2) + "\n"
+
+    (build_dir / "version_config.json").write_text(
+        serialized, encoding="utf-8"
+    )
+    static_dir = build_dir / "_static"
+    static_dir.mkdir(parents=True, exist_ok=True)
+    (static_dir / "version_config.json").write_text(
+        serialized, encoding="utf-8"
+    )
+
+    # File URLs cannot fetch JSON, so replace the in-IIFE fallback function in
+    # the copied asset.  Appending a global function would not affect the
+    # function lookup inside the existing IIFE.
+    embedded = embed_config_to_js(config).strip()
+    for menu_js in build_dir.rglob("version_menu.js"):
+        menu_content = menu_js.read_text(encoding="utf-8").rstrip()
+        function_signature = "function getEmbeddedVersionConfig()"
+        signature_index = menu_content.find(function_signature)
+        if signature_index == -1:
+            continue
+        brace_start = menu_content.find("{", signature_index)
+        if brace_start == -1:
+            continue
+        depth = 0
+        end_index = None
+        for index in range(brace_start, len(menu_content)):
+            if menu_content[index] == "{":
+                depth += 1
+            elif menu_content[index] == "}":
+                depth -= 1
+                if depth == 0:
+                    end_index = index + 1
+                    break
+        if end_index is None:
+            continue
+        menu_content = (
+            menu_content[:signature_index]
+            + embedded
+            + menu_content[end_index:]
+        )
+        menu_js.write_text(menu_content + "\n", encoding="utf-8")
+    return config
 
 
 def detect_build_languages(site_config):
@@ -168,6 +224,7 @@ def build_docs(
             available_languages,
             default_language,
         )
+        write_local_version_config(build_dir)
         
         print(f"[OK] 文档构建完成: {build_dir.absolute()}")
         
