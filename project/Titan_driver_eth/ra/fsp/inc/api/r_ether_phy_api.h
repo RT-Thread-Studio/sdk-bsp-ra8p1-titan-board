@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -11,7 +11,7 @@
  *
  * @section ETHER_PHY_API_Summary Summary
  * The Ethernet PHY module (r_ether_phy) provides an API for standard Ethernet PHY communications applications that use
- * the ETHERC peripheral.
+ * the Ethernet peripheral.
  *
  * The Ethernet PHY interface supports the following features:
  * - Auto negotiation support
@@ -54,6 +54,7 @@ typedef enum e_ether_phy_lsi_type
     ETHER_PHY_LSI_TYPE_DP83620    = 3,     ///< Select configuration for DP83620.
     ETHER_PHY_LSI_TYPE_ICS1894    = 4,     ///< Select configuration for ICS1894.
     ETHER_PHY_LSI_TYPE_GPY111     = 5,     ///< Select configuration for GPY111.
+    ETHER_PHY_LSI_TYPE_VSC8541    = 6,     ///< Select configuration for VSC8541.
     ETHER_PHY_LSI_TYPE_CUSTOM     = 0xFFU, ///< Select configuration for User custom.
 } ether_phy_lsi_type_t;
 #endif
@@ -85,6 +86,25 @@ typedef enum e_ether_phy_mii_type
     ETHER_PHY_MII_TYPE_GMII  = 2,      ///< GMII
     ETHER_PHY_MII_TYPE_RGMII = 3       ///< RGMII
 } ether_phy_mii_type_t;
+
+/** Event code of callback function */
+typedef enum e_ether_phy_event
+{
+    /* Frame preemption events. */
+    ETHER_PHY_EVENT_PREEMPTION_LINK_VERIFY_FAIL,    ///< Preemption link verification failed.
+    ETHER_PHY_EVENT_PREEMPTION_LINK_VERIFY_SUCCESS, ///< Preemption link verification succeeded.
+    ETHER_PHY_EVENT_PREEMPTION_LINK_VERIFY_RECEIVE, ///< Preemption link verification frame received.
+} ether_phy_event_t;
+
+/** Callback function parameter data */
+typedef struct st_ether_phy_callback_args
+{
+    uint32_t          channel;         ///< Device channel number
+    uint32_t          port;            ///< Device port number
+    ether_phy_event_t event;           ///< Event code
+
+    void * p_context;                  ///< Placeholder for user data.  Set in @ref ether_api_t::open function in @ref ether_cfg_t.
+} ether_phy_callback_args_t;
 
 /** Control block.  Allocate an instance specific control block to pass into the API calls.
  */

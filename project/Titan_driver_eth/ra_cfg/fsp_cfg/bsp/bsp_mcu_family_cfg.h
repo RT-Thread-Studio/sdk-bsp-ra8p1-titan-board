@@ -301,27 +301,15 @@
 
             /* Security attribution for registers for DMAC channels */
 #ifndef BSP_TZ_CFG_DMACCHSAR
-#if (0 == BSP_CFG_CPU_CORE)
 #define BSP_TZ_CFG_DMACCHSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0U) /* DMAC Channel 0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1U) /* DMAC Channel 1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 2U) /* DMAC Channel 2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 3U) /* DMAC Channel 3 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4U) /* DMAC Channel 4 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 5U) /* DMAC Channel 5 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 6U) /* DMAC Channel 6 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7U) /* DMAC Channel 7 */)
-#else
-#define BSP_TZ_CFG_DMACCHSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16U) /* DMAC1 Channel 0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 17U) /* DMAC1 Channel 1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18U) /* DMAC1 Channel 2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19U) /* DMAC1 Channel 3 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20U) /* DMAC1 Channel 4 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 21U) /* DMAC1 Channel 5 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22U) /* DMAC1 Channel 6 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 23U) /* DMAC1 Channel 7 */)
-#endif
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0U) /* DMACx Channel 0 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1U) /* DMACx Channel 1 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 2U) /* DMACx Channel 2 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 3U) /* DMACx Channel 3 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4U) /* DMACx Channel 4 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 5U) /* DMACx Channel 5 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 6U) /* DMACx Channel 6 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7U) /* DMACx Channel 7 */)
 #endif
 
             /* Security attribution registers for WUPEN0. */
@@ -427,7 +415,7 @@
 
 #ifndef BSP_CFG_DCACHE_ENABLED
  #if (0U == BSP_CFG_CPU_CORE)
-    #define BSP_CFG_DCACHE_ENABLED (0)
+    #define BSP_CFG_DCACHE_ENABLED (1)
  #else
     #define BSP_CFG_DCACHE_ENABLED (0)
  #endif
@@ -435,7 +423,7 @@
 
 #ifndef BSP_CFG_DCACHE_FORCE_WRITETHROUGH
  #if (0U == BSP_CFG_CPU_CORE)
-    #define BSP_CFG_DCACHE_FORCE_WRITETHROUGH (0)
+    #define BSP_CFG_DCACHE_FORCE_WRITETHROUGH (1)
  #else
     #define BSP_CFG_DCACHE_FORCE_WRITETHROUGH (0)
  #endif

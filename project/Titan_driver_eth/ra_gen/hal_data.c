@@ -26,7 +26,8 @@ sci_b_uart_instance_ctrl_t     g_uart8_ctrl;
                     .polarity = SCI_B_UART_RS485_DE_POLARITY_HIGH,
                     .assertion_time = 1,
                     .negation_time = 1,
-                }
+                },
+                .delay_cycles = 0,
             };
 
             /** UART interface configuration */
@@ -85,7 +86,7 @@ const uart_instance_t g_uart8 =
     .p_api         = &g_uart_on_sci_b
 };
 rmac_instance_ctrl_t g_ether0_ctrl;
-            static rmac_buffer_node_t g_ether0_buffer_node_list[24];
+            static rmac_buffer_node_t g_ether0_buffer_node_list[192];
 
             uint8_t g_ether0_mac_address[6] = { 0x00,0x11,0x22,0x33,0x44,0x55 };
 
@@ -127,7 +128,7 @@ rmac_instance_ctrl_t g_ether0_ctrl;
 { .queue_cfg={.array_length       = 3+1,
 .p_descriptor_array = g_ether0_rx_descriptor_array0,
 .p_ts_descriptor_array = NULL,
-.ports              = (1 << 0),
+.ports              = (1 << 0) | (0x0),
 .type               = LAYER3_SWITCH_QUEUE_TYPE_RX,
 .write_back_mode    = LAYER3_SWITCH_WRITE_BACK_MODE_FULL,
 .descriptor_format  = LAYER3_SWITCH_DISCRIPTOR_FORMTAT_EXTENDED,
@@ -140,7 +141,7 @@ rmac_instance_ctrl_t g_ether0_ctrl;
 { .queue_cfg={.array_length       = 3+1,
 .p_descriptor_array = g_ether0_rx_descriptor_array1,
 .p_ts_descriptor_array = NULL,
-.ports              = (1 << 0),
+.ports              = (1 << 0) | (0x0),
 .type               = LAYER3_SWITCH_QUEUE_TYPE_RX,
 .write_back_mode    = LAYER3_SWITCH_WRITE_BACK_MODE_FULL,
 .descriptor_format  = LAYER3_SWITCH_DISCRIPTOR_FORMTAT_EXTENDED,
@@ -168,8 +169,8 @@ rmac_instance_ctrl_t g_ether0_ctrl;
 #endif
                 .rmpi_ipl                = (BSP_IRQ_DISABLED),
                 .p_buffer_node_list      = g_ether0_buffer_node_list,
-                .buffer_node_num         = 24,
-
+                .buffer_node_num         = 192,
+                .transmission_descriptor_format       = RMAC_TRANSMISSION_DESCRIPTOR_FORMAT_DIRECT,
             };
             uint8_t g_ether0_ether_buffer0[1536];
 uint8_t g_ether0_ether_buffer1[1536];
@@ -183,20 +184,8 @@ uint8_t g_ether0_ether_buffer8[1536];
 uint8_t g_ether0_ether_buffer9[1536];
 uint8_t g_ether0_ether_buffer10[1536];
 uint8_t g_ether0_ether_buffer11[1536];
-uint8_t g_ether0_ether_buffer12[1536];
-uint8_t g_ether0_ether_buffer13[1536];
-uint8_t g_ether0_ether_buffer14[1536];
-uint8_t g_ether0_ether_buffer15[1536];
-uint8_t g_ether0_ether_buffer16[1536];
-uint8_t g_ether0_ether_buffer17[1536];
-uint8_t g_ether0_ether_buffer18[1536];
-uint8_t g_ether0_ether_buffer19[1536];
-uint8_t g_ether0_ether_buffer20[1536];
-uint8_t g_ether0_ether_buffer21[1536];
-uint8_t g_ether0_ether_buffer22[1536];
-uint8_t g_ether0_ether_buffer23[1536];
 
-            uint8_t *pp_g_ether0_ether_buffers[24] = {
+            uint8_t *pp_g_ether0_ether_buffers[12] = {
 (uint8_t *) &g_ether0_ether_buffer0[0],
 (uint8_t *) &g_ether0_ether_buffer1[0],
 (uint8_t *) &g_ether0_ether_buffer2[0],
@@ -209,23 +198,11 @@ uint8_t g_ether0_ether_buffer23[1536];
 (uint8_t *) &g_ether0_ether_buffer9[0],
 (uint8_t *) &g_ether0_ether_buffer10[0],
 (uint8_t *) &g_ether0_ether_buffer11[0],
-(uint8_t *) &g_ether0_ether_buffer12[0],
-(uint8_t *) &g_ether0_ether_buffer13[0],
-(uint8_t *) &g_ether0_ether_buffer14[0],
-(uint8_t *) &g_ether0_ether_buffer15[0],
-(uint8_t *) &g_ether0_ether_buffer16[0],
-(uint8_t *) &g_ether0_ether_buffer17[0],
-(uint8_t *) &g_ether0_ether_buffer18[0],
-(uint8_t *) &g_ether0_ether_buffer19[0],
-(uint8_t *) &g_ether0_ether_buffer20[0],
-(uint8_t *) &g_ether0_ether_buffer21[0],
-(uint8_t *) &g_ether0_ether_buffer22[0],
-(uint8_t *) &g_ether0_ether_buffer23[0],
 };
             const ether_cfg_t g_ether0_cfg =
             {
                 .channel            = 0,
-                .zerocopy           = ETHER_ZEROCOPY_DISABLE,
+                .zerocopy           = ETHER_ZEROCOPY_ENABLE,
                 .multicast          = ETHER_MULTICAST_ENABLE,
                 .promiscuous        = ETHER_PROMISCUOUS_DISABLE,
                 .flow_control       = ETHER_FLOW_CONTROL_DISABLE,

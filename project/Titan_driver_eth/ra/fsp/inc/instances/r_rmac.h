@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -44,6 +44,13 @@ typedef enum e_ether_link_establish_status
     ETHER_LINK_ESTABLISH_STATUS_UP   = 1, ///< Link establish status is up
 } ether_link_establish_status_t;
 
+/** Transmission descriptor format. */
+typedef enum e_rmac_transmission_discriptor_format
+{
+    RMAC_TRANSMISSION_DESCRIPTOR_FORMAT_ETHERNET = 0, ///< Use ethernet descriptor
+    RMAC_TRANSMISSION_DESCRIPTOR_FORMAT_DIRECT   = 1, ///< Use direct descriptor
+} rmac_transmission_discriptor_format_t;
+
 /** Information of a descriptor queue. */
 typedef struct st_rmac_queue_info
 {
@@ -87,19 +94,20 @@ typedef struct st_rmac_buffer_queue
 /* Extended configuration. */
 typedef struct st_rmac_extended_cfg
 {
-    ether_switch_instance_t const * p_ether_switch; ///< Pointer to ETHER_SWITCH instance.
+    ether_switch_instance_t const * p_ether_switch;                       ///< Pointer to ETHER_SWITCH instance.
 
-    uint32_t tx_queue_num;                          ///< Number of TX descriptor queues.
-    uint32_t rx_queue_num;                          ///< Number of RX descriptor queues.
+    uint32_t tx_queue_num;                                                ///< Number of TX descriptor queues.
+    uint32_t rx_queue_num;                                                ///< Number of RX descriptor queues.
 
-    rmac_queue_info_t * p_ts_queue;                 ///< Configuration of TS queue.
-    rmac_queue_info_t * p_tx_queue_list;            ///< TX queue list.
-    rmac_queue_info_t * p_rx_queue_list;            ///< RX queue list.
+    rmac_queue_info_t * p_ts_queue;                                       ///< Configuration of TS queue.
+    rmac_queue_info_t * p_tx_queue_list;                                  ///< TX queue list.
+    rmac_queue_info_t * p_rx_queue_list;                                  ///< RX queue list.
 
-    IRQn_Type            rmpi_irq;                  ///< Magic packet detection interrupt number.
-    uint32_t             rmpi_ipl;                  ///< Magic packet detection interrupt priority.
-    rmac_buffer_node_t * p_buffer_node_list;        ///< List of buffer nodes for managing TX/RX buffers.
-    uint32_t             buffer_node_num;           ///< Length of buffer nodes list.
+    IRQn_Type            rmpi_irq;                                        ///< Magic packet detection interrupt number.
+    uint32_t             rmpi_ipl;                                        ///< Magic packet detection interrupt priority.
+    rmac_buffer_node_t * p_buffer_node_list;                              ///< List of buffer nodes for managing TX/RX buffers.
+    uint32_t             buffer_node_num;                                 ///< Length of buffer nodes list.
+    rmac_transmission_discriptor_format_t transmission_descriptor_format; ///< Transmission descriptor format.
 } rmac_extended_cfg_t;
 
 /** Instance control block. DO NOT INITIALIZE.  Initialization occurs when @ref spi_flash_api_t::open is called */
