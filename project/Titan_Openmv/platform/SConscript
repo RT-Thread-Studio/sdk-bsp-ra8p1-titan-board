@@ -1,0 +1,105 @@
+from pathlib import Path
+from building import *
+Import('rtconfig', 'SDK_LIB')
+OPENMV_PLATFORM = GetCurrentDir()
+Export('OPENMV_PLATFORM')
+cwd = Path(OPENMV_PLATFORM)
+up = cwd.parent / 'ThirdParty'
+mp, omv = up / 'micropython', up / 'openmv'
+
+def files(root, pattern):
+    return [str(p) for p in sorted(root.glob(pattern))]
+
+paths = [cwd / d for d in ['include', 'micropython', 'machine', 'camera', 'memory', 'storage', 'port', 'drivers']]
+paths += [cwd.parent / 'build/generated']
+paths += [mp, mp / 'py', up, up / 'apriltag', up / 'ulab/code', omv, omv / 'common',
+          omv / 'modules', omv / 'lib/imlib', omv / 'drivers/sensors', omv / 'protocol',
+          omv / 'lib/cmsis/include', omv / 'lib/cmsis/include/dsp', up / 'libtflm/include',
+          up / 'libtflm/include/third_party/gemmlowp', up / 'libtflm/include/third_party/flatbuffers/include',
+          up / 'libtflm/include/third_party/ruy', up / 'libtflm/include/third_party']
+defines = ['MICROPY_PY_CSI=1', 'NDEBUG', 'TF_LITE_STATIC_MEMORY', 'TF_LITE_DISABLE_X86_NEON',
+           'APRILTAG_HAVE_CONFIG', 'ARM_MATH_HELIUM', 'ARM_MATH_MVEF', 'ARM_MATH_MVEI', 'ARM_MATH_AUTOVECTORIZE=1']
+defines += ['MICROPY_PY_ML_TFLM=' + ('1' if GetDepend('BSP_USING_OPENMV_ML') else '0')]
+src = files(mp, 'py/*.c') + files(mp, 'extmod/*.c')
+excluded = {'objmodule.c', 'modmachine.c', 'machine_uart.c', 'machine_pwm.c', 'machine_adc.c', 'machine_wdt.c',
+            'machine_timer.c', 'modnetwork.c', 'modsocket.c', 'vfs_posix.c', 'vfs_posix_file.c'}
+src = [s for s in src if Path(s).name not in excluded]
+src += [str(cwd / 'port/titan_objmodule.c')]
+src += [str(mp / s) for s in ['shared/runtime/gchelper_native.c', 'shared/runtime/gchelper_thumb2.s',
+    'drivers/bus/softspi.c',
+    'shared/runtime/pyexec.c', 'shared/runtime/stdout_helpers.c', 'shared/runtime/interrupt_char.c',
+    'shared/runtime/sys_stdio_mphal.c', 'shared/runtime/softtimer.c', 'shared/runtime/mpirq.c',
+    'shared/readline/readline.c', 'shared/timeutils/timeutils.c']]
+src += [s for s in files(cwd, 'micropython/*.c') if not s.endswith('_port.c')]
+src += [str(cwd / 'machine' / n) for n in ['machine_pin.c', 'machine_hw_i2c.c', 'machine_timer.c',
+    'machine_uart.c', 'machine_spi.c', 'machine_adc.c', 'machine_pwm.c', 'modmachine.c']]
+src += [str(cwd / 'openmv' / n) for n in ['board_module.c', 'legacy_sensors.c', 'ra8_bus.c', 'ra8_csi.c', 'ra8_usb.c', 'titan_stdio.c', 'titan_display.c']]
+src += files(cwd, 'camera/*.c') + files(cwd, 'memory/*.c')
+src += files(cwd, 'drivers/titan_*.c')
+storage_sources = ['titan_storage.c']
+if GetDepend('BSP_OPENMV_STORAGE_SD'):
+    storage_sources += ['titan_sdhi.c']
+elif GetDepend('BSP_OPENMV_STORAGE_FLASH'):
+    storage_sources += ['titan_flash.c', 'titan_flash_disk.c']
+src += [str(cwd / 'storage' / name) for name in storage_sources]
+src += files(omv, 'common/*.c') + files(omv, 'lib/imlib/*.c')
+src += files(omv, 'modules/*.c') + files(omv, 'drivers/sensors/*.c') + files(omv, 'protocol/*.c')
+src = [s for s in src if Path(s).name not in {'pendsv.c', 'nosys_stubs.c', 'vospi.c', 'omv_csi.c', 'framebuffer.c', 'py_helper.c', 'py_ml.c', 'omv_protocol_channel_stdio.c'}]
+src += [str(cwd / 'drivers/ra8_framebuffer.c'), str(cwd / 'port/titan_py_ml.c')]
+src += files(up / 'ulab/code', '**/*.c')
+src += [str(up / 'apriltag' / n) for n in ['apriltag.c', 'apriltag_quad_thresh.c', 'apriltag_pose.c']]
+# Compile all pinned family dictionaries; apriltag_config.h gates each source
+# with the same IMLIB_ENABLE_APRILTAGS_* switches used by the Python module.
+src += files(up / 'apriltag', 'tag*.c')
+src += [str(up / 'apriltag/common' / (n + '.c')) for n in ['zarray', 'matd', 'homography', 'g2d',
+    'svd22', 'unionfind', 'zmaxheap', 'image_u8', 'image_u8_parallel', 'workerpool', 'pnm']]
+src += [str(cwd / 'port/titan_tflm_backend.cc')]
+# These are the only producer/consumer of OpenMV's AprilTag result structure.
+# Preinclude one checked header to preserve the ninth family bit on both sides.
+apriltag_result_src = [str(omv / name) for name in ('lib/imlib/apriltag.c', 'modules/py_image.c')]
+src = [s for s in src if s not in apriltag_result_src]
+# Match the image/AprilTag sources selected by generate_vision_linker().
+# Keep the VM, Python bindings and drivers on the global size optimization.
+vision_roots = (omv / 'lib/imlib', up / 'apriltag')
+vision_src = [s for s in src if any(Path(s).is_relative_to(root) for root in vision_roots)]
+vision_set = set(vision_src)
+src = [s for s in src if s not in vision_set]
+vision_flags = ' -O3'
+
+groups = [] + DefineGroup('OpenMV5', src, depend=['BSP_USING_OPENMV'],
+                     CPPPATH=[str(p) for p in paths], CPPDEFINES=defines)
+groups += DefineGroup('OpenMV_Vision', vision_src, depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=vision_flags)
+groups += DefineGroup('OpenMV_Vision_AprilTagResult', apriltag_result_src[:1], depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=vision_flags + ' -include platform/port/imlib_titan.h')
+groups += DefineGroup('OpenMV_AprilTagResult', apriltag_result_src[1:], depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=' -include platform/port/imlib_titan.h')
+groups += DefineGroup('OpenMV_VFS', [str(mp / 'extmod' / n) for n in ['vfs_posix.c', 'vfs_posix_file.c']],
+    depend=['BSP_USING_OPENMV'], LOCAL_CCFLAGS=' -include platform/include/vfs_compat.h'
+    ' -Dmp_sys_stdin_obj=ra8_posix_stdin_obj -Dmp_sys_stdout_obj=ra8_posix_stdout_obj -Dmp_sys_stderr_obj=ra8_posix_stderr_obj')
+# Keep the official helper source; its resize call crosses a checked port boundary.
+groups += DefineGroup('OpenMV_ImageHelpers', [str(omv / 'modules/py_helper.c')],
+    depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=' -Dframebuffer_resize=ra8_framebuffer_resize_or_raise')
+
+# The official channel owns its private context; only capture its vstr allocation.
+groups += DefineGroup('OpenMV_StdIO', [str(omv / 'protocol/omv_protocol_channel_stdio.c')],
+    depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=' -Dvstr_init=titan_stdio_vstr_init')
+
+groups += DefineGroup('OpenMV_CSI', [str(omv / 'common/omv_csi.c')], depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=' -Domv_csi_init=omv_csi_init_upstream -Domv_csi_name=omv_csi_name_upstream -Domv_csi_snapshot=omv_csi_snapshot_upstream')
+dsp = []
+for part in ['CommonTables', 'FastMathFunctions', 'BasicMathFunctions', 'TransformFunctions', 'ComplexMathFunctions']:
+    dsp += files(omv / 'lib/cmsis/src/dsp' / part, part + '.c')
+for suffix in ['f32', 'q31', 'q15']:
+    dsp += files(omv / 'lib/cmsis/src/dsp/StatisticsFunctions', 'arm_absmax_' + suffix + '.c')
+    dsp += files(omv / 'lib/cmsis/src/dsp/MatrixFunctions', 'arm_mat_vec_mult_' + suffix + '.c')
+groups += DefineGroup('OpenMV_DSP', dsp, depend=['BSP_USING_OPENMV'],
+    LOCAL_CCFLAGS=vision_flags + ' -DARM_MATH_AUTOVECTORIZE')
+groups += DefineGroup('OpenMV_Frozen', [str(cwd.parent / 'build/generated/frozen_content.c')], depend=['BSP_USING_OPENMV'])
+groups += SConscript(str(cwd / 'tflm/SConscript'))
+groups += SConscript(str(cwd / 'npu/SConscript'))
+groups += SConscript(str(cwd / 'usb/SConscript'))
+groups += SConscript(str(cwd / 'fsp/SConscript'))
+Return('groups')

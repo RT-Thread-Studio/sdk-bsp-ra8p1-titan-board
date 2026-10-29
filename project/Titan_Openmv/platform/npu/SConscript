@@ -1,0 +1,13 @@
+from pathlib import Path
+from building import *
+Import('OPENMV_PLATFORM', 'FSP_ROOT')
+cwd = Path(GetCurrentDir())
+root = cwd.parents[1]
+core = root / 'ThirdParty/ethos-u-core-driver'
+fsp = Path(FSP_ROOT) / 'fsp'
+paths = [str(cwd), str(cwd.parent / 'memory'), str(core / 'include'), str(core / 'src'), str(fsp / 'src/rm_ethosu')]
+src = [str(cwd / 'titan_npu.c'), str(cwd / 'titan_ml_memory.c'), str(cwd / 'titan_ml_workspace.c'), str(cwd / 'titan_ml_auto.c'), str(cwd / 'titan_ethosu_fsp.c')]
+src += [str(core / 'src' / name) for name in ['ethosu_driver.c', 'ethosu_device_u55_u65.c', 'ethosu_pmu.c']]
+groups = DefineGroup('OpenMV_EthosU55', src, depend=['BSP_USING_OPENMV_NPU'], CPPPATH=paths,
+                     CPPDEFINES=['ETHOSU55=1', 'ETHOS_U', 'ETHOSU_SEMAPHORE_WAIT_INFERENCE=5000'])
+Return('groups')

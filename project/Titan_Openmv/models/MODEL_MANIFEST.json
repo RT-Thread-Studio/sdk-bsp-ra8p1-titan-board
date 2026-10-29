@@ -1,0 +1,1955 @@
+{
+  "format_version": 1,
+  "path_base": ".",
+  "path_base_note": "Relative file, labels, example and license.notices paths resolve from path_base, itself relative to this manifest.",
+  "board": "Titan Board RA8P1",
+  "runtime": "OpenMV + Ethos-U55, SRAM GC 1472 KiB",
+  "description": "One final U55-256 artifact per variant; source and intermediate model binaries omitted.",
+  "models": [
+    {
+      "id": "fomo_face_detection",
+      "task": "人脸中心检测",
+      "file": "sdcard/fomo_face_detection_u55_256.tflite",
+      "bytes": 45664,
+      "sha256": "6e9d3869b02c864c6f119cf71d0cdcaf6a6fcf12242cdcc5702d211bffc4aa4d",
+      "labels": "sdcard/fomo_face_detection_u55_256.txt",
+      "example": "../examples/02_机器学习/00_神经网络/tf_object_detection.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/fomo_face_detection.tflite",
+        "filename": "fomo_face_detection.tflite",
+        "sha256": "fc3aec94b4b02dc6819db3e2d63bfd8055c9757fb350008538d4c1604aea4cb4"
+      },
+      "license": {
+        "model": "No separate license statement verified for the OpenMV binary export; retain upstream attribution",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_x:0",
+          "shape": [
+            1,
+            96,
+            96,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            12,
+            12,
+            2
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.00390625
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 147456,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "OpenMV Normalization used by the matching example"
+      },
+      "external_float_boundary": false
+    },
+    {
+      "id": "yolo_lc_192",
+      "task": "单类 person 检测",
+      "file": "sdcard/yolo_lc_192_u55_256.tflite",
+      "bytes": 293344,
+      "sha256": "22de78d275b955a4738203bb37adb004db329e2080980f7a657e09490b87bf07",
+      "labels": "sdcard/yolo_lc_192_u55_256.txt",
+      "example": "../examples/02_机器学习/00_神经网络/yolo_lc_person_detector.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/yolo_lc_192.tflite",
+        "filename": "yolo_lc_192.tflite",
+        "sha256": "49ab539e32a4337a6d9fd379ee348c64c9724806a4b71296dd7df76941192403"
+      },
+      "license": {
+        "model": "No separate license statement verified for the OpenMV binary export; retain upstream attribution",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_input_1:0",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            0
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            12,
+            12,
+            30
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 1,
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 737280,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "OpenMV Normalization used by the matching example"
+      },
+      "external_float_boundary": true
+    },
+    {
+      "id": "yolov8n_192",
+      "task": "单类 person 检测；CPU DFL Softmax",
+      "file": "sdcard/yolov8n_192_u55_256_cpu_softmax.tflite",
+      "bytes": 1951584,
+      "sha256": "285f423d697f27ae417c21387b37288b9f2cb28fa3f0ff5c3a1efc07ab35f497",
+      "labels": "sdcard/yolov8n_192_u55_256_cpu_softmax.txt",
+      "example": "../examples/02_机器学习/00_神经网络/yolo_v8_detector.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/yolov8n_192.tflite",
+        "filename": "yolov8n_192.tflite",
+        "sha256": "039b7a3c84f8ad687ed66749f8214576cf2db8f645fab163e3faac79282c54d1"
+      },
+      "license": {
+        "model": "Source model distribution provides ST SLA0044 terms; see the attached notice and its device-use restrictions",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md",
+          "licenses/openmv_benchmarks/LICENSE.ST.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "CPU Softmax override",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_images:0",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            0
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PartitionedCall:0",
+          "shape": [
+            1,
+            5,
+            756
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 1,
+        "SOFTMAX": 1,
+        "TRANSPOSE": 4,
+        "ethos-u": 5
+      },
+      "npu_calls_per_predict": 5,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 737280,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "OpenMV Normalization used by the matching example"
+      },
+      "external_float_boundary": true
+    },
+    {
+      "id": "face_landmarks_192",
+      "task": "468 人脸关键点",
+      "file": "sdcard/face_landmarks_192_u55_256.tflite",
+      "bytes": 690688,
+      "sha256": "19634240ddc3a2d82720c042ea0f998e71bdeb6cd9bd2479ff2e955526e7db73",
+      "labels": null,
+      "example": "../examples/02_机器学习/00_神经网络/face_landmarks_single_face.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/face_landmarks_192.tflite",
+        "filename": "face_landmarks_192.tflite",
+        "sha256": "3de55e3642698a29a2ca27590be1a13d9371a9dd1afdd90bba5afb28b1638789"
+      },
+      "license": {
+        "model": "No separate license statement verified for the OpenMV binary export; retain upstream attribution",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md",
+          "licenses/LICENSE.mediapipe"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "input_1",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conv2d_20",
+          "shape": [
+            1,
+            1,
+            1,
+            1404
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "name": "conv2d_30",
+          "shape": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 2,
+        "PAD": 3,
+        "QUANTIZE": 1,
+        "ethos-u": 4
+      },
+      "npu_calls_per_predict": 4,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 552960,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "OpenMV Normalization used by the matching example"
+      },
+      "external_float_boundary": true
+    },
+    {
+      "id": "blazeface_front_128",
+      "task": "关键点跟踪前的人脸搜索",
+      "file": "sdcard/blazeface_front_128_u55_256.tflite",
+      "bytes": 164048,
+      "sha256": "eb7e044270e7fa4174a840e7c20c565653aedc8ddf45467fec981dd0915fbf8c",
+      "labels": null,
+      "example": "../examples/02_机器学习/00_神经网络/face_landmarks_single_face.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/blazeface_front_128.tflite",
+        "filename": "blazeface_front_128.tflite",
+        "sha256": "e803bb4e93b10f7a19d4243bcc39698599a723f3128e19d3f90e0b1c0bc88dd8"
+      },
+      "license": {
+        "model": "No separate license statement verified for the OpenMV binary export; retain upstream attribution",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md",
+          "licenses/LICENSE.mediapipe"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_input:0",
+          "shape": [
+            1,
+            128,
+            128,
+            3
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall:2",
+          "shape": [
+            1,
+            512,
+            16
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            512,
+            1
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "name": "StatefulPartitionedCall:1",
+          "shape": [
+            1,
+            384,
+            1
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "name": "StatefulPartitionedCall:3",
+          "shape": [
+            1,
+            384,
+            16
+          ],
+          "dtype": "FLOAT32",
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 4,
+        "PAD": 11,
+        "QUANTIZE": 1,
+        "ethos-u": 12
+      },
+      "npu_calls_per_predict": 12,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 393216,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "OpenMV Normalization used by the matching example"
+      },
+      "external_float_boundary": true
+    },
+    {
+      "id": "vww96",
+      "task": "person/notperson",
+      "file": "sdcard/vww96_u55_256.tflite",
+      "bytes": 109424,
+      "sha256": "2747d0718ff37518e9e742f4b5bb757baa6caa0007e499b3cdee8e8355a1e9d2",
+      "labels": "sdcard/vww96_u55_256.txt",
+      "example": "../examples/02_机器学习/00_神经网络/classification_vww96.py",
+      "source": {
+        "repository": "https://github.com/renesas/ruhmi-model-zoo",
+        "revision": "fe7e84ec6823e9abdfd0553361cf20b1c5dbee42",
+        "url": "https://media.githubusercontent.com/media/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/image_classification/visualwakeword/python/model/vww_96_INT8.tflite",
+        "filename": "vww_96_INT8.tflite",
+        "sha256": "e33215c8d892b1412cc317ab4deff8afcc4f5dd1f56db35b2f4ab2031cf6c056"
+      },
+      "license": {
+        "model": "Apache-2.0 (upstream repository model-license table)",
+        "notices": [
+          "licenses/RENESAS_LICENSE.md",
+          "licenses/APACHE-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_input_1:0",
+          "shape": [
+            1,
+            96,
+            96,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall_1:0",
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.00390625
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "operators": {
+        "PACK": 1,
+        "RESHAPE": 1,
+        "STRIDED_SLICE": 1,
+        "ethos-u": 2
+      },
+      "npu_calls_per_predict": 2,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 73744,
+      "preprocessing": {
+        "color_order": "RGB",
+        "resize": "bilinear resize to model width and height, no implicit center crop",
+        "real_value_formula": "real = RGB pixel / 255.0",
+        "divisor": 255.0,
+        "bias": 0.0,
+        "quantization_formula": "q = clamp(round_to_nearest_even(real / input_scale + input_zero_point), -128, 127)",
+        "source": "https://raw.githubusercontent.com/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/image_classification/visualwakeword/python/inference.py",
+        "source_function_line": 45
+      },
+      "external_float_boundary": false
+    },
+    {
+      "id": "mobilenetv1_025",
+      "task": "ImageNet1000 classification",
+      "file": "sdcard/mobilenetv1_025_u55_256.tflite",
+      "bytes": 512080,
+      "sha256": "60d0d7ac4e8ad37f16660fcccfe5ff0ef21dd073cab1300b1b0dd155ab3f863b",
+      "labels": "sdcard/mobilenetv1_025_u55_256.txt",
+      "example": "../examples/02_机器学习/00_神经网络/classification_mobilenetv1_025.py",
+      "source": {
+        "repository": "https://github.com/renesas/ruhmi-model-zoo",
+        "revision": "fe7e84ec6823e9abdfd0553361cf20b1c5dbee42",
+        "url": "https://media.githubusercontent.com/media/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/image_classification/mobilenetv1/python/model/mobilenet_v1_INT8.tflite",
+        "filename": "mobilenet_v1_INT8.tflite",
+        "sha256": "7c27727bed1480328f5d0d9a942e98a88e34aa9ac410e511ccc50631dfdedc15"
+      },
+      "license": {
+        "model": "Apache-2.0 (upstream repository model-license table)",
+        "notices": [
+          "licenses/RENESAS_LICENSE.md",
+          "licenses/APACHE-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_input_2:0",
+          "shape": [
+            1,
+            224,
+            224,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.007843137718737125
+          ],
+          "zero_point": [
+            -1
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            1000
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.00390625
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 401408,
+      "preprocessing": {
+        "color_order": "RGB",
+        "resize": "bilinear resize to model width and height, no implicit center crop",
+        "real_value_formula": "real = RGB pixel / 127.5 - 1.0",
+        "divisor": 127.5,
+        "bias": -1.0,
+        "quantization_formula": "q = clamp(round_to_nearest_even(float32(real / input_scale)) + input_zero_point, -128, 127), matching upstream inference.py",
+        "source": "https://raw.githubusercontent.com/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/image_classification/mobilenetv1/python/inference.py",
+        "source_function_line": 28
+      },
+      "external_float_boundary": false
+    },
+    {
+      "id": "blazeface128",
+      "task": "face boxes and six keypoints",
+      "file": "sdcard/blazeface128_u55_256.tflite",
+      "bytes": 163200,
+      "sha256": "839a541be623a81ac02f7e9611c18fd47198b4b16973e0c1448472e53df66dfd",
+      "labels": null,
+      "example": "../examples/02_机器学习/00_神经网络/blazeface_renesas.py",
+      "source": {
+        "repository": "https://github.com/renesas/ruhmi-model-zoo",
+        "revision": "fe7e84ec6823e9abdfd0553361cf20b1c5dbee42",
+        "url": "https://media.githubusercontent.com/media/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/face_detection/blazeface/python/model/blazeface_front_int8.tflite",
+        "filename": "blazeface_front_int8.tflite",
+        "sha256": "7198c5dd13c20c1b32be91f33a4a96b4f9b6b6ead54bc5e82f643ea998ef9407"
+      },
+      "license": {
+        "model": "Apache-2.0 (upstream repository model-license table)",
+        "notices": [
+          "licenses/RENESAS_LICENSE.md",
+          "licenses/APACHE-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_input:0",
+          "shape": [
+            1,
+            128,
+            128,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall:2",
+          "shape": [
+            1,
+            512,
+            16
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.3177529275417328
+          ],
+          "zero_point": [
+            -40
+          ]
+        },
+        {
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            512,
+            1
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.03629210218787193
+          ],
+          "zero_point": [
+            46
+          ]
+        },
+        {
+          "name": "StatefulPartitionedCall:1",
+          "shape": [
+            1,
+            384,
+            1
+          ],
+          "dtype": "INT8",
+          "scale": [
+            1.3571407794952393
+          ],
+          "zero_point": [
+            126
+          ]
+        },
+        {
+          "name": "StatefulPartitionedCall:3",
+          "shape": [
+            1,
+            384,
+            16
+          ],
+          "dtype": "INT8",
+          "scale": [
+            1.2865246534347534
+          ],
+          "zero_point": [
+            -56
+          ]
+        }
+      ],
+      "operators": {
+        "PAD": 11,
+        "ethos-u": 12
+      },
+      "npu_calls_per_predict": 12,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 393216,
+      "preprocessing": {
+        "color_order": "RGB",
+        "resize": "bilinear resize to model width and height, no implicit center crop",
+        "real_value_formula": "real = RGB pixel / 255.0",
+        "divisor": 255.0,
+        "bias": 0.0,
+        "quantization_formula": "q = clamp(round_to_nearest_even(real / input_scale + input_zero_point), -128, 127)",
+        "source": "https://raw.githubusercontent.com/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/face_detection/blazeface/python/inference.py",
+        "source_function_line": 75
+      },
+      "external_float_boundary": false
+    },
+    {
+      "id": "resnet8",
+      "task": "CIFAR10 classification",
+      "file": "sdcard/resnet8_u55_256.tflite",
+      "bytes": 235440,
+      "sha256": "0eb81235539041d423bca6c67fe10bd0a917fd60d8658ab5c4e2a4dc01d92f06",
+      "labels": "sdcard/resnet8_u55_256.txt",
+      "example": "../examples/02_机器学习/00_神经网络/classification_resnet8.py",
+      "source": {
+        "repository": "https://github.com/renesas/ruhmi-model-zoo",
+        "revision": "fe7e84ec6823e9abdfd0553361cf20b1c5dbee42",
+        "url": "https://media.githubusercontent.com/media/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/image_classification/resnet8/python/model/Resnet_int8.tflite",
+        "filename": "Resnet_int8.tflite",
+        "sha256": "5339721f7f057a1613e20ce83db6188f2c43f6d0eeb7a5a4756d086b6879057d"
+      },
+      "license": {
+        "model": "Apache-2.0 (upstream repository model-license table)",
+        "notices": [
+          "licenses/RENESAS_LICENSE.md",
+          "licenses/APACHE-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "name": "serving_default_input_1:0",
+          "shape": [
+            1,
+            32,
+            32,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            1.0
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall_1:0",
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.00390625
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "operators": {
+        "PACK": 1,
+        "RESHAPE": 1,
+        "STRIDED_SLICE": 1,
+        "ethos-u": 2
+      },
+      "npu_calls_per_predict": 2,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 98320,
+      "preprocessing": {
+        "color_order": "RGB",
+        "resize": "bilinear resize to model width and height, no implicit center crop",
+        "real_value_formula": "real = RGB pixel (0..255)",
+        "divisor": 1.0,
+        "bias": 0.0,
+        "quantization_formula": "q = int8(float32(pixel / input_scale + input_zero_point)); scale=1 and zero_point=-128 make this exactly pixel-128",
+        "source": "https://raw.githubusercontent.com/renesas/ruhmi-model-zoo/fe7e84ec6823e9abdfd0553361cf20b1c5dbee42/vision/image_classification/resnet8/python/inference.py",
+        "source_function_line": 37
+      },
+      "external_float_boundary": false
+    },
+    {
+      "id": "movenet_singlepose_192",
+      "task": "人体17关键点",
+      "file": "sdcard/movenet_singlepose_192_u55_256.tflite",
+      "bytes": 2505296,
+      "sha256": "a4cb5029d075af7cdd1d7fd6a91c2af4c42466ff86f5596b01ea0b47b2bd6e71",
+      "example": "../examples/02_机器学习/00_神经网络/movenet_singlepose_detection.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/movenet_singlepose_192.tflite",
+        "filename": "movenet_singlepose_192.tflite",
+        "sha256": "c526d48ed3d02fd3d21bb4c9902ae8920d064c81d01dbb8e2655c846f643c360",
+        "bundled_on": "OPENMV_AE3/romfs_config.json"
+      },
+      "license": {
+        "model": "Retain upstream OpenMV/MediaPipe notices; no additional model binary license asserted",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "index": 6,
+          "name": "serving_default_input_2:0",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale_count": 1,
+          "zero_point_count": 1,
+          "scale": [
+            0.007843137718737125
+          ],
+          "zero_point": [
+            127
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "index": 0,
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            48,
+            48,
+            17
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 1,
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 1105920,
+      "external_float_boundary": true,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Matching official OpenMV preprocessing; UINT8 pixel input"
+      }
+    },
+    {
+      "id": "palm_detection_full_192",
+      "task": "手掌检测",
+      "file": "sdcard/palm_detection_full_192_u55_256.tflite",
+      "bytes": 1307824,
+      "sha256": "3b9e464da5b1f4798fef84ca9ef1e60d9f077448a6020f25d78a7394997f9c54",
+      "example": "../examples/02_机器学习/00_神经网络/hand_landmarks_single_hand.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/palm_detection_full_192.tflite",
+        "filename": "palm_detection_full_192.tflite",
+        "sha256": "27d8512af80d612b81f8accacdc77db8b00f834f6fc9fd01e90485d5f5c282c7",
+        "bundled_on": "OPENMV_AE3/romfs_config.json"
+      },
+      "license": {
+        "model": "Retain upstream OpenMV/MediaPipe notices; no additional model binary license asserted",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "index": 24,
+          "name": "new_input_tensor",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale_count": 1,
+          "zero_point_count": 1,
+          "scale": [
+            0.003921568393707275
+          ],
+          "zero_point": [
+            0
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "index": 2,
+          "name": "Identity_1:0",
+          "shape": [
+            1,
+            2016,
+            1
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "index": 0,
+          "name": "Identity:0",
+          "shape": [
+            1,
+            2016,
+            18
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 2,
+        "PAD": 3,
+        "ethos-u": 4
+      },
+      "npu_calls_per_predict": 4,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 884736,
+      "external_float_boundary": true,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Matching official OpenMV preprocessing; UINT8 pixel input"
+      }
+    },
+    {
+      "id": "hand_landmarks_full_224",
+      "task": "单手21关键点跟踪",
+      "file": "sdcard/hand_landmarks_full_224_u55_256.tflite",
+      "bytes": 2241168,
+      "sha256": "76c1807ddb44f99bcaf88af1a243d7d4b38bc76453dd511653fd76c2fde596e1",
+      "example": "../examples/02_机器学习/00_神经网络/hand_landmarks_single_hand.py",
+      "source": {
+        "repository": "https://github.com/openmv/openmv",
+        "revision": "631681e5ac5ab332c920b6bf9cd3dba5cf299eac",
+        "url": "https://raw.githubusercontent.com/openmv/openmv/631681e5ac5ab332c920b6bf9cd3dba5cf299eac/lib/models/hand_landmarks_full_224.tflite",
+        "filename": "hand_landmarks_full_224.tflite",
+        "sha256": "c5ebdcb9aa66848d483aad4d7cd44406c03cbf4fb7275633298a30e6251aa2d9",
+        "bundled_on": "OPENMV_AE3/romfs_config.json"
+      },
+      "license": {
+        "model": "Retain upstream OpenMV/MediaPipe notices; no additional model binary license asserted",
+        "notices": [
+          "licenses/OPENMV_MODEL_NOTICES.md"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "4.0.1",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "placement": "Vela default",
+        "config_available": false,
+        "reproduction_note": "Original compiler configuration is not included; the recorded command settings alone do not guarantee byte-identical recompilation."
+      },
+      "inputs": [
+        {
+          "index": 12,
+          "name": "new_input_tensor",
+          "shape": [
+            1,
+            224,
+            224,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale_count": 1,
+          "zero_point_count": 1,
+          "scale": [
+            0.003921568393707275
+          ],
+          "zero_point": [
+            0
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "index": 4,
+          "name": "Identity_2:0",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "index": 6,
+          "name": "Identity_3:0",
+          "shape": [
+            1,
+            63
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "index": 2,
+          "name": "Identity_1:0",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        },
+        {
+          "index": 0,
+          "name": "Identity:0",
+          "shape": [
+            1,
+            63
+          ],
+          "dtype": "FLOAT32",
+          "scale_count": 0,
+          "zero_point_count": 0,
+          "scale": [],
+          "zero_point": []
+        }
+      ],
+      "operators": {
+        "DEQUANTIZE": 4,
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000000000610",
+      "compiler_scratch_bytes": 1204224,
+      "external_float_boundary": true,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Matching official OpenMV preprocessing; UINT8 pixel input"
+      }
+    },
+    {
+      "id": "yolov8n_coco80_192",
+      "task": "COCO80 常见物品目标检测；输出位置、类别和分数",
+      "file": "sdcard/yolov8n_coco80_192_u55_256.tflite",
+      "bytes": 2138512,
+      "sha256": "f901a2112d2e90241c38f55ba6a94befe265e63ea9b4f22e9aa52bff608cb808",
+      "labels": "sdcard/yolov8n_coco80_192_u55_256.txt",
+      "example": "../examples/02_机器学习/00_神经网络/yolov8_coco80_detector.py",
+      "source": {
+        "repository": "https://github.com/HimaxWiseEyePlus/YOLOv8_on_WE2",
+        "revision": "2483a5ebe99576947ecf7e4564aff9cec93fa373",
+        "url": "https://raw.githubusercontent.com/HimaxWiseEyePlus/YOLOv8_on_WE2/2483a5ebe99576947ecf7e4564aff9cec93fa373/vela/img_yolov8_192/yolov8n_full_integer_quant_size_192.tflite",
+        "bytes": 3247088,
+        "sha256": "2dda256475a9a65d3a9272ef7f8e7a33d43e7ff6b8ea110c5b34810e4cf39e5b",
+        "filename": "yolov8n_full_integer_quant_size_192.tflite"
+      },
+      "license": {
+        "model": "Ultralytics-derived COCO pretrained weights; retain AGPL-3.0 upstream terms and Himax reference-code MIT notices",
+        "notices": [
+          "licenses/LICENSE.Himax-MIT.txt",
+          "licenses/LICENSE.Ultralytics-AGPL-3.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "placement": "Default Regor; no CPU-placement override",
+        "cop_format": "COP1",
+        "historical_reproduce_script": "../platform/tools/compile_coco_detector.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 895104,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV Normalization, RGB bytes minus 128, aspect-ignore resize"
+      },
+      "external_float_boundary": false,
+      "inputs": [
+        {
+          "name": "serving_default_images:0",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PartitionedCall:0",
+          "shape": [
+            1,
+            84,
+            756
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.006085699889808893
+          ],
+          "zero_point": [
+            -110
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yolov8n_pose_192",
+      "task": "多人17关键点姿态和骨架",
+      "file": "sdcard/yolov8n_pose_192_u55_256.tflite",
+      "bytes": 2227984,
+      "sha256": "5090fd8cc10d04271b6f73ffb4c33d50927417a7934bd21bb3a9aaf13be330e0",
+      "labels": "sdcard/yolov8n_pose_192_u55_256.txt",
+      "labels_sha256": "a1086ad8314cb79effc03061fab45b65c0ce5ca1d6f16a5bab97d180ee3b8b69",
+      "example": "../examples/02_机器学习/00_神经网络/yolov8n_pose.py",
+      "source": {
+        "url": "https://raw.githubusercontent.com/HimaxWiseEyePlus/YOLOv8_on_WE2/2483a5ebe99576947ecf7e4564aff9cec93fa373/vela/img_yolov8_pose_192/yolov8n-pose_full_integer_quant.tflite",
+        "revision": "2483a5ebe99576947ecf7e4564aff9cec93fa373",
+        "filename": "yolov8n-pose_full_integer_quant.tflite",
+        "sha256": "9afa02dc13e6f5b69de6a2a63eb5ea739b9ec9aacaf6aac878ada64dbd0ac61d"
+      },
+      "license": {
+        "model": "Retain the model-specific source and weight notices; see vision_extensions/README.md",
+        "notices": [
+          "licenses/vision_extensions/licenses/Himax-MIT.txt",
+          "licenses/vision_extensions/licenses/Ultralytics-AGPL-3.0.txt",
+          "licenses/vision_extensions/licenses/Apache-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_vision_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 294912,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV integer Normalization; full captured image resize"
+      },
+      "postprocessing": "INT8 class filtering; bounded DFL boxes, sigmoid keypoints, NMS; 7 raw outputs",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 296976,
+      "inputs": [
+        {
+          "name": "serving_default_images:0",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PartitionedCall:0",
+          "shape": [
+            1,
+            144,
+            64
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.0743677094578743
+          ],
+          "zero_point": [
+            -72
+          ]
+        },
+        {
+          "name": "PartitionedCall:6",
+          "shape": [
+            1,
+            576,
+            64
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.08505406230688095
+          ],
+          "zero_point": [
+            -64
+          ]
+        },
+        {
+          "name": "PartitionedCall:4",
+          "shape": [
+            1,
+            36,
+            1
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.14908528327941895
+          ],
+          "zero_point": [
+            107
+          ]
+        },
+        {
+          "name": "PartitionedCall:5",
+          "shape": [
+            1,
+            756,
+            51
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.05130333825945854
+          ],
+          "zero_point": [
+            5
+          ]
+        },
+        {
+          "name": "PartitionedCall:2",
+          "shape": [
+            1,
+            576,
+            1
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.09354444593191147
+          ],
+          "zero_point": [
+            110
+          ]
+        },
+        {
+          "name": "PartitionedCall:1",
+          "shape": [
+            1,
+            36,
+            64
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.0694025531411171
+          ],
+          "zero_point": [
+            -64
+          ]
+        },
+        {
+          "name": "PartitionedCall:3",
+          "shape": [
+            1,
+            144,
+            1
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.1864520013332367
+          ],
+          "zero_point": [
+            116
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unet_mobilenetv2_128",
+      "task": "Oxford-IIIT Pet三类像素分割（pet/background/border）",
+      "file": "sdcard/unet_mobilenetv2_128_u55_256.tflite",
+      "bytes": 5972032,
+      "sha256": "58b96b2cf2db9b0640a1d243828cd2fb374e178d8634b3aa01568115f1b03fae",
+      "labels": "sdcard/unet_mobilenetv2_128_u55_256.txt",
+      "labels_sha256": "3ab306ad74c8daa53b7fa1e511cdabbc1380a03b817cd2afae849b687118160f",
+      "example": "../examples/02_机器学习/00_神经网络/unet_pet_segmentation.py",
+      "source": {
+        "url": "https://raw.githubusercontent.com/google-coral/test_data/104342d2d3480b3e66203073dac24f4e2dbb4c41/keras_post_training_unet_mv2_128_quant.tflite",
+        "revision": "104342d2d3480b3e66203073dac24f4e2dbb4c41",
+        "filename": "keras_post_training_unet_mv2_128_quant.tflite",
+        "sha256": "b0c80019a59098aee2554167936224cf98dd3038251756df1929e91349a21f49"
+      },
+      "license": {
+        "model": "Retain the model-specific source and weight notices; see vision_extensions/README.md",
+        "notices": [
+          "licenses/vision_extensions/licenses/Google-Coral-Apache-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_vision_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 1310720,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV integer Normalization; full captured image resize"
+      },
+      "postprocessing": "Raw UINT8 argmax to 16 KiB mask; palette overlay, no full float tensor clone",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 1311632,
+      "inputs": [
+        {
+          "name": "input_2",
+          "shape": [
+            1,
+            128,
+            128,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale": [
+            0.007843137718737125
+          ],
+          "zero_point": [
+            127
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Identity",
+          "shape": [
+            1,
+            128,
+            128,
+            3
+          ],
+          "dtype": "UINT8",
+          "scale": [
+            0.16552436351776123
+          ],
+          "zero_point": [
+            120
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swift_yolo_gesture_192",
+      "task": "剪刀、石头、布手势检测框",
+      "file": "sdcard/swift_yolo_gesture_192_u55_256.tflite",
+      "bytes": 775136,
+      "sha256": "f9fd82b4936d5620ca3666f0bcf18456f62b22714c4468bb37b8baa59c8010a9",
+      "labels": "sdcard/swift_yolo_gesture_192_u55_256.txt",
+      "labels_sha256": "d727b42c3d3aac73aad49d74a7f9aabeaf0c80dec8a92156f7c9fabf0baaae30",
+      "example": "../examples/02_机器学习/00_神经网络/swift_yolo_gesture.py",
+      "source": {
+        "url": "https://files.seeedstudio.com/sscma/model_zoo/detection/gesture/swift_yolo_1xb16_300e_coco_sha1_8d25b2b0be2a0ea38d3fe0aca5ce3891f7aa67c5.tflite",
+        "revision": "67c5d10027a3e8877818e197a1bde3989ef760b1",
+        "revision_scope": "Model-card and license revision; CDN model bytes are pinned separately by SHA-256",
+        "model_card": "https://github.com/Seeed-Studio/sscma-model-zoo/blob/67c5d10027a3e8877818e197a1bde3989ef760b1/docs/en/Gesture_Detection_Swift-YOLO_192.md",
+        "filename": "swift_yolo_1xb16_300e_coco_sha1_8d25b2b0be2a0ea38d3fe0aca5ce3891f7aa67c5.tflite",
+        "sha256": "f6c4f4b84a66319160de2a4689121b264efdad753256081998321969536aeb8f"
+      },
+      "license": {
+        "model": "MIT per pinned Seeed model card and model-zoo LICENSES; see vision_192/README.md",
+        "notices": [
+          "licenses/vision_192/licenses/Seeed-Model-Zoo-MIT.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_192_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 258048,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV integer Normalization; full captured image resize"
+      },
+      "postprocessing": "Decoded pixel xywh; percent column-4 score /100; argmax columns5+; OpenMV SoftNMS and ROI mapping. No sigmoid, anchor decode, or objectness*class multiplication.",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 258960,
+      "inputs": [
+        {
+          "name": "input.7_te_transform",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Xq.1",
+          "shape": [
+            1,
+            2268,
+            8
+          ],
+          "dtype": "INT8",
+          "scale": [
+            1.4907417297363281
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swift_yolo_pet_192",
+      "task": "猫狗检测框",
+      "file": "sdcard/swift_yolo_pet_192_u55_256.tflite",
+      "bytes": 767232,
+      "sha256": "e42a7337b08edd6fcac7b04dff235bbc0dcd82147ea792c89b436bac0279dfb2",
+      "labels": "sdcard/swift_yolo_pet_192_u55_256.txt",
+      "labels_sha256": "f641fdcd8af73b2f6334ab63c13d2eb857cd16f2aa4ea0ba20ba0eb9627918b5",
+      "example": "../examples/02_机器学习/00_神经网络/swift_yolo_pet.py",
+      "source": {
+        "url": "https://files.seeedstudio.com/sscma/model_zoo/detection/animal/animal_detection_int8.tflite",
+        "revision": "67c5d10027a3e8877818e197a1bde3989ef760b1",
+        "revision_scope": "Model-card and license revision; CDN model bytes are pinned separately by SHA-256",
+        "model_card": "https://github.com/Seeed-Studio/sscma-model-zoo/blob/67c5d10027a3e8877818e197a1bde3989ef760b1/docs/en/Pet_Detection_Swift-YOLO_192.md",
+        "filename": "animal_detection_int8.tflite",
+        "sha256": "a7f7fac9cbb345a7c37800239f899fbb320f8a9ff6b5f866b94777eacc30f796"
+      },
+      "license": {
+        "model": "MIT per pinned Seeed model card and model-zoo LICENSES; see vision_192/README.md",
+        "notices": [
+          "licenses/vision_192/licenses/Seeed-Model-Zoo-MIT.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_192_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 258048,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV integer Normalization; full captured image resize"
+      },
+      "postprocessing": "Decoded pixel xywh; percent column-4 score /100; argmax columns5+; OpenMV SoftNMS and ROI mapping. No sigmoid, anchor decode, or objectness*class multiplication.",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 258960,
+      "inputs": [
+        {
+          "name": "input.7_te_transform",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Xq.1",
+          "shape": [
+            1,
+            2268,
+            7
+          ],
+          "dtype": "INT8",
+          "scale": [
+            1.6828057765960693
+          ],
+          "zero_point": [
+            -126
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swift_yolo_person_nano_192",
+      "task": "行人检测框",
+      "file": "sdcard/swift_yolo_person_nano_192_u55_256.tflite",
+      "bytes": 1633648,
+      "sha256": "5865224549be093dc4d1ea073ba1c23292d7464abbb7a0f0213ba3481bc02357",
+      "labels": "sdcard/swift_yolo_person_nano_192_u55_256.txt",
+      "labels_sha256": "51d7a35f479052ab571dc6996a486c94d766358e9dab8d223c98e455544e8080",
+      "example": "../examples/02_机器学习/00_神经网络/swift_yolo_person.py",
+      "source": {
+        "url": "https://files.seeedstudio.com/sscma/model_zoo/detection/person/swift_yolo_nano_person_192_int8.tflite",
+        "revision": "67c5d10027a3e8877818e197a1bde3989ef760b1",
+        "revision_scope": "Model-card and license revision; CDN model bytes are pinned separately by SHA-256",
+        "model_card": "https://github.com/Seeed-Studio/sscma-model-zoo/blob/67c5d10027a3e8877818e197a1bde3989ef760b1/docs/en/person_Detection_Swift-YOLO_Nano_192.md",
+        "filename": "swift_yolo_nano_person_192_int8.tflite",
+        "sha256": "3093f0da7cf4c1657ec5739e61f267eef595bd5b2a19b73a080e72c1c5019fb6"
+      },
+      "license": {
+        "model": "MIT per pinned Seeed model card and model-zoo LICENSES; see vision_192/README.md",
+        "notices": [
+          "licenses/vision_192/licenses/Seeed-Model-Zoo-MIT.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_192_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 258048,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV integer Normalization; full captured image resize"
+      },
+      "postprocessing": "Decoded pixel xywh; percent column-4 score /100; argmax columns5+; OpenMV SoftNMS and ROI mapping. No sigmoid, anchor decode, or objectness*class multiplication.",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 258960,
+      "inputs": [
+        {
+          "name": "input.7_te_transform",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Xq.1",
+          "shape": [
+            1,
+            2268,
+            6
+          ],
+          "dtype": "INT8",
+          "scale": [
+            2.0924370288848877
+          ],
+          "zero_point": [
+            -124
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yolo_fastest_face_192",
+      "task": "灰度人脸检测框",
+      "file": "sdcard/yolo_fastest_face_192_u55_256.tflite",
+      "bytes": 367280,
+      "sha256": "d6c4d34064ab7416de63d5fc72db4c1ab23132a25f83adc76660b93c69365a15",
+      "labels": "sdcard/yolo_fastest_face_192_u55_256.txt",
+      "labels_sha256": "98d57c25a2bed283c090bc2508078faff041262880bec9b6b744e6372d4a5f09",
+      "example": "../examples/02_机器学习/00_神经网络/yolo_fastest_face.py",
+      "source": {
+        "url": "https://media.githubusercontent.com/media/emza-vs/ModelZoo/41200a3083eb8eb6414344fc6d78b1ec1ee706be/object_detection/yolo-fastest_192_face_v4.tflite",
+        "revision": "41200a3083eb8eb6414344fc6d78b1ec1ee706be",
+        "revision_scope": "Pinned Emza ModelZoo source model and Apache-2.0 license revision",
+        "model_card": "https://github.com/arm-examples/cmsis-mlek/blob/6d60f439dfe209d8253e8fa516396dd3dc86adaf/template/video/ML/model/yolo-fastest_192_face_v4.tflite.c",
+        "filename": "yolo-fastest_192_face_v4.tflite",
+        "sha256": "e94bcdb011784bead70ab0c0e9d2dae1a9ea5f103b43e1e6fac3019302cf71ab"
+      },
+      "license": {
+        "model": "Apache-2.0, Emza/Arm-referenced source model; see vision_192/README.md",
+        "notices": [
+          "licenses/vision_192/licenses/Emza-ModelZoo-Apache-2.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_192_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 368640,
+      "preprocessing": {
+        "color_order": "GRAYSCALE",
+        "runner": "Full-frame grayscale bilinear resize 192x192 then byte minus128; matches Arm uint8-to-int8 contract. OpenMV Normalization directly supports this."
+      },
+      "postprocessing": "Sigmoid objectness times sigmoid class probability, sigmoid center, exp size, corresponding two anchor groups; hard IoU NMS0.45. Bounded60 best score candidates /16 faces.",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 369744,
+      "inputs": [
+        {
+          "name": "image_input",
+          "shape": [
+            1,
+            192,
+            192,
+            1
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.00392117677256465
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Identity",
+          "shape": [
+            1,
+            6,
+            6,
+            18
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.13408391177654266
+          ],
+          "zero_point": [
+            47
+          ]
+        },
+        {
+          "name": "Identity_1",
+          "shape": [
+            1,
+            12,
+            12,
+            18
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.18535925447940826
+          ],
+          "zero_point": [
+            10
+          ]
+        }
+      ],
+      "model_scope": "Arm-referenced Emza WIDERFACE+private training model; not the separately trained RT-Thread USE.zip weights. No FPS claim from RT-Thread applies."
+    },
+    {
+      "id": "yolov5n6_xiao_voc20_192",
+      "task": "VOC20目标检测框（不含杯子、手机）",
+      "file": "sdcard/yolov5n6_xiao_voc20_192_u55_256.tflite",
+      "bytes": 546848,
+      "sha256": "18bca0fa49b3c0c7fdfaaf7d530116e1410b684709ac91baec0ac2aaeee69dc4",
+      "labels": "sdcard/yolov5n6_xiao_voc20_192_u55_256.txt",
+      "labels_sha256": "f14861775969fd006b382e005f96dc811ef062ea4a37356efb70d7775e90f743",
+      "example": "../examples/02_机器学习/00_神经网络/yolov5_xiao_voc20.py",
+      "source": {
+        "url": null,
+        "revision": "b246faed8ceaefd67105420214fb93154de66c9d",
+        "revision_scope": "Seeed source/exporter revision; official release PT and generated TFLite are SHA-pinned separately",
+        "model_card": "https://github.com/Seeed-Studio/yolov5-swift/tree/b246faed8ceaefd67105420214fb93154de66c9d",
+        "filename": "yolov5n6_xiao_voc20_192_int8.tflite",
+        "sha256": "73acabfc0f3cac8b01d636bdebb6c74dda4151e6352744f6ed106da958a33d64",
+        "weights_url": "https://github.com/Seeed-Studio/yolov5-swift/releases/download/v0.1.0-alpha/yolov5n6-xiao.pt",
+        "weights_sha256": "dccb2d138d5c8f566d5df104097d8a417655c9d518bfa486ab5bf6d25ef39da7",
+        "source_archive_sha256": "0c70f221b570354019a85a7cc12361146aaa1132fa234da1d73778dd3f74edc3",
+        "historical_generated_source_command": [
+          "build/yolov5-xiao192/env/Scripts/python.exe",
+          "-X",
+          "utf8",
+          "platform/tools/export_yolov5_xiao.py",
+          "--download"
+        ],
+        "export_tools_available": false,
+        "export_note": "Historical development export tools are not distributed with the release source."
+      },
+      "license": {
+        "model": "GPL-3.0 (Seeed-Studio YOLOv5 Swift code and published pretrained weights); see vision_192/README.md",
+        "notices": [
+          "licenses/vision_192/licenses/Seeed-YOLOv5-Swift-GPL-3.0.txt"
+        ]
+      },
+      "compilation": {
+        "compiler": "ethos-u-vela",
+        "version": "5.1.0",
+        "accelerator": "ethos-u55-256",
+        "memory_mode": "Sram_Only",
+        "system_config": "Ethos_U55_High_End_Embedded",
+        "optimise": "Performance",
+        "config": "Vela bundled Arm/vela.ini",
+        "cop_format": "COP1",
+        "placement": "Default Regor, no CPU placement override",
+        "historical_reproduce_script": "../platform/tools/compile_192_models.py",
+        "reproduction_tools_available": false,
+        "reproduction_note": "Historical development script is not distributed with the release source; source provenance, compiler settings and artifact hashes are retained."
+      },
+      "operators": {
+        "ethos-u": 1
+      },
+      "npu_calls_per_predict": 1,
+      "cop1_header": "434f5031010010000830000001600610",
+      "compiler_scratch_bytes": 294912,
+      "preprocessing": {
+        "color_order": "RGB",
+        "runner": "Official OpenMV integer Normalization; full-frame192 stretch; input bytes minus128"
+      },
+      "postprocessing": "Normalized xywh; confidence=objectness*best class probability; top60; OpenMV NMS",
+      "external_float_boundary": false,
+      "storage_requirement": "FAT/FAT32 SD card with sufficient free space",
+      "host_arena_bytes": 295824,
+      "inputs": [
+        {
+          "name": "serving_default_images:0_int8",
+          "shape": [
+            1,
+            192,
+            192,
+            3
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.003921568859368563
+          ],
+          "zero_point": [
+            -128
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "StatefulPartitionedCall:0_int8",
+          "shape": [
+            1,
+            2295,
+            25
+          ],
+          "dtype": "INT8",
+          "scale": [
+            0.005157493986189365
+          ],
+          "zero_point": [
+            -126
+          ]
+        }
+      ],
+      "model_scope": "VOC20 release checkpoint; earlier COCO80 assumption was corrected after checking checkpoint nc and names; official tiny checkpoint instead has 11 digit/N classes.",
+      "quantization": {
+        "method": "post-training full INT8",
+        "calibration_images": 128,
+        "dataset": "COCO128",
+        "exporter_fix": "Preserve trained SiLU, not upstream accidental LeakyReLU substitution",
+        "torch_tf_max_abs_error": 2.205371856689453e-06
+      }
+    }
+  ]
+}

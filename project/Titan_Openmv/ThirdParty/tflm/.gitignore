@@ -1,0 +1,15 @@
+/bazel-*
+/compile_commands.json
+*.swp
+.vscode/
+*audio_frontend*
+*google*
+*__pycache__*
+venv
+gen
+
+# Ignore the directory in which `clangd` stores its local index.
+/.cache/
+
+# Ignore the `external` symlink added by `bazel-compile-commands-extractor`
+/external

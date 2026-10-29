@@ -1,0 +1,34 @@
+"""Package the linked image using the shared firmware format."""
+from pathlib import Path
+import shutil
+import subprocess
+from tools.firmware import ELF, vision_image
+Import('env', 'rtconfig', 'link_target')
+
+def package_firmware(target, source, env):
+    paths = [Path(node.abspath) for node in target]
+    patched, blob = vision_image(ELF(Path(source[0].abspath)))
+    for path in paths:
+        path.parent.mkdir(parents=True, exist_ok=True)
+    paths[0].write_bytes(patched)
+    paths[2].write_bytes(blob)
+    subprocess.run([str(Path(rtconfig.EXEC_PATH) / rtconfig.OBJCPY),
+                    '-R', '.openmv_vision', '-O', 'ihex', str(paths[0]), str(paths[1])],
+                   check=True)
+    subprocess.run([str(Path(rtconfig.EXEC_PATH) / rtconfig.SIZE), str(paths[0])],
+                   check=True)
+    shutil.copyfile(paths[1], paths[3])
+    shutil.copyfile(paths[2], paths[4])
+    return 0
+
+
+root = Path(Dir('#').abspath)
+package = env.Command(
+    [str(root / name) for name in (
+        'build/firmware/rtthread.elf', 'build/firmware/rtthread.hex',
+        'build/firmware/openmv-vision.bin', 'firmware/rtthread.hex',
+        'firmware/openmv-vision.bin')],
+    str(root / link_target),
+    Action(package_firmware, 'Package internal HEX and compressed vision image'))
+env.Depends(package, str(root / 'board/firmware/SConscript'))
+Return('package')

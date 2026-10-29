@@ -1,0 +1,5 @@
+# Project-maintained storage selection view; SDK sources remain unchanged.
+source "$RTT_DIR/src/Kconfig"
+source "$RTT_DIR/libcpu/Kconfig"
+source "$BSP_DIR/platform/port/storage_kconfig/Kconfig.components"
+source "$RTT_DIR/examples/utest/testcases/Kconfig"

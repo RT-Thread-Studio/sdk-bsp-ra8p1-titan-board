@@ -1,0 +1,6 @@
+"""Generate the same MicroPython sources used by the native Make build."""
+from tools.micropython_gen import generate
+from tools.native_project import build_settings
+Import('env', 'projects', 'rtconfig')
+if not GetOption('clean'):
+    generate(Dir('#').abspath, build_settings(Dir('#').abspath, env, projects, rtconfig))

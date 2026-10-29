@@ -1,0 +1,54 @@
+# Hardware resources reserved by the Titan Board OpenMV application.
+menu "Titan Board hardware"
+    config SOC_R7KA8P1KF
+        bool
+        default y
+        select SOC_SERIES_R7KA8P1_CORE0
+    config BSP_USING_GPIO
+        bool
+        default y
+        select RT_USING_PIN
+    config BSP_USING_UART
+        bool
+        default y
+        select RT_USING_SERIAL
+    config BSP_USING_UART8
+        bool
+        default y
+    config BSP_UART8_RX_BUFSIZE
+        int
+        default 256
+    config BSP_UART8_TX_BUFSIZE
+        int
+        default 0
+    config BSP_USING_HW_I2C
+        bool
+        default y
+        select RT_USING_I2C
+    config BSP_USING_HW_I2C0
+        bool
+        default y
+    config BSP_USING_HW_I2C1
+        bool "Enable I2C1 on P511/P512 (CEU connector)"
+        default y
+    config BSP_USING_HYPERRAM
+        bool
+        default y
+    config BSP_USING_HYPERRAM_SIZE
+        hex
+        default 0x02000000
+    config BSP_USING_SDHI
+        bool
+        select RT_USING_SDIO
+    config BSP_USING_SDHI0
+        bool
+    config BSP_SDHI0_BUS_WIDTH
+        int
+        default 1
+    config BSP_USING_MIPI_CSI_CAMERA
+        bool
+        default y
+    config BSP_USING_MIPI_CSI_CAMERA_I2C
+        string
+        default "i2c0"
+endmenu

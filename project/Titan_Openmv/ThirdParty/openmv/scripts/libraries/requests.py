@@ -1,0 +1,236 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2013, 2014 micropython-lib contributors
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+# Source: improved version of micropython-lib's requests.
+# Some useful links for future updates:
+# https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4
+# https://docs.python-requests.org/en/master/
+
+import socket
+import binascii
+
+
+class Response:
+    def __init__(self, code, reason, headers=None, content=None):
+        self.encoding = "utf-8"
+        self._content = content
+        self._headers = headers
+        self.reason = reason
+        self.status_code = code
+
+    @property
+    def headers(self):
+        return str(self._headers, self.encoding)
+
+    @property
+    def content(self):
+        return str(self._content, self.encoding)
+
+    def json(self):
+        import json
+
+        return json.loads(self._content)
+
+
+def readline(s):
+    l = bytearray()
+    while True:
+        try:
+            l += s.read(1)
+            if l[-1] == b"\n":
+                break
+        except:
+            break
+    return l
+
+
+def socket_readall(s):
+    buf = bytearray()
+    while True:
+        try:
+            recv = s.recv(512)
+        except OSError:
+            break
+        if not recv:
+            break
+        buf.extend(recv)
+    return buf
+
+
+def decode_chunked(data):
+    buf = bytearray()
+    mv = memoryview(data)
+    pos = 0
+    while True:
+        line_end = data.find(b"\r\n", pos)
+        if line_end < 0:
+            break
+        size_line = data[pos:line_end]
+        if b";" in size_line:
+            size_line = size_line.split(b";", 1)[0]
+        try:
+            size = int(size_line, 16)
+        except ValueError:
+            break
+        pos = line_end + 2
+        if size == 0:
+            break
+        buf.extend(mv[pos : pos + size])
+        pos += size + 2
+    return buf
+
+
+def request(method, url, data=None, json=None, files=None,
+            headers=None, auth=None, stream=None, timeout=5.0):
+    # Copy the headers to avoid modifying the caller's dict.
+    headers = dict(headers) if headers else {}
+    try:
+        proto, dummy, host, path = url.split("/", 3)
+    except ValueError:
+        proto, dummy, host = url.split("/", 2)
+        path = ""
+    if proto == "http:":
+        port = 80
+    elif proto == "https:":
+        import ssl
+
+        port = 443
+    else:
+        raise ValueError("Unsupported protocol: " + proto)
+
+    if ":" in host:
+        host, port = host.split(":", 1)
+        port = int(port)
+
+    if auth:
+        headers["Authorization"] = b"Basic %s" % (
+            binascii.b2a_base64("%s:%s" % (auth[0], auth[1]))[0:-1]
+        )
+
+    resp_code = 0
+    resp_reason = None
+    resp_headers = []
+    chunked = False
+
+    ai = socket.getaddrinfo(host, port)[0]
+    s = socket.socket(ai[0], ai[1], ai[2])
+    try:
+        s.connect(ai[-1])
+        # Note the timeout is set after connecting, as some drivers
+        # fail if a timeout is set on an unconnected socket.
+        if timeout is not None:
+            s.settimeout(timeout)
+        if proto == "https:":
+            s = ssl.wrap_socket(s, server_hostname=host)
+
+        s.write(b"%s /%s HTTP/1.0\r\n" % (method, path))
+
+        if "Host" not in headers:
+            s.write(b"Host: %s\r\n" % host)
+
+        # Iterate over keys to avoid tuple alloc
+        for k in headers:
+            s.write(k)
+            s.write(b": ")
+            s.write(headers[k])
+            s.write(b"\r\n")
+
+        if json is not None:
+            import json as json_module
+
+            data = json_module.dumps(json)
+            s.write(b"Content-Type: application/json\r\n")
+
+        if files is not None:
+            data = bytearray()
+            boundary = b"37a4bcce91521f74142f1868e328a6b9"
+            s.write(b"Content-Type: multipart/form-data; boundary=%s\r\n" % (boundary))
+            for name, fileobj in files.items():
+                data += b"--%s\r\n" % (boundary)
+                data += b'Content-Disposition: form-data; name="%s"; filename="%s"\r\n\r\n' % (
+                    name,
+                    fileobj[0],
+                )
+                data += fileobj[1].read()
+                data += b"\r\n"
+            data += b"\r\n--%s--\r\n" % (boundary)
+
+        if isinstance(data, str):
+            data = data.encode()
+
+        if data:
+            s.write(b"Content-Length: %d\r\n\r\n" % len(data))
+            s.write(data)
+        else:
+            s.write(b"\r\n")
+
+        response = socket_readall(s).split(b"\r\n")
+        while response:
+            l = response.pop(0).strip()
+            if not l:
+                break
+            # The status line is always the first line of the response.
+            if resp_code == 0:
+                sline = l.split(None, 2)
+                resp_code = int(sline[1])
+                resp_reason = sline[2].decode().rstrip() if len(sline) > 2 else ""
+                continue
+            lower = l.lower()
+            if lower.startswith(b"transfer-encoding:"):
+                chunked = b"chunked" in lower
+            elif lower.startswith(b"location:") and not 200 <= resp_code <= 299:
+                raise NotImplementedError("Redirects not yet supported")
+            resp_headers.append(l)
+        resp_headers = b"\r\n".join(resp_headers)
+        content = b"\r\n".join(response)
+        if chunked:
+            content = decode_chunked(content)
+    except OSError:
+        raise
+    finally:
+        s.close()
+
+    return Response(resp_code, resp_reason, resp_headers, content)
+
+
+def head(url, **kw):
+    return request("HEAD", url, **kw)
+
+
+def get(url, **kw):
+    return request("GET", url, **kw)
+
+
+def post(url, **kw):
+    return request("POST", url, **kw)
+
+
+def put(url, **kw):
+    return request("PUT", url, **kw)
+
+
+def patch(url, **kw):
+    return request("PATCH", url, **kw)
+
+
+def delete(url, **kw):
+    return request("DELETE", url, **kw)

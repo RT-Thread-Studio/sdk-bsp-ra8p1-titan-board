@@ -55,6 +55,7 @@ $ sdk-bsp-ra8p1-titan-board
 │   ├── Titan_mlc_rpmsg_lite
 │   │   ├── Titan_rpmsg_master
 │   │   └── Titan_rpmsg_remote
+│   ├── Titan_Openmv
 │   ├── Titan_npu_ai_face_detection
 │   └── Titan_template
 ├── README.md

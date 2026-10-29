@@ -1,0 +1,22 @@
+.PHONY: openmv-all openmv-package openmv-download clean2
+
+openmv-all:
+	$(OPENMV_PYTHON) -E -B -u ../tools/native_build.py prepare
+	+$(MAKE) --no-print-directory all
+
+all: openmv-package
+
+openmv-package: rtthread.elf
+	$(OPENMV_PYTHON) -E -B ../tools/native_build.py package --build-dir .
+
+# Use the packaged HEX without rebuilding or Studio's empty SetPC command.
+openmv-download:
+	$(OPENMV_PYTHON) -E -B -u ../tools/download.py --hex rtthread.hex
+
+rtthread.elf: ../board/linker_scripts/fsp.ld ../build/generated/vision_sections.ld
+
+clean2:
+	$(OPENMV_PYTHON) -E -B ../tools/native_build.py clean --build-dir .
+
+
+*.elf: $(wildcard ../board/linker_scripts/fsp.ld)

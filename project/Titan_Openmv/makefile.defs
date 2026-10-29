@@ -1,0 +1,2 @@
+# Avoid Windows command-length limits for the managed linker invocation.
+$(file >objects.list,$(OBJS))

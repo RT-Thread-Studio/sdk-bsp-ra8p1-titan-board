@@ -1,0 +1,36 @@
+"""Standard SCons entry; old Studio generators may run under Python 2."""
+from __future__ import print_function
+import glob
+import os
+import subprocess
+import sys
+
+if sys.version_info < (3, 10):
+    environment = os.environ.copy()
+    for name in ('PYTHONHOME', 'PYTHONPATH', 'SCONS_LIB_DIR'):
+        environment.pop(name, None)
+    override = environment.get('TITAN_OPENMV_PYTHON')
+    commands = [[override]] if override else []
+    if not override:
+        for key, suffix in (('SYSTEMROOT', 'py.exe'),
+                            ('LOCALAPPDATA', 'Programs/Python/Launcher/py.exe')):
+            if environment.get(key):
+                commands.append([os.path.join(environment[key], suffix), '-3'])
+        pattern = os.path.join(environment.get('LOCALAPPDATA', ''),
+                               'Programs/Python/Python*/python.exe')
+        commands += [[path] for path in sorted(glob.glob(pattern), reverse=True)]
+        commands += [['python3'], ['python']]
+    probe = 'import sys; assert sys.version_info >= (3, 10); import SCons'
+    for command in commands:
+        try:
+            subprocess.check_output(command + ['-c', probe], env=environment,
+                                    stderr=subprocess.STDOUT)
+        except (OSError, subprocess.CalledProcessError):
+            continue
+        DefaultEnvironment(tools=[])
+        Exit(subprocess.call(command + ['-m', 'SCons'] + sys.argv[1:],
+                             cwd=GetLaunchDir(), env=environment))
+    raise RuntimeError('OpenMV project generation requires Python 3.10+ and SCons. '
+                       'Set TITAN_OPENMV_PYTHON to the installed python.exe.')
+
+SConscript('SConstruct.py')

@@ -1,0 +1,63 @@
+/* SPDX-License-Identifier: MIT */
+#ifndef RA8_TUSB_CONFIG_H
+#define RA8_TUSB_CONFIG_H
+#include <rtthread.h>
+#include <rthw.h>
+#define CFG_TUSB_MCU OPT_MCU_RAXXX
+#define CFG_TUSB_OS OPT_OS_CUSTOM
+#define CFG_TUD_ENABLED 1
+#define CFG_TUD_CDC 1
+#define CFG_TUD_MSC 1
+#define CFG_TUD_MSC_EP_BUFSIZE 4096
+#define CFG_TUD_HID 0
+#define CFG_TUD_VIDEO 0
+#ifndef PKG_TINYUSB_DEVICE_CDC_EPNUM_NOTIF
+#define PKG_TINYUSB_DEVICE_CDC_EPNUM_NOTIF 1
+#endif
+#ifndef PKG_TINYUSB_DEVICE_CDC_EPNUM
+#define PKG_TINYUSB_DEVICE_CDC_EPNUM 2
+#endif
+#ifndef PKG_TINYUSB_DEVICE_CDC_STRING
+#define PKG_TINYUSB_DEVICE_CDC_STRING "OpenMV CDC"
+#endif
+#ifndef PKG_TINYUSB_DEVICE_MSC_EPNUM
+#define PKG_TINYUSB_DEVICE_MSC_EPNUM 3
+#endif
+#ifndef PKG_TINYUSB_DEVICE_MSC_STRING
+#if defined(BSP_OPENMV_STORAGE_SD)
+#define PKG_TINYUSB_DEVICE_MSC_STRING "OpenMV SD Card"
+#else
+#define PKG_TINYUSB_DEVICE_MSC_STRING "OpenMV QSPI Flash"
+#endif
+#endif
+/* Titan's connector selects USBFS0 or USBHS1; use TinyUSB's native options. */
+#ifndef PKG_TINYUSB_RHPORT_NUM
+#define PKG_TINYUSB_RHPORT_NUM 1
+#endif
+#if PKG_TINYUSB_RHPORT_NUM != 0 && PKG_TINYUSB_RHPORT_NUM != 1
+#error "Titan Board supports TinyUSB port 0 (FS) or 1 (HS)"
+#endif
+#define BOARD_DEVICE_RHPORT_NUM PKG_TINYUSB_RHPORT_NUM
+#if BOARD_DEVICE_RHPORT_NUM == 1
+#define BOARD_DEVICE_RHPORT_SPEED OPT_MODE_HIGH_SPEED
+#define CFG_TUSB_RHPORT1_MODE (OPT_MODE_DEVICE | BOARD_DEVICE_RHPORT_SPEED)
+#define CFG_TUD_CDC_RX_EPSIZE 512
+#define CFG_TUD_CDC_TX_EPSIZE 512
+#else
+#define BOARD_DEVICE_RHPORT_SPEED OPT_MODE_FULL_SPEED
+#define CFG_TUSB_RHPORT0_MODE (OPT_MODE_DEVICE | BOARD_DEVICE_RHPORT_SPEED)
+#define CFG_TUD_CDC_RX_EPSIZE 64
+#define CFG_TUD_CDC_TX_EPSIZE 64
+#endif
+#if defined(PKG_TINYUSB_DEVICE_PORT_SPEED) && PKG_TINYUSB_DEVICE_PORT_SPEED != BOARD_DEVICE_RHPORT_SPEED
+#error "TinyUSB configured speed must match the selected Titan USB controller"
+#endif
+#define CFG_TUD_ENDPOINT0_SIZE 64
+#define CFG_TUD_TASK_QUEUE_SZ 32
+#define CFG_TUD_CDC_RX_BUFSIZE PKG_TINYUSB_DEVICE_CDC_RX_BUFSIZE
+#define CFG_TUD_CDC_TX_BUFSIZE 8192
+/* An armed HWFIFO transfer owns its queued bytes even while DTR is low. */
+#define CFG_TUD_CDC_TX_OVERWRITABLE_IF_NOT_CONNECTED 0
+#define CFG_TUSB_MEM_ALIGN __attribute__((aligned(32)))
+#define CFG_TUSB_DEBUG_PRINTF rt_kprintf
+#endif
