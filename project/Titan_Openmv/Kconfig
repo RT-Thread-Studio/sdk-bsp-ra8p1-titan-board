@@ -1,0 +1,154 @@
+mainmenu "Titan Board OpenMV configuration"
+
+config BSP_DIR
+    string
+    option env="BSP_ROOT"
+    default "."
+
+config RTT_DIR
+    string
+    option env="RTT_ROOT"
+    default "rt-thread"
+
+config SDK_LIB_DIR
+    string
+    option env="TITAN_OPENMV_SDK_LIB_ROOT"
+    default "libraries"
+
+# All sources are already present in this SDK. No mklinks or package download.
+# Earlier defaults take precedence over the SDK's generic 1 KiB MMC stack.
+if BSP_OPENMV_STORAGE_SD
+    config RT_MMCSD_STACK_SIZE
+        default 4096
+endif
+
+source "$BSP_DIR/platform/port/storage_kconfig/Kconfig.rtthread"
+source "$SDK_LIB_DIR/Kconfig"
+source "$BSP_DIR/platform/port/storage_kconfig/Kconfig.board"
+
+menu "Titan Board OpenMV port"
+    config BSP_USING_OPENMV
+        bool "Enable Titan Board OpenMV runtime"
+        default y
+        select RT_USING_COMPONENTS_INIT
+        select RT_USING_USER_MAIN
+        select RT_USING_SEMAPHORE
+        select RT_USING_MUTEX
+        select RT_USING_MESSAGEQUEUE
+        select RT_USING_CPLUSPLUS
+        select RT_USING_DFS
+        select DFS_USING_POSIX
+        select DFS_USING_WORKDIR
+        select RT_USING_DFS_DEVFS
+        select RT_USING_DFS_ELMFAT
+        select RT_DFS_ELM_REENTRANT
+        select RT_USING_POSIX_FS
+        select RT_USING_POSIX_DEVIO
+        select RT_USING_POSIX_POLL
+        select RT_USING_POSIX_SELECT
+        select PKG_USING_TINYUSB
+        select BSP_USING_HYPERRAM
+        select BSP_USING_GPIO
+        help
+            MicroPython, OpenMV and TinyUSB use the pinned local ThirdParty
+            sources. The filesystem root and USB MSC expose the SD card. CDC remains available without media.
+            OpenMV ml.Model and Ethos-U55 are always enabled by the fixed
+            configuration in rtconfig_project.h.
+            This project uses DFS v1. The generic FSP USB, CEU and online
+            package implementations are not part of this port.
+
+    if BSP_USING_OPENMV
+        config BSP_OPENMV_STORAGE_SD
+            bool
+            default y
+            select BSP_USING_SDHI
+            select BSP_USING_SDHI0
+            help
+                SDHI0 provides the root FAT filesystem, openmv-vision.bin and
+                USB MSC. Missing media does not prevent USB IDE access.
+                The card is never formatted automatically.
+
+        config OPENMV_HEAP_SIZE
+            int
+            default 1507328
+            help
+                This is the internal SRAM pool. Additional GC/image pools,
+                DTCM VM stack and ITCM code are fixed by ra8_memory.h and
+                board/linker_scripts/fsp.ld.
+
+        config OPENMV_JPEG_BUF_SIZE
+            int "OpenMV JPEG work buffer size (bytes)"
+            range 16384 262144
+            default 32768
+
+        comment "OpenMV + Ethos-U55, 1472 KiB SRAM GC"
+        comment "Required DFS v1 / FAT / POSIX and local TinyUSB are selected"
+    endif
+
+    config PKG_USING_TINYUSB
+        bool "Use project-local TinyUSB CDC + MSC composite device"
+        default y
+        select RT_USING_SEMAPHORE
+        select RT_USING_MUTEX
+        select RT_USING_MESSAGEQUEUE
+        help
+            This symbol keeps the RT-Thread package naming convention.
+            The source is ThirdParty/tinyusb and no package manager is used.
+
+    if PKG_USING_TINYUSB
+        config PKG_TINYUSB_STACK_SIZE
+            int
+            default 4096
+        config PKG_TINYUSB_THREAD_PRIORITY
+            int
+            default 15
+        config PKG_TINYUSB_RHPORT_NUM
+            int "USB controller: 0 = FS, 1 = HS"
+            range 0 1
+            default 1
+            help
+                P413 switches the single board USB connector to this controller.
+                HS is the default for OpenMV IDE framebuffer preview.
+        config PKG_TINYUSB_HIGH_SPEED
+            bool
+            default y if PKG_TINYUSB_RHPORT_NUM = 1
+        config PKG_TINYUSB_DEVICE_PORT_SPEED
+            hex
+            default 0x0400 if PKG_TINYUSB_RHPORT_NUM = 1
+            default 0x0200
+        config PKG_TINYUSB_DEVICE_ENABLE
+            bool
+            default y
+        config PKG_TINYUSB_DEVICE_VID
+            hex
+            default 0x37C5
+        config PKG_TINYUSB_DEVICE_PID
+            hex
+            default 0x16E3
+        config PKG_TINYUSB_DEVICE_MANUFACTURER
+            string
+            default "OpenMV"
+        config PKG_TINYUSB_DEVICE_PRODUCT
+            string
+            default "OpenMV AE3"
+        config PKG_TINYUSB_EDPT0_SIZE
+            int
+            default 64
+        config PKG_TINYUSB_DEVICE_CURRENT
+            int
+            default 250
+        config PKG_TINYUSB_DEVICE_CDC
+            bool
+            default y
+        config PKG_TINYUSB_DEVICE_MSC
+            bool
+            default y
+        config PKG_TINYUSB_DEVICE_CDC_RX_BUFSIZE
+            int "USB CDC receive buffer (bytes)"
+            range 512 16384
+            default 2048
+        config PKG_TINYUSB_DEVICE_CDC_TX_BUFSIZE
+            int
+            default 2048
+    endif
+endmenu

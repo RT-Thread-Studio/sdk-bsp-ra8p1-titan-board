@@ -1,0 +1,17 @@
+from pathlib import Path
+from building import *
+
+cwd = Path(GetCurrentDir())
+root = cwd.parents[1]
+usb = root / 'ThirdParty/tinyusb/src'
+src = [usb / p for p in ['tusb.c', 'common/tusb_fifo.c',
+       'class/cdc/cdc_device.c']]
+src += [cwd / 'ra8_usb_msc.c']
+src += [root / 'platform/port/msc_ra8.c']
+src += [root / 'platform/port/usbd_ra8.c']
+src += [root / 'platform/drivers' / p for p in ['ra8_usb_dcd.c',
+        'ra8_usb_common.c', 'ra8_usb_board.c', 'ra8_usb_descriptors.c']]
+group = DefineGroup('TinyUSB_Upstream', [str(p) for p in src],
+                    depend=['PKG_USING_TINYUSB'],
+                    CPPPATH=[str(cwd), str(usb), str(root / 'platform/port')])
+Return('group')

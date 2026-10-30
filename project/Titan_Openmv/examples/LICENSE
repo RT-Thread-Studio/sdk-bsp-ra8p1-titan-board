@@ -1,0 +1,14 @@
+Example code licenses
+=====================
+
+Adapted official OpenMV examples retain their individual copyright notices
+and MIT license. See LICENSE.openmv-MIT.txt.
+
+New project examples marked SPDX-License-Identifier: Apache-2.0 use the
+Apache License, Version 2.0. See LICENSE.Apache-2.0.txt.
+
+These code licenses do not relicense model weights, Haar cascades, images,
+or other data. Retain the asset provenance and notices in each assets/
+directory and ../models/licenses/. ../models/MODEL_MANIFEST.json identifies
+model sources, hashes and model-specific license records. Large model weights are not
+included in this example catalog; obtain them from the project's models/.

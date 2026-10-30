@@ -1,0 +1,50 @@
+"""Build OpenMV's exact TFLM/CMSIS-NN pins with the active Cortex-M85 compiler."""
+from pathlib import Path
+from building import *
+
+Import('OPENMV_PLATFORM')
+root = Path(OPENMV_PLATFORM).parent
+up = root / 'ThirdParty'
+tf = up / 'tflm'
+nn = up / 'cmsis_nn'
+def sources(path, pattern):
+    return [str(p) for p in sorted(path.glob(pattern))
+            if '_test' not in p.name and not p.name.startswith(('test_', 'fake_', 'mock_'))
+            and p.name != 'kernel_runner.cc']
+
+src = []
+for directory in ['tensorflow/lite/core/api', 'tensorflow/lite/core/c',
+                  'tensorflow/lite/kernels/internal', 'tensorflow/lite/kernels/internal/reference',
+                  'tensorflow/lite/schema', 'tensorflow/lite/micro',
+                  'tensorflow/lite/micro/arena_allocator', 'tensorflow/lite/micro/memory_planner',
+                  'tensorflow/lite/micro/tflite_bridge']:
+    src += sources(tf / directory, '*.cc')
+src += [str(tf / 'tensorflow/lite/kernels/kernel_util.cc')]
+src += [str(tf / 'tensorflow/compiler/mlir/lite/schema/schema_utils.cc')]
+src = [s for s in src if Path(s).name not in ['debug_log.cc', 'micro_time.cc']]
+src += [s for s in sources(tf / 'tensorflow/lite/micro/cortex_m_generic', '*.cc')
+        if Path(s).name != 'micro_time.cc']
+optimized = sources(tf / 'tensorflow/lite/micro/kernels/cmsis_nn', '*.cc')
+names = {Path(s).name for s in optimized}
+src += [s for s in sources(tf / 'tensorflow/lite/micro/kernels', '*.cc') if Path(s).name not in names]
+src += optimized
+if GetDepend('BSP_USING_OPENMV_NPU'):
+    # The root kernels/ethosu.cc is a non-Ethos stub; use this TFLM pin's real op.
+    src = [s for s in src if Path(s).name != 'ethosu.cc']
+    src += [str(root / 'platform/npu/titan_ethosu_kernel.cc')]
+
+src += sources(Path(OPENMV_PLATFORM) / 'tflm', '*.cc')
+
+paths = [str(tf), str(nn), str(nn / 'Include'), str(nn / 'Include/Internal')]
+# Use source headers from the same revision as the implementation. The exported
+# libtflm headers supply only the pinned header-only dependencies (FlatBuffers etc.).
+if GetDepend('BSP_USING_OPENMV_NPU'):
+    paths += [str(root / 'ThirdParty/ethos-u-core-driver/include'), str(root / 'platform/npu')]
+    Env.AppendUnique(CPPDEFINES=['ETHOS_U', 'ETHOSU55=1'])
+Env.PrependUnique(CPPPATH=[str(root / 'platform/include')] + paths)
+
+groups = [] + DefineGroup('TFLM_Source', src, depend=['OMV_ENABLE_TF'], CPPPATH=paths,
+                          CPPDEFINES=['CMSIS_NN'], LOCAL_CCFLAGS=' -O2')
+groups += DefineGroup('CMSIS_NN_Source', sources(nn / 'Source', '**/*.c'),
+                      depend=['OMV_ENABLE_TF'], LOCAL_CCFLAGS=' -O3')
+Return('groups')

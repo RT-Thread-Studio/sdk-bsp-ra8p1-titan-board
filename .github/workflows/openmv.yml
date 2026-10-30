@@ -1,0 +1,142 @@
+name: OpenMV Firmware
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '.github/workflows/openmv.yml'
+      - 'project/Titan_Openmv/**'
+      - 'rt-thread/**'
+      - 'libraries/**'
+      - 'sdk-bsp-ra8p1-titan-board.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/openmv.yml'
+      - 'project/Titan_Openmv/**'
+      - 'rt-thread/**'
+      - 'libraries/**'
+      - 'sdk-bsp-ra8p1-titan-board.yaml'
+  schedule:
+    - cron: '23 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: openmv-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Titan Board OpenMV (SD)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+        working-directory: project/Titan_Openmv
+    env:
+      RTT_CC: gcc
+      OPENMV_BUILD: release
+      MPY_HOST_CC: gcc
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gcc g++ make xz-utils
+          python -m pip install --disable-pip-version-check scons==4.7.0 kconfiglib==14.1.0
+
+      - name: Install Arm GNU Toolchain 13.3.Rel1
+        run: |
+          archive="$RUNNER_TEMP/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi.tar.xz"
+          curl --fail --location --retry 3 --output "$archive" \
+            https://github.com/RT-Thread/toolchains-ci/releases/download/v1.10/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi.tar.xz
+          printf '%s  %s\n' \
+            95c011cee430e64dd6087c75c800f04b9c49832cc1000127a92a97f9c8d83af4 \
+            "$archive" | sha256sum --check --strict
+          tar -xJf "$archive" -C "$RUNNER_TEMP"
+          toolchain="$RUNNER_TEMP/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin"
+          "$toolchain/arm-none-eabi-gcc" --version
+          printf 'RTT_EXEC_PATH=%s\n' "$toolchain" >> "$GITHUB_ENV"
+
+      - name: Run camera host tests
+        run: |
+          mkdir -p build/ci
+          python tools/tests/test_camera_events.py 2>&1 | tee build/ci/camera-events.log
+          python tools/tests/test_capture_handoff.py 2>&1 | tee build/ci/capture-handoff.log
+
+      - name: Build firmware
+        run: |
+          mkdir -p build/ci
+          python -m SCons -j"$(nproc)" 2>&1 | tee build/ci/build.log
+
+      - name: Verify matching HEX and vision image
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from tools.firmware import ELF, vision_image
+
+          elf = ELF(Path('build/firmware/rtthread.elf'))
+          patched, vision = vision_image(elf)
+          if patched != elf.data:
+              raise SystemExit('ELF contains an incorrect vision build binding')
+          if Path('firmware/openmv-vision.bin').read_bytes() != vision:
+              raise SystemExit('Vision BIN differs from the linked ELF')
+          print('Vision image and ELF build binding verified')
+          PY
+          "$RTT_EXEC_PATH/arm-none-eabi-objcopy" -R .openmv_vision -O ihex \
+            build/firmware/rtthread.elf build/ci/expected.hex
+          cmp build/ci/expected.hex firmware/rtthread.hex
+          cd firmware
+          sha256sum rtthread.hex openmv-vision.bin > SHA256SUMS
+
+      - name: Upload firmware
+        id: firmware
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: titan-board-openmv-sd-${{ github.sha }}
+          path: |
+            project/Titan_Openmv/firmware/rtthread.hex
+            project/Titan_Openmv/firmware/openmv-vision.bin
+            project/Titan_Openmv/firmware/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload build diagnostics
+        id: diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: titan-board-openmv-debug-${{ github.sha }}
+          path: |
+            project/Titan_Openmv/build/ci/*.log
+            project/Titan_Openmv/build/mpy-cross/build.log
+            project/Titan_Openmv/build/metadata-gcc/*.stderr
+            project/Titan_Openmv/build/firmware/rtthread.elf
+            project/Titan_Openmv/build/firmware/rtthread.map
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Add download links to run summary
+        env:
+          FIRMWARE_URL: ${{ steps.firmware.outputs.artifact-url }}
+          DIAGNOSTICS_URL: ${{ steps.diagnostics.outputs.artifact-url }}
+        run: |
+          printf '### Titan Board OpenMV (SD)\n\n' >> "$GITHUB_STEP_SUMMARY"
+          printf -- '- [Firmware download](%s)\n- [ELF, MAP and build logs](%s)\n\n' \
+            "$FIRMWARE_URL" "$DIAGNOSTICS_URL" >> "$GITHUB_STEP_SUMMARY"
+          printf 'Flash rtthread.hex and copy the matching openmv-vision.bin to the FAT/FAT32 SD card root.\n' >> "$GITHUB_STEP_SUMMARY"
+          printf 'Safely eject the storage drive and reset the board. CI does not test hardware.\n' >> "$GITHUB_STEP_SUMMARY"

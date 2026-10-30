@@ -1,0 +1,86 @@
+# Titan Board OpenMV example: 一维条码识别
+# Source: ThirdParty/openmv/scripts/examples/04-Barcodes/find_barcodes.py
+
+# This work is licensed under the MIT license.
+# Copyright (c) 2013-2023 OpenMV LLC. All rights reserved.
+# https://github.com/openmv/openmv/blob/master/LICENSE
+#
+# Barcode Example
+#
+# This example shows off how easy it is to detect bar codes using the
+# OpenMV Cam M7. Barcode detection does not work on the M4 Camera.
+
+import csi
+import image
+import time
+import math
+
+csi0 = csi.CSI()
+csi0.reset()
+csi0.pixformat(csi.GRAYSCALE)
+csi0.framesize(csi.QVGA)
+csi0.window((320, 80))  # Scan a horizontal strip within the QVGA frame.
+csi0.snapshot(time=2000)
+csi0.auto_gain(False)  # must turn this off to prevent image washout...
+csi0.auto_whitebal(False)  # must turn this off to prevent image washout...
+
+clock = time.clock()
+
+# Keep the barcode inside the 320x80 grayscale strip. Move the target closer
+# and adjust focus if individual bars are too small to distinguish.
+
+
+def barcode_name(code):
+    if code.type == image.EAN2:
+        return "EAN2"
+    if code.type == image.EAN5:
+        return "EAN5"
+    if code.type == image.EAN8:
+        return "EAN8"
+    if code.type == image.UPCE:
+        return "UPCE"
+    if code.type == image.ISBN10:
+        return "ISBN10"
+    if code.type == image.UPCA:
+        return "UPCA"
+    if code.type == image.EAN13:
+        return "EAN13"
+    if code.type == image.ISBN13:
+        return "ISBN13"
+    if code.type == image.I25:
+        return "I25"
+    if code.type == image.DATABAR:
+        return "DATABAR"
+    if code.type == image.DATABAR_EXP:
+        return "DATABAR_EXP"
+    if code.type == image.CODABAR:
+        return "CODABAR"
+    if code.type == image.CODE39:
+        return "CODE39"
+    if code.type == image.PDF417:
+        return "PDF417"
+    if code.type == image.CODE93:
+        return "CODE93"
+    if code.type == image.CODE128:
+        return "CODE128"
+
+
+while True:
+    clock.tick()
+    img = csi0.snapshot()
+    codes = img.find_barcodes()
+    for code in codes:
+        img.draw_rectangle(code.rect)
+        print_args = (
+            barcode_name(code),
+            code.payload,
+            (180 * code.rotation) / math.pi,
+            code.quality,
+            clock.fps(),
+        )
+        print(
+            'Barcode %s, Payload "%s", rotation %f (degrees), quality %d, FPS %f'
+            % print_args
+        )
+    if not codes:
+        print("FPS %f" % clock.fps())

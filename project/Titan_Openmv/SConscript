@@ -1,0 +1,13 @@
+from pathlib import Path
+from building import *
+Import('FSP_ROOT')
+
+fsp_config = Path(FSP_ROOT).parent
+group = [] + DefineGroup('Applications', [], depend=[''], CPPPATH=[GetCurrentDir()])
+group += SConscript('board/SConscript')
+# Consume the single RASC output tree. Project-specific replacements remain
+# in platform/port and are selected by SConstruct's SOURCE_OVERRIDES.
+group += SConscript(str(fsp_config / 'ra_cfg/SConscript'))
+group += SConscript(str(fsp_config / 'ra_gen/SConscript'))
+group += SConscript('platform/SConscript')
+Return('group')

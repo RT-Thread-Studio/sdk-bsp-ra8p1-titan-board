@@ -1,0 +1,229 @@
+{
+  "path_base": ".",
+  "source_manifest": {
+    "file": "MODEL_MANIFEST.json",
+    "path_base": "."
+  },
+  "models": [
+    {
+      "id": "fomo_face_detection",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        }
+      ]
+    },
+    {
+      "id": "yolo_lc_192",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        }
+      ]
+    },
+    {
+      "id": "yolov8n_192",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        },
+        {
+          "path": "licenses/openmv_benchmarks/LICENSE.ST.txt",
+          "sha256": "86aaf5b4953d850aa25f1dbf49a260d94dfdf84ccfede993ea2998ce954a5301"
+        }
+      ]
+    },
+    {
+      "id": "face_landmarks_192",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        },
+        {
+          "path": "licenses/LICENSE.mediapipe",
+          "sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8"
+        }
+      ]
+    },
+    {
+      "id": "blazeface_front_128",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        },
+        {
+          "path": "licenses/LICENSE.mediapipe",
+          "sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8"
+        }
+      ]
+    },
+    {
+      "id": "vww96",
+      "notices": [
+        {
+          "path": "licenses/RENESAS_LICENSE.md",
+          "sha256": "16eac8ddee43022f779e44e27c332fca6a2e8026ce7ac9c8d9bfe7deb72118d1"
+        },
+        {
+          "path": "licenses/APACHE-2.0.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ]
+    },
+    {
+      "id": "mobilenetv1_025",
+      "notices": [
+        {
+          "path": "licenses/RENESAS_LICENSE.md",
+          "sha256": "16eac8ddee43022f779e44e27c332fca6a2e8026ce7ac9c8d9bfe7deb72118d1"
+        },
+        {
+          "path": "licenses/APACHE-2.0.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ]
+    },
+    {
+      "id": "blazeface128",
+      "notices": [
+        {
+          "path": "licenses/RENESAS_LICENSE.md",
+          "sha256": "16eac8ddee43022f779e44e27c332fca6a2e8026ce7ac9c8d9bfe7deb72118d1"
+        },
+        {
+          "path": "licenses/APACHE-2.0.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ]
+    },
+    {
+      "id": "resnet8",
+      "notices": [
+        {
+          "path": "licenses/RENESAS_LICENSE.md",
+          "sha256": "16eac8ddee43022f779e44e27c332fca6a2e8026ce7ac9c8d9bfe7deb72118d1"
+        },
+        {
+          "path": "licenses/APACHE-2.0.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ]
+    },
+    {
+      "id": "movenet_singlepose_192",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        }
+      ]
+    },
+    {
+      "id": "palm_detection_full_192",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        }
+      ]
+    },
+    {
+      "id": "hand_landmarks_full_224",
+      "notices": [
+        {
+          "path": "licenses/OPENMV_MODEL_NOTICES.md",
+          "sha256": "d6c02da5adff8264e4f31a3e22bac8845a268f807f86be6185ab769d0abd35f7"
+        }
+      ]
+    },
+    {
+      "id": "yolov8n_coco80_192",
+      "notices": [
+        {
+          "path": "licenses/LICENSE.Himax-MIT.txt",
+          "sha256": "5239c51e2a508c1856ad667a9d20e5cd9040af6a8ef93d11d3113338be7c96de"
+        },
+        {
+          "path": "licenses/LICENSE.Ultralytics-AGPL-3.0.txt",
+          "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+        }
+      ]
+    },
+    {
+      "id": "yolov8n_pose_192",
+      "notices": [
+        {
+          "path": "licenses/vision_extensions/licenses/Himax-MIT.txt",
+          "sha256": "5239c51e2a508c1856ad667a9d20e5cd9040af6a8ef93d11d3113338be7c96de"
+        },
+        {
+          "path": "licenses/vision_extensions/licenses/Ultralytics-AGPL-3.0.txt",
+          "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+        },
+        {
+          "path": "licenses/vision_extensions/licenses/Apache-2.0.txt",
+          "sha256": "f9946796a8a5bd5981565142fa42e3b0cc36aef6f80e86beaf5905b3c0fef1b5"
+        }
+      ]
+    },
+    {
+      "id": "unet_mobilenetv2_128",
+      "notices": [
+        {
+          "path": "licenses/vision_extensions/licenses/Google-Coral-Apache-2.0.txt",
+          "sha256": "f9946796a8a5bd5981565142fa42e3b0cc36aef6f80e86beaf5905b3c0fef1b5"
+        }
+      ]
+    },
+    {
+      "id": "swift_yolo_gesture_192",
+      "notices": [
+        {
+          "path": "licenses/vision_192/licenses/Seeed-Model-Zoo-MIT.txt",
+          "sha256": "babbc99aaae36eb5bb66a057bcfcfb7b8d4da092b1aa06b83cc917eb83063a7a"
+        }
+      ]
+    },
+    {
+      "id": "swift_yolo_pet_192",
+      "notices": [
+        {
+          "path": "licenses/vision_192/licenses/Seeed-Model-Zoo-MIT.txt",
+          "sha256": "babbc99aaae36eb5bb66a057bcfcfb7b8d4da092b1aa06b83cc917eb83063a7a"
+        }
+      ]
+    },
+    {
+      "id": "swift_yolo_person_nano_192",
+      "notices": [
+        {
+          "path": "licenses/vision_192/licenses/Seeed-Model-Zoo-MIT.txt",
+          "sha256": "babbc99aaae36eb5bb66a057bcfcfb7b8d4da092b1aa06b83cc917eb83063a7a"
+        }
+      ]
+    },
+    {
+      "id": "yolo_fastest_face_192",
+      "notices": [
+        {
+          "path": "licenses/vision_192/licenses/Emza-ModelZoo-Apache-2.0.txt",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        }
+      ]
+    },
+    {
+      "id": "yolov5n6_xiao_voc20_192",
+      "notices": [
+        {
+          "path": "licenses/vision_192/licenses/Seeed-YOLOv5-Swift-GPL-3.0.txt",
+          "sha256": "7fa7e56c0db71105f4b59a6a0ac40225eb059876f85cd380383f7d7a066e68be"
+        }
+      ]
+    }
+  ]
+}

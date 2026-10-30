@@ -1,0 +1,21 @@
+from pathlib import Path
+from building import *
+Import('FSP_ROOT')
+root = Path(FSP_ROOT)
+src = []
+for pattern in ['fsp/src/bsp/mcu/all/*.c', 'fsp/src/bsp/mcu/ra8p1/*.c',
+                'fsp/src/bsp/cmsis/Device/RENESAS/Source/startup.c', 'fsp/src/r_*/*.c']:
+    src += sorted(root.glob(pattern))
+# TinyUSB owns USB device interrupts; CEU is intentionally absent.
+src = [str(p) for p in src if not p.parent.name.startswith('r_usb') and p.parent.name != 'r_ceu']
+src += [str(Path(GetCurrentDir()).parent / 'drivers/ra8_system.c')]
+# Wrappers include FSP sources through these roots in both SDK and Studio layouts.
+paths = [root, root.parent] + [root / p for p in ['arm/CMSIS_6/CMSIS/Core/Include', 'fsp/inc', 'fsp/inc/api',
+          'fsp/inc/instances', 'fsp/src/r_mipi_csi', 'fsp/src/r_vin', 'tes/dave2d/inc',
+          'npu/ethos-u-core-driver/include', 'fsp/src/rm_ethosu']]
+defines = ['_RA_CORE=0']
+if not GetDepend('BSP_USING_OPENMV_NPU'):
+    defines.append('rm_ethosu_isr=Default_Handler')
+group = DefineGroup('FSP', src, depend=[''], CPPPATH=[str(p) for p in paths],
+                    CPPDEFINES=defines)
+Return('group')

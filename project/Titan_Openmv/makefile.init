@@ -1,0 +1,4 @@
+# Studio supplies the C/C++ compilation rules. This goal completes source
+# generation before a recursive Make evaluates object/header dependencies.
+.DEFAULT_GOAL := openmv-all
+include ../build/make/tools.mk

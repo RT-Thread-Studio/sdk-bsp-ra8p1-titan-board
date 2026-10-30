@@ -149,6 +149,15 @@ class BuildManager:
     def create_worktree(self, version_config: VersionConfig) -> Path:
         """为指定版本创建 Git worktree"""
         worktree_path = self.worktrees_dir / version_config.name
+        # A pull request checkout contains the merge result under detached HEAD.
+        # Validate that result for the target version instead of rebuilding its
+        # unchanged base branch. Other configured versions keep their own refs.
+        build_ref = version_config.branch
+        if (
+            os.environ.get('GITHUB_EVENT_NAME') == 'pull_request'
+            and os.environ.get('GITHUB_BASE_REF') == version_config.branch
+        ):
+            build_ref = 'HEAD'
         
         # 获取当前分支
         current_branch = subprocess.run(
@@ -157,7 +166,7 @@ class BuildManager:
         ).stdout.strip()
         
         # 如果目标分支就是当前分支，直接使用当前目录
-        if version_config.branch == current_branch:
+        if build_ref != 'HEAD' and version_config.branch == current_branch:
             print(f"目标分支 {version_config.branch} 就是当前分支，使用当前目录")
             return Path.cwd()
         
@@ -172,10 +181,10 @@ class BuildManager:
                 shutil.rmtree(worktree_path, ignore_errors=True)
         
         # 创建新的 worktree
-        print(f"创建 worktree: {version_config.branch} -> {worktree_path}")
+        print(f"创建 worktree: {build_ref} -> {worktree_path}")
         subprocess.run([
-            'git', 'worktree', 'add', 
-            str(worktree_path), version_config.branch
+            'git', 'worktree', 'add', '--detach',
+            str(worktree_path), build_ref
         ], check=True)
         
         return worktree_path
@@ -558,7 +567,11 @@ class BuildManager:
             pdf_file = None
             from pdf_generator_enhanced_v2 import PDFGeneratorV2
             print("使用增强版V2 PDF生成器...")
-            pdf_generator = PDFGeneratorV2(output_dir, output_dir / '_static')
+            pdf_generator = PDFGeneratorV2(
+                output_dir,
+                output_dir / '_static',
+                config_path=docs_source_in_worktree / 'config.yaml',
+            )
             # 中文
             if pdf_generator.generate_pdf(project_name, language="zh"):
                 static_dir = output_dir / '_static'

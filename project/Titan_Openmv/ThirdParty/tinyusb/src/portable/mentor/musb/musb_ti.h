@@ -1,0 +1,77 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2024, Brent Kowal (Analog Devices, Inc)
+ * SPDX-FileCopyrightText: Copyright (c) 2024 Ha Thach (tinyusb.org)
+ * SPDX-License-Identifier: MIT
+ *
+ * This file is part of the TinyUSB stack.
+ */
+
+#ifndef TUSB_MUSB_TI_H_
+#define TUSB_MUSB_TI_H_
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
+#if CFG_TUSB_MCU == OPT_MCU_TM4C123
+  #include "TM4C123.h"
+  #define FIFO0_WORD FIFO0
+  #define FIFO1_WORD FIFO1
+#elif CFG_TUSB_MCU == OPT_MCU_TM4C129
+  #include "TM4C129.h"
+  #define FIFO0_WORD FIFOA
+  #define FIFO1_WORD FIFOB
+#elif CFG_TUSB_MCU == OPT_MCU_MSP432E4
+  #include "msp.h"
+#else
+  #error "Unsupported MCUs"
+#endif
+
+#define MUSB_CFG_SHARED_FIFO       0
+#define MUSB_CFG_DYNAMIC_FIFO      1
+#define MUSB_CFG_DYNAMIC_FIFO_SIZE 4096
+#define MUSB_INTR_EP_TX_RX_SWAP    0
+
+static const uintptr_t MUSB_BASES[] = { USB0_BASE };
+
+// Header supports both device and host modes. Only include what's necessary
+#if CFG_TUD_ENABLED
+
+// Mapping of IRQ numbers to port. Currently just 1.
+static const IRQn_Type  musb_irqs[] = {
+    USB0_IRQn
+};
+
+static inline void musb_dcd_phy_init(uint8_t rhport){
+  (void)rhport;
+  //Nothing to do for this part
+}
+
+TU_ATTR_ALWAYS_INLINE static inline void musb_dcd_int_enable(uint8_t rhport) {
+  NVIC_EnableIRQ(musb_irqs[rhport]);
+}
+
+TU_ATTR_ALWAYS_INLINE static inline void musb_dcd_int_disable(uint8_t rhport) {
+  NVIC_DisableIRQ(musb_irqs[rhport]);
+}
+
+TU_ATTR_ALWAYS_INLINE static inline unsigned musb_dcd_get_int_enable(uint8_t rhport) {
+  return NVIC_GetEnableIRQ(musb_irqs[rhport]);
+}
+
+TU_ATTR_ALWAYS_INLINE static inline void musb_dcd_int_clear(uint8_t rhport) {
+  NVIC_ClearPendingIRQ(musb_irqs[rhport]);
+}
+
+static inline void musb_dcd_int_handler_enter(uint8_t rhport) {
+  (void)rhport;
+  //Nothing to do for this part
+}
+
+#endif // CFG_TUD_ENABLED
+
+#ifdef __cplusplus
+ }
+#endif
+
+#endif // TUSB_MUSB_TI_H_

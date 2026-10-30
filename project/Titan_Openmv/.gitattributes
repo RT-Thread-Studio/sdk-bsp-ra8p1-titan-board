@@ -1,0 +1,9 @@
+# Source, example and model manifests record byte-for-byte SHA-256 values.
+# Preserve stored line endings instead of applying core.autocrlf conversion.
+* -text
+# Existing CRLF source files are intentional; keep the usual whitespace checks.
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+*.tflite binary
+*.bin binary
+*.mpy binary
