@@ -22,7 +22,7 @@ thresholds = (245, 255)
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.GRAYSCALE)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must be turned off for color tracking
 csi0.auto_whitebal(False)  # must be turned off for color tracking

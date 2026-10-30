@@ -25,7 +25,7 @@ BG_UPDATE_BLEND = 128  # How much to blend by... ([0-255]==[0.0-1.0]).
 csi0 = csi.CSI()
 csi0.reset()  # Reset and initialize the sensor.
 csi0.pixformat(csi.RGB565)  # or csi.RGB565
-csi0.framesize(csi.QVGA)  # or csi.QQVGA (or others)
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)  # Let new settings take affect.
 csi0.auto_whitebal(False)  # Turn off white balance.
 clock = time.clock()  # Tracks FPS.

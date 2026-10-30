@@ -17,9 +17,9 @@
 | [帧差与相似度](02_图像处理/03_帧差与相似度/README.md) | 固定/动态背景、SSIM、磁盘/内存参考帧 |
 | [条码](03_条码/README.md) | 一维码、二维码、DataMatrix |
 | [特征检测](04_特征检测/README.md) | 线、圆、矩形、关键点、HOG、LBP、模板匹配、区域搜索 |
-| [AprilTag](05_AprilTag/README.md) | 标签识别、位姿、高分辨率、ROI 小标签 |
+| [AprilTag](05_AprilTag/README.md) | 标签识别、位姿、灰度、ROI 小标签 |
 
-相机采集端只配置 `QQVGA`、`QVGA`、`VGA`，光流用 `QVGA` 配合 `window()` 获得 64×64 或 128×128。图像 `scale(hint=image.TRANSPOSE)` 是受支持的软件变换，不调用未实现的相机转置采集。自动对焦、动态 readout、事件相机、热成像、ToF、全局快门功能未开放。
+相机采集端统一配置 `QVGA`（320×240）；光流配合 `window()` 获得 64×64 或 128×128，模板匹配使用 160×120 中心窗口。图像 `scale(hint=image.TRANSPOSE)` 是受支持的软件变换，不调用未实现的相机转置采集。自动对焦、动态 readout、事件相机、热成像、ToF、全局快门功能未开放。
 
 人脸拍照/录像及 `lbp.py` 保留官方 `/rom/haarcascade_frontalface.cascade`。本板 `/rom` 是存储根目录的只读别名：把本目录 `assets/haarcascade_frontalface.cascade` 复制到 U 盘根目录，不用建立 `rom` 文件夹。模型为完整 25 级，许可保留在 `assets/LICENSE.frontalface.txt`。`lbp.py` 中官方打印的 `Match %` 实际是 LBP 描述符距离（越小越相近），并非匹配百分比。
 

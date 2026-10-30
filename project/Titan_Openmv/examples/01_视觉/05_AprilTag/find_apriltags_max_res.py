@@ -1,12 +1,11 @@
-# Titan Board OpenMV example: VGA高分辨率AprilTag识别
+# Titan Board OpenMV example: QVGA灰度AprilTag识别
 # Source: ThirdParty/openmv/scripts/examples/06-April-Tags/find_apriltags_max_res.py
-# Adaptation: 说明当前固件已启用高分辨率 AprilTag，VGA 不受旧注释中的 64K 像素限制。
 
 # This work is licensed under the MIT license.
 # Copyright (c) 2013-2023 OpenMV LLC. All rights reserved.
 # https://github.com/openmv/openmv/blob/master/LICENSE
 #
-# AprilTags Max Res Example
+# QVGA Grayscale AprilTags Example
 #
 # This example shows the power of the OpenMV Cam to detect April Tags
 # on the OpenMV Cam M7. The M4 versions cannot detect April Tags.
@@ -18,9 +17,9 @@ import math
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.GRAYSCALE)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
-# This firmware enables high-resolution AprilTags; VGA is supported.
+# Use QVGA for reliable capture on Titan Board.
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must turn this off to prevent image washout...
 csi0.auto_whitebal(False)  # must turn this off to prevent image washout...

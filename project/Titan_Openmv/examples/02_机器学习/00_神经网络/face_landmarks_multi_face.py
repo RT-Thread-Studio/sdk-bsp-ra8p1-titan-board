@@ -23,11 +23,11 @@ from ml.postprocessing.mediapipe import FaceLandmarks
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
 # BlazeFace requires a square image for the best results.
 # FaceLandmarks works with non-square images from BlazeFace crops.
-csi0.window((400, 400))
+csi0.window((240, 240))
 
 # Load the landmark arena first; both models are reused for all faces.
 face_landmarks = ml.Model("/rom/face_landmarks_192_u55_256.tflite", postprocess=FaceLandmarks(threshold=0.4))

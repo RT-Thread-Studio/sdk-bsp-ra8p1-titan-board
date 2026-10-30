@@ -29,9 +29,9 @@ GRAYSCALE_THRESHOLD = [(0, 64)]
 # will then be averaged with different weights where the most weight is assigned
 # to the roi near the bottom of the image and less to the next roi and so on.
 ROIS = [  # [ROI, weight]
-    (0, 100, 160, 20, 0.7),  # You'll need to tweak the weights for your app
-    (0, 50, 160, 20, 0.3),  # depending on how your robot is setup.
-    (0, 0, 160, 20, 0.1),
+    (0, 200, 320, 40, 0.7),  # You'll need to tweak the weights for your app
+    (0, 100, 320, 40, 0.3),  # depending on how your robot is setup.
+    (0, 0, 320, 40, 0.1),
 ]
 
 # Compute the weight divisor (we're computing this so you don't have to make weights add to 1).
@@ -43,7 +43,7 @@ for r in ROIS:
 csi0 = csi.CSI()
 csi0.reset()  # Initialize the camera sensor.
 csi0.pixformat(csi.GRAYSCALE)  # use grayscale.
-csi0.framesize(csi.QQVGA)  # use QQVGA for speed.
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)  # Let new settings take affect.
 csi0.auto_gain(False)  # must be turned off for color tracking
 csi0.auto_whitebal(False)  # must be turned off for color tracking
@@ -77,12 +77,12 @@ while True:
     # like this to cause a response "trigger".
     deflection_angle = 0
 
-    # The 80 is from half the X res, the 60 is from half the Y res. The
+    # Use half the image width and height to compute the deflection. The
     # equation below is just computing the angle of a triangle where the
     # opposite side of the triangle is the deviation of the center position
     # from the center and the adjacent side is half the Y res. This limits
     # the angle output to around -45 to 45. (It's not quite -45 and 45).
-    deflection_angle = -math.atan((center_pos - 80) / 60)
+    deflection_angle = -math.atan((center_pos - img.width() / 2) / (img.height() / 2))
 
     # Convert angle in radians to degrees.
     deflection_angle = math.degrees(deflection_angle)

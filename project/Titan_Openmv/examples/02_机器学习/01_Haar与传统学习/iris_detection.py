@@ -22,9 +22,9 @@ csi0 = csi.CSI()
 csi0.reset()
 csi0.contrast(3)
 csi0.gainceiling(16)
-csi0.framesize(csi.VGA)
-# Bin/Crop image to 200x100, which gives more details with less data to process
-csi0.window((220, 190, 200, 100))
+csi0.framesize(csi.QVGA)
+# Crop the center 200x100 pixels of QVGA to reduce processing work.
+csi0.window((200, 100))
 csi0.pixformat(csi.GRAYSCALE)
 
 # Load Haar Cascade

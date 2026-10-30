@@ -18,7 +18,7 @@ from ulab import numpy as np
 csi0 = csi.CSI()
 csi0.reset()  # Reset and initialize the sensor.
 csi0.pixformat(csi.GRAYSCALE)  # Set pixel format to RGB565 (or GRAYSCALE)
-csi0.framesize(csi.QQVGA)  # Set frame size to QVGA (320x240)
+csi0.framesize(csi.QVGA)  # Set frame size to QVGA (320x240)
 
 clock = time.clock()  # Create a clock object to track the FPS.
 

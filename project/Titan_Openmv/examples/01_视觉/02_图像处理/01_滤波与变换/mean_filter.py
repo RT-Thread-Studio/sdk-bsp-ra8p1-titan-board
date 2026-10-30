@@ -17,7 +17,7 @@ import time
 csi0 = csi.CSI()
 csi0.reset()  # Initialize the camera sensor.
 csi0.pixformat(csi.RGB565)  # or csi.GRAYSCALE
-csi0.framesize(csi.QQVGA)  # or csi.QVGA (or others)
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)  # Let new settings take affect.
 
 clock = time.clock()  # Tracks FPS.

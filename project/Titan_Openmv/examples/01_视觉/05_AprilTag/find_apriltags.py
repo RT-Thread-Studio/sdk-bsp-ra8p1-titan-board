@@ -17,7 +17,7 @@ import math
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.QQVGA)
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must turn this off to prevent image washout...
 csi0.auto_whitebal(False)  # must turn this off to prevent image washout...

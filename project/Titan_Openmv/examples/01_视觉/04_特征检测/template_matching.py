@@ -25,10 +25,9 @@ csi0 = csi.CSI()
 csi0.reset()
 csi0.contrast(1)
 csi0.gainceiling(16)
-# Max resolution for template matching with SEARCH_EX is QQVGA
-csi0.framesize(csi.QQVGA)
-# You can set windowing to reduce the search image.
-# csi0.window(((640-80)//2, (480-60)//2, 80, 60))
+csi0.framesize(csi.QVGA)
+# Keep the SEARCH_EX input at 160x120 using a centered QVGA window.
+csi0.window((160, 120))
 csi0.pixformat(csi.GRAYSCALE)
 
 # Place the target in the center 32x32 area, then wait two seconds.

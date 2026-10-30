@@ -27,7 +27,7 @@ import random
 csi0 = csi.CSI()
 csi0.reset()  # Reset and initialize the sensor.
 csi0.pixformat(csi.RGB565)  # Set pixel format to RGB565 (or GRAYSCALE)
-csi0.framesize(csi.QQVGA)  # Set frame size to QQVGA (160x120)
+csi0.framesize(csi.QVGA)  # Set frame size to QVGA (320x240)
 csi0.snapshot(time=2000)  # Wait for settings take effect.
 csi0.auto_whitebal(False)  # Turn off white balance.
 

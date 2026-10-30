@@ -16,7 +16,7 @@ import time
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.GRAYSCALE)  # or GRAYSCALE...
-csi0.framesize(csi.QQVGA)  # or QQVGA...
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)
 
 clock = time.clock()

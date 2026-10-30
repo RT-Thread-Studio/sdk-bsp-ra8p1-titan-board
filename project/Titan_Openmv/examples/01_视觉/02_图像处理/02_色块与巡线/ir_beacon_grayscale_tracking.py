@@ -17,8 +17,8 @@ thresholds = (255, 255)  # thresholds for bright white light from IR.
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.GRAYSCALE)
-csi0.framesize(csi.VGA)
-csi0.window((240, 240))  # 240x240 center pixels of VGA
+csi0.framesize(csi.QVGA)
+csi0.window((240, 240))  # 240x240 center pixels of QVGA
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must be turned off for color tracking
 csi0.auto_whitebal(False)  # must be turned off for color tracking

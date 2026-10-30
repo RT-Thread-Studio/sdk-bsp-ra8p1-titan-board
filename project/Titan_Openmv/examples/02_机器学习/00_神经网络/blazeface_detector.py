@@ -18,10 +18,10 @@ from ml.postprocessing.mediapipe import BlazeFace
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
 # BlazeFace requires a square image for the best results.
-csi0.window((400, 400))
+csi0.window((240, 240))
 
 # Load built-in face detection model
 model = ml.Model("/rom/blazeface_front_128_u55_256.tflite", postprocess=BlazeFace(threshold=0.4))

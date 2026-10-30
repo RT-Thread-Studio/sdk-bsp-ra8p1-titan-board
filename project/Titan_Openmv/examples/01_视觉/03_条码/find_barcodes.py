@@ -18,18 +18,16 @@ import math
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.GRAYSCALE)
-csi0.framesize(csi.VGA)  # High Res!
-csi0.window((640, 80))  # V Res of 80 == less work (40 for 2X the speed).
+csi0.framesize(csi.QVGA)
+csi0.window((320, 80))  # Scan a horizontal strip within the QVGA frame.
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must turn this off to prevent image washout...
 csi0.auto_whitebal(False)  # must turn this off to prevent image washout...
 
 clock = time.clock()
 
-# Barcode detection can run at the full 640x480 resolution of your OpenMV Cam's
-# OV7725 camera module. Barcode detection will also work in RGB565 mode but at
-# a lower resolution. That said, barcode detection requires a higher resolution
-# to work well so it should always be run at 640x480 in grayscale...
+# Keep the barcode inside the 320x80 grayscale strip. Move the target closer
+# and adjust focus if individual bars are too small to distinguish.
 
 
 def barcode_name(code):

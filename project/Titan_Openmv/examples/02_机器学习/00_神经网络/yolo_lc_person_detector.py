@@ -21,7 +21,7 @@ from ml.postprocessing.darknet import YoloLC
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
 # Load built-in person detection model
 model = ml.Model("/rom/yolo_lc_192_u55_256.tflite", postprocess=YoloLC(threshold=0.4))

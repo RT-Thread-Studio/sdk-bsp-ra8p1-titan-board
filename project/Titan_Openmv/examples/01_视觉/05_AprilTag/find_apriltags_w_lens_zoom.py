@@ -17,8 +17,8 @@ import math
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
-csi0.window((160, 120))  # Look at center 160x120 pixels of the VGA resolution.
+csi0.framesize(csi.QVGA)
+csi0.window((160, 120))  # Look at center 160x120 pixels of the QVGA frame.
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must turn this off to prevent image washout...
 csi0.auto_whitebal(False)  # must turn this off to prevent image washout...

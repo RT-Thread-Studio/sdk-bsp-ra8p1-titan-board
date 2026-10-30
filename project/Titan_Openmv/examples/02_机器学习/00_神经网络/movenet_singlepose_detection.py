@@ -20,7 +20,7 @@ from ml.postprocessing.mediapipe import MoveNet
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
 # Load the pose detection model from the selected storage filesystem.
 model = ml.Model("/rom/movenet_singlepose_192_u55_256.tflite", postprocess=MoveNet(threshold=0.4))

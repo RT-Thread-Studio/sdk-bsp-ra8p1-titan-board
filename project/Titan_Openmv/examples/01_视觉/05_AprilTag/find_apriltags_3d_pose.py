@@ -18,7 +18,7 @@ import math
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.QQVGA)
+csi0.framesize(csi.QVGA)
 csi0.snapshot(time=2000)
 csi0.auto_gain(False)  # must turn this off to prevent image washout...
 csi0.auto_whitebal(False)  # must turn this off to prevent image washout...
@@ -50,10 +50,10 @@ clock = time.clock()
 
 # Replace these illustrative upstream intrinsics with your OV5640 lens calibration.
 # They are NOT a calibration of the Titan Board camera.
-f_x = (2.8 / 3.984) * 160  # find_apriltags defaults to this if not set
-f_y = (2.8 / 2.952) * 120  # find_apriltags defaults to this if not set
-c_x = 160 * 0.5  # find_apriltags defaults to this if not set (the image.w * 0.5)
-c_y = 120 * 0.5  # find_apriltags defaults to this if not set (the image.h * 0.5)
+f_x = (2.8 / 3.984) * 320  # find_apriltags defaults to this if not set
+f_y = (2.8 / 2.952) * 240  # find_apriltags defaults to this if not set
+c_x = 320 * 0.5  # find_apriltags defaults to this if not set (the image.w * 0.5)
+c_y = 240 * 0.5  # find_apriltags defaults to this if not set (the image.h * 0.5)
 
 
 def degrees(radians):

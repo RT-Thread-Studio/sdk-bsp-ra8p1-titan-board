@@ -20,10 +20,10 @@ from ml.postprocessing.mediapipe import BlazePalm
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
 # BlazePalm requires a square image for the best results.
-csi0.window((400, 400))
+csi0.window((240, 240))
 
 # Load built-in palm detection model
 model = ml.Model("/rom/palm_detection_full_192_u55_256.tflite", postprocess=BlazePalm(threshold=0.4))

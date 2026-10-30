@@ -23,7 +23,7 @@ from ml.postprocessing.ultralytics import YoloV8
 csi0 = csi.CSI()
 csi0.reset()
 csi0.pixformat(csi.RGB565)
-csi0.framesize(csi.VGA)
+csi0.framesize(csi.QVGA)
 
 # Load YOLO V8 model from ROM FS.
 model = ml.Model("/rom/yolov8n_192_u55_256_cpu_softmax.tflite", postprocess=YoloV8(threshold=0.4))
