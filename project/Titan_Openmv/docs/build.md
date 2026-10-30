@@ -96,3 +96,17 @@ python tools/download.py --jlink "C:/tools/JLink_v848/JLink.exe"
 python tools/tests/test_camera_events.py
 python tools/tests/test_capture_handoff.py
 ```
+
+## CI 固件
+
+GitHub Actions 的 **OpenMV Firmware** 工作流使用 Python 3.11 和 Arm GNU
+Toolchain 13.3.Rel1 构建 SD 配置，并运行相机主机回归检查。工程、内核、公共
+驱动或 CI 配置变更时会触发，也支持手动运行和每周定时构建。
+
+成功后在该次运行的 Artifacts 中下载 `titan-board-openmv-sd-<commit>`，
+包含配套 `rtthread.hex`、`openmv-vision.bin` 和 `SHA256SUMS`。CI 校验
+视觉文件与 ELF 的内容和绑定关系，并核对 HEX 与 ELF 一致。按本文部署
+同一下载包中的 HEX 和 BIN。
+
+`titan-board-openmv-debug-<commit>` 提供构建日志以及可用的 ELF/MAP。
+CI 编译和主机测试不包含实板运行验证。
